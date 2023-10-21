@@ -1,0 +1,30 @@
+.btnadd{ 
+    background-color: #80634E;
+}
+.btnadd:hover{ 
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.table{
+    background-color: #FFFFFF;    
+}
+.tableBody{
+    margin-top: 2%;
+}
+
+.mat-table {
+    width: 50%;
+    font-weight: 800;
+    font-size: x-large;
+}
+th, td{
+    text-align: center;   
+    font-size: 18px;
+    
+}
+th{
+    background-color:  #f5eee6 !important;
+    color: #434342;
+    font-size: x-large;
+    
+}

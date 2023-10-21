@@ -1,0 +1,12 @@
+mat-toolbar{
+    background-color: #979890;
+    padding-left: 100px; 
+    font-size: xx-large;
+    
+  }
+  mat-toolbar button{
+    background-color: #979890;
+    margin-left: 130px;
+    margin-right: 100px;
+    
+  } 

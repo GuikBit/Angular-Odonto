@@ -1,0 +1,17 @@
+.btn{
+  background-color: white;
+  border-radius: 50%;
+  color:#3F51B5;
+  position: absolute;
+  top: 3%;
+  left: 8%;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+}
+button{
+  margin-top: 10%;
+  color: white;
+  background-color: #3F51B5;
+}
+  

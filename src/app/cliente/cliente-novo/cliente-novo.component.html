@@ -1,0 +1,270 @@
+<div class="clienteMain">
+    <div class="bannerCliente">           
+        <div class="clienteFoto">
+            <mat-card class="example-card">
+                <img mat-card-image src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="Photo of a Shiba Inu">
+            </mat-card>
+        </div>
+        <div class="clienteInfo">
+            <span class="clienteNome" >{{ formulario.get('nome')?.value }}</span> 
+           
+            <span class="clienteNum"> {{ formulario.get('telefone')?.value }}</span>
+          
+            <span class="respNum">{{ formulario.get('telResp')?.value }}</span>
+           
+            <span class="nSerie">N° {{ formulario.get('nSerie')?.value }}</span>
+           
+        </div>
+        
+    
+    </div>
+    <form  [formGroup]="formulario" (ngSubmit)="onSubmit()"> 
+     <div class="containerInfoPessoal">        
+            <div class="blocoInfo">
+                <div class="titleModulo">
+                    <span class="infoTitle">Informações<br><br> &nbsp;&nbsp;&nbsp;Pessoais</span>
+                    
+    
+                </div>
+                <div class="infoPessoal">
+                    <div class="InfoPessoais">
+    
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Login </mat-label>
+                                <input type="text" matInput placeholder="Login" formControlName="login">
+                                <mat-icon matPrefix>perm_identity</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['login'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Senha</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha">
+                                <mat-icon matPrefix>key</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['senha'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb2">
+                                <mat-label>N° Serie</mat-label>
+                                <input type="number" matInput placeholder="" formControlName="nSerie">
+                                <mat-icon matPrefix>123</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['nSerie'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                        </div>
+    
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb5">
+                                <mat-label>Nome Completo</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="nome">
+                                <mat-icon matPrefix>mode</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['nome'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>CPF</mat-label>
+                                <input type="number" matInput placeholder="" formControlName="cpf">
+                                <mat-icon matPrefix>badge</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['cpf'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                               
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb2">
+                                <mat-label>Data Nascimento</mat-label>
+                                <input type="date" matInput placeholder="" formControlName="dataNascimento">
+                                <mat-icon matPrefix>calendar_month</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['dataNascimento'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Telefone</mat-label>
+                                <input type="number" matInput placeholder="" formControlName="telefone">
+                                <mat-icon matPrefix>call</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['telefone'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Email</mat-label>
+                                <input type="email" matInput placeholder="" formControlName="email">
+                                <mat-icon matPrefix>mail</mat-icon>
+                                                              
+                                    <mat-hint *ngIf="formulario.controls['email'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                                    
+                                
+                            </mat-form-field>
+    
+                            <input type="file">
+                           
+                        </div>
+                       
+                    </div>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="blocoInfo">
+                <div class="titleModulo">
+                    <span class="infoTitle">Responsável</span>
+                </div>
+                <div class="infoPessoal">
+                    <div class="InfoPessoais">
+    
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb5">
+                                <mat-label>Nome do(a) Responsável</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="nomeResp">
+                                
+                                <mat-icon matPrefix>mode</mat-icon>
+                                
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>CPF do(a) Responsável</mat-label>
+                                <input type="number"  matInput placeholder=""  formControlName="cpfResp">
+                                <mat-icon matPrefix>badge</mat-icon>
+                               
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Telefone do(a) Responsável</mat-label>
+                                <input type="number"  matInput placeholder="" formControlName="telResp">
+                                <mat-icon matPrefix>call</mat-icon>
+                               
+                            </mat-form-field>
+                        </div>
+                       
+    
+                    </div>
+                </div>
+                
+            </div>
+    
+            <hr>
+    
+            <div class="blocoInfo">
+                <div class="titleModulo">
+                    <span class="infoTitle">Endereço</span>
+                </div>
+                <div class="infoPessoal">
+                    <div class="InfoPessoais">
+    
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Cidade</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="cidade">
+                                <mat-icon matPrefix>location_city</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['cidade'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Bairro</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="bairro">
+                                <mat-icon matPrefix>map</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['bairro'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>CEP</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="cep" (blur)="buscaCEP()">
+                                <mat-icon matPrefix>add_location</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['cep'].errors?.['required']" class="lbObri"><b>* </b>{{ msgCep }}</mat-hint>
+                            </mat-form-field>
+                            
+                        </div>
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb5">
+                                <mat-label>Logradouro</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="logradouro">
+                                <mat-icon matPrefix>local_library</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['logradouro'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb2">
+                                <mat-label>Número</mat-label>
+                                <input type="number" matInput placeholder="" formControlName="numero">
+                                <mat-icon matPrefix>123</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['numero'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Complemento</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="complemento">
+                                <mat-icon matPrefix>message</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['complemento'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb4">
+                                <mat-label>Referencia</mat-label>
+                                <input type="text "matInput placeholder="" formControlName="referencia">
+                                <mat-icon matPrefix>mode</mat-icon>
+                               
+                            </mat-form-field>
+                            
+                        </div>
+                       
+                    </div>
+                </div>
+                
+            </div>
+    
+            <hr>
+    
+            <div class="blocoInfo">
+                <div class="titleModulo">
+                    <span class="infoTitle">Anamese</span>
+                </div>
+                <div class="infoPessoal">
+                    <div class="InfoPessoais">
+    
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Portador(a) de doença? (Qual?)</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="porDoenca">
+                                <mat-icon matPrefix>healing</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['porDoenca'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Em tratamento médico? (Qual?)</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="tratMedico">
+                                <mat-icon matPrefix>healing</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['tratMedico'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb3">
+                                <mat-label>Nome do tratamento:</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="nomeTrat">
+                                <mat-icon matPrefix>healing</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['nomeTrat'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="blocoLinha">
+                            <mat-form-field appearance="outline" class="lb5">
+                                <mat-label>Em uso de medicação? (Qual?)</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="usaMedic">
+                                <mat-icon matPrefix>medication</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['usaMedic'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="lb5">
+                                <mat-label>Alérgico(a) a medicamento? (Qual?)</mat-label>
+                                <input type="text" matInput placeholder="" formControlName="alergicoMedic">
+                                <mat-icon  matPrefix>vaccines</mat-icon>
+                                <mat-hint *ngIf="formulario.controls['alergicoMedic'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                            </mat-form-field>
+                            
+                        </div>
+                        
+                        <mat-slide-toggle formControlName="hipertenso" class="btnSlide"><span class="slideText">&nbsp;Hipertenso?</span></mat-slide-toggle><br>
+                        <mat-slide-toggle formControlName="gravida"  class="btnSlide"><span class="slideText">&nbsp;Está Gestante?</span></mat-slide-toggle><br>
+                        <mat-slide-toggle formControlName="traumatismoFace"  class="btnSlide"><span class="slideText">&nbsp;Possui algum traumatismo na face?</span></mat-slide-toggle><br>
+                        <mat-slide-toggle formControlName="sangramentoExcessivo"  class="btnSlide"><span class="slideText">&nbsp;Possui sangramento excessivo?</span></mat-slide-toggle>    
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="blocoInfoFotter">
+                <button mat-fab extended type="submit"  class="btnadd" ><mat-icon>save</mat-icon>Salvar</button>
+            </div>
+        
+     </div> 
+    </form> 
+        
+   
+ 
+    
+</div>

@@ -1,0 +1,139 @@
+*{
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+.container{
+    padding-top: 260px;
+    width: 60%;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.container_left{
+    margin: auto;
+    width: 40%;
+    height: 40vh;
+    border-radius: 2vh 0vh 0vh 2vh;
+    background-color: #464749;
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /*box-shadow: 6px 6px 6px 1px rgba(0,0,0,0.21);*/
+    position: relative;
+}
+
+.welcome{
+    margin: auto;   
+    text-align: center;
+    color: #F4F2F0;
+}
+
+
+.welcomeBody{
+    padding-top: 1.8vh;
+    font-size: x-large;
+}
+
+.welcomefoot{
+    margin-top: 4vh;
+}
+
+
+.welcomefoot button{
+    background-color: #80634E;
+    color:#F0EAE6;
+    font-size: large;
+} 
+
+
+
+.container_right{
+    margin: auto;
+    width: 60%;
+    height: 40vh;
+    border-radius: 0vh 2vh 2vh 0vh;
+    background-color: #F4F2F0;
+    display: flex;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   /* box-shadow: 6px 6px 6px 1px rgba(0,0,0,0.21);*/
+   position: relative;
+   
+}
+.create{
+margin: auto;
+}
+.icon{
+    padding-top: 1vh;
+    display: block;
+    font-size: 1.8rem;
+
+}
+.icon>i{
+    color: #979890;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+}
+.createHeader{
+    color:#3B3F39;
+
+   
+}
+.createBody{
+    padding: 3vh;
+    display: flex;
+}
+
+/*input[type=text], input[type=password]{
+    width: 65%;
+    border: none;
+    border-bottom: 2px solid  #979890;
+    color:#979890;
+    font-size: 1.5rem;
+   
+    background-color: white;
+    margin-top: 1vh;
+}*/
+
+.btnWelcomeCriar{
+    margin-top: 3vh;
+    background-color: #80634E;
+    width: 10vw;
+    height: 4.3vh;
+    color: #F0EAE6;
+    border-radius: 3vh;
+    font-size: x-large;
+}
+
+.alertDanger{
+    width: 80%;
+    height: 3.5vh;
+    border-radius: 1vh;
+    background-color: #d9544f89;
+    color: #d42721;
+    font-size: large;
+    text-align: center;
+    margin: auto;
+}
+
+
+.alertSucess{
+    margin: auto;
+    width: 80%;
+    height: 3vh;
+    border-radius: 1vh;
+    background-color: #5cb85c8f;
+    color: #067506;
+    font-size: large;
+}
+
+form button{
+    margin-top: 5%;
+    background-color: #80634E;
+    font-size: large;
+}
+
+
+

@@ -1,0 +1,102 @@
+.containerList{
+    width: auto;
+    height: auto;
+    margin: 3%;
+    padding: 2%;
+    background-color: #FFFFFF;
+    border-radius: 18px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/* menu */
+.tableMenu{
+    display: flex;
+    justify-content:space-between;
+    margin-inline: 2%;
+}
+mat-form-field{
+    width: 30vw;
+}
+mat-label{
+    font-size: 18px;
+}
+mat-tab-group{
+    width: 90%;
+    margin-left: 5%;
+}
+mat-tab{
+    font-size: large;
+}
+
+.btnadd{ 
+    background-color: #80634E;
+}
+.btnadd:hover{ 
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+ 
+.info:hover, .delete:hover, .edit:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.acoes{
+    display: flex;
+    justify-content:space-between;
+}
+
+.info{   
+    background-color: #eda465;
+    color: #F4F2F0;
+    width: 36px;
+    height: 36px;
+}
+.delete{
+    background-color: #f5756b;
+    color: #F4F2F0;
+    width: 36px;
+    height: 36px;
+}
+.edit{
+    background-color: #f0cf74;
+    color: #F4F2F0;
+    width: 36px;
+    height: 36px;
+}
+
+
+/* table */
+.table{
+    background-color: #FFFFFF;    
+}
+.tableBody{
+    margin-top: 2%;
+}
+
+.mat-table {
+    width: 50%;
+    font-weight: 800;
+    font-size: x-large;
+}
+th, td{
+    text-align: center;   
+    font-size: 18px;
+    
+}
+.mat-mini-fab{
+    width: 15px;
+    height: 15px;
+}
+th{
+    background-color:  #f5eee6 !important;
+    color: #434342;
+    font-size: x-large;
+    
+}
+.mat-column-btns{
+    width: 200px;
+}
+.mat-column-nSerie{
+    width: 50px;
+}
+.mat-card{
+    background-color: #F4F2F0;
+}

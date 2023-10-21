@@ -1,0 +1,105 @@
+.clienteHeader{
+    display:flex;
+    width: 80vw;
+    height: 30vh;
+    margin-top: 3vw;
+    background-color:     #c0d6ef;
+    border-radius: 10px 10px 0px 0px;
+    font-size: x-large;   
+}
+form{
+    color:#262924d3;
+}
+form h2{
+    padding-top: 2vw;
+    margin-bottom: 2vw;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.6rem;
+}
+
+/* .infoPessoais{
+    height: 47vh;
+    width: 90%;
+    padding-left: 13vh;
+    padding-right:13vh; 
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+.infoParentais{
+    height: 55vh;
+    width: 90%;
+    padding-left: 13vh;
+    padding-right:13vh; 
+    margin-top: 4vh;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px;
+}
+
+.infoEnd{
+    height: 40vh;
+    width: 90%;
+    padding-left: 13vh;
+    padding-right:13vh; 
+    margin-top: 4vh;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px;
+}
+
+.infoAnaminese{
+    height: 72vh;
+    width: 90%;
+    padding-left: 13vh;
+    padding-right:13vh; 
+    margin-top: 5vh;
+    margin-top: 4vh;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 10px;
+
+} */
+
+.example-card {
+    max-width: 150px;
+    border-radius: 15px;
+}
+.clienteFoto{
+    width: 250px;
+    height: 230px;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+.clienteInfo{
+    width: 80%;
+    height: 230px;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+
+  
+
+.clienteMain{
+    width: 90%;
+    margin: 5% 5%;
+    background-color:     white;
+    font-size: large;
+    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+.bannerCliente{
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    width: 98%;
+    height: 230px;
+    margin-left: 1%;
+    margin-right: 1%;
+    position: relative;
+    top: -50px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    display: flex;
+
+}
+
