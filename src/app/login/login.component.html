@@ -1,54 +1,51 @@
 
 <div class="container">
-    <div class="container_left">
-        <div class="welcome">
-            <div class="welcomeHeader">
-                <h1>{{cadastrando?'Bem-vindo!':'Bem-vindo!'}}</h1>
-            </div>
-            <div class="welcomeBody">
-                <p>"O homem não teria alcançado o  </p>
-                <p> <b>possível</b> se, repetidas vezes,</p> 
-                <p>não tivesse tentado o <b>impossível</b>."</p>
-            </div>
-            <div class="welcomefoot">                
-                <button mat-fab extended (click)="onSubmit()" class="btnLogin">
-                    <mat-icon>login</mat-icon>
-                    Login
-                  </button>
-            </div>     
-            
-        </div>
-
+    <div class="container_left">        
+        <!-- <img src="https://www.zarla.com/images/zarla-odontoplus-1x1-2400x2400-20210608-8pkdbt4xmjwptx39r66b.png?crop=1:1,smart&width=250&dpr=2" /> -->
+        <img src="assets/img/odonto.png" alt="Logo Odonto" class="img">
     </div>
     <div class="container_right">
         <div class="create">
-           
-            <div class="alertDanger" *ngFor="let erro of errors"> 
-                {{erro}}
-            </div>
+           <div class="msg">
+                <div class="alertDanger" *ngFor="let erro of errors"> 
+                    {{erro}}
+                </div>
+           </div>
+            
             <div class="alertSucess" *ngIf="msgSuccess"> 
                 {{msgSuccess}}
             </div>
             <div class="createHeader">
-                <h1>Criar Conta</h1>                
+                <h1 class="titulo">Bem Vindo!</h1>                
             </div>
             <div class="createBody">
                 <form  (ngSubmit)="onSubmit()">
-                    <div class="containerLogin">     
-                        <mat-form-field >
-                            <mat-label>Login</mat-label>
-                            <input matInput type="text"  name="userName" id="userName" [(ngModel)]="userName" autocomplete="off">
-                        </mat-form-field> <br>
-                        <mat-form-field >
-                            <mat-label>Senha</mat-label>
-                            <input matInput type="password" name="password" id="password"  [(ngModel)]="password">
-                        </mat-form-field>                  
-                        <!--<input type="text"  name="userName" id="userName" [(ngModel)]="userName" placeholder="Login" autocomplete="off">
-                        <input type="password" name="password" id="password"  [(ngModel)]="password" placeholder="Senha"><br> -->              
+                    <div class="containerLogin">   
+
+                        <div class="row">
+                            <!-- <mat-icon aria-hidden="false" fontIcon="person" class="loginIcon"></mat-icon>  -->
+                            <mat-form-field appearance="outline" class="inputLogin"> 
+                                <mat-icon matPrefix>person</mat-icon> 
+                                <mat-label>Login </mat-label>                         
+                                <input matInput type="text"  name="userName" id="userName" [(ngModel)]="userName" autocomplete="off">
+                            </mat-form-field >
+                        </div>
+                        <div class="row">
+                            <!-- <mat-icon aria-hidden="false" fontIcon="key" class="loginIcon"></mat-icon>  -->
+                            <mat-form-field appearance="outline" class="inputLogin">
+                                <mat-icon matPrefix>key</mat-icon>
+                                <mat-label>Senha </mat-label>
+                                <input matInput type="password" name="password" id="password"  [(ngModel)]="password" autocomplete="off">
+                            </mat-form-field> 
+                        </div>          
                     </div>
                     <div>
-                        <button mat-fab extended (click)="cadastro()"  ><mat-icon>login</mat-icon> Criar </button>                        
-                    </div>                    
+                        <button mat-fab extended (click)="onSubmit()" class="btnLogin">
+                            <mat-icon>login</mat-icon>
+                            Login
+                        </button>                        
+                    </div> 
+                                       
                 </form>
             </div>
         </div>

@@ -1,11 +1,14 @@
-.containerList{
-    width: auto;
-    height: auto;
-    margin: 3%;
+.container{
     padding: 2%;
-    background-color: #FFFFFF;
+}
+.card{
+    padding: 2%;
     border-radius: 18px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background: #f2f8fd;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #54a2dc;
 }
 
 /* menu */
@@ -13,6 +16,7 @@
     display: flex;
     justify-content:space-between;
     margin-inline: 2%;
+
 }
 mat-form-field{
     width: 30vw;
@@ -26,56 +30,50 @@ mat-tab-group{
 }
 mat-tab{
     font-size: large;
+    
 }
 
 .btnadd{ 
-    background-color: #80634E;
+    background: linear-gradient(to right, #2070b4, #24aae3);
+    width: 15vw;
 }
 .btnadd:hover{ 
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
  
-.info:hover, .delete:hover, .edit:hover{
+/* .info:hover, .delete:hover, .edit:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
+} */
 .acoes{
     display: flex;
-    justify-content:space-between;
+    justify-content:space-around;
+
 }
 
 .info{   
-    background-color: #eda465;
+    background-color: #54a2dc;
     color: #F4F2F0;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
 }
 .delete{
-    background-color: #f5756b;
+    background-color: #f44336;
     color: #F4F2F0;
     width: 36px;
     height: 36px;
 }
 .edit{
-    background-color: #f0cf74;
+    background-color: #e9b136;
     color: #F4F2F0;
     width: 36px;
     height: 36px;
 }
-
-
-/* table */
-.table{
-    background-color: #FFFFFF;    
-}
 .tableBody{
     margin-top: 2%;
+    /* width: 60%; */
+ 
 }
 
-.mat-table {
-    width: 50%;
-    font-weight: 800;
-    font-size: x-large;
-}
 th, td{
     text-align: center;   
     font-size: 18px;
@@ -85,18 +83,31 @@ th, td{
     width: 15px;
     height: 15px;
 }
+
 th{
-    background-color:  #f5eee6 !important;
-    color: #434342;
+    background: #c4ddf3 !important;
+    color: #2070b4;
     font-size: x-large;
     
 }
+.mat-column-nome{
+    width: 35vw;
+}
 .mat-column-btns{
-    width: 200px;
+    width: 15vw;
 }
 .mat-column-nSerie{
-    width: 50px;
+    width: 5vw;
 }
-.mat-card{
-    background-color: #F4F2F0;
+
+
+.search{
+    color: #2070b4;
+    border: none;
+    
 }
+.paginacao{
+    background: transparent;
+}
+
+

@@ -1,4 +1,5 @@
-<div class="containerList">
+<div class="container">
+  <div class="card">
 
     <div class="tableMenu">
       
@@ -17,26 +18,26 @@
 
             <ng-container matColumnDef="nome">
                 <th mat-header-cell *matHeaderCellDef> Nome </th>
-                <td mat-cell *matCellDef="let clientes"> {{ clientes.nome }} </td>
+                <td mat-cell *matCellDef="let dentistas"> {{ dentistas.nome }} </td>
               </ng-container>
       
               <ng-container matColumnDef="cpf">
                 <th mat-header-cell *matHeaderCellDef> CPF </th>
-                <td mat-cell *matCellDef="let clientes"> {{ clientes.cpf }} </td>
+                <td mat-cell *matCellDef="let dentistas"> {{ dentistas.cpf }} </td>
               </ng-container>
       
               <ng-container matColumnDef="dataCadastro">
-                <th mat-header-cell *matHeaderCellDef> Data de Cadastro </th>
-                <td mat-cell *matCellDef="let clientes">{{ clientes.dataCadastro }}</td>                 
+                <th mat-header-cell *matHeaderCellDef> Especialidade </th>
+                <td mat-cell *matCellDef="let dentistas">{{ dentistas.especialidade.tipo }}</td>                 
               </ng-container>
       
               <ng-container matColumnDef="btns">
                 <th mat-header-cell *matHeaderCellDef> Ações </th>
-                <td mat-cell *matCellDef="let clientes"> 
+                <td mat-cell *matCellDef="let dentistas"> 
                   <div class="acoes">
-                    <button mat-mini-fab class="info" (click)="info(clientes.id)" ><mat-icon>info</mat-icon></button>
-                    <button mat-mini-fab class="edit" (click)="edit(clientes.id)"><mat-icon>edit</mat-icon></button>
-                    <button mat-mini-fab class="delete" (click)="delet(clientes.id)"><mat-icon>delete</mat-icon></button>
+                    <button mat-mini-fab class="info" (click)="info(dentistas.id)" ><mat-icon>info</mat-icon></button>
+                    <button mat-mini-fab class="edit" (click)="edit(dentistas.id)"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab class="delete" (click)="delet(dentistas.id)"><mat-icon>delete</mat-icon></button>
                   </div>
                                         
       
@@ -52,4 +53,5 @@
             <mat-paginator class="table" [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="pagaSizeOptions" (page)="paginar($event)"> </mat-paginator>
             </mat-card>
     </div>
+  </div>
 </div>

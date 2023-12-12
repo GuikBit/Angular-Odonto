@@ -38,12 +38,14 @@ export class ConsultaListComponent {
     this.dataSource = new MatTableDataSource<any>(this.consultas);
   }
 
-  viewTable( pagina: any, tamanho: any){
-    this.service.getDentistaPage(pagina, tamanho).subscribe(response=>{
-      this.consultas = response.content;
-      this.totalElementos = response.totalElements;
-      this.pagina = response.number;
-    })
+  async viewTable( pagina: any, tamanho: any){
+    
+    const response = await this.service.getConsultas(pagina, tamanho)    
+    this.consultas = response?.data !== null ? response?.data : null;
+    this.dataSource = new MatTableDataSource<any>(this.consultas);
+    this.totalElementos = await this.service.totalConsultas();
+    this.pagina = pagina;
+
   }
 
   cadastro(){

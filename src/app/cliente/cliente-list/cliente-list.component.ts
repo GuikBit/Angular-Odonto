@@ -1,5 +1,5 @@
 import { Component,AfterViewInit,ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -7,6 +7,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { isEmpty } from 'rxjs';
+import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
 
 
 @Component({
@@ -26,9 +28,12 @@ export class ClienteListComponent implements AfterViewInit{
   
   showFiller = false;
   totalElementos = 0;
-  pagina = 0;
+  pagina = 1;
   tamanho = 10;
   pagaSizeOptions : number[] = [5, 10, 25, 50];
+
+  msgSalvar: string;
+  msgSalvarStyle: string;
 
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatSort) sort!: MatSort;
@@ -39,7 +44,7 @@ export class ClienteListComponent implements AfterViewInit{
     this.dataSource.sort = this.sort;
   }
 
-  constructor(private service: ClienteService, private router: Router,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
+  constructor(private service: ClienteService, private router: Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
     
   }
 
@@ -51,7 +56,13 @@ export class ClienteListComponent implements AfterViewInit{
  
   ngOnInit(): void {
     this.viewTable(this.pagina, this.tamanho);
-    this.dataSource = new MatTableDataSource<any>(this.clientes);
+    this.route.params.subscribe(params => {
+      if(params['salvo']){
+        this.msgSalvar = "Novo paciente salvo com sucesso!";
+        this.msgSalvarStyle = "SuccessSnackbar";         
+        this.openSnackBar ( )
+      }
+    })
   }
 
   filterCountries(searchTerm: string) {
@@ -70,12 +81,12 @@ export class ClienteListComponent implements AfterViewInit{
   }
 
 
-  viewTable( pagina: any, tamanho: any){
-    this.service.getClientesPage(pagina, tamanho).subscribe(response=>{
-      this.clientes = response.content;
-      this.totalElementos = response.totalElements;
-      this.pagina = response.number;
-    })
+  async viewTable(pagina: any, tamanho: any) {
+    const response = await this.service.getPacientes(pagina, tamanho);
+    this.clientes = response?.data !== null ? response?.data : null;
+    this.dataSource = new MatTableDataSource<any>(this.clientes);
+    this.totalElementos = await this.service.totalPacientes();
+    this.pagina = pagina;
   }
 
   cadastro(){
@@ -106,8 +117,18 @@ export class ClienteListComponent implements AfterViewInit{
 deletarCliente(){}
 
 
-paginar(event:PageEvent){
+paginar(event: PageEvent) {
   this.pagina = event.pageIndex;
-  this.viewTable(this.pagina, this.tamanho)
+  this.viewTable(this.pagina, this.tamanho);
+}
+openSnackBar ( ) {
+
+  const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
+    data: { message: this.msgSalvar },
+    duration: 3000,
+    panelClass: [this.msgSalvarStyle],
+    verticalPosition: 'top', 
+    horizontalPosition: 'end',
+  });
 }
 }

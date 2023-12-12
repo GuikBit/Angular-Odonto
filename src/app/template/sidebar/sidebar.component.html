@@ -1,8 +1,9 @@
 <mat-toolbar >  
-  <span>Sistema de Cadastro</span>  
+  <img src="assets/img/odontoWhite.png" class="img">
+  <span>Odonto</span>  
 </mat-toolbar> 
 
-<div class="container">
+<div class="main">
   <router-outlet></router-outlet>
 </div>
 
@@ -10,10 +11,10 @@
 <div class="containerMenu">
   <div class="systemMenus">
     <div class="menus">
-      <button mat-fab extended  routerLink="/home"><mat-icon>home</mat-icon>&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;</button>
-      <button mat-fab extended  routerLink="/clientes"><mat-icon>groups</mat-icon>&nbsp;Clientes&nbsp;&nbsp;</button>
-      <button mat-fab extended  routerLink="/consultas"><mat-icon>home_repair_service</mat-icon> Consultas</button>
-      <button mat-fab extended  routerLink="/dentistas"><mat-icon>people</mat-icon> Dentistas</button>
+      <button mat-fab extended  routerLink="/home"><mat-icon>home</mat-icon>Home</button>
+      <button mat-fab extended  routerLink="/clientes"><mat-icon>groups</mat-icon>Clientes</button>
+      <button mat-fab extended  routerLink="/consultas"><mat-icon>home_repair_service</mat-icon>Consultas</button>
+      <button mat-fab extended  routerLink="/dentistas"><mat-icon>people</mat-icon>Dentistas</button>
       
       <button mat-fab extended (click)="logout()"><mat-icon>logout</mat-icon>Sair</button>
     </div>    

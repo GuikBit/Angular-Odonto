@@ -1,58 +1,42 @@
+import { Anamnese } from './cadastro/anamnese';
+import { Endereco } from './cadastro/endereco';
+import { Responsavel } from './cadastro/responsavel';
+
 export class Cliente {
     
     id?: number;
-    nSerie?: number;
-    login?: string;
-    senha?: string;
-    email?: string;
-    nome?: string;
-    cpf?: string;
+    numPasta?: string = '1234';
+    login?: string = 'gui';
+    senha?: string = '123';
+    email?: string = 'gui@gmail.com';
+    nome?: string = 'Guilherme Pinto de Oliveira';
+    cpf?: string = '12098133600';
     dataCadastro?: string;
-    dataNascimento?: string;
-    telefone?: string; 
-   
+    dataNascimento?: string = '18/11/1998';
+    telefone?: string = '(32) 99822-0082'; 
+    ativo?: boolean;
+    role?: string;
 
-    //end
-    cidade?: string ;
-    bairro?: string ;
-    logradouro?: string;
-    numero?: string ;
-    cep?: string ;
-    complemento?: string ;
-    referencia?: string ; 
+    endereco: Endereco;
+    anamnese: Anamnese;
+    responsavel: Responsavel;  
 
-    //pais
-    nomeResp?: string;
-    telResp?: string ;
-    cpfResp?: string;
-    
-
-    //Anamnese
-    porDoenca?: string;
-    tratMedico?: string;
-    nomeTrat?: string;
-    usaMedic?: string;
-    alergicoMedic?: string;
-    sangramentoExcessivo?: boolean;
-    hipertenso?: boolean;
-    gravida?: boolean;
-    traumatismoFace?: boolean;
 
     //outros
 
-    queixaPrincipal?: string;
+    // queixaPrincipal?: string;
 
-    dataUltimoExame?:string;
+    // dataUltimoExame?:string;
 
-    frequenciaDentista?: string;
+    // frequenciaDentista?: string;
 
-    higieneBucal?: string;
+    // higieneBucal?: string;
 
-    frequenciaEscovacao?: string;
+    // frequenciaEscovacao?: string;
 
-    habitos?: string;
+    // habitos?: string;
 
-    observacao?: string;
+    // observacao?: string;
 
 
 }

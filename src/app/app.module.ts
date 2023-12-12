@@ -67,11 +67,11 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import {DialogModule} from '@angular/cdk/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SnackbarComponent } from './snackbar/snackbar.component';
 import { DentistaListComponent } from './dentista/dentista-list/dentista-list.component';
 import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
 import { DentistaModule } from './dentista/dentista.module';
 import { ConsultaModule } from './consulta/consulta.module';
+import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.component';
 
 
 
@@ -81,7 +81,7 @@ import { ConsultaModule } from './consulta/consulta.module';
     LoginComponent,
     LayoutComponent,
     HomeComponent,
-    SnackbarComponent
+    CustomSnackbarComponent,
   ],
   imports: [
     BrowserModule,

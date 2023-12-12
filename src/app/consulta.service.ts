@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { DentistaPagina } from './dentista/dentistaPagina';
 //import { ServicoPrestadoBusca } from './servico-prestado/servico-prestado-lista/servicoPrestadoBusca';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultaService {
 
-  apiURL : String = environment.apiURLBase+'/api/consulta'
+  apiURL : String = environment.apiURLBase+'/v1/consulta'
   constructor(private http: HttpClient) { }
 
   /*salvar(servicoPrestado : ServicoPrestado) : Observable<ServicoPrestado>{
@@ -25,8 +26,45 @@ export class ConsultaService {
     return this.http.get<any>(url);
   }*/
 
-  getDentistaPage(page:any, size:any): Observable<DentistaPagina>{ 
-    const params = new HttpParams().set('page', page).set('size', size);     
-    return this.http.get<DentistaPagina>(`${this.apiURL}/buscaAll?${params.toString()}`);
+  // getDentistaPage(page:any, size:any): Observable<DentistaPagina>{ 
+  //   const params = new HttpParams().set('page', page).set('size', size);     
+  //   return this.http.get<DentistaPagina>(`${this.apiURL}s?${params.toString()}`);
+  // }
+  async getToken(){
+    return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
+  }
+
+  async getConsultas(page: number, size: number){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+
+    try{
+      const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`)
+      
+      return response;
+      
+    }catch (error) {
+      console.error(error);
+      return null
+    }
+  }
+
+  async totalConsultas(){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try { 
+      console.log(`${this.apiURL}s/total`)
+      const response = await instance.get(`${this.apiURL}s/total`);      
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return <any> 0;
+    }
   }
 }

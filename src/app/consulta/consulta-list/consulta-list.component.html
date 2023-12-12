@@ -1,55 +1,56 @@
- <div class="containerList">
+<div class="container">
+  <div class="card">
+    <div class="tableMenu">
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Filtrar por paciente...</mat-label>
+        <input matInput placeholder="Nome" #input>
+      </mat-form-field>
 
-  <div class="tableMenu">
-    
-    <mat-form-field appearance="outline">
-      <mat-label>Burcar Dentista... </mat-label>
-      <input matInput placeholder="Nome" #input>
-    </mat-form-field>
+      <button mat-fab extended (click)="cadastro()" class="btnadd"><mat-icon>person_add</mat-icon>Nova Consulta</button>
+      
+    </div>
+  
+    <div class="tableBody">
+      <mat-card>
+        <table mat-table [dataSource]="consultas" class="table" matSort>
 
-    <button mat-fab extended (click)="cadastro()" class="btnadd"><mat-icon>person_add</mat-icon>Nova Consulta</button>
-    
-  </div>
- 
-  <div class="tableBody">
-    <mat-card>
-      <table mat-table [dataSource]="consultas" class="table" matSort>
-
-          <ng-container matColumnDef="nome">
-              <th mat-header-cell *matHeaderCellDef> Nome </th>
-              <td mat-cell *matCellDef="let clientes"> {{ clientes.nome }} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="cpf">
-              <th mat-header-cell *matHeaderCellDef> CPF </th>
-              <td mat-cell *matCellDef="let clientes"> {{ clientes.cpf }} </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="dataCadastro">
-              <th mat-header-cell *matHeaderCellDef> Data de Cadastro </th>
-              <td mat-cell *matCellDef="let clientes">{{ clientes.dataCadastro }}</td>                 
-            </ng-container>
-    
-            <ng-container matColumnDef="btns">
-              <th mat-header-cell *matHeaderCellDef> Ações </th>
-              <td mat-cell *matCellDef="let clientes"> 
-                <div class="acoes">
-                  <button mat-mini-fab class="info" (click)="info(clientes.id)" ><mat-icon>info</mat-icon></button>
-                  <button mat-mini-fab class="edit" (click)="edit(clientes.id)"><mat-icon>edit</mat-icon></button>
-                  <button mat-mini-fab class="delete" (click)="delet(clientes.id)"><mat-icon>delete</mat-icon></button>
-                </div>
-                                      
-    
-              </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="colunas"></tr>
-            <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
-            <tr class="mat-row"*matNoDataRow >
-              <td class="mat-cell"colspan="5"><b> Nem um paciente {{input.value}} encontrado, cadastre um paciente.</b></td>
-            </tr>
-          </table>
-          <mat-paginator class="table" [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="pagaSizeOptions" (page)="paginar($event)"> </mat-paginator>
-          </mat-card>
+              <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Paciente </th>
+                <td mat-cell *matCellDef="let consultas"> {{ consultas.paciente.nome }} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="cpf">
+                <th mat-header-cell *matHeaderCellDef> Dentista </th>
+                <td mat-cell *matCellDef="let consultas"> {{ consultas.dentista.nome }} </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="dataCadastro">
+                <th mat-header-cell *matHeaderCellDef> Data da Consulta </th>
+                <td mat-cell *matCellDef="let consultas">{{ consultas.dataConsulta+"  "+consultas.horaConsulta}}</td>                 
+              </ng-container>
+      
+              <ng-container matColumnDef="btns">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let consultas"> 
+                  <div class="acoes">
+                    <button mat-mini-fab class="info" (click)="info(consultas.id)" ><mat-icon>info</mat-icon></button>
+                    <button mat-mini-fab class="edit" (click)="edit(consultas.id)"><mat-icon>edit</mat-icon></button>
+                    <button mat-mini-fab class="delete" (click)="delet(consultas.id)"><mat-icon>delete</mat-icon></button>
+                  </div>
+                                        
+      
+                </td>
+              </ng-container>
+      
+              <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+              <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+              <tr class="mat-row"*matNoDataRow >
+                <td class="mat-cell"colspan="5"><b> Nem um paciente {{input.value}} encontrado, cadastre um paciente.</b></td>
+              </tr>
+            </table>
+            <mat-paginator class="table" [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="pagaSizeOptions" (page)="paginar($event)"> </mat-paginator>
+            </mat-card>
+    </div>
   </div>
 </div> 

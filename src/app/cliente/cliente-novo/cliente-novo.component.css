@@ -1,4 +1,17 @@
+.container{
+    padding: 2%;
+    
+}
+.card{
 
+    border-radius: 18px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background: #f2f8fd;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #54a2dc;
+    margin-bottom: 15vh;
+}
 .clienteHeader{
     display:flex;
     width: 80vw;
@@ -19,20 +32,23 @@ form h2{
 }
 
 .btnadd{ 
-    background-color: #80634E;
-    width: 200px;
+    background: linear-gradient(to right, #2070B4, #24aae3);
+    width: 25vw;
     height: 50px;
-    font-size: large;
+    font-size: 1.6rem;
 }
 .btnadd .mat-icon{
     color: #FFFFFF;
 }
 .btnadd:hover{ 
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    width: 25.5vw;
+    font-size: 1.63rem;
 }
 .example-card {
     max-width: 150px;
     border-radius: 15px;
+   
 }
 .clienteFoto{
     width: 350px;
@@ -75,8 +91,7 @@ form h2{
   
 
 .clienteMain{
-    width: 94%;
-    margin: 5% 3%;
+    width: 94%;    
     background-color:     white;
     font-size: large;
     border-radius: 10px;
@@ -86,39 +101,38 @@ form h2{
 
 
 .bannerCliente{
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    width: 98%;
-    height: 230px;
-    margin-left: 1%;
-    margin-right: 1%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;    
+    height: 25vh;
     position: relative;
     top: -50px;
     border-radius: 15px;
-    background-color: #FFFFFF;
     display: flex;
-    background-image: url("https://www.expodonto.com.br/website2021/wp-content/uploads/2021/07/banner-expodonto_Prancheta-1-co%CC%81pia-2.png");
+    background: linear-gradient(to right, #194973, #8fc2ea);
+    /* background-image: url("https://www.expodonto.com.br/website2021/wp-content/uploads/2021/07/banner-expodonto_Prancheta-1-co%CC%81pia-2.png"); */
 
 }
 
 .containerInfoPessoal{
     width: 100%;
     height: auto; 
-    margin-top: 5%;   
 }
 .blocoInfo{
     display: flex;
     width: 100%;
     height: auto;
+   
 }
 .blocoInfo .titleModulo{
     justify-content: space-around;
     align-items: center;
+   
 }
 
 .titleModulo{
     display: flex;
-    width: 20%;
+    
 }
+
 .infoPessoal, .infoResp{
     width: 80%;
 }
@@ -130,23 +144,23 @@ form h2{
 }
 
 .lb1{
-    width: 150px;
+    width: 7vw;
     margin-right: 70px;
 }
 .lb2{
-    width: 250px;
+    width: 10vw;
     margin-right: 70px;
 }
 .lb3{
-    width: 350px;
+    width: 16vw;
     margin-right: 70px;
 }
 .lb4{
-    width: 450px;
+    width: 23vw;
     margin-right: 70px;
 }
 .lb5{
-    width: 550px;
+    width: 30vw;
     margin-right: 70px;
 }
 .btnSlide{
@@ -157,7 +171,7 @@ form h2{
     font-size: x-large;
 }
 .mat-icon{
-    color: #80634E;
+    color: #2070B4;
     font-size:26px;
 }
 
@@ -175,11 +189,11 @@ hr {
     width: 350px;
     height: 45px;
     max-width: 100%;
-    color: #8a8989;
+    color: #5d5c5c;
     padding: 5px;
-    background: #fff;
+    background: #f2f8fd;
     border-radius: 4px;
-    border: 1px dashed #979696;
+    border: 1px dashed #5d5c5c;
     font: 14px/20px Roboto, sans-serif;
     
   } 
@@ -190,7 +204,7 @@ hr {
     margin-top: 5px;
     text-emphasis: none;
     height: 35px;
-    background: #80634E;
+    background: linear-gradient(to right, #2070B4, #24aae3);
     padding: 10px 20px;
     border-radius: 50px;
     color: #fff;
@@ -199,8 +213,9 @@ hr {
   }
   
   input[type=file]::file-selector-button:hover {
-    background: #80634E;
+    background: linear-gradient(to right, #2070B4, #24aae3);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.131), 0 10px 10px rgba(0, 0, 0, 0.091);
+
   }
   .blocoInfoFotter{
     display:flex;

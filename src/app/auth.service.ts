@@ -2,34 +2,39 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //import { Usuario } from './login/usuario';
-
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environments';
-import {JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  apiUrl: string = environment.apiURLBase+"/api/usuarios";
-  tokenUrl: string = environment.apiURLBase+environment.obertTokenUrl;
+  apiUrl: string = environment.apiURLBase + "/api/usuarios";
+  tokenUrl: string = environment.apiURLBase + environment.obertTokenUrl;
   clientId: string = environment.clientId;
   clientSecret:string = environment.clienteSecret;
   jwtHelper: JwtHelperService = new JwtHelperService();
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) { 
    
   }
+
   obterToken(){
     const tokenStr = localStorage.getItem('access_token')  
+    
     if(tokenStr){
-      const token =JSON.parse(tokenStr).access_token
+      const token = JSON.parse(tokenStr)
       return token;
     }
     return null;
   }
+
   encerraSessao(){
     localStorage.removeItem('access_token')
+    localStorage.removeItem('userLogado')
   }
   getUsuarioAutenticado(){
     const token = this.obterToken()
@@ -41,8 +46,9 @@ export class AuthService {
     return null;
   }
 
-  isAuthenticated(): boolean{
-    const token = this.obterToken();
+  async isAuthenticated(): Promise<boolean>{
+    const token = await this.obterToken();
+    
     if(token)
     {
       const expired = this.jwtHelper.isTokenExpired(token);
@@ -56,14 +62,22 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl, usuario);
   }*/
 
-  login(username: string, password: string ) : Observable<any>{
-    const params = new HttpParams().set('username', username).set('password', password).set('grant_type', 'password');
-    const headers = {      
-      'Authorization': 'Basic '+ btoa(`${this.clientId}:${this.clientSecret}`),
-      'Content-Type': 'application/x-www-form-urlencoded'
+  // login(username: string, password: string ) : Observable<any>{
+  //   const params = new HttpParams().set('username', username).set('password', password).set('grant_type', 'password');
+  //   const headers = {      
+  //     'Authorization': 'Basic '+ btoa(`${this.clientId}:${this.clientSecret}`),
+  //     'Content-Type': 'application/x-www-form-urlencoded'
+  //   }
+  //   console.log(this.tokenUrl)
+  //   return this.http.post(this.tokenUrl, params.toString(), {headers})
+  // }
+  async login(username: string, password: string ): Promise<any>{
+
+    const obj = {
+      "login": username,
+      "password": password
     }
-
-    return this.http.post(this.tokenUrl,params.toString(), {headers})
+    return axios.post(this.tokenUrl, obj)
+   
   }
-
 }

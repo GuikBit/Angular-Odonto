@@ -1,33 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #F4F2F0;}
+html, body { height: auto; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #FFFFFF;}
 
 
 .SuccessSnackbar {
    
-    --mdc-snackbar-container-color: #D1EAD5;
+    --mdc-snackbar-container-color: #f1fcf2;
     --mat-mdc-snack-bar-button-color: #1e9131;
     --mdc-snackbar-supporting-text-color: #1e9131; 
+    border: 2px solid #1e9131;
+    
 }  
 
 .WarningSnackbar {
    
-    --mdc-snackbar-container-color: #F8E6C6;
+    --mdc-snackbar-container-color: #fffcea;
     --mat-mdc-snack-bar-button-color: #ffa200;
     --mdc-snackbar-supporting-text-color: #ffa200; 
+    border: 2px solid #ffa200;
 }  
 .DangerSnackbar{
     
-    --mdc-snackbar-container-color: #FCCBC7;
+    --mdc-snackbar-container-color: #fff2f1;
     --mat-mdc-snack-bar-button-color: #f84838;
     --mdc-snackbar-supporting-text-color: #f84838; 
+    border: 2px solid #f84838;
 }
 
 .containerList{
     width: auto;
     height: auto;
-    margin: 3%;
     padding: 2%;
     background-color: #FFFFFF;
     border-radius: 18px;
@@ -261,4 +264,16 @@ hr {
     color: rgb(250, 124, 124);
   }
 
-
+.container{
+    padding: 2%;
+}
+.card{
+    padding: 2%;
+    border-radius: 18px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background: #f2f8fd;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #54a2dc;
+    margin-bottom: 15vh;
+}

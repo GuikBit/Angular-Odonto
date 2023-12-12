@@ -39,12 +39,17 @@ export class DentistaListComponent implements AfterViewInit{
     this.dataSource = new MatTableDataSource<any>(this.dentistas);
   }
 
-  viewTable( pagina: any, tamanho: any){
-    this.service.getDentistaPage(pagina, tamanho).subscribe(response=>{
-      this.dentistas = response.content;
-      this.totalElementos = response.totalElements;
-      this.pagina = response.number;
-    })
+  async viewTable( pagina: any, tamanho: any){
+    // this.service.getDentistaPage(pagina, tamanho).subscribe(response=>{
+    //   this.dentistas = response.content;
+    //   this.totalElementos = response.totalElements;
+    //   this.pagina = response.number;
+    // })
+    const response = await this.service.getDentistas(pagina, tamanho)
+    this.dentistas = response?.data !== null ? response?.data : null;
+    this.dataSource = new MatTableDataSource<any>(this.dentistas);
+    this.totalElementos = await this.service.totalDentistas();
+    this.pagina = pagina;
   }
 
   cadastro(){

@@ -23,18 +23,44 @@ export class LoginComponent {
 
   constructor(private router: Router,private fb: FormBuilder, private authService: AuthService) { }
 
-  onSubmit(){    
+  async onSubmit(){    
 
-    this.authService.login(this.userName || '', this.password || '').subscribe((response) =>{      
-      console.log( this.authService.login)
-      const access_token = JSON.stringify(response);
-      localStorage.setItem('access_token', access_token);     
-      console.log(localStorage.getItem) 
-      this.router.navigate(['/home']);
-    }, errorResponse=>{
-      console.log(errorResponse)
-      this.errors = ['Usúario e/ou senha incorretos!'];
-    })    
+    // this.authService.login(this.userName || '', this.password || '').subscribe((response) =>{      
+    //   //console.log( this.authService.login)
+    //   const access_token = JSON.stringify(response);
+    //   localStorage.setItem('access_token', access_token);     
+    //   console.log(localStorage.getItem) 
+    //   this.router.navigate(['/home']);
+    // }, errorResponse=>{
+    //   console.log(errorResponse)
+    //   this.errors = ['Usúario e/ou senha incorretos!'];
+    // }) 
+
+    //     localStorage.setItem('access_token', response.data.result);
+    //     localStorage.setItem('userLogado', response.data.usuario);
+
+    //     this.router.navigate(['/home'])        
+    //     return 0;
+    //   }else{
+    //     return response.status
+    //   }
+      
+    // }).catch(error => {
+    //   return 'Ocorreu um erro ao fazer o login: ' + error;
+    // });
+    try{
+      const response = await this.authService.login(this.userName || '', this.password || '')
+      if(response.status === 200){ 
+        
+        localStorage.setItem('access_token', JSON.stringify(response.data.result));
+        localStorage.setItem('userLogado', JSON.stringify(response.data.usuario));
+        this.router.navigate(['/home']);
+         
+
+      }
+    }catch(error){
+      this.errors = ['Usuário e/ou senha incorretos!'];
+    }
   }
  
 

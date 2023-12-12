@@ -1,17 +1,20 @@
+
 .btnadd{ 
-    background-color: #80634E;
+    background: linear-gradient(to right, #2070b4, #24aae3);
+    width: 15vw;
 }
 .btnadd:hover{ 
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    
 }
 
-.table{
-    background-color: #FFFFFF;    
-}
 .tableBody{
     margin-top: 2%;
 }
-
+.table{
+    background-color: #FFFFFF;    
+   
+}
 .mat-table {
     width: 50%;
     font-weight: 800;
@@ -23,8 +26,40 @@ th, td{
     
 }
 th{
-    background-color:  #f5eee6 !important;
-    color: #434342;
+    background: #c4ddf3 !important;
+    color: #2070b4;
     font-size: x-large;
     
+}
+.mat-column-paciente{
+    width: 15vw;
+}
+.mat-column-btns{
+    width: 15vw;
+}
+.mat-column-dentista{
+    width: 35vw;
+}
+.acoes{
+    display: flex;
+    justify-content:space-around;
+
+}
+.info{   
+    background-color: #54a2dc;
+    color: #F4F2F0;
+    width: 40px;
+    height: 40px;
+}
+.delete{
+    background-color: #f44336;
+    color: #F4F2F0;
+    width: 36px;
+    height: 36px;
+}
+.edit{
+    background-color: #e9b136;
+    color: #F4F2F0;
+    width: 36px;
+    height: 36px;
 }
