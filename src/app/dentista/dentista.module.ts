@@ -4,7 +4,7 @@ import { DentistaNovoComponent } from './dentista-novo/dentista-novo.component';
 import { DentistaInfoComponent } from './dentista-info/dentista-info.component';
 import { DentistaListComponent } from './dentista-list/dentista-list.component';
 import { DentistaRoutingModule } from './dentista-routing.module';
-import {MatIconModule} from '@angular/material/icon';
+// import {MatIconModule} from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -32,8 +32,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -46,6 +44,9 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
 import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -61,8 +62,13 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatTableModule,
+    MatSortModule,
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
@@ -101,9 +107,10 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     ReactiveFormsModule,
     FormsModule
   ],exports: [
+    DentistaNovoComponent,
     DentistaInfoComponent,
     DentistaListComponent,
-    DentistaNovoComponent
+    DentistaEditComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

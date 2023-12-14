@@ -2,14 +2,17 @@ import { Component,AfterViewInit,ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormBuilder } from '@angular/forms';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { isEmpty } from 'rxjs';
-import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 
 @Component({
   selector: 'app-cliente-list',
@@ -33,7 +36,7 @@ export class ClienteListComponent implements AfterViewInit{
   msgSalvarStyle: string;
 
 
-  constructor(private service: ClienteService, private router: Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
+  constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
     
    this.criaTabelaPaciente();
   }

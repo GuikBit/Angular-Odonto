@@ -1,4 +1,4 @@
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -30,7 +30,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
@@ -53,19 +52,20 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import {DialogModule} from '@angular/cdk/dialog';
 import { ReactiveFormsModule,FormsModule  } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { ClienteEditComponent } from './cliente-edit/cliente-edit.component';
 import { ClienteNovoComponent } from './cliente-novo/cliente-novo.component'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     ClienteInfoComponent,
-    ClienteListComponent,
+    // ClienteListComponent,
     ClienteEditComponent,
-    ClienteNovoComponent
+    // ClienteNovoComponent
   ],
   imports: [
-    FontAwesomeModule,
+    // FontAwesomeModule,
     CommonModule,
     ClienteRoutingModule,
     A11yModule,
@@ -79,6 +79,7 @@ import { ClienteNovoComponent } from './cliente-novo/cliente-novo.component'
     DragDropModule,
     MatAutocompleteModule,
     MatBadgeModule,
+    MatTableModule,
     MatBottomSheetModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -114,6 +115,7 @@ import { ClienteNovoComponent } from './cliente-novo/cliente-novo.component'
     MatTreeModule,
     OverlayModule,
     MatFormFieldModule,
+    MatInputModule,
     PortalModule,
     ScrollingModule,
     DialogModule,
@@ -122,7 +124,7 @@ import { ClienteNovoComponent } from './cliente-novo/cliente-novo.component'
   ],
   exports: [
     ClienteInfoComponent,
-    ClienteListComponent,
+    // ClienteListComponent,
     ClienteEditComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

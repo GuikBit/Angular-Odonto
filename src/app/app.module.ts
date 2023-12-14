@@ -7,10 +7,10 @@ import { AppComponent } from './app.component';
 
 import { TemplateModule } from './template/template.module';
 import { HomeComponent } from './home/home.component'
-//import { ClientesModule } from './clientes/clientes.module';
-//import { ClientesService } from './clientes.service';
-//import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.module';
-//import { ServicoPrestadoService } from './servico-prestado.service';
+
+// import { ClientesService } from './clientes.service';
+// import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.module';
+// import { ServicoPrestadoService } from './servico-prestado.service';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout/layout.component';
@@ -18,7 +18,7 @@ import { AuthService } from './auth.service';
 import { TokenInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClienteModule } from './cliente/cliente.module';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import {A11yModule} from '@angular/cdk/a11y';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -66,12 +66,16 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import {DialogModule} from '@angular/cdk/dialog';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DentistaListComponent } from './dentista/dentista-list/dentista-list.component';
-import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
-import { DentistaModule } from './dentista/dentista.module';
-import { ConsultaModule } from './consulta/consulta.module';
+// import { DentistaListComponent } from './dentista/dentista-list/dentista-list.component';
+// import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
+// import { DentistaModule } from './dentista/dentista.module';
+// import { ConsultaModule } from './consulta/consulta.module';
 import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { Cliente } from './cliente/cliente';
+import { ClienteNovoComponent } from './cliente/cliente-novo/cliente-novo.component';
+import { ClienteListComponent } from './cliente/cliente-list/cliente-list.component';
+import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
 
 
 
@@ -82,6 +86,10 @@ import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.
     LayoutComponent,
     HomeComponent,
     CustomSnackbarComponent,
+    ClienteNovoComponent,
+    ClienteListComponent,
+    // ConsultaListComponent
+   
   ],
   imports: [
     BrowserModule,
@@ -91,9 +99,7 @@ import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.
     ClienteModule,
     BrowserAnimationsModule,   
     FormsModule,
-    FontAwesomeModule,
     ReactiveFormsModule,
-    //ServicoPrestadoModule,
     A11yModule,
     CdkAccordionModule,
     ClipboardModule,
@@ -142,11 +148,12 @@ import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.
     PortalModule,
     ScrollingModule,
     DialogModule,
-    
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [ 
-   // ClientesService,
-   //ServicoPrestadoService,
+  //  ClientesService,
+  //  ServicoPrestadoService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

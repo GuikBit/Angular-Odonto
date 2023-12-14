@@ -1,6 +1,3 @@
-
-
-
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
@@ -9,12 +6,17 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AssyncServiceService } from 'src/app/assync-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 
 @Component({
   selector: 'app-cliente-novo',
   templateUrl: './cliente-novo.component.html',
-  styleUrls: ['./cliente-novo.component.css']
+  styleUrls: ['./cliente-novo.component.css'],
+  
 })
 export class ClienteNovoComponent {
   // Dados do Cliente

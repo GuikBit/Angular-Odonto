@@ -1,19 +1,23 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+
+
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from './../consulta';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-consulta-list',
   templateUrl: './consulta-list.component.html',
   styleUrls: ['./consulta-list.component.css']
 })
-export class ConsultaListComponent {
+export class ConsultaListComponent{
 
   colunas : string [] = ['nome', 'cpf', 'dataCadastro', 'btns'];
 

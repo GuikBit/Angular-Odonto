@@ -61,6 +61,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatBadgeModule,
     MatBottomSheetModule,
     MatButtonModule,
+    MatTableModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,

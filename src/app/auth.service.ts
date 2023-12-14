@@ -18,7 +18,7 @@ export class AuthService {
   clientSecret:string = environment.clienteSecret;
   jwtHelper: JwtHelperService = new JwtHelperService();
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient) { 
    
   }
 
