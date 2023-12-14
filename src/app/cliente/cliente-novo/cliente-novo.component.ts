@@ -1,17 +1,15 @@
 
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente'
-import { Validators, FormBuilder, FormGroup, ValidatorFn, FormControl, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AssyncServiceService } from 'src/app/assync-service.service';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-import { Endereco } from '../cadastro/endereco';
-import { MatIconButton } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
-import { TextMaskModule } from 'angular2-text-mask';
+
 
 @Component({
   selector: 'app-cliente-novo',
