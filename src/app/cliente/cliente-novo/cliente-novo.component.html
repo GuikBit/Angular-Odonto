@@ -32,16 +32,23 @@
         
                             <div class="blocoLinha">
                                 <mat-form-field appearance="outline" class="lb3">
+
                                     <mat-label>Login</mat-label>
-                                    <input type="text" matInput placeholder="Login" formControlName="login" required (blur)="buscaLogin()">
+                                    <input type="text" matInput placeholder="Minimo 3 caracteres" formControlName="login" required (input)="buscaLogin()" minlength="3">
                                     <mat-icon matPrefix>person</mat-icon>                                   
-                                    <mat-error *ngIf="formulario.controls['login'].errors?.['required']" class="lbObri">
+                                    <mat-hint *ngIf="formulario.controls['login'].errors?.['required']" class="lbObri">
                                         <b>* </b>Campo obrigatório
-                                    </mat-error>                                
-                                    <mat-error *ngIf="formulario.controls['senha'].errors?.['loginEmUso']" class="lbObri">
+                                    </mat-hint>                   
+                                    <mat-error *ngIf="formulario.controls['login'].errors?.['loginEmUso']" class="inputError">
                                         O login digitado já está em uso.
-                                    </mat-error>                                                                     
+                                    </mat-error>  
+                                    <mat-icon matSuffix *ngIf="(formulario.controls['login'].errors?.['loginEmUso'])" class="iconError">cancel</mat-icon> 
+                                    <mat-hint *ngIf="validacaoLogin" class="inputValido">
+                                        O login é válido.
+                                    </mat-hint> 
+                                    <mat-icon matSuffix *ngIf="validacaoLogin" class="iconValido">check</mat-icon>                                                                 
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb3">
                                     <mat-label>Senha</mat-label>
                                     <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha" required>
@@ -51,6 +58,7 @@
                                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                     </button>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb2">
                                     <mat-label>N° Pasta</mat-label>
                                     <input type="text" matInput placeholder="" formControlName="numPasta" maxlength="5">
@@ -66,31 +74,40 @@
                                     <mat-icon matPrefix>mode</mat-icon>
                                     <mat-hint *ngIf="formulario.controls['nome'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb3">
-                                    <mat-label>CPF</mat-label>
-                                    <input type="text" matInput placeholder="" formControlName="cpf" maxlength="11">
+                                    <mat-label> CPF </mat-label>
+                                    <input type="text" matInput placeholder="" formControlName="cpf" maxlength="14" minlength="11" (input)="validaCPF()">
                                     <mat-icon matPrefix>badge</mat-icon>
                                     <mat-hint *ngIf="formulario.controls['cpf'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
-                                   
+                                    <mat-error *ngIf="formulario.controls['cpf'].errors?.['tam'] || !validacaoCPF" class="inputError">
+                                        CPF inválido.
+                                    </mat-error> 
+                                    <mat-hint *ngIf="existeCPF" class="inputError">
+                                        CPF já cadastrado.
+                                    </mat-hint>                                    
+                                    <mat-icon matSuffix *ngIf="!validacaoCPF && validacaoCPF != null && !existeCPF || existeCPF" class="iconError">cancel</mat-icon> 
+                                    <mat-hint *ngIf="validacaoCPF" class="inputValido">
+                                        CPF válido.
+                                    </mat-hint>
+                                    <mat-icon matSuffix *ngIf="validacaoCPF" class="iconValido">check</mat-icon>
+
                                 </mat-form-field>
-                                <!-- <mat-form-field appearance="outline" class="lb2">
-                                    <mat-label>Data Nascimento</mat-label>
-                                    <input type="text" matInput placeholder="" formControlName="dataNascimento">
-                                    <mat-icon matPrefix>calendar_month</mat-icon>                                    
-                                </mat-form-field> -->
-                                <mat-form-field appearance="outline" class="lb3">
+
+                                <mat-form-field appearance="outline" class="dataNasc">
                                     <mat-label>Data de Nascimento</mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="dataNascimento">    
+                                    <input matInput [matDatepicker]="picker" formControlName="dataNascimento" minlength="8" maxlength="11">    
                                     <mat-hint *ngIf="formulario.controls['dataNascimento'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>                               
-                                    <mat-datepicker-toggle matIconPrefix [for]="picker"></mat-datepicker-toggle>                                   
+                                    <mat-datepicker-toggle matIconPrefix [for]="picker" class="iconData"></mat-datepicker-toggle>                                   
                                     <mat-datepicker #picker></mat-datepicker>
                                   </mat-form-field>
+
                             </div>
                             
                             <div class="blocoLinha">
                                 <mat-form-field appearance="outline" class="lb3">
                                     <mat-label>Telefone</mat-label>
-                                    <input type="text" matInput placeholder="" formControlName="telefone">
+                                    <input type="text" matInput placeholder="" formControlName="telefone" (input)="replaceTelefone(1)">
                                     <mat-icon matPrefix>call</mat-icon>
                                     <mat-hint *ngIf="formulario.controls['telefone'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
                                 </mat-form-field>
@@ -99,11 +116,8 @@
                                     <mat-label>Email</mat-label>
                                     <input type="email" matInput placeholder="" formControlName="email">
                                     <mat-icon matPrefix>mail</mat-icon>
-                                                                  
-                                        <mat-hint *ngIf="formulario.controls['email'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
-                                        
-                                    
-                                </mat-form-field>
+                                    <mat-hint *ngIf="formulario.controls['email'].errors?.['required']" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                               </mat-form-field>
         
                                 <input type="file">
                                
@@ -119,28 +133,39 @@
                         <span class="infoTitle">Responsável</span>
                     </div>
                     <div class="infoPessoal">
-                        <div class="InfoPessoais">
-        
+                        <div class="InfoPessoais">        
                             <div class="blocoLinha" formGroupName="responsavel">
+
                                 <mat-form-field appearance="outline" class="lb5">
                                     <mat-label>Nome do(a) Responsável</mat-label>
-                                    <input type="text" matInput placeholder="" formControlName="nome">
-                                    
-                                    <mat-icon matPrefix>mode</mat-icon>
-                                    
+                                    <input type="text" matInput placeholder="" formControlName="nome">                                    
+                                    <mat-icon matPrefix>mode</mat-icon>                                    
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb3">
-                                    <mat-label>CPF do(a) Responsável</mat-label>
+                                    <!-- <mat-label>CPF do(a) Responsável</mat-label>
                                     <input type="text"  matInput placeholder=""  formControlName="cpf">
-                                    <mat-icon matPrefix>badge</mat-icon>
-                                   
+                                    <mat-icon matPrefix>badge</mat-icon> -->
+                                    <mat-label> CPF </mat-label>
+                                    <input type="text" matInput placeholder="" formControlName="cpf" maxlength="14" minlength="11" (input)="RespValidaCPF()">
+                                    <mat-icon matPrefix>badge</mat-icon>                                    
+                                    <mat-hint *ngIf="formulario.get('responsavel.cpf')?.hasError('required') || !RespValidacaoCPF && RespValidacaoCPF != null" class="inputError">
+                                        CPF inválido.
+                                    </mat-hint> 
+                                    <mat-icon matSuffix *ngIf="!RespValidacaoCPF && RespValidacaoCPF != null" class="iconError">cancel</mat-icon> 
+                                    <mat-hint *ngIf="RespValidacaoCPF" class="inputValido">
+                                        CPF válido.
+                                    </mat-hint>
+                                    <mat-icon matSuffix *ngIf="RespValidacaoCPF" class="iconValido">check</mat-icon>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb3">
                                     <mat-label>Telefone do(a) Responsável</mat-label>
-                                    <input type="text"  matInput placeholder="" formControlName="telefone">
+                                    <input type="text"  matInput placeholder="" formControlName="telefone" (input)="replaceTelefone(2)">
                                     <mat-icon matPrefix>call</mat-icon>
                                    
                                 </mat-form-field>
+
                             </div>
                            
         
@@ -159,18 +184,30 @@
                         <div class="InfoPessoais" formGroupName="endereco">
         
                             <div class="blocoLinha">
+
                                 <mat-form-field appearance="outline" class="lb3">
                                     <mat-label>CEP</mat-label>
-                                    <input type="text" matInput placeholder="" formControlName="cep" (blur)="buscaCEP()">
+                                    <input type="text" matInput placeholder="" formControlName="cep" (blur)="buscaCEP()" minlength="8" maxlength="11">
                                     <mat-icon matPrefix>add_location</mat-icon>
                                     <mat-hint *ngIf="formulario.get('endereco.cep')?.hasError('required')" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
+                                    <mat-icon matSuffix *ngIf="isLoodingCEP">
+                                        <mat-spinner diameter="25" ></mat-spinner>
+                                    </mat-icon>
+                                    <mat-hint *ngIf="buscouCEP && buscouCEP != null" class="inputValido">
+                                        CEP válido.
+                                    </mat-hint>
+                                    <mat-hint *ngIf="!buscouCEP && buscouCEP != null" class="inputError">
+                                        CEP invalido.
+                                    </mat-hint>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb3">
                                     <mat-label>Cidade</mat-label>
                                     <input type="text" matInput placeholder="" formControlName="cidade">
                                     <mat-icon matPrefix>location_city</mat-icon>
                                     <mat-hint *ngIf="formulario.get('endereco.cidade')?.hasError('required')" class="lbObri"><b>* </b>Campo obrigatório</mat-hint>
                                 </mat-form-field>
+
                                 <mat-form-field appearance="outline" class="lb3">
                                     <mat-label>Bairro</mat-label>
                                     <input type="text" matInput placeholder="" formControlName="bairro">

@@ -1,11 +1,14 @@
 <div class="container">
+  <div class="cardTitulo">
+    <h1 class="titulo">Pacientes</h1>
+  </div>
   <div class="card">
     <div class="tableMenu">
     
       <mat-form-field appearance="outline" class="search">
         <mat-icon matPrefix>search</mat-icon>
-        <mat-label>Burcar Paciente</mat-label>
-        <input matInput type="search" placeholder="Nome" #input>
+        <mat-label>Buscar Paciente</mat-label>
+        <input matInput type="search" placeholder="Nome ou N° Pasta" #input (input)="buscarPaciente(input.value)">
       </mat-form-field>
   
       <button mat-fab extended (click)="cadastro()" class="btnadd"><mat-icon>person_add</mat-icon>Novo Paciente</button>
@@ -49,8 +52,8 @@
   
           <tr mat-header-row *matHeaderRowDef="colunas"></tr>
           <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
-          <tr class="mat-row"*matNoDataRow >
-            <td class="mat-cell"colspan="5"><b> Nem um paciente {{input.value}} encontrado, cadastre um paciente.</b></td>
+          <tr class="mat-row"*matNoDataRow >            
+            <td   colspan="5"><b class="mat-cell"> Nem um paciente encontrado, cadastre um paciente.</b></td>
           </tr>
         </table>
         <mat-paginator class="paginacao" [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="pagaSizeOptions" (page)="paginar($event)"> </mat-paginator>

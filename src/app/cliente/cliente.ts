@@ -5,15 +5,15 @@ import { Responsavel } from './cadastro/responsavel';
 export class Cliente {
     
     id?: number;
-    numPasta?: string = '1234';
-    login?: string = 'gui';
-    senha?: string = '123';
-    email?: string = 'gui@gmail.com';
-    nome?: string = 'Guilherme Pinto de Oliveira';
-    cpf?: string = '12098133600';
+    numPasta?: string = '';
+    login?: string = '';
+    senha?: string = '';
+    email?: string = '';
+    nome?: string = '';
+    cpf?: string = '';
     dataCadastro?: string;
-    dataNascimento?: string = '18/11/1998';
-    telefone?: string = '(32) 99822-0082'; 
+    dataNascimento?: string = '';
+    telefone?: string = ''; 
     ativo?: boolean;
     role?: string;
 

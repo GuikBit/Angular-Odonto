@@ -111,17 +111,54 @@ export class ClienteService {
       });
 
       try { 
-        const response = await instance.get(`${this.apiURL}/validaLogin`);      
-        if(response.status === 200 || response.status === 201){
-          return true;
-        }else{
-          return false;
-        }
+        const response = await instance.get(`${this.apiURL}/validaLogin?login=${login}`);   
         
+        if(response.data === true){
+          return true;
+        }else {
+          return false;
+        }        
       } catch (error) {
-        console.error(error);
-        return <any> error;
+        console.log(error)
+        return false;
+      }
+    }
+
+    async buscaCPF(cpf: any) {
+    const instance = axios.create({
+        baseURL: `${this.apiURL}`,
+        timeout: 1000,
+        headers: { Authorization: 'Bearer ' + (await this.getToken())},
+      });
+      try {         
+        const response = await instance.get(`${this.apiURL}/validaCPF?cpf=${cpf}`);
+        
+        if(response.data === true){
+          return true;
+        }else {
+          return false;
+        }        
+      } catch (error) {
+        console.log(error)
+        return false;
       }
     }
     
+    async seachPaceinte(seachPaciente: string, page: number, size: number) {
+      const instance = axios.create({
+        baseURL: `${this.apiURL}`,
+        timeout: 1000,
+        headers: { Authorization: 'Bearer ' + (await this.getToken())},
+      });
+      try {         
+
+        const response = await instance.get(`${this.apiURL}/buscarPaciente?page=${page}&size=${size}&search=${seachPaciente}`);
+        console.log(response.data)
+        return response.data;
+
+      } catch (error) {
+        console.log(error)
+        return false;
+      }
+    }
 }

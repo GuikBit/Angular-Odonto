@@ -163,6 +163,10 @@ form h2{
     width: 30vw;
     margin-right: 70px;
 }
+.dataNasc{
+    width: 12vw;
+    margin-right: 70px;
+}
 .btnSlide{
     margin: 8px 0;
     
@@ -231,5 +235,32 @@ hr {
   .lbObri{
     color: rgb(250, 124, 124);
   }
+  .inputError{
+    color: rgb(250, 124, 124);
+    font-weight: 500;
+    font-size:  0.9rem;
+    margin-top: 5px;
+  }
+  .iconError{
+    color: rgb(250, 124, 124);
+  }
+  .inputValido{
+    color: #1e9131;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  .iconValido{
+    color: #1e9131;
+  }
+  .iconData{
+    color: #2070B4;
+  }
 
+  /* .mat-form-field.login-valido{
+    border-color: 1px solid #1e9131;
+  } */
+  .login-valido {
+    border-color: solid #1e9131 !important;
+  }
 

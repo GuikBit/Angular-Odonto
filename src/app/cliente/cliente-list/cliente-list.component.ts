@@ -17,6 +17,7 @@ import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-sna
   styleUrls: ['./cliente-list.component.css']
 })
 export class ClienteListComponent implements AfterViewInit{
+
   
   clienteSelecionado?: Cliente;
   msgSuccess?: string;
@@ -35,7 +36,8 @@ export class ClienteListComponent implements AfterViewInit{
   msgSalvar: string;
   msgSalvarStyle: string;
 
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
+
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -114,21 +116,31 @@ export class ClienteListComponent implements AfterViewInit{
 //     this.msgErro= 'Ocorreu um erro ao deletar o cliente!'
 //   })
 // }
-deletarCliente(){}
+  deletarCliente(){}
 
+  paginar(event: PageEvent) {
+    this.pagina = event.pageIndex;
+    this.viewTable(this.pagina, this.tamanho);
+  }
+  openSnackBar ( ) {
 
-paginar(event: PageEvent) {
-  this.pagina = event.pageIndex;
-  this.viewTable(this.pagina, this.tamanho);
-}
-openSnackBar ( ) {
+    const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
+      data: { message: this.msgSalvar },
+      duration: 3000,
+      panelClass: [this.msgSalvarStyle],
+      verticalPosition: 'top', 
+      horizontalPosition: 'end',
+    });
+  }
 
-  const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
-    data: { message: this.msgSalvar },
-    duration: 3000,
-    panelClass: [this.msgSalvarStyle],
-    verticalPosition: 'top', 
-    horizontalPosition: 'end',
-  });
-}
+  async buscarPaciente(seachPaciente: string){
+    if (seachPaciente !== undefined && seachPaciente !== '') {
+      const lista = await this.service.seachPaceinte(seachPaciente, 1, 10);
+      this.dataSource = new MatTableDataSource<any>(lista);
+      this.dataSource.connect();  // Conectar a fonte de dados após a atualização
+      this.dataSource._updateChangeSubscription(); // Esta linha força a atualização da tabela
+      
+    }
+    
+  }
 }

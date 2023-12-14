@@ -142,6 +142,7 @@ import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.
     PortalModule,
     ScrollingModule,
     DialogModule,
+    
   ],
   providers: [ 
    // ClientesService,
@@ -151,7 +152,8 @@ import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    
   ],
   bootstrap: [AppComponent]
 })
