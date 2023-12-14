@@ -34,7 +34,7 @@ export class ConsultaService {
     return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
   }
 
-  async getConsultas(page: number, size: number){
+  async getConsultas(){
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
       timeout: 1000,
@@ -42,9 +42,8 @@ export class ConsultaService {
     });
 
     try{
-      const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`)
-      
-      return response;
+      const response = await instance.get(`${this.apiURL}`)      
+      return response.data;
       
     }catch (error) {
       console.error(error);
@@ -52,19 +51,19 @@ export class ConsultaService {
     }
   }
 
-  async totalConsultas(){
-    const instance = axios.create({
-      baseURL: `${this.apiURL}`,
-      timeout: 1000,
-      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-    });
-    try { 
-      console.log(`${this.apiURL}s/total`)
-      const response = await instance.get(`${this.apiURL}s/total`);      
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return <any> 0;
-    }
-  }
+  // async totalConsultas(){
+  //   const instance = axios.create({
+  //     baseURL: `${this.apiURL}`,
+  //     timeout: 1000,
+  //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+  //   });
+  //   try { 
+  //     console.log(`${this.apiURL}s/total`)
+  //     const response = await instance.get(`${this.apiURL}s/total`);      
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return <any> 0;
+  //   }
+  // }
 }

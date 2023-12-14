@@ -17,7 +17,6 @@ import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-sna
   styleUrls: ['./cliente-list.component.css']
 })
 export class ClienteListComponent implements AfterViewInit{
-
   
   clienteSelecionado?: Cliente;
   msgSuccess?: string;
@@ -25,72 +24,58 @@ export class ClienteListComponent implements AfterViewInit{
   searchTerm?: string ;
   //table
   colunas : string []= ['nSerie','nome', 'cpf', 'dataCadastro', 'btns'];
-  clientes: Cliente[]; 
-  
-  showFiller = false;
-  totalElementos = 0;
-  pagina = 1;
-  tamanho = 10;
-  pagaSizeOptions : number[] = [5, 10, 25, 50];
+  dataSource: MatTableDataSource<Cliente>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator ;
+  @ViewChild(MatSort) sort: MatSort;
 
   msgSalvar: string;
   msgSalvarStyle: string;
 
 
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  constructor(private service: ClienteService, private router: Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
+    
+   this.criaTabelaPaciente();
+  }
 
+ 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  constructor(private service: ClienteService, private router: Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
-    
-  }
-
-
-  // ngOnInit(): void {
-  //   //this.service.getClientes(this.pagina, this.tamanho).subscribe(response => this.Clientes = response);
-  //   this.viewTable(this.pagina, this.tamanho);
-  // }
- 
   ngOnInit(): void {
-    this.viewTable(this.pagina, this.tamanho);
     this.route.params.subscribe(params => {
-      if(params['salvo']){
+      if (params['salvo']) {
         this.msgSalvar = "Novo paciente salvo com sucesso!";
-        this.msgSalvarStyle = "SuccessSnackbar";         
-        this.openSnackBar ( )
+        this.msgSalvarStyle = "SuccessSnackbar";
+        this.criaTabelaPaciente(); // Chame aqui
+        this.openSnackBar();
       }
     })
-  }
-
-  filterCountries(searchTerm: string) {
-    this.dataSource.filter = searchTerm.trim().toLocaleLowerCase();
-    const filterValue = searchTerm;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  
-  onMatSortChange() {
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-
-  async viewTable(pagina: any, tamanho: any) {
-    const response = await this.service.getPacientes(pagina, tamanho);
-    this.clientes = response?.data !== null ? response?.data : null;
-    this.dataSource = new MatTableDataSource<any>(this.clientes);
-    this.totalElementos = await this.service.totalPacientes();
-    this.pagina = pagina;
+  async criaTabelaPaciente() {
+    try {
+      const response = await this.service.getPacientes();
+      this.dataSource = new MatTableDataSource(response);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    
+    } catch (error) {
+      console.error('Erro ao obter pacientes:', error);
+    }
   }
-
+  
   cadastro(){
     this.router.navigate(['/clientes/novo'])
   }
@@ -103,6 +88,7 @@ export class ClienteListComponent implements AfterViewInit{
   info(id: any){
     this.router.navigate([`/clientes/info/${id}`])
   }
+
   preparaDelecao(cliente: Cliente){
     this.clienteSelecionado = cliente;
   }
@@ -118,12 +104,7 @@ export class ClienteListComponent implements AfterViewInit{
 // }
   deletarCliente(){}
 
-  paginar(event: PageEvent) {
-    this.pagina = event.pageIndex;
-    this.viewTable(this.pagina, this.tamanho);
-  }
   openSnackBar ( ) {
-
     const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
       data: { message: this.msgSalvar },
       duration: 3000,
@@ -131,16 +112,5 @@ export class ClienteListComponent implements AfterViewInit{
       verticalPosition: 'top', 
       horizontalPosition: 'end',
     });
-  }
-
-  async buscarPaciente(seachPaciente: string){
-    if (seachPaciente !== undefined && seachPaciente !== '') {
-      const lista = await this.service.seachPaceinte(seachPaciente, 1, 10);
-      this.dataSource = new MatTableDataSource<any>(lista);
-      this.dataSource.connect();  // Conectar a fonte de dados após a atualização
-      this.dataSource._updateChangeSubscription(); // Esta linha força a atualização da tabela
-      
-    }
-    
   }
 }

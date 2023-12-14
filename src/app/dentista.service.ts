@@ -40,7 +40,7 @@ export class DentistaService {
     return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
   }
 
-  async getDentistas(page: number, size:number){
+  async getDentistas(){
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
       timeout: 1000,
@@ -48,26 +48,26 @@ export class DentistaService {
     });
 
     try{
-      const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`)
-      return response;
+      const response = await instance.get(`${this.apiURL}`)
+      return response.data;
     }catch(error){
       console.error(error);
       return null
     }
   }
 
-  async totalDentistas(){
-    const instance = axios.create({
-      baseURL: `${this.apiURL}`,
-      timeout: 1000,
-      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-    });
-    try { 
-      const response = await instance.get(`${this.apiURL}/total`);      
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return <any> 0;
-    }
-  }
+  // async totalDentistas(){
+  //   const instance = axios.create({
+  //     baseURL: `${this.apiURL}`,
+  //     timeout: 1000,
+  //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+  //   });
+  //   try { 
+  //     const response = await instance.get(`${this.apiURL}/total`);      
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return <any> 0;
+  //   }
+  // }
 }

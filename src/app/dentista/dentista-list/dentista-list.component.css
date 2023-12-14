@@ -50,6 +50,7 @@ th{
     justify-content:space-around;
 
 }
+
 .info{   
     background-color: #54a2dc;
     color: #F4F2F0;
@@ -67,4 +68,41 @@ th{
     color: #F4F2F0;
     width: 36px;
     height: 36px;
+}
+.deleteFab{
+    width: 5vw;
+    height: 3vh;
+    justify-content: space-between;
+   font-size: small;
+}
+.ibFab{
+    justify-content: center;
+    margin-top: 5px;
+    font-size: medium;
+   
+}
+.search{
+    color: #2070b4;
+    border: none;
+    width: 25vw;
+}
+.cardTitulo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2%;
+}
+
+.titulo{
+    /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2070b4;
+    
+}
+.mat-cell{
+    font-weight: 600;
+    color:  #888888
+}
+.mat-column-btns{
+    width: 15vw;
 }

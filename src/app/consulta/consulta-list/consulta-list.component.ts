@@ -2,9 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from './../consulta';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-consulta-list',
@@ -14,47 +16,70 @@ import { Consulta } from './../consulta';
 export class ConsultaListComponent {
 
   colunas : string [] = ['nome', 'cpf', 'dataCadastro', 'btns'];
-  consultas: Consulta[];
 
-  showFiller = false;
-  totalElementos = 0;
-  pagina = 0;
-  tamanho = 10;
-  pagaSizeOptions : number[] = [5, 10, 25, 50];
+  dataSource: MatTableDataSource<Consulta>;
 
-  constructor(private service: ConsultaService, private router: Router){}
+  @ViewChild(MatPaginator) paginator: MatPaginator ;
+  @ViewChild(MatSort) sort: MatSort;
 
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  msgSalvar: string;
+  msgSalvarStyle: string;
 
+  constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private _snackBar: MatSnackBar){
+    this.criaTabelaConsulta();
+  }
+
+  
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
-    this.viewTable(this.pagina, this.tamanho);
-    this.dataSource = new MatTableDataSource<any>(this.consultas);
+    this.route.params.subscribe(params => {
+      if (params['salvo']) {
+        this.msgSalvar = "Novo paciente salvo com sucesso!";
+        this.msgSalvarStyle = "SuccessSnackbar";
+        this.criaTabelaConsulta(); // Chame aqui
+        this.openSnackBar();
+      }
+    })
   }
 
-  async viewTable( pagina: any, tamanho: any){
+  // async viewTable( pagina: any, tamanho: any){
     
-    const response = await this.service.getConsultas(pagina, tamanho)    
-    this.consultas = response?.data !== null ? response?.data : null;
-    this.dataSource = new MatTableDataSource<any>(this.consultas);
-    this.totalElementos = await this.service.totalConsultas();
-    this.pagina = pagina;
+  //   const response = await this.service.getConsultas(pagina, tamanho)    
+  //   this.consultas = response?.data !== null ? response?.data : null;
+  //   this.dataSource = new MatTableDataSource<any>(this.consultas);
+  //   this.totalElementos = await this.service.totalConsultas();
+  //   this.pagina = pagina;
 
+  // }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  cadastro(){
+  async criaTabelaConsulta() {
+    try {
+      const response = await this.service.getConsultas();
+      this.dataSource = new MatTableDataSource(response);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      
+    } catch (error) {
+      console.error('Erro ao obter pacientes:', error);
+    }
+  }
 
-  }
-  paginar(event: PageEvent){
-    this.pagina = event.pageIndex;
-    this.viewTable(this.pagina, this.tamanho)
-  }
+ cadastro(){
+  this.router.navigate([`/consulta/nova`])
+ }
 
   edit(id: any){
     this.router.navigate([`/dentista/edit/${id}`])
@@ -64,6 +89,16 @@ export class ConsultaListComponent {
   }
   info(id: any){
     this.router.navigate([`/dentista/info/${id}`])
+  }
+
+  openSnackBar ( ) {
+    const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
+      data: { message: this.msgSalvar },
+      duration: 3000,
+      panelClass: [this.msgSalvarStyle],
+      verticalPosition: 'top', 
+      horizontalPosition: 'end',
+    });
   }
 
 }

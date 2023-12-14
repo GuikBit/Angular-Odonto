@@ -65,8 +65,25 @@ export class ClienteService {
         return null
       }
     }
+    async getPacientes(){
+      
+      const instance = axios.create({
+        baseURL: `${this.apiURL}`,
+        timeout: 1000,
+        headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+      });
+          
+      try { 
+        const response = await instance.get(`${this.apiURL}`);        
+        return response.data;
 
-    async getPacientes(page:number, size:number){
+      } catch (error) {
+        console.error(error);
+        return null
+      }
+    }
+
+    async getPacientesPaginado(page:number, size:number){
       
       const instance = axios.create({
         baseURL: `${this.apiURL}`,
@@ -88,20 +105,20 @@ export class ClienteService {
       return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
     }
 
-    async totalPacientes(){
-      const instance = axios.create({
-        baseURL: `${this.apiURL}`,
-        timeout: 1000,
-        headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-      });
-      try { 
-        const response = await instance.get(`${this.apiURL}/total`);      
-        return response.data;
-      } catch (error) {
-        console.error(error);
-        return <any> 0;
-      }
-    }
+    // async totalPacientes(){
+    //   const instance = axios.create({
+    //     baseURL: `${this.apiURL}`,
+    //     timeout: 1000,
+    //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    //   });
+    //   try { 
+    //     const response = await instance.get(`${this.apiURL}/total`);      
+    //     return response.data;
+    //   } catch (error) {
+    //     console.error(error);
+    //     return <any> 0;
+    //   }
+    // }
 
     async buscaLogin(login: string){
       const instance = axios.create({
@@ -144,21 +161,21 @@ export class ClienteService {
       }
     }
     
-    async seachPaceinte(seachPaciente: string, page: number, size: number) {
-      const instance = axios.create({
-        baseURL: `${this.apiURL}`,
-        timeout: 1000,
-        headers: { Authorization: 'Bearer ' + (await this.getToken())},
-      });
-      try {         
+    // async seachPaceinte(seachPaciente: string, page: number, size: number) {
+    //   const instance = axios.create({
+    //     baseURL: `${this.apiURL}`,
+    //     timeout: 1000,
+    //     headers: { Authorization: 'Bearer ' + (await this.getToken())},
+    //   });
+    //   try {         
 
-        const response = await instance.get(`${this.apiURL}/buscarPaciente?page=${page}&size=${size}&search=${seachPaciente}`);
-        console.log(response.data)
-        return response.data;
+    //     const response = await instance.get(`${this.apiURL}/buscarPaciente?page=${page}&size=${size}&search=${seachPaciente}`);
+    //     console.log(response.data)
+    //     return response.data;
 
-      } catch (error) {
-        console.log(error)
-        return false;
-      }
-    }
+    //   } catch (error) {
+    //     console.log(error)
+    //     return false;
+    //   }
+    // }
 }

@@ -1,9 +1,13 @@
 <div class="container">
+  <div class="cardTitulo">
+    <h1 class="titulo">Dentistas</h1>
+  </div>
   <div class="card">
 
     <div class="tableMenu">
       
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="search">
+        <mat-icon matPrefix>search</mat-icon>
         <mat-label>Burcar Dentista... </mat-label>
         <input matInput placeholder="Nome" #input>
       </mat-form-field>
@@ -14,7 +18,7 @@
    
     <div class="tableBody">
       <mat-card>
-        <table mat-table [dataSource]="dentistas" class="table" matSort>
+        <table mat-table [dataSource]="dataSource" class="table" matSort>
 
             <ng-container matColumnDef="nome">
                 <th mat-header-cell *matHeaderCellDef> Nome </th>
@@ -38,6 +42,7 @@
                     <button mat-mini-fab class="info" (click)="info(dentistas.id)" ><mat-icon>info</mat-icon></button>
                     <button mat-mini-fab class="edit" (click)="edit(dentistas.id)"><mat-icon>edit</mat-icon></button>
                     <button mat-mini-fab class="delete" (click)="delet(dentistas.id)"><mat-icon>delete</mat-icon></button>
+                    
                   </div>
                                         
       
@@ -47,10 +52,10 @@
               <tr mat-header-row *matHeaderRowDef="colunas"></tr>
               <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
               <tr class="mat-row"*matNoDataRow >
-                <td class="mat-cell"colspan="5"><b> Nem um paciente {{input.value}} encontrado, cadastre um paciente.</b></td>
+                <td class="mat-cell"colspan="5" class="mat-cell"><b> Nem um paciente {{input.value}} encontrado, cadastre um paciente.</b></td>
               </tr>
             </table>
-            <mat-paginator class="table" [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="pagaSizeOptions" (page)="paginar($event)"> </mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
             </mat-card>
     </div>
   </div>
