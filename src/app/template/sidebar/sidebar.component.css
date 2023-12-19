@@ -1,15 +1,15 @@
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
   mat-toolbar{
-    padding-left: 100px; 
+    padding-left: 100px;
     font-size: xx-large;
     background: linear-gradient(to right, #2070b4, #24aae3);
     color: #F4F2F0;
-    
+
   }
 
-  .img{
-    height: 80%;
-    padding-bottom: 5px;
-  }
 
   button{
     background: linear-gradient(to right, #2070b4, #24aae3);
@@ -26,14 +26,16 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    position: fixed;
+    bottom: 30px;
   }
 
  .systemMenus{
     display: flex;
-    position: fixed;   
+    position: fixed;
     width: 70vw;
     height: 10vh;
-    background-color: #f2f8fd;    
+    background-color: #f2f8fd;
     border-radius: 15px;
     bottom: 30px;
     align-items: center;
@@ -43,8 +45,20 @@
  .menus{
   display: flex;
   width: 100%;
+  justify-content: center;
+  align-items: center;
   justify-content: space-around;
-
+  background-color: #f2f8fd;
+  width: 70vw;
+  height: 10vh;
+  border: 1px solid #2070b4;
+  border-radius: 3rem;
  }
+.btnHome{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+}
 
- 
+.btnHomeAtivo{
+  background: linear-gradient(to right, red, #24aae3)
+}
+

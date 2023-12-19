@@ -1,7 +1,7 @@
 .container{
     padding: 2%;
 }
-.card{
+/* .card{
     padding: 2%;
     border-radius: 18px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -9,7 +9,7 @@
     border-width: 1px;
     border-style: solid;
     border-color: #54a2dc;
-}
+} */
 
 .btnadd{ 
     background: linear-gradient(to right, #2070b4, #24aae3);

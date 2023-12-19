@@ -1,7 +1,12 @@
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 .container{
     padding: 2%;
 }
-.card{
+
+/* .card{
     padding: 2%;
     border-radius: 18px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -9,7 +14,7 @@
     border-width: 1px;
     border-style: solid;
     border-color: #54a2dc;
-}
+} */
 
 /* menu */
 .tableMenu{
@@ -30,17 +35,17 @@ mat-tab-group{
 }
 mat-tab{
     font-size: large;
-    
+
 }
 
-.btnadd{ 
+.btnadd{
     background: linear-gradient(to right, #2070b4, #24aae3);
     width: 15vw;
 }
-.btnadd:hover{ 
+.btnadd:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
- 
+
 /* .info:hover, .delete:hover, .edit:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 } */
@@ -50,7 +55,7 @@ mat-tab{
 
 }
 
-.info{   
+.info{
     background-color: #54a2dc;
     color: #F4F2F0;
     width: 40px;
@@ -71,13 +76,13 @@ mat-tab{
 .tableBody{
     margin-top: 2%;
     /* width: 60%; */
- 
+
 }
 
 th, td{
-    text-align: center;   
+    text-align: center;
     font-size: 18px;
-    
+
 }
 .mat-mini-fab{
     width: 15px;
@@ -88,7 +93,7 @@ th{
     background: #c4ddf3 !important;
     color: #2070b4;
     font-size: x-large;
-    
+
 }
 .mat-column-nome{
     width: 35vw;
@@ -124,8 +129,13 @@ th{
     font-size: 2.5rem;
     font-weight: bold;
     color: #2070b4;
-    
-}
 
+}
+/* .border{
+    border-color: #2070b4;
+    color: #2070b4;
+    width: 100%;
+    font-size: larger;
+} */
 
 

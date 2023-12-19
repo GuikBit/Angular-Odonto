@@ -1,55 +1,48 @@
 
-<div class="container">
-    <div class="container_left">        
-        <!-- <img src="https://www.zarla.com/images/zarla-odontoplus-1x1-2400x2400-20210608-8pkdbt4xmjwptx39r66b.png?crop=1:1,smart&width=250&dpr=2" /> -->
-        <img src="assets/img/odonto.png" alt="Logo Odonto" class="img">
+
+<div class="flex justify-content-center align-items-center text-align-center  h-full">
+  <div class="container">
+    <div class="container_left">
+      <img src="assets/img/odonto.png" alt="Logo Odonto" class="img">
     </div>
     <div class="container_right">
-        <div class="create">
-           <div class="msg">
-                <div class="alertDanger" *ngFor="let erro of errors"> 
-                    {{erro}}
-                </div>
-           </div>
-            
-            <div class="alertSucess" *ngIf="msgSuccess"> 
-                {{msgSuccess}}
-            </div>
-            <div class="createHeader">
-                <h1 class="titulo">Bem Vindo!</h1>                
-            </div>
-            <div class="createBody">
-                <form  (ngSubmit)="onSubmit()">
-                    <div class="containerLogin">   
+      <div class="create">
+        <div class="createBody">
 
-                        <div class="row">
-                            <!-- <mat-icon aria-hidden="false" fontIcon="person" class="loginIcon"></mat-icon>  -->
-                            <mat-form-field appearance="outline" class="inputLogin"> 
-                                <mat-icon matPrefix>person</mat-icon> 
-                                <mat-label>Login </mat-label>                         
-                                <input matInput type="text"  name="userName" id="userName" [(ngModel)]="userName" autocomplete="off">
-                            </mat-form-field >
-                        </div>
-                        <div class="row">
-                            <!-- <mat-icon aria-hidden="false" fontIcon="key" class="loginIcon"></mat-icon>  -->
-                            <mat-form-field appearance="outline" class="inputLogin">
-                                <mat-icon matPrefix>key</mat-icon>
-                                <mat-label>Senha </mat-label>
-                                <input matInput type="password" name="password" id="password"  [(ngModel)]="password" autocomplete="off">
-                            </mat-form-field> 
-                        </div>          
-                    </div>
-                    <div>
-                        <button mat-fab extended (click)="onSubmit()" class="btnLogin">
-                            <mat-icon>login</mat-icon>
-                            Login
-                        </button>                        
-                    </div> 
-                                       
-                </form>
+          <div class="createHeader">
+            <h1 class="titulo">Bem Vindo!</h1>
+          </div>
+
+          <form  (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
+            <div class="containerLogin">
+
+              <div class="row">
+                <span class="p-float-label p-input-icon-left shadow-1 justify-content-center">
+                  <i class="pi pi-user azul" ></i>
+                  <input pInputText id="search" formControlName="userName" autocomplete="off"/>
+                  <label for="search" class="azul">Login</label>
+                </span>
+              </div>
+
+              <div class="row mt-5">
+                <span class="p-float-label p-input-icon-left shadow-1 justify-content-center">
+                  <i class="pi pi-key azul" ></i>
+                  <input pInputText id="password" type="password" formControlName="password" autocomplete="off"/>
+                  <label for="password" class="azul">Password</label>
+                </span>
+
+              </div>
             </div>
+            <div class="mt-5">
+            </div>
+            <div class="card flex justify-content-center mt-5">
+              <p-button label="Acessar" [rounded]="true" type="submit" styleClass="shadow-5" ><i class="material-icons" >login</i>&nbsp;&nbsp;&nbsp;</p-button>
+            </div>
+
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
 

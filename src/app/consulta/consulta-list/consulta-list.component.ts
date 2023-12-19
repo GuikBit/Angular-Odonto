@@ -1,3 +1,5 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 
 
@@ -7,16 +9,16 @@ import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from './../consulta';
 
 import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-consulta-list',
   templateUrl: './consulta-list.component.html',
   styleUrls: ['./consulta-list.component.css']
 })
+
 export class ConsultaListComponent{
 
   colunas : string [] = ['nome', 'cpf', 'dataCadastro', 'btns'];

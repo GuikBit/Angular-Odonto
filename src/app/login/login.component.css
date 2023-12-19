@@ -1,21 +1,20 @@
 *{
     margin: 0 auto;
-    padding: 0 auto;    
+    padding: 0 auto;
     justify-content: center;
 }
 
-.container{    
+.container{
     width: 60vw;
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 2vh ;
-    padding: 2em;
     border-width: 2px;
     border-style: solid;
     border-color: #54a2dc;
     background: #f2f8fd;
-    margin-top: 20vh;
-    
+;
+
 }
 .mat-icon{
     color: #2070B4;
@@ -30,7 +29,7 @@
     border-radius: 2vh 0vh 0vh 2vh;
     display: flex;
     justify-content: center;
-    
+
 }
 
 .container_right{
@@ -41,7 +40,7 @@
     display: flex;
     text-align: center;
     position: relative;
- 
+
 }
 
 
@@ -101,16 +100,16 @@
 .row{
     display: flex;
     justify-content: space-around;
-   
+
     margin-bottom: 10px;
-    
+
 }
 .inputLogin{
    width: 20vw;
 
 }
 
-.img{   
+.img{
     height: 35vh;
 }
 

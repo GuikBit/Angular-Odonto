@@ -1,7 +1,32 @@
-<mat-toolbar >  
+<!-- <mat-toolbar >
   <img src="assets/img/odontoWhite.png" class="img">
-  <span>Odonto</span>  
-</mat-toolbar> 
+  <span>Odonto</span>
+</mat-toolbar>  -->
+
+<div class="card">
+  <p-toolbar  [style]="{ 'border-radius': '0.5rem', 'background-image': 'linear-gradient(to right, #2070b4, #24aae3)' }">
+    <ng-template pTemplate="start">
+        <img src="assets/img/odontoWhite.png" width="80"/>
+    </ng-template>
+    <ng-template pTemplate="center">
+        <!-- <div class="flex flex-wrap align-items-center gap-3">
+            <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"><i class="pi pi-home text-2xl"></i></button>
+            <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"><i class="pi pi-user text-2xl"></i></button>
+            <button class="p-link inline-flex justify-content-center align-items-center text-white h-3rem w-3rem border-circle hover:bg-white-alpha-10 transition-all transition-duration-200"><i class="pi pi-search text-2xl"></i></button>
+
+         <p-button class=""><i class="pi pi-home text-2xl"></i></p-button>
+            <p-button class="p-link"><i class="pi pi-user text-2xl"></i></p-button>
+              <p-button class="p-link"><i class="pi pi-search text-2xl"></i></p-button>
+        </div> -->
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="flex align-items-center gap-2">
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+            <span class="font-bold text-bluegray-50">Amy Elsner</span>
+        </div>
+    </ng-template>
+  </p-toolbar>
+</div>
 
 <div class="main">
   <router-outlet></router-outlet>
@@ -9,14 +34,23 @@
 
 
 <div class="containerMenu">
-  <div class="systemMenus">
-    <div class="menus">
-      <button mat-fab extended  routerLink="/home"><mat-icon>home</mat-icon>Home</button>
-      <button mat-fab extended  routerLink="/clientes"><mat-icon>groups</mat-icon>Clientes</button>
-      <button mat-fab extended  routerLink="/consultas"><mat-icon>home_repair_service</mat-icon>Consultas</button>
-      <button mat-fab extended  routerLink="/dentistas"><mat-icon>people</mat-icon>Dentistas</button>
-      
-      <button mat-fab extended (click)="logout()"><mat-icon>logout</mat-icon>Sair</button>
-    </div>    
+  <div class=" menus">
+
+
+    <p-button label="Home"      routerLink="/home" [rounded]="true" styleClass="btnHome"><i class="material-icons">home</i></p-button>
+    <p-button label="Pacientes" routerLink="/clientes"  [rounded]="true" styleClass="btnHome"><i class="material-icons">groups</i></p-button>
+    <p-button label="Consultas" routerLink="/consultas" [rounded]="true" styleClass="btnHome"><i class="material-icons">home_repair_service</i></p-button>
+    <p-button label="Dentistas" routerLink="/dentistas" [rounded]="true" styleClass="btnHome"><i class="material-icons">people</i></p-button>
+    <p-button label="Sair" (click)="logout()" [rounded]="true" styleClass="btnHome"><i class="material-icons">logout</i></p-button>
+
+
   </div>
 </div>
+
+
+<!-- <div class="card">
+  <div class="newMenu">
+    <p-button label="Submit" icon="pi pi-check"><i class="pi pi-check text-2xl"></i></p-button>
+
+  </div>
+</div> -->

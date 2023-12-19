@@ -10,9 +10,18 @@ import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
 
+interface PageEvent {
+  first: number;
+  rows: number;
+  page: number;
+  pageCount: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
+
+
 
 @Component({
   selector: 'app-cliente-list',
@@ -34,11 +43,18 @@ export class ClienteListComponent implements AfterViewInit{
 
   msgSalvar: string;
   msgSalvarStyle: string;
-
+  first: number = 0;
+  rows: number = 10;
 
   constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
     
    this.criaTabelaPaciente();
+  }
+
+
+  onPageChange(event: any) {
+    this.first = event.first;
+    this.rows = event.rows;
   }
 
  
@@ -52,7 +68,7 @@ export class ClienteListComponent implements AfterViewInit{
       if (params['salvo']) {
         this.msgSalvar = "Novo paciente salvo com sucesso!";
         this.msgSalvarStyle = "SuccessSnackbar";
-        this.criaTabelaPaciente(); // Chame aqui
+        this.criaTabelaPaciente();
         this.openSnackBar();
       }
     })
@@ -73,7 +89,6 @@ export class ClienteListComponent implements AfterViewInit{
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    
     } catch (error) {
       console.error('Erro ao obter pacientes:', error);
     }

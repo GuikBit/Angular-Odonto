@@ -16,14 +16,16 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "importHelpers": true,
+    "importHelpers": false,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],"paths": {
+      "tslib" : ["path/to/node_modules/tslib/tslib.d.ts"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

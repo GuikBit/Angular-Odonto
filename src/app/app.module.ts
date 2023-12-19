@@ -1,3 +1,7 @@
+// import { ToolbarModule } from 'primeng/toolbar';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
 
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -32,8 +36,8 @@ import {CdkTreeModule} from '@angular/cdk/tree';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
-import {MatButtonModule} from '@angular/material/button';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+// import {MatButtonModule} from '@angular/material/button';
+// import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
@@ -44,7 +48,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
+// import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
@@ -68,15 +72,20 @@ import {CdkMenuModule} from '@angular/cdk/menu';
 import {DialogModule} from '@angular/cdk/dialog';
 // import { DentistaListComponent } from './dentista/dentista-list/dentista-list.component';
 // import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
-// import { DentistaModule } from './dentista/dentista.module';
-// import { ConsultaModule } from './consulta/consulta.module';
+import { DentistaModule } from './dentista/dentista.module';
+import { ConsultaModule } from './consulta/consulta.module';
 import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Cliente } from './cliente/cliente';
 import { ClienteNovoComponent } from './cliente/cliente-novo/cliente-novo.component';
 import { ClienteListComponent } from './cliente/cliente-list/cliente-list.component';
 import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
-
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { CardModule } from 'primeng/card';
+import { MessageService } from 'primeng/api';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
@@ -89,18 +98,25 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
     ClienteNovoComponent,
     ClienteListComponent,
     // ConsultaListComponent
-   
   ],
   imports: [
+    ButtonModule,
+    ToastModule,
+    //ToolbarModule,
+    InputTextModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     TemplateModule,
     ClienteModule,
-    BrowserAnimationsModule,   
+    DentistaModule,
+    ConsultaModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     A11yModule,
+    MatFormFieldModule,
+    MatIconModule,
     CdkAccordionModule,
     ClipboardModule,
     CdkListboxModule,
@@ -112,8 +128,8 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
-    MatButtonModule,
-    MatButtonToggleModule,
+    // MatButtonModule,
+    // MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
@@ -124,7 +140,7 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
     MatExpansionModule,
     MatGridListModule,
     MatIconModule,
-    MatInputModule,
+    // MatInputModule,
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,
@@ -148,10 +164,13 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
     PortalModule,
     ScrollingModule,
     DialogModule,
+    InputTextModule,
     MatFormFieldModule,
-    MatInputModule
+    // MatInputModule
+    CardModule,
+    ChartModule
   ],
-  providers: [ 
+  providers: [
   //  ClientesService,
   //  ServicoPrestadoService,
     AuthService,
@@ -160,8 +179,10 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
       useClass: TokenInterceptor,
       multi: true
     },
-    
+    MessageService,
+
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

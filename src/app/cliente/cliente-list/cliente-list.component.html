@@ -1,65 +1,141 @@
 <div class="container">
+
   <div class="cardTitulo">
     <h1 class="titulo">Pacientes</h1>
   </div>
-  <div class="card">
+  <div class="MyCard">
     <div class="tableMenu">
-    
-      <mat-form-field appearance="outline" class="search">
-        <mat-icon matPrefix>search</mat-icon>
+      <div>
+        <span class="p-float-label p-input-icon-left ">
+          <i class="pi pi-search azul" ></i>
+          <input pInputText id="search" (keyup)="applyFilter($event)" class="border"/>
+          <label for="search" class="azul">Buscar Paciente...</label>
+        </span>
+      </div>
+
+      <!-- <mat-form-field appearance="outline" class="search">
+        <mat-icon matPrefix>search</mat-icon><p-table [value]="dataSource" >
+      <ng-template pTemplate="header">
+          <tr>
+              <th pSortableColumn="numPasta" >N Pasta <p-sortIcon field="numPasta"></p-sortIcon></th>
+              <th pSortableColumn="nome" >Nome <p-sortIcon field="nome"></p-sortIcon></th>
+              <th pSortableColumn="cpf" >CPF <p-sortIcon field="cpf"></p-sortIcon></th>
+              <th pSortableColumn="dataCadastro" >Data Cadastro <p-sortIcon field="dataCadastro"></p-sortIcon></th>
+              <th pSortableColumn="price" >Price <p-sortIcon field="price"></p-sortIcon></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-paciente>
+          <tr>
+              <td>{{paciente.numPasta}}</td>
+              <td>{{paciente.nome}}</td>
+              <td>{{paciente.cpf}}</td>
+              <td>{{paciente.dataCadastro}}</td>
+              <td>
+                <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true"><i class="material-icons">info</i></p-button>
+                <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true"><i class="material-icons">edit</i></p-button>
+                <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"><i class="material-icons">delete</i></p-button>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
         <mat-label>Buscar Paciente</mat-label>
         <input matInput type="search" placeholder="Nome ou N° Pasta" #input (keyup)="applyFilter($event)">
-      </mat-form-field>
-  
-      <button mat-fab extended (click)="cadastro()" class="btnadd"><mat-icon>person_add</mat-icon>Novo Paciente</button>
+      </mat-form-field> -->
+      <p-button label="Novo Paciente" (click)="cadastro()"  icon="pi " [rounded]="true" [style]="{ 'background-image': 'linear-gradient(to right, #2070b4, #24aae3)' }"><i class="material-icons">person_add</i></p-button>
+
+
+      <!-- <button mat-fab extended (click)="cadastro()" class="btnadd"><mat-icon>person_add</mat-icon>Novo Paciente</button> -->
+
     </div>
-   
+
+
     <div class="tableBody">
       <mat-card>
         <table mat-table [dataSource]="dataSource" class="table" matSort>
-  
+
           <ng-container matColumnDef="nSerie">
             <th mat-header-cell *matHeaderCellDef class="tableBorder"> N° Pasta </th>
             <td mat-cell *matCellDef="let clientes"> {{ clientes.numPasta }} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="nome">
             <th mat-header-cell *matHeaderCellDef> Nome </th>
             <td mat-cell *matCellDef="let clientes"> {{ clientes.nome }} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="cpf">
             <th mat-header-cell *matHeaderCellDef> CPF </th>
             <td mat-cell *matCellDef="let clientes"> {{ clientes.cpf }} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="dataCadastro">
             <th mat-header-cell *matHeaderCellDef> Data de Cadastro </th>
-            <td mat-cell *matCellDef="let clientes">{{ clientes.dataCadastro }}</td>                 
+            <td mat-cell *matCellDef="let clientes">{{ clientes.dataCadastro }}</td>
           </ng-container>
-  
+
           <ng-container matColumnDef="btns">
             <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let clientes"> 
+            <td mat-cell *matCellDef="let clientes">
               <div class="acoes">
-                <button mat-mini-fab class="info" (click)="info(clientes.id)" ><mat-icon>info</mat-icon></button>
+                 <!-- <button mat-mini-fab class="info" (click)="info(clientes.id)" ><mat-icon>info</mat-icon></button>
                 <button mat-mini-fab class="edit" (click)="edit(clientes.id)"><mat-icon>edit</mat-icon></button>
                 <button mat-mini-fab class="delete" (click)="delet(clientes.id)"><mat-icon>delete</mat-icon></button>
-               
+                <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true"><i class="material-icons">info</i></p-button>
+                <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true"><i class="material-icons">edit</i></p-button>
+                <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"><i class="material-icons">delete</i></p-button> -->
+
+                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="info"><i class="material-icons">info</i></p-button>
+                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="warning"><i class="material-icons">edit</i></p-button>
+                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="danger"><i class="material-icons">delete</i></p-button>
+
               </div>
+
             </td>
           </ng-container>
-  
+
           <tr mat-header-row *matHeaderRowDef="colunas"></tr>
           <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
-          <tr class="mat-row"*matNoDataRow >            
+          <tr class="mat-row"*matNoDataRow >
             <td   colspan="5"><b class="mat-cell"> Nem um paciente encontrado, cadastre um paciente.</b></td>
           </tr>
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+        <!-- <div class="card flex justify-content-center">
+          <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        </div> -->
       </mat-card>
+
+      <div class="card">
+        <p-table [value]="dataSource" >
+          <ng-template pTemplate="header">
+              <tr>
+                  <th pSortableColumn="numPasta" >N Pasta <p-sortIcon field="numPasta"></p-sortIcon></th>
+                  <th pSortableColumn="nome" >Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                  <th pSortableColumn="cpf" >CPF <p-sortIcon field="cpf"></p-sortIcon></th>
+                  <th pSortableColumn="dataCadastro" >Data Cadastro <p-sortIcon field="dataCadastro"></p-sortIcon></th>
+                  <th pSortableColumn="price" >Price <p-sortIcon field="price"></p-sortIcon></th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-paciente>
+              <tr>
+                  <td>{{paciente.numPasta}}</td>
+                  <td>{{paciente.nome}}</td>
+                  <td>{{paciente.cpf}}</td>
+                  <td>{{paciente.dataCadastro}}</td>
+                  <td>
+                    <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true"><i class="material-icons">info</i></p-button>
+                    <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true"><i class="material-icons">edit</i></p-button>
+                    <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"><i class="material-icons">delete</i></p-button>
+                  </td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+
+
     </div>
   </div>
-  
-</div>
-  
+
+
+

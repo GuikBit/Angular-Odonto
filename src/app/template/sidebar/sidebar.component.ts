@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth.service';
 import {FormControl} from '@angular/forms';
 import {MatDrawerMode} from '@angular/material/sidenav';
 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -11,12 +12,14 @@ import {MatDrawerMode} from '@angular/material/sidenav';
 })
 export class SidebarComponent implements OnInit {
   usuarioLogado?: string;
-  showFiller = false;
+  // showFiller = false;
 
+  position: string = 'top';
   constructor(private authService: AuthService, private router: Router) { }
-
+  
   ngOnInit(): void {
     this.usuarioLogado = this.authService.getUsuarioAutenticado();
+    
   }
 
   logout()
