@@ -108,7 +108,7 @@ import { MessageService } from 'primeng/api';
   imports: [
     CommonModule,
     RouterModule,
-    
+
     AvatarModule,
     AvatarGroupModule,
     // FormsModule,
@@ -208,7 +208,7 @@ import { MessageService } from 'primeng/api';
   ],
   exports: [
     SidebarComponent,
-    
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

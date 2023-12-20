@@ -6,17 +6,17 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard  {
-  
+
   constructor(private authService: AuthService, private router: Router){
 
   }
-  
+
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean>{
-    
+
       const logado = this.authService.isAuthenticated();
-    
+
       if(await logado){
         return true;
       }
@@ -25,7 +25,7 @@ export class AuthGuard  {
         return false;
       }
 
-    
+
   }
-  
+
 }

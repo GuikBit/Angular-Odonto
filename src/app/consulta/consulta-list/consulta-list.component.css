@@ -1,91 +1,59 @@
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+.grid {
+  /* background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg") !important; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-.btnadd{ 
-    background: linear-gradient(to right, #2070b4, #24aae3);
-    width: 15vw;
-}
-.btnadd:hover{ 
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    
+@media screen and (min-width: 1400px) {
+  .grid {
+    background-position: top;
+  }
 }
 
-.tableBody{
-    margin-top: 2%;
+@media screen and (max-width: 1000px) {
+  .grid {
+    height: 100vmax;
+  }
 }
-.table{
-    background-color: #FFFFFF;    
-   
+
+
+button{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: 0.9rem;
+  width: 10vw;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
 }
-.mat-table {
-    width: 50%;
-    font-weight: 800;
-    font-size: x-large;
+
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 }
-th, td{
-    text-align: center;   
-    font-size: 18px;
-    
-}
+
 th{
-    background: #c4ddf3 !important;
+    /* background: #c4ddf3 !important; */
     color: #2070b4;
-    font-size: x-large;
-    
-}
-.mat-column-paciente{
-    width: 15vw;
-}
-.mat-column-btns{
-    width: 15vw;
-}
-.mat-column-dentista{
-    width: 35vw;
-}
-.acoes{
-    display: flex;
-    justify-content:space-around;
+    font-size: large;
 
 }
 
-.info{   
-    background-color: #54a2dc;
-    color: #F4F2F0;
-    width: 40px;
-    height: 40px;
-}
-.delete{
-    background-color: #f44336;
-    color: #F4F2F0;
-    width: 36px;
-    height: 36px;
-}
-.edit{
-    background-color: #e9b136;
-    color: #F4F2F0;
-    width: 36px;
-    height: 36px;
-}
+
 .search{
-    color: #2070b4;
-    border: none;
-    width: 25vw;
-}
-.cardTitulo{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2%;
+  color: #2070b4;
+  border-color:  #2070b4;
+  width: 25vw;
+  border-radius: 50px;
 }
 
 .titulo{
-    /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+
     font-size: 2.5rem;
     font-weight: bold;
     color: #2070b4;
-    
+
 }
-.mat-cell{
-    font-weight: 600;
-    color:  #888888
-}
-.mat-column-btns{
-    width: 15vw;
-}
+
+

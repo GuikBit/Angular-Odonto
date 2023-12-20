@@ -2,24 +2,21 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-  mat-toolbar{
-    padding-left: 100px;
-    font-size: xx-large;
-    background: linear-gradient(to right, #2070b4, #24aae3);
-    color: #F4F2F0;
 
-  }
-
+.main{
+  padding-bottom: 80px;
+}
 
   button{
     background: linear-gradient(to right, #2070b4, #24aae3);
-    width: 9vw;
     font-size: 0.9rem;
+    width: 8vw;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
   }
 
   button:hover{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
   }
 
   .containerMenu{
@@ -47,18 +44,15 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   background-color: #f2f8fd;
-  width: 70vw;
+  width: 60vw;
   height: 10vh;
   border: 1px solid #2070b4;
-  border-radius: 3rem;
+  border-radius: 50px;
  }
-.btnHome{
-  background: linear-gradient(to right, #2070b4, #24aae3);
-}
 
 .btnHomeAtivo{
-  background: linear-gradient(to right, red, #24aae3)
+  background: linear-gradient(to right, #194973, #0f82ba)
 }
 

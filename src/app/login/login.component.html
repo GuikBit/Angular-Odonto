@@ -14,25 +14,25 @@
           </div>
 
           <form  (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
-            <div class="containerLogin">
 
-              <div class="row">
-                <span class="p-float-label p-input-icon-left shadow-1 justify-content-center">
-                  <i class="pi pi-user azul" ></i>
-                  <input pInputText id="search" formControlName="userName" autocomplete="off"/>
-                  <label for="search" class="azul">Login</label>
-                </span>
-              </div>
 
-              <div class="row mt-5">
-                <span class="p-float-label p-input-icon-left shadow-1 justify-content-center">
+            <div class="flex justify-content-center align-items-center ">
+              <span class="p-float-label p-input-icon-left shadow-1">
+                <i class="pi pi-user azul" ></i>
+                <input pInputText id="search" formControlName="userName" autocomplete="off"/>
+                <label for="search" class="azul">Login</label>
+              </span>
+            </div>
+
+              <div class="flex justify-content-center align-items-center mt-5">
+                <span class="p-float-label p-input-icon-left shadow-1">
                   <i class="pi pi-key azul" ></i>
                   <input pInputText id="password" type="password" formControlName="password" autocomplete="off"/>
                   <label for="password" class="azul">Password</label>
                 </span>
 
               </div>
-            </div>
+
             <div class="mt-5">
             </div>
             <div class="card flex justify-content-center mt-5">

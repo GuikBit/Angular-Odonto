@@ -19,7 +19,7 @@
     margin-top: 3vw;
     background-color:     #c0d6ef;
     border-radius: 10px 10px 0px 0px;
-    font-size: x-large;   
+    font-size: x-large;
 }
 form{
     color:#262924d3;
@@ -31,7 +31,7 @@ form h2{
     font-size: 1.6rem;
 }
 
-.btnadd{ 
+.btnadd{
     background: linear-gradient(to right, #2070B4, #24aae3);
     width: 25vw;
     height: 50px;
@@ -40,7 +40,7 @@ form h2{
 .btnadd .mat-icon{
     color: #FFFFFF;
 }
-.btnadd:hover{ 
+.btnadd:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     width: 25.5vw;
     font-size: 1.63rem;
@@ -48,7 +48,7 @@ form h2{
 .example-card {
     max-width: 150px;
     border-radius: 15px;
-   
+
 }
 .clienteFoto{
     width: 350px;
@@ -67,7 +67,7 @@ form h2{
 .clienteNome{
     width: 50%;
     font-size: 46px;
-   
+
 }
 .clienteNum{
     position: absolute;
@@ -88,10 +88,10 @@ form h2{
     bottom: 22px;
 }
 
-  
+
 
 .clienteMain{
-    width: 94%;    
+    width: 94%;
     background-color:     white;
     font-size: large;
     border-radius: 10px;
@@ -101,7 +101,7 @@ form h2{
 
 
 .bannerCliente{
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;    
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     height: 25vh;
     position: relative;
     top: -50px;
@@ -114,23 +114,23 @@ form h2{
 
 .containerInfoPessoal{
     width: 100%;
-    height: auto; 
+    height: auto;
 }
 .blocoInfo{
     display: flex;
     width: 100%;
     height: auto;
-   
+
 }
 .blocoInfo .titleModulo{
     justify-content: space-around;
     align-items: center;
-   
+
 }
 
 .titleModulo{
     display: flex;
-    
+
 }
 
 .infoPessoal, .infoResp{
@@ -169,7 +169,7 @@ form h2{
 }
 .btnSlide{
     margin: 8px 0;
-    
+
 }
 .slideText{
     font-size: x-large;
@@ -185,7 +185,7 @@ hr {
     width: 90%;
     margin-left: 5%;
   }
-  
+
   input[type=file]{
     display: flex;
     justify-content: center;
@@ -199,8 +199,8 @@ hr {
     border-radius: 4px;
     border: 1px dashed #5d5c5c;
     font: 14px/20px Roboto, sans-serif;
-    
-  } 
+
+  }
   input[type=file]::file-selector-button {
     font-weight: 500;
     margin-right: 20px;
@@ -215,7 +215,7 @@ hr {
     cursor: pointer;
     box-shadow: rgba(14, 30, 37, 0.08) 0px 2px 4px 0px, rgba(14, 30, 37, 0.131) 0px 2px 16px 0px;
   }
-  
+
   input[type=file]::file-selector-button:hover {
     background: linear-gradient(to right, #2070B4, #24aae3);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.131), 0 10px 10px rgba(0, 0, 0, 0.091);

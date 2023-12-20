@@ -4,49 +4,24 @@ import { DentistaNovoComponent } from './dentista-novo/dentista-novo.component';
 import { DentistaInfoComponent } from './dentista-info/dentista-info.component';
 import { DentistaListComponent } from './dentista-list/dentista-list.component';
 import { DentistaRoutingModule } from './dentista-routing.module';
-// import {MatIconModule} from '@angular/material/icon';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatTreeModule } from '@angular/material/tree';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { PortalModule } from '@angular/cdk/portal';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { DialogModule } from '@angular/cdk/dialog';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmationService } from 'primeng/api';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
 import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSortModule } from '@angular/material/sort';
+
 
 
 @NgModule({
@@ -57,68 +32,80 @@ import { MatSortModule } from '@angular/material/sort';
     DentistaEditComponent
   ],
   imports: [
-    CommonModule,
-    DentistaRoutingModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatIconModule,
+    // CommonModule,
+    // DentistaRoutingModule,
+    // MatAutocompleteModule,
+    // MatBadgeModule,
+    // MatIconModule,
+    // MatFormFieldModule,
+    // MatIconModule,
     // MatCardModule,
     // MatTableModule,
     // MatSortModule,
     // MatPaginatorModule,
-    MatBottomSheetModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatFormFieldModule,
-    MatIconModule,
+    // MatBottomSheetModule,
+    // MatTableModule,
+    // MatFormFieldModule,
+    // MatFormFieldModule,
+    // MatIconModule,
     // MatCardModule,
     // MatTableModule,
     // MatSortModule,
     // MatPaginatorModule,
-    MatIconModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatTableModule,
-    MatSortModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
-    OverlayModule,
-    MatFormFieldModule,
-    PortalModule,
-    ScrollingModule,
-    DialogModule,
-    ReactiveFormsModule,
-    FormsModule
+    // MatIconModule,
+    // MatButtonModule,
+    // MatButtonToggleModule,
+    // MatTableModule,
+    // MatSortModule,
+    // MatCardModule,
+    // MatCheckboxModule,
+    // MatChipsModule,
+    // MatStepperModule,
+    // MatDatepickerModule,
+    // MatDialogModule,
+    // MatDividerModule,
+    // MatExpansionModule,
+    // MatGridListModule,
+    // MatIconModule,
+    // MatInputModule,
+    // MatListModule,
+    // MatMenuModule,
+    // MatNativeDateModule,
+    // MatPaginatorModule,
+    // MatProgressBarModule,
+    // MatProgressSpinnerModule,
+    // MatRadioModule,
+    // MatRippleModule,
+    // MatSelectModule,
+    // MatSidenavModule,
+    // MatSliderModule,
+    // MatSlideToggleModule,
+    // MatSnackBarModule,
+    // MatSortModule,
+    // MatTableModule,
+    // MatTabsModule,
+    // MatToolbarModule,
+    // MatTooltipModule,
+    // MatTreeModule,
+    // OverlayModule,
+    // MatFormFieldModule,
+    // PortalModule,
+    // ScrollingModule,
+    // DialogModule,
+    // ReactiveFormsModule,
+    // FormsModule
+    CardModule,
+    ButtonModule,
+    TableModule,
+    InputMaskModule,
+    InputSwitchModule,
+    InputTextModule,
+    InputTextareaModule,
+    InputNumberModule,
+    DynamicDialogModule,
+    DropdownModule,
+    ConfirmDialogModule,
+    TooltipModule,
   ],exports: [
     DentistaNovoComponent,
     DentistaInfoComponent,

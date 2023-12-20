@@ -29,7 +29,7 @@ interface PageEvent {
   styleUrls: ['./cliente-list.component.css']
 })
 export class ClienteListComponent implements AfterViewInit{
-  
+
   clienteSelecionado?: Cliente;
   msgSuccess?: string;
   msgErro?: string;
@@ -46,8 +46,8 @@ export class ClienteListComponent implements AfterViewInit{
   first: number = 0;
   rows: number = 10;
 
-  constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) { 
-    
+  constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) {
+
    this.criaTabelaPaciente();
   }
 
@@ -57,7 +57,7 @@ export class ClienteListComponent implements AfterViewInit{
     this.rows = event.rows;
   }
 
- 
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -93,7 +93,7 @@ export class ClienteListComponent implements AfterViewInit{
       console.error('Erro ao obter pacientes:', error);
     }
   }
-  
+
   cadastro(){
     this.router.navigate(['/clientes/novo'])
   }
@@ -127,7 +127,7 @@ export class ClienteListComponent implements AfterViewInit{
       data: { message: this.msgSalvar },
       duration: 3000,
       panelClass: [this.msgSalvarStyle],
-      verticalPosition: 'top', 
+      verticalPosition: 'top',
       horizontalPosition: 'end',
     });
   }

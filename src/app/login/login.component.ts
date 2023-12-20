@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['/home']);
           this.messageService.add({
             severity: 'success',
-            summary: 'Bem vindo de volta...',
-            detail: '',
+            summary: `Olá ${response.data.usuario.nome}`,
+            detail: 'Bem vindo de volta...',
             life: 2000
           })
 
