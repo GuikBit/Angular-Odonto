@@ -162,10 +162,13 @@ import { RouterModule } from '@angular/router';
     DropdownModule,
     ConfirmDialogModule,
     TooltipModule,
+    ChipModule,
+    TagModule
   ],exports: [
     ConsultaEditComponent,
     ConsultaListComponent,
-    ConsultaInfoComponent
+    ConsultaInfoComponent,
+    ConsultaNovaComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [MessageService]

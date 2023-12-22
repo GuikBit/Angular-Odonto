@@ -14,16 +14,18 @@ import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-sna
   styleUrls: ['./dentista-list.component.css']
 })
 export class DentistaListComponent implements AfterViewInit{
- 
- 
+
+
   colunas : string []= ['nome', 'cpf', 'dataCadastro', 'btns'];
   dataSource: MatTableDataSource<Dentista>;
- 
+
   @ViewChild(MatPaginator) paginator: MatPaginator ;
   @ViewChild(MatSort) sort: MatSort;;
 
   msgSalvar: string;
   msgSalvarStyle: string;
+
+  visible: any = false;
 
   constructor(private service: DentistaService,  private router: Router, private route: ActivatedRoute, private _snackBar: MatSnackBar){
     this.criaTabelaDentista();
@@ -47,13 +49,14 @@ export class DentistaListComponent implements AfterViewInit{
     })
   }
 
+  showDialog() {
+    this.visible = true;
+  }
   applyFilter(event: Event) {
+    console.log((event.target as HTMLInputElement).value)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
 
@@ -76,7 +79,7 @@ export class DentistaListComponent implements AfterViewInit{
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    
+
     } catch (error) {
       console.error('Erro ao obter pacientes:', error);
     }
@@ -85,11 +88,6 @@ export class DentistaListComponent implements AfterViewInit{
   cadastro(){
     this.router.navigate(['/dentistas/novo']);
   }
-  // paginar(event: PageEvent){
-  //   this.pagina = event.pageIndex;
-  //   this.viewTable(this.pagina, this.tamanho)
-  // }
-
   edit(id: any){
     this.router.navigate([`/dentista/edit/${id}`])
   }
@@ -105,7 +103,7 @@ export class DentistaListComponent implements AfterViewInit{
       data: { message: this.msgSalvar },
       duration: 3000,
       panelClass: [this.msgSalvarStyle],
-      verticalPosition: 'top', 
+      verticalPosition: 'top',
       horizontalPosition: 'end',
     });
   }

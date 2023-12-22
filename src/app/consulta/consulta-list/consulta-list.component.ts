@@ -35,7 +35,7 @@ export class ConsultaListComponent{
     this.criaTabelaConsulta();
   }
 
-  
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -53,8 +53,8 @@ export class ConsultaListComponent{
   }
 
   // async viewTable( pagina: any, tamanho: any){
-    
-  //   const response = await this.service.getConsultas(pagina, tamanho)    
+
+  //   const response = await this.service.getConsultas(pagina, tamanho)
   //   this.consultas = response?.data !== null ? response?.data : null;
   //   this.dataSource = new MatTableDataSource<any>(this.consultas);
   //   this.totalElementos = await this.service.totalConsultas();
@@ -77,32 +77,32 @@ export class ConsultaListComponent{
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      
+
     } catch (error) {
       console.error('Erro ao obter pacientes:', error);
     }
   }
 
  cadastro(){
-  this.router.navigate([`/consulta/nova`])
+  this.router.navigate([`/consultas/nova`])
  }
 
-  edit(id: any){
-    this.router.navigate([`/dentista/edit/${id}`])
-  }
-  delet(id: any){
-    this.router.navigate([`/dentista/delete/${id}`])
-  }
-  info(id: any){
-    this.router.navigate([`/dentista/info/${id}`])
-  }
+  // edit(id: any){
+  //   this.router.navigate([`/dentista/edit/${id}`])
+  // }
+  // delet(id: any){
+  //   this.router.navigate([`/dentista/delete/${id}`])
+  // }
+  // info(id: any){
+  //   this.router.navigate([`/dentista/info/${id}`])
+  // }
 
   openSnackBar ( ) {
     const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
       data: { message: this.msgSalvar },
       duration: 3000,
       panelClass: [this.msgSalvarStyle],
-      verticalPosition: 'top', 
+      verticalPosition: 'top',
       horizontalPosition: 'end',
     });
   }

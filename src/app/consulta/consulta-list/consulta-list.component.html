@@ -30,12 +30,16 @@
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nomePaciente">
-                <div class="flex justify-content-around align-items-center">
+                <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-center align-items-center">
                     Paciente
                   </div>
                   <div class="flex justify-content-center align-items-center">
-                    <p-sortIcon field="nomePaciente"></p-sortIcon>
+                    <p-sortIcon
+                      field="nomePaciente"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                    ></p-sortIcon>
                     <p-columnFilter
                       type="text"
                       field="nomePaciente"
@@ -44,17 +48,23 @@
                       [showMatchModes]="false"
                       [showOperator]="false"
                       [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                     ></p-columnFilter>
                   </div>
                 </div>
               </th>
               <th pSortableColumn="nomeDentista">
-                <div class="flex justify-content-around align-items-center">
+                <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-between align-items-center">
                     Dentista
                   </div>
                   <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="nomeDentista"></p-sortIcon>
+                    <p-sortIcon
+                      field="nomeDentista"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                      ></p-sortIcon>
                     <p-columnFilter
                       type="text"
                       field="nomeDentista"
@@ -63,18 +73,24 @@
                       [showMatchModes]="false"
                       [showOperator]="false"
                       [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                     ></p-columnFilter>
                   </div>
                 </div>
               </th>
 
               <th pSortableColumn="dataConsulta">
-                <div class="flex justify-content-around align-items-center">
+                <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-between align-items-center">
                     Data Consulta
                   </div>
                   <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="dataConsulta"></p-sortIcon>
+                    <p-sortIcon
+                      field="dataConsulta"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                      ></p-sortIcon>
                     <p-columnFilter
                       type="text"
                       field="dataConsulta"
@@ -83,6 +99,32 @@
                       [showMatchModes]="false"
                       [showOperator]="false"
                       [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+              <th pSortableColumn="status" >
+                <div class="flex justify-content-between align-items-center">
+                  <div class="flex justify-content-between align-items-center">
+                    Status
+                  </div>
+                  <div class="flex justify-content-between align-items-center">
+                    <p-sortIcon
+                      field="status"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="status"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                     ></p-columnFilter>
                   </div>
                 </div>
@@ -107,7 +149,11 @@
                   </div>
                 </div>
               </th> -->
-              <th></th>
+              <th [width]="300">
+                <div class="flex justify-content-end align-items-center">
+                  <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+                </div>
+              </th>
           </ng-template>
 
           <ng-template pTemplate="body" let-consulta>
@@ -115,12 +161,27 @@
               <td>{{ consulta?.paciente.nome }}</td>
               <td>{{ consulta?.dentista.nome }}</td>
               <td>{{ consulta?.dataConsulta }}</td>
-              <!-- <td>{{ consulta?.dataNascimento }}</td> -->
+              <td>@if (consulta?.pagamento.pago)
+                    {<p-chip styleClass="pl-0 pr-3 bg-green-500">
+                      <span class=" border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
+                        <i class="material-icons" style="color: white">attach_money</i>
+                      </span>
+                      <span class="ml-2 font-medium " style="color: white">Pago</span>
+                  </p-chip>}
+                  @else
+                    {
+                      <p-chip styleClass="pl-0 pr-3 bg-red-400">
+                      <span class=" border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
+                        <i class="material-icons" style="color: white">attach_money</i>
+                      </span>
+                      <span class="ml-2 font-medium primary-color-text " style="color: white">Aberto</span>
+                  </p-chip>}
+              </td>
               <!-- <td [pTooltip]="paciente?.description" tooltipPosition="top">
                 {{ paciente?.description }}
               </td>
               <td>{{ paciente?.category?.name }}</td> -->
-              <td>
+              <td >
                 <div
                   class="flex justify-content-around">
 

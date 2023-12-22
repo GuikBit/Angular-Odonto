@@ -8,10 +8,10 @@ import { ConsultaEditComponent } from './consulta-edit/consulta-edit.component';
 
 const routes: Routes = [
   {path: 'consultas', component: LayoutComponent,canActivate:[AuthGuard] , children:[
-    {path: '', redirectTo:'/consultas/lista', pathMatch:'full'},
-    {path: 'novo', component: ConsultaNovaComponent},
-    {path: 'info/:id', component: ConsultaInfoComponent},
-    {path: 'edit/:id', component: ConsultaEditComponent}    
+    // {path: '', redirectTo:'/consultas/lista', pathMatch:'full'},
+    // {path: 'novo', component: ConsultaNovaComponent},
+    // {path: 'info/:id', component: ConsultaInfoComponent},
+    // {path: 'edit/:id', component: ConsultaEditComponent}
   ]}
 ];
 

@@ -1,8 +1,8 @@
-.container{
+/* .container{
     padding: 2%;
-    
+
 }
-/* .card{
+.card{
 
     border-radius: 18px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -11,7 +11,7 @@
     border-style: solid;
     border-color: #54a2dc;
     margin-bottom: 15vh;
-} */
+}
 .clienteHeader{
     display:flex;
     width: 80vw;
@@ -108,7 +108,7 @@ form h2{
     border-radius: 15px;
     display: flex;
     background: linear-gradient(to right, #194973, #8fc2ea);
-    /* background-image: url("https://www.expodonto.com.br/website2021/wp-content/uploads/2021/07/banner-expodonto_Prancheta-1-co%CC%81pia-2.png"); */
+
 
 }
 
@@ -257,10 +257,85 @@ hr {
     color: #2070B4;
   }
 
-  /* .mat-form-field.login-valido{
+   .mat-form-field.login-valido{
     border-color: 1px solid #1e9131;
-  } */
+  }
   .login-valido {
     border-color: solid #1e9131 !important;
   }
+ */
+ .grid {
+  /* background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg") !important; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+@media screen and (min-width: 1400px) {
+  .grid {
+    background-position: top;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .grid {
+    height: 100vmax;
+  }
+}
+
+button{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: 0.9rem;
+  width: 10vw;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border:none
+}
+
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
+
+.lb1{
+  width: 25vw;
+
+}
+
+.lb2{
+  width: 20vw;
+}
+
+.lb3{
+  width: 15vw;
+}
+.steeper{
+  margin-inline: 10vw;
+}
+
+.btnVoltar {
+  width: 8vw;
+  background: #9CA3AF;
+  border-radius: 15px;
+  margin-inline: 2vw;
+}
+.btnProximo {
+  width: 8vw;
+  background: #3B82F6;
+  border-radius: 15px;
+  margin-inline: 2vw;
+}
+.btnSalvar {
+  width: 8vw;
+  background: #1DA750;
+  border-radius: 15px;
+  margin-inline: 2vw;
+}
+
+.azul{
+  color: #2070B4
+}
+/* input, p-calendar{
+  border-color: #2070B4;
+} */
 

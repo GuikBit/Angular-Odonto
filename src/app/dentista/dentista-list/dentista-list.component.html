@@ -10,7 +10,7 @@
           <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
           <label for="search" class="azul">Buscar Dentista...</label>
         </span>
-        <button pButton type="button" label="Novo Dentista" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-user-plus"></button>
+        <button pButton type="button" label="Novo Dentista" styleClass="linear-gradient" (click)="showDialog()" icon="pi pi-user-plus"></button>
       </div>
 
         <p-table
@@ -29,12 +29,16 @@
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="nome">
-                <div class="flex justify-content-around align-items-center">
+                <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-center align-items-center">
                     Nome
                   </div>
                   <div class="flex justify-content-center align-items-center">
-                    <p-sortIcon field="nome"></p-sortIcon>
+                    <p-sortIcon
+                      field="nome"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                    ></p-sortIcon>
                     <p-columnFilter
                       type="text"
                       field="nome"
@@ -43,17 +47,23 @@
                       [showMatchModes]="false"
                       [showOperator]="false"
                       [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                     ></p-columnFilter>
                   </div>
                 </div>
               </th>
               <th pSortableColumn="nomeDentista">
-                <div class="flex justify-content-around align-items-center">
+                <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-between align-items-center">
                     CPF
                   </div>
                   <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="nomeDentista"></p-sortIcon>
+                    <p-sortIcon
+                      field="nomeDentista"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                      ></p-sortIcon>
                     <p-columnFilter
                       type="text"
                       field="nomeDentista"
@@ -62,18 +72,24 @@
                       [showMatchModes]="false"
                       [showOperator]="false"
                       [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                     ></p-columnFilter>
                   </div>
                 </div>
               </th>
 
               <th pSortableColumn="espec">
-                <div class="flex justify-content-around align-items-center">
+                <div class="flex justify-content-between align-items-center">
                   <div class="flex justify-content-between align-items-center">
                     Especialidade
                   </div>
                   <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon field="espec"></p-sortIcon>
+                    <p-sortIcon
+                      field="espec"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                    ></p-sortIcon>
                     <p-columnFilter
                       type="text"
                       field="espec"
@@ -82,13 +98,15 @@
                       [showMatchModes]="false"
                       [showOperator]="false"
                       [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                     ></p-columnFilter>
                   </div>
                 </div>
               </th>
 
 
-              <th></th>
+              <th [width]="300"></th>
           </ng-template>
 
           <ng-template pTemplate="body" let-dentista>
@@ -103,7 +121,7 @@
                 {{ dentista?.especialidade.tipo }}
               </td>
 
-              <td>
+              <td [width]="300">
                 <div
                   class="flex justify-content-around">
 
@@ -121,3 +139,8 @@
     </div>
   </div>
 </div>
+
+
+  <p-dialog header="Novo Dentista" [(visible)]="visible" [modal]="true" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+    <app-dentista-novo></app-dentista-novo>
+  </p-dialog>
