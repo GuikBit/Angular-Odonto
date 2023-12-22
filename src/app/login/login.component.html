@@ -9,34 +9,33 @@
       <div class="create">
         <div class="createBody">
 
-          <div class="createHeader">
+          <div class="createHeader m-5">
             <h1 class="titulo">Bem Vindo!</h1>
           </div>
 
           <form  (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
 
 
-            <div class="flex justify-content-center align-items-center ">
-              <span class="p-float-label p-input-icon-left shadow-1">
-                <i class="pi pi-user azul" ></i>
-                <input pInputText id="search" formControlName="userName" autocomplete="off"/>
-                <label for="search" class="azul">Login</label>
-              </span>
-            </div>
+              <div class="field ">
+                <span class="p-float-label p-input-icon-left shadow-1">
+                  <i class="pi pi-user azul" ></i>
+                  <input pInputText id="search" formControlName="userName" autocomplete="off"/>
+                  <label for="search" class="azul">Login</label>
+                </span>
+              </div>
 
-              <div class="flex justify-content-center align-items-center mt-5">
+              <div class="field mt-5">
                 <span class="p-float-label p-input-icon-left shadow-1">
                   <i class="pi pi-key azul" ></i>
                   <input pInputText id="password" type="password" formControlName="password" autocomplete="off"/>
                   <label for="password" class="azul">Password</label>
                 </span>
-
               </div>
 
-            <div class="mt-5">
-            </div>
-            <div class="card flex justify-content-center mt-5">
-              <p-button label="Acessar" [rounded]="true" type="submit" styleClass="shadow-5" ><i class="material-icons" >login</i>&nbsp;&nbsp;&nbsp;</p-button>
+
+            <div class="flex justify-content-center mt-6">
+              <!-- <button label="Acessar" [rounded]="true" type="submit" styleClass="shadow-5" ><i class="material-icons" >login</i>&nbsp;&nbsp;&nbsp;</button> -->
+              <button pButton type="submit" label="Acessar" styleClass="shadow-5" icon="pi pi-sign-in"></button>
             </div>
 
           </form>

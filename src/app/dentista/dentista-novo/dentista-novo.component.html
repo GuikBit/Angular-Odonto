@@ -28,19 +28,19 @@
           </div>
         </div>
 
-        <div class=" row flex justify-content-center  ">
+        <div class=" row flex justify-content-center  mt-3 mb-3">
 
-            <div class="field col-4 ">
-              <span class="p-float-label p-input-icon-left" [style]="{width: '100%'}"  >
+            <div class="field col-5 ">
+              <span class="p-float-label p-input-icon-left width"  >
                 <i class="pi pi-pencil azul"></i>
-                <input pInputText id="nome" formControlName="nome" required />
+                <input pInputText id="nome" formControlName="nome" required class="width" />
                 <label for="nome" class="azul">Nome Completo</label>
               </span>
               <small *ngIf="formulario.controls['nome'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
             </div>
 
-            <div class="field col-4 ">
-              <span class="p-float-label p-input-icon-left p-input-icon-right ">
+            <div class="field col-4 ml-5 mr-5">
+              <span class="p-float-label p-input-icon-left p-input-icon-right width">
                 <i class="pi pi-id-card azul"></i>
                 @if (!validacaoCPF && validacaoCPF != null || existeCPF) {
                   <i class='pi pi-times' style="font-size: 1.3rem; color: #FF3D32"></i>
@@ -48,7 +48,7 @@
                 @else if (validacaoCPF && validacaoCPF != null) {
                   <i class='pi pi-check' style="font-size: 1.3rem; color: #136C34"></i>
                 }
-                <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" (input)="validaCPF()" required  [style]="validacaoCPF && validacaoCPF != null? 'border-color:  #136C34': 'none'" />
+                <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" (input)="validaCPF()" required  [style]="validacaoCPF && validacaoCPF != null? 'border-color:  #136C34': 'none'" class="width"/>
                 <label for="cpf" class="azul">CPF</label>
               </span>
               <small *ngIf="formulario.controls['cpf'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
@@ -58,7 +58,7 @@
             </div>
 
 
-            <div class="field col-2 ">
+            <div class="field col-3 ">
               <span class="p-float-label" [style]="{width: '100%'}">
                 <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
                 <p-dropdown [options]="especialidades" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
@@ -70,30 +70,30 @@
 
         </div>
 
-        <div class="row flex justify-content-center m-5">
+        <div class="row flex justify-content-center mt-3 mb-3">
 
-          <div class="field">
-            <span class="p-float-label p-input-icon-left">
+          <div class="field col-3 ">
+            <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-id-card azul"></i>
-              <input pInputText id="cro" formControlName="cro" maxlength="5" required   />
+              <input pInputText id="cro" formControlName="cro" maxlength="5" required  class="width" />
               <label for="cro" class="azul">CRO</label>
             </span>
             <small *ngIf="formulario.controls['cro'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field ml-8 mr-8">
-            <span class="p-float-label p-input-icon-left">
+          <div class="field col-3 ml-6 mr-6">
+            <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-phone azul"></i>
-              <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required  />
+              <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required class="width" />
               <label for="cpf" class="azul">Telefone</label>
             </span>
             <small *ngIf="formulario.controls['telefone'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field ">
-            <span class="p-float-label p-input-icon-left">
+          <div class="field col-5 ">
+            <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-envelope azul"></i>
-              <input pInputText id="email" formControlName="email" required   />
+              <input pInputText id="email" formControlName="email" required  class="width" />
               <label for="email" class="azul">Email</label>
             </span>
             <small *ngIf="formulario.controls['email'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>

@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
-import { Dentista } from '../dentista';
+import { Dentista } from './../dentista';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DentistaService } from 'src/app/dentista.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-dentista-novo',
   templateUrl: './dentista-novo.component.html',
   styleUrls: ['./dentista-novo.component.css']
 })
-export class DentistaNovoComponent {
+export class DentistaNovoComponent implements OnInit{
+
+  @Input() dentistaEdit: Dentista;
 
   especialidades: any[]|undefined;
   dentista: Dentista;
@@ -36,6 +40,20 @@ export class DentistaNovoComponent {
       { tipo: 'Periodontia' },
 
   ];
+  }
+  async ngOnInit() {
+    if(this.dentistaEdit?.id !== null || this.dentistaEdit?.id !== undefined){
+
+      this.formulario.get('login')?.setValue(this.dentistaEdit?.login);
+      this.formulario.get('senha')?.setValue(this.dentistaEdit?.senha);
+      this.formulario.get('email')?.setValue(this.dentistaEdit?.email);
+      this.formulario.get('nome')?.setValue(this.dentistaEdit?.nome);
+      this.formulario.get('cpf')?.setValue(this.dentistaEdit?.cpf);
+      this.formulario.get('telefone')?.setValue(this.dentistaEdit?.telefone);
+      this.formulario.get('cro')?.setValue(this.dentistaEdit?.cro);
+      this.formulario.get('especialidade')?.setValue(this.dentistaEdit?.especialidade);
+    }
+
   }
 
   criaFormulario(dentista: Dentista) {
@@ -98,14 +116,15 @@ export class DentistaNovoComponent {
   async validadorCpf(cpf: any){
 
     if (this.isValidCPF(cpf)) {
-      // const buscaCPF = await this.service.buscaCPF(cpf)
-      // if(buscaCPF){
-      //   this.existeCPF = false;
-      //   this.validacaoCPF = true;
-      // }else{
-      //   this.existeCPF = true;
-      // }
-      this.validacaoCPF = true;
+      const buscaCPF = await this.service.buscaCPF(cpf)
+      console.log(buscaCPF)
+      if(buscaCPF){
+        this.existeCPF = false;
+        this.validacaoCPF = true;
+      }else{
+        this.existeCPF = true;
+      }
+      // this.validacaoCPF = true;
     }else{
       console.log("nao valido")
       this.validacaoCPF = false;

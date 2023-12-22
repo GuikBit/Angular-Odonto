@@ -1,1 +1,131 @@
-<p>dentista-edit works!</p>
+
+<div class="row flex justify-content-center align-items-center new">
+  <div class="">
+    <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <div class="card">
+        <div class="row flex justify-content-center ">
+
+          <div class="field mr-4">
+            <span class="p-float-label p-input-icon-left p-input-icon-right">
+              <i class="pi pi-user azul"></i>
+              <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
+              <i [ngClass]="validacaoLogin? 'pi pi-check azul': ''" style="font-size: 1.3rem; color: #136C34"></i>
+              <input pInputText id="login" formControlName="login" required (input)="buscaLogin()" minlength="3" [style]="validacaoLogin? 'border-color:  #136C34': ''" />
+              <label for="login " class="azul">Login</label>
+            </span>
+            <small *ngIf="formulario.controls['login'].errors?.['required']" class="p-error"><br>* Campo obrigatório</small>
+            <small *ngIf="formulario.controls['login'].errors?.['loginEmUso']" class="p-error"><br>Login digitado já está em uso.</small>
+            <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
+          </div>
+
+          <div class="field ml-4">
+            <span class="p-float-label p-input-icon-left p-input-icon-right ">
+              <i class="pi pi-key azul"></i>
+              <i [ngClass]="hide? 'pi pi-eye azul' : 'pi pi-eye-slash azul'" (click)="hide = !hide"></i>
+              <input pInputText [type]="hide ? 'password' : 'text'" id="password" formControlName="senha" />
+              <label for="password" class="azul">Senha</label>
+            </span>
+            <small *ngIf="formulario.controls['senha'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+          </div>
+        </div>
+
+        <div class=" row flex justify-content-center  mt-3 mb-3">
+
+            <div class="field col-5 ">
+              <span class="p-float-label p-input-icon-left width"  >
+                <i class="pi pi-pencil azul"></i>
+                <input pInputText id="nome" formControlName="nome" required class="width" />
+                <label for="nome" class="azul">Nome Completo</label>
+              </span>
+              <small *ngIf="formulario.controls['nome'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+            </div>
+
+            <div class="field col-4 ml-5 mr-5">
+              <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                <i class="pi pi-id-card azul"></i>
+                @if (!validacaoCPF && validacaoCPF != null || existeCPF) {
+                  <i class='pi pi-times' style="font-size: 1.3rem; color: #FF3D32"></i>
+                }
+                @else if (validacaoCPF && validacaoCPF != null) {
+                  <i class='pi pi-check' style="font-size: 1.3rem; color: #136C34"></i>
+                }
+                <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" (input)="validaCPF()" required  [style]="validacaoCPF && validacaoCPF != null? 'border-color:  #136C34': 'none'" class="width"/>
+                <label for="cpf" class="azul">CPF</label>
+              </span>
+              <small *ngIf="formulario.controls['cpf'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+              <small *ngIf="!validacaoCPF && validacaoCPF != null || existeCPF"  class="p-error "><br>CPF inválido ou já cadastrado</small>
+              <!-- <small *ngIf="existeCPF"  class="p-error "><br>CPF já cadastrado</small> -->
+              <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
+            </div>
+
+
+            <div class="field col-3 ">
+              <span class="p-float-label" [style]="{width: '100%'}">
+                <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
+                <p-dropdown [options]="especialidades" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
+                <label for="float-label azul">Especialidade</label>
+
+              </span>
+              <small *ngIf="formulario.controls['especialidade'].errors?.['required']"  class="p-error ">* Campo obrigatório</small>
+            </div>
+
+        </div>
+
+        <div class="row flex justify-content-center mt-3 mb-3">
+
+          <div class="field col-3 ">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-id-card azul"></i>
+              <input pInputText id="cro" formControlName="cro" maxlength="5" required  class="width" />
+              <label for="cro" class="azul">CRO</label>
+            </span>
+            <small *ngIf="formulario.controls['cro'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+          </div>
+
+          <div class="field col-3 ml-6 mr-6">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-phone azul"></i>
+              <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required class="width" />
+              <label for="cpf" class="azul">Telefone</label>
+            </span>
+            <small *ngIf="formulario.controls['telefone'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+          </div>
+
+          <div class="field col-5 ">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-envelope azul"></i>
+              <input pInputText id="email" formControlName="email" required  class="width" />
+              <label for="email" class="azul">Email</label>
+            </span>
+            <small *ngIf="formulario.controls['email'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+          </div>
+
+          <!-- <div class="field ml-4">
+            <span class="p-float-label p-input-icon-left">
+
+              <p-calendar formControlName="dataNascimento" inputId="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false">
+                <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-left">
+                  <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                </ng-template>
+              </p-calendar>
+              <label for="dataNascimento" class="azul">Data Nascimento</label>
+            </span>
+            <small *ngIf="formulario.controls['dataNascimento'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+          </div> -->
+
+        </div>
+
+      </div>
+      <div class="flex justify-content-center align-content-center">
+
+        <!-- <button pButton type="button" (click)="prevStep()" label="Voltar" icon="pi pi-angle-left" class="btnVoltar"></button> -->
+        <button pButton type="button"  label="Salvar" icon="pi pi-save" class="btnSalvar"></button>
+     </div>
+
+    </form>
+
+  </div>
+
+
+
+</div>

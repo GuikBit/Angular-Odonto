@@ -126,9 +126,9 @@
                   class="flex justify-content-around">
 
 
-                    <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top"><i class="material-icons">info</i></p-button>
-                    <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top"><i class="material-icons" >edit</i></p-button>
-                    <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons">delete</i></p-button>
+                    <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="infoShow(dentista.id)"><i class="material-icons">info</i></p-button>
+                    <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="EditShowDialog(dentista?.id)"><i class="material-icons" >edit</i></p-button>
+                    <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top" (click)="DeletShowDialog()"><i class="material-icons">delete</i></p-button>
 
                 </div>
               </td>
@@ -141,6 +141,9 @@
 </div>
 
 
-  <p-dialog header="Novo Dentista" [(visible)]="visible" [modal]="true" [style]="{ width: 'auto' }" [draggable]="false" [resizable]="false">
+  <p-dialog header="Novo Dentista" [(visible)]="novo" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
     <app-dentista-novo></app-dentista-novo>
+  </p-dialog>
+  <p-dialog header="Novo Dentista" [(visible)]="editar" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+    <app-dentista-novo *ngIf="dentista" [dentistaEdit]="dentista"></app-dentista-novo>
   </p-dialog>

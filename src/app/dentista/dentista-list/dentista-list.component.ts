@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { DentistaService } from 'src/app/dentista.service';
 import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
 
@@ -15,7 +16,7 @@ import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-sna
 })
 export class DentistaListComponent implements AfterViewInit{
 
-
+  dentista: any;
   colunas : string []= ['nome', 'cpf', 'dataCadastro', 'btns'];
   dataSource: MatTableDataSource<Dentista>;
 
@@ -25,9 +26,12 @@ export class DentistaListComponent implements AfterViewInit{
   msgSalvar: string;
   msgSalvarStyle: string;
 
-  visible: any = false;
+  novo: any = false;
+  editar: any = false;
+  info: any = false;
+  deletar: any = false;
 
-  constructor(private service: DentistaService,  private router: Router, private route: ActivatedRoute, private _snackBar: MatSnackBar){
+  constructor(private service: DentistaService,  private router: Router, private route: ActivatedRoute, private _snackBar: MatSnackBar, private messageService: MessageService){
     this.criaTabelaDentista();
   }
 
@@ -50,8 +54,38 @@ export class DentistaListComponent implements AfterViewInit{
   }
 
   showDialog() {
-    this.visible = true;
+    this.novo = true;
   }
+
+  async EditShowDialog(id: string){
+
+     await this.service.getById(id)
+     .then((response)=>{
+
+      this.dentista = response;
+
+     }).catch((error)=>{
+
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Opss!',
+        detail: 'Houve algum problema ao buscar o dentista',
+        life: 2000
+      })
+     });
+
+    this.editar = true;
+  }
+
+  DeletShowDialog(){
+    this.deletar = true;
+  }
+
+  infoShow(id: string){
+    this.router.navigate([`/dentistas/info/${id}`])
+  }
+
+
   applyFilter(event: Event) {
     console.log((event.target as HTMLInputElement).value)
     const filterValue = (event.target as HTMLInputElement).value;
@@ -77,26 +111,26 @@ export class DentistaListComponent implements AfterViewInit{
     try {
       const response = await this.service.getDentistas();
       this.dataSource = new MatTableDataSource(response);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
 
     } catch (error) {
       console.error('Erro ao obter pacientes:', error);
     }
   }
 
-  cadastro(){
-    this.router.navigate(['/dentistas/novo']);
-  }
-  edit(id: any){
-    this.router.navigate([`/dentista/edit/${id}`])
-  }
-  delet(id: any){
-    this.router.navigate([`/dentista/delete/${id}`])
-  }
-  info(id: any){
-    this.router.navigate([`/dentista/info/${id}`])
-  }
+  // cadastro(){
+  //   this.router.navigate(['/dentistas/novo']);
+  // }
+  // edit(id: any){
+  //   this.router.navigate([`/dentista/edit/${id}`])
+  // }
+  // delet(id: any){
+  //   this.router.navigate([`/dentista/delete/${id}`])
+  // }
+  // info(id: any){
+  //   this.router.navigate([`/dentista/info/${id}`])
+  // }
 
   openSnackBar ( ) {
     const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {

@@ -26,18 +26,18 @@ export class ClienteService {
       return this.http.put<Cliente>(`${this.apiURL}/${cliente.id}`, cliente);
     }
 
-    getClientes(): Observable<Cliente[]>{      
+    getClientes(): Observable<Cliente[]>{
       return this.http.get<Cliente[]>(`${this.apiURL}`);
     }
-    getClientesPage(page:any, size:any): Observable<ClientePagina>{       
-      const params = new HttpParams().set('page', page).set('size', size);     
+    getClientesPage(page:any, size:any): Observable<ClientePagina>{
+      const params = new HttpParams().set('page', page).set('size', size);
       return this.http.get<ClientePagina>(`${this.apiURL}/web?${params.toString()}`);
     }
 
-    getClienteId(id : number) : Observable<Cliente>{      
+    getClienteId(id : number) : Observable<Cliente>{
       return this.http.get<any>(`${this.apiURL}/${id}`);
     }
-    
+
     deletarCliente(cliente : Cliente) : Observable<any>
     {
       return this.http.delete<any>(`${this.apiURL}/${cliente.id}`);
@@ -49,13 +49,13 @@ export class ClienteService {
       const instance = axios.create({
         baseURL: `${this.apiURL}`,
         timeout: 1000,
-        headers: { Authorization: 'Bearer ' + (await this.getToken()), 
+        headers: { Authorization: 'Bearer ' + (await this.getToken()),
         'Content-Type': 'application/json' },
       });
-      try { 
+      try {
         console.log(paciente)
-        const response = await instance.post(`${this.apiURL}`, paciente);    
-        console.log("Teste")    
+        const response = await instance.post(`${this.apiURL}`, paciente);
+        console.log("Teste")
         return response;
         // return null;
 
@@ -66,15 +66,15 @@ export class ClienteService {
       }
     }
     async getPacientes(){
-      
+
       const instance = axios.create({
         baseURL: `${this.apiURL}`,
         timeout: 1000,
         headers: { Authorization: 'Bearer ' + (await this.getToken()) },
       });
-          
-      try { 
-        const response = await instance.get(`${this.apiURL}`);        
+
+      try {
+        const response = await instance.get(`${this.apiURL}`);
         return response.data;
 
       } catch (error) {
@@ -84,15 +84,15 @@ export class ClienteService {
     }
 
     async getPacientesPaginado(page:number, size:number){
-      
+
       const instance = axios.create({
         baseURL: `${this.apiURL}`,
         timeout: 1000,
         headers: { Authorization: 'Bearer ' + (await this.getToken()) },
       });
-          
-      try { 
-        const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`);        
+
+      try {
+        const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`);
         return response;
 
       } catch (error) {
@@ -100,7 +100,7 @@ export class ClienteService {
         return null
       }
     }
-    
+
     async getToken(){
       return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
     }
@@ -111,8 +111,8 @@ export class ClienteService {
     //     timeout: 1000,
     //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
     //   });
-    //   try { 
-    //     const response = await instance.get(`${this.apiURL}/total`);      
+    //   try {
+    //     const response = await instance.get(`${this.apiURL}/total`);
     //     return response.data;
     //   } catch (error) {
     //     console.error(error);
@@ -127,14 +127,14 @@ export class ClienteService {
         headers: { Authorization: 'Bearer ' + (await this.getToken())},
       });
 
-      try { 
-        const response = await instance.get(`${this.apiURL}/validaLogin?login=${login}`);   
-        
+      try {
+        const response = await instance.get(`${this.apiURL}/validaLogin?login=${login}`);
+
         if(response.data === true){
           return true;
         }else {
           return false;
-        }        
+        }
       } catch (error) {
         console.log(error)
         return false;
@@ -147,27 +147,27 @@ export class ClienteService {
         timeout: 1000,
         headers: { Authorization: 'Bearer ' + (await this.getToken())},
       });
-      try {         
+      try {
         const response = await instance.get(`${this.apiURL}/validaCPF?cpf=${cpf}`);
-        
+
         if(response.data === true){
           return true;
         }else {
           return false;
-        }        
+        }
       } catch (error) {
         console.log(error)
         return false;
       }
     }
-    
+
     // async seachPaceinte(seachPaciente: string, page: number, size: number) {
     //   const instance = axios.create({
     //     baseURL: `${this.apiURL}`,
     //     timeout: 1000,
     //     headers: { Authorization: 'Bearer ' + (await this.getToken())},
     //   });
-    //   try {         
+    //   try {
 
     //     const response = await instance.get(`${this.apiURL}/buscarPaciente?page=${page}&size=${size}&search=${seachPaciente}`);
     //     console.log(response.data)

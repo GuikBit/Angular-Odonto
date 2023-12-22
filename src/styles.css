@@ -3,30 +3,30 @@
 @import "primeng/resources/primeng.css";
 
 html, body { height: auto; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #FFFFFF;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #EFF3F8;}
 
 
 .SuccessSnackbar {
-   
+
     --mdc-snackbar-container-color: #f1fcf2;
     --mat-mdc-snack-bar-button-color: #1e9131;
-    --mdc-snackbar-supporting-text-color: #1e9131; 
+    --mdc-snackbar-supporting-text-color: #1e9131;
     border: 2px solid #1e9131;
-    
-}  
+
+}
 
 .WarningSnackbar {
-   
+
     --mdc-snackbar-container-color: #fffcea;
     --mat-mdc-snack-bar-button-color: #ffa200;
-    --mdc-snackbar-supporting-text-color: #ffa200; 
+    --mdc-snackbar-supporting-text-color: #ffa200;
     border: 2px solid #ffa200;
-}  
+}
 .DangerSnackbar{
-    
+
     --mdc-snackbar-container-color: #fff2f1;
     --mat-mdc-snack-bar-button-color: #f84838;
-    --mdc-snackbar-supporting-text-color: #f84838; 
+    --mdc-snackbar-supporting-text-color: #f84838;
     border: 2px solid #f84838;
 }
 
@@ -55,7 +55,7 @@ mat-form-field{
     margin-top: 3vw;
     background-color:     #c0d6ef;
     border-radius: 10px 10px 0px 0px;
-    font-size: x-large;   
+    font-size: x-large;
 }
 form{
     color:#262924d3;
@@ -67,7 +67,7 @@ form h2{
     font-size: 1.6rem;
 }
 
-.btnadd{ 
+.btnadd{
     background-color: #80634E;
     width: 200px;
     height: 50px;
@@ -76,7 +76,7 @@ form h2{
 .btnadd .mat-icon{
     color: #FFFFFF;
 }
-.btnadd:hover{ 
+.btnadd:hover{
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .example-card {
@@ -100,7 +100,7 @@ form h2{
 .clienteNome{
     width: 50%;
     font-size: 46px;
-   
+
 }
 .clienteNum{
     position: absolute;
@@ -121,7 +121,7 @@ form h2{
     bottom: 22px;
 }
 
-  
+
 
 .clienteMain{
     width: 94%;
@@ -151,8 +151,8 @@ form h2{
 
 .containerInfoPessoal{
     width: 100%;
-    height: auto; 
-    margin-top: 5%;   
+    height: auto;
+    margin-top: 5%;
 }
 .blocoInfo{
     display: flex;
@@ -200,7 +200,7 @@ form h2{
 }
 .btnSlide{
     margin: 8px 0;
-    
+
 }
 .slideText{
     font-size: x-large;
@@ -216,7 +216,7 @@ hr {
     width: 90%;
     margin-left: 5%;
   }
-  
+
   input[type=file]{
     display: flex;
     justify-content: center;
@@ -230,8 +230,8 @@ hr {
     border-radius: 4px;
     border: 1px dashed #979696;
     font: 14px/20px Roboto, sans-serif;
-    
-  } 
+
+  }
   input[type=file]::file-selector-button {
     font-weight: 500;
     margin-right: 20px;
@@ -246,7 +246,7 @@ hr {
     cursor: pointer;
     box-shadow: rgba(14, 30, 37, 0.08) 0px 2px 4px 0px, rgba(14, 30, 37, 0.131) 0px 2px 16px 0px;
   }
-  
+
   input[type=file]::file-selector-button:hover {
     background: #80634E;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.131), 0 10px 10px rgba(0, 0, 0, 0.091);
