@@ -1,0 +1,11 @@
+.profileImg {
+  border-radius: 50%;  /* Torna a imagem redonda */
+  width: 100%;        /* Faz a imagem ocupar 100% da largura do contêiner pai */
+  height: auto;       /* Mantém a proporção da imagem enquanto redimensiona */
+  max-width: 180px;   /* Define a largura máxima da imagem */
+}
+
+.divProfileImg{
+  width: 100%;
+  height: 5vh;
+}

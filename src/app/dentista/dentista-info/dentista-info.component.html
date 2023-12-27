@@ -2,9 +2,37 @@
   <div class="row flex">
     <div class="col-3 ">
       <div class="row flex justify-content-around m-2">
-        <div class="card shadow-2 bg-white" [style]="{'height': '100vh', 'width': '100%', 'border-radius': '5px'}"></div>
-      </div>
+        <div class="card shadow-2 bg-white " [style]="{'height': '100vh', 'width': '100%', 'border-radius': '5px'}">
+          <div class="row flex justify-content-center mt-5 bg-blue-200 " [style]="{'height': '20vh', 'width': '100%'}">
+            <p-image src="https://sorrisologia.com.br/documents/37259750/37287069/15627-mais-do-que-tratar-do-seu-sorriso-o-den-slider_medias-2.jpg/186392e9-1639-b3ba-2d73-c1cd82a4608a?t=1622581613231" alt="Image" width="150" [preview]="true" ></p-image>
 
+          </div>
+          <div class="row" [style]="{'height': '45vh'}">
+            <div class="row flex justify-content-center " >
+              <h3>{{data.nome}}</h3>
+            </div>
+            <div class="row flex justify-content-around " >
+              <div class="col-3">
+                <!-- {{data.cro}} -->
+              </div>
+              <div class="col-3">
+                {{data.dataNascimento}}
+              </div>
+            </div>
+            <div class="row flex justify-content-around ">
+              <div class="col-3">
+                {{data.telefone}}
+              </div>
+              <div class="col-3">
+                {{data.dataNascimento}}
+              </div>
+            </div>
+          </div>
+          <div class="row flex justify-content-around" [style]="{'height': '35vh'}">
+            teste
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-9 ">
 
@@ -35,14 +63,131 @@
 
       <div class="row flex align-items-center">
         <div class="col-12">
-          <div class="card shadow-2 bg-white" [style]="{'height': '85vh', 'width': '100%', 'border-radius': '5px'}">
+          <div class="card shadow-2 bg-white p-3  " [style]="{'height': '85vh', 'width': '100%', 'border-radius': '5px'}">
+            <p-table
+              #productsTable
+              [value]="data.consultas"
+              [rows]="10"
+              [paginator]="true"
+              [responsive]="true"
+              [globalFilterFields]="['name', 'amount']"
+              [tableStyle]="{ 'min-width': '75rem' }"
+              [rowHover]="true"
+              [showCurrentPageReport]="true"
+              dataKey="id"
+              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="paciente">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-center align-items-center">
+                        Paciente
+                      </div>
+                      <div class="flex justify-content-center align-items-center">
+                        <p-sortIcon
+                          field="paciente"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="paciente"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="dataConsulta">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Data Consulta
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="dataConsulta"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                          ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="dataConsulta"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
 
+                  <!-- <th pSortableColumn="espec">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Especialidade
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="espec"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="espec"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th> -->
+
+
+                  <th [width]="300"></th>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-consulta>
+                <tr >
+                  <td>
+                    {{ consulta?.paciente.nome }}
+                  </td>
+                  <td>
+                    {{ consulta?.dataConsulta }}
+                  </td>
+                  <!-- <td>
+                    {{ dentista?.especialidade.tipo }}
+                  </td> -->
+
+                  <td [width]="100">
+                    <div
+                      class="flex justify-content-around">
+
+
+                        <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="infoShow(data.consultas.id)"><i class="material-icons">info</i></p-button>
+                        <!-- <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="EditShowDialog(dentista?.id)"><i class="material-icons" >edit</i></p-button>
+                        <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top" (click)="DeletShowDialog()"><i class="material-icons">delete</i></p-button> -->
+
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
           </div>
         </div>
-
-        <!-- <div class="col-3 h-200">
-          <div class="card shadow-2 bg-white" [style]="{'height': '85vh', 'width': '100%', 'border-radius': '5px'}"></div>
-        </div> -->
       </div>
 
     </div>

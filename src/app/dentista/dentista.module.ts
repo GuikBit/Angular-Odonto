@@ -18,6 +18,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { AvatarModule } from 'primeng/avatar';
+import { ImageModule } from 'primeng/image';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
@@ -47,7 +49,9 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     ConfirmDialogModule,
     TooltipModule,
     DialogModule,
-
+    AvatarModule,
+    ImageModule,
+    
     FormsModule,
     ReactiveFormsModule
 

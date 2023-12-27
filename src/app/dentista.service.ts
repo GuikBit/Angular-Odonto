@@ -48,7 +48,7 @@ export class DentistaService {
     });
 
     try{
-      const response = await instance.get(`${this.apiURL}/full/${id}`)
+      const response = await instance.get(`${this.apiURL}/${id}`)
       return response.data;
     }catch(error){
       console.error(error);
