@@ -567,14 +567,15 @@
 </div>-->
 
 <div class="c">
-  <div class="flex justify-content-center align-content-center ">
-    <h1 class="text-blue-600 ">Cadastro de Paciente</h1>
-  </div>
+
   <p-card
-    styleClass="shadow-3 ml-8 mr-8 mb-5 text-blue-600  backgroung-blue-50"
+    styleClass="shadow-3 m-7 text-blue-600  "
     header=""
 
     >
+    <div class="flex justify-content-center align-content-center ">
+      <h1 class="text-blue-600 ">Cadastro de Paciente</h1>
+    </div>
     <p-toast></p-toast>
     <div class="steeper">
       <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" ></p-steps>
@@ -827,6 +828,10 @@
                         <small *ngIf="formulario.get('endereco.numero')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
+
+                    </div>
+
+                    <div class="row flex justify-content-center m-5">
                       <div class="field">
                         <span class="p-float-label p-input-icon-left">
                           <i class="pi pi-map azul"></i>
@@ -835,9 +840,6 @@
                         </span>
                         <small *ngIf="formulario.get('endereco.complemento')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small>
                       </div>
-                    </div>
-
-                    <div class="row flex justify-content-center m-5">
                       <div class="field">
                         <span class="p-float-label p-input-icon-left">
                           <i class="pi pi-map azul"></i>

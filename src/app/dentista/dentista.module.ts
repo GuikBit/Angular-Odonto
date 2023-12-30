@@ -20,6 +20,11 @@ import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { AvatarModule } from 'primeng/avatar';
 import { ImageModule } from 'primeng/image';
+import { ChartModule } from 'primeng/chart';
+import { ChipModule } from 'primeng/chip';
+import { FieldsetModule } from 'primeng/fieldset';
+import { TagModule } from 'primeng/tag';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
@@ -51,6 +56,10 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     DialogModule,
     AvatarModule,
     ImageModule,
+    ChipModule,
+    ChartModule,
+    FieldsetModule,
+    TagModule,
     
     FormsModule,
     ReactiveFormsModule

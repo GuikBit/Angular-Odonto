@@ -30,7 +30,8 @@ interface PageEvent {
 })
 export class ClienteListComponent implements AfterViewInit{
 
-  clienteSelecionado?: Cliente;
+
+  clienteSelecionado?: any;
   msgSuccess?: string;
   msgErro?: string;
   searchTerm?: string ;
@@ -46,11 +47,27 @@ export class ClienteListComponent implements AfterViewInit{
   first: number = 0;
   rows: number = 10;
 
+  editar: boolean = false;
+
   constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) {
 
    this.criaTabelaPaciente();
   }
 
+  async editPaciente(id: string) {
+    if(id != null || id != undefined){
+      try{
+        const response = await this.service.getPacienteById(id);
+        this.clienteSelecionado = response;
+
+      }catch(error){
+
+      }
+
+      this.editar = true;
+    }
+
+  }
 
   onPageChange(event: any) {
     this.first = event.first;
@@ -107,9 +124,9 @@ export class ClienteListComponent implements AfterViewInit{
     this.router.navigate([`/clientes/info/${id}`])
   }
 
-  preparaDelecao(cliente: Cliente){
-    this.clienteSelecionado = cliente;
-  }
+  // preparaDelecao(cliente: Cliente){
+  //   this.clienteSelecionado = cliente;
+  // }
 //   deletarCliente()
 // {
 //   this.service.deletarCliente(this.clienteSelecionado??;)

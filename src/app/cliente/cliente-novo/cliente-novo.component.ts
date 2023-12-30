@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente'
@@ -20,6 +20,8 @@ import { MenuItem, MessageService } from 'primeng/api';
 
 })
 export class ClienteNovoComponent implements OnInit {
+
+  @Input() pacienteSelecionado: Cliente;
   // Dados do Cliente
 cliente: Cliente;
 //id: number;
@@ -74,6 +76,9 @@ indiceStep = 1;
   }
 
   ngOnInit(): void {
+    if(this.pacienteSelecionado !== null || this.pacienteSelecionado !== undefined){
+      this.cliente = this.pacienteSelecionado
+    }
     this.items = [
       {
           id: '1',
@@ -105,7 +110,7 @@ indiceStep = 1;
     const pacienteJson = JSON.stringify(paciente);
     console.log(paciente)
       if(this.formulario.valid){
-      this.service.salvarPaciente(pacienteJson)
+      this.service.postPaciente(pacienteJson)
       .then(response =>{
         console.log(response)
         if(response?.status === 201 || response?.status === 200 ){

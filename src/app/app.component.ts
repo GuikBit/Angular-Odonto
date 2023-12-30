@@ -9,9 +9,25 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'Cliente';
 
-  constructor(private primeNgConfig: PrimeNGConfig){}
+  constructor(private config: PrimeNGConfig){}
 
   ngOnInit(): void {
-    this.primeNgConfig.ripple = true;
+
+    this.config.setTranslation({
+      accept: 'Aceitar',
+      reject: 'Cancelar',
+      //translations
+      clear: 'Limpar',
+      apply: 'Aplicar',
+      // matchAll: 'Marcar todos'
+      //date
+
+    //   primengConfig.filterMatchModeOptions = {
+    //     text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
+    //     numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
+    //     date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
+    // };
+  });
+
   }
 }

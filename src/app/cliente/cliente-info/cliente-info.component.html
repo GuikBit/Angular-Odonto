@@ -1,19 +1,134 @@
-<div class="clienteMain">
-  <div class="bannerCliente">           
+<!-- <div class="clienteMain">
+  <div class="bannerCliente">
       <div class="clienteFoto">
           <mat-card class="example-card">
               <img mat-card-image src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="Photo of a Shiba Inu">
           </mat-card>
       </div>
       <div class="clienteInfo">
-         <span >Guilherme Oliveira</span> 
+         <span >Guilherme Oliveira</span>
          <span>32 998220082</span>
-         
+
       </div>
-  
+
   </div>
 
-  
 
-  
+
+
+</div> -->
+
+<div class="card box m-6 mt-8 mb-8">
+  <div class="card box bannerCliente">
+    <div class="col-2 bg-blue-200">
+
+    </div>
+    <div class="col-10 bg-blue-300">
+      {{paciente.nome}}
+    </div>
+  </div>
+
+  <div class="flex m-4">
+    <div class="col-2 row ">
+      <div class="flex flex-column h-full ">
+        <ul class="list-none p-0 m-0 overflow-hidden">
+          <li class="mt-2">
+              <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(1)" [style]="infPes? 'background: #f2f7fc;':''">
+                  <i class="pi pi-user mr-2"></i>
+                  <span class="font-medium">Informações Pessoais</span>
+              </a>
+          </li>
+          <li class="mt-2">
+            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(2)" [style]="cons? 'background: #f2f7fc;':''">
+                <i class="pi pi-briefcase mr-2"></i>
+                <span class="font-medium">Consultas</span>
+            </a>
+          </li>
+          <li class="mt-2">
+            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(3)" [style]="pag? 'background: #f2f7fc;':''">
+                <i class="pi pi-dollar"></i>
+                <span class="font-medium">Pagamentos</span>
+            </a>
+          </li>
+          <li class="mt-2">
+            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(4)" [style]="util? 'background: #f2f7fc;':''">
+                <i class="pi pi-wrench mr-2"></i>
+                <span class="font-medium">Util</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-10">
+
+        @if (infPes) {
+          <div class="card">
+            <div class="row">
+              <div class="flex justify-content-center bg-blue-200">
+                <form  [formGroup]="formulario" (ngSubmit)="onUpdate()">
+
+                  <div class="row flex justify-content-center m-5">
+                    <div class="col-4">
+                      <div class="field ">
+                        <span class="p-float-label p-input-icon-left width">
+                          <i class="pi pi-pencil azul"></i>
+                          <input pInputText id="nome" formControlName="nome" [value]="paciente.nome" required class="width" [disabled]="true" />
+                          <label for="nome" class="azul">Nome Completo</label>
+                        </span>
+                        <small *ngIf="formulario.controls['nome'].errors?.['required'] || formulario.controls['nome'].getRawValue() === ''"  class="p-error "><br>* Campo obrigatório</small>
+                      </div>
+                    </div>
+
+
+                      <div class="field mr-4">
+                        <span class="p-float-label p-input-icon-left p-input-icon-right">
+                          <i class="pi pi-id-card azul"></i>
+                          <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" required  [disabled]="true"/>
+                          <label for="cpf" class="azul">CPF</label>
+                        </span>
+                      </div>
+
+                      <div class="field ml-4">
+                        <span class="p-float-label p-input-icon-left">
+
+                          <p-calendar formControlName="dataNascimento" inputId="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" class="lb3">
+                            <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-left">
+                              <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                            </ng-template>
+                          </p-calendar>
+                          <label for="dataNascimento" class="azul">Data Nascimento</label>
+                        </span>
+
+                      </div>
+
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        }
+        @else if (cons) {
+          <div class="card">
+            <div class="row">
+
+            </div>
+          </div>
+        }
+        @else if (pag) {
+          <div class="card">
+            <div class="row">
+
+            </div>
+          </div>
+        }
+        @else if (util) {
+          <div class="card">
+            <div class="row">
+
+            </div>
+          </div>
+        }
+
+    </div>
+  </div>
 </div>

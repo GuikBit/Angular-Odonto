@@ -9,3 +9,57 @@
   width: 100%;
   height: 5vh;
 }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+  margin-inline: 10px;
+}
+
+.dNome{
+  font-size: xx-large;
+  font-weight: 500;
+}
+.search{
+  color: #2070b4;
+  border-color:  #2070b4;
+  width: 18vw;
+  border-radius: 50px;
+}
+
+.box{
+  background: #FFFFFF;
+  border-radius: 7px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+
+}
+.cardTitulo{
+  color:#303030;
+  font-weight: 700;
+  font-size:medium;
+}
+.cardValor{
+  color:#303030;
+  font-weight: 700;
+  font-size: xx-large;
+  margin-top: 1rem;
+}
+.cardPorc{
+  color:red;
+  font-weight: 500;
+  font-size: medium;
+}
+.cardPorcVerd{
+  color:#159D47;
+  font-weight: 500;
+  font-size: medium;
+}
+
+
+

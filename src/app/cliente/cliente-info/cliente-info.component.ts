@@ -1,47 +1,150 @@
+import { MessageService } from 'primeng/api';
 
-
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import { Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Cliente} from '../cliente';
 
 import { ClienteService } from 'src/app/cliente.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-info',
   templateUrl: './cliente-info.component.html',
   styleUrls: ['./cliente-info.component.css']
 })
-export class ClienteInfoComponent implements AfterViewInit {
+export class ClienteInfoComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  clientes2: Cliente[]; //= [{id: 1,nome: 'Guilherme', cpf:'120981336000', dataCadastro:'15/03/2023'},{id: 2,nome: 'Pedro', cpf:'120981336000', dataCadastro:'15/03/2023'},{ id: 3,nome: 'Guilherme', cpf:'120981336000', dataCadastro:'15/03/2023'},{id: 1,nome: 'Guilherme', cpf:'120981336000', dataCadastro:'15/03/2023'},{id: 2,nome: 'Pedro', cpf:'120981336000', dataCadastro:'15/03/2023'},{ id: 3,nome: 'Guilherme', cpf:'120981336000', dataCadastro:'15/03/2023'}];  
+  paciente: any;
+
+  infPes: boolean = true;
+  cons: boolean = false;
+  pag: boolean = false;
+  util: boolean = false;
+
   dataSource: MatTableDataSource<Cliente>;
+  formulario: FormGroup;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: ClienteService) {
-    this.service.getClientes().subscribe(response=>{
-      this.clientes2 = response;
-      
+
+  constructor(private service: ClienteService, private route: ActivatedRoute, private router: Router, private messageService: MessageService,
+    private formBuilder: FormBuilder) {
+      this.paciente = new Cliente();
+      this.criaFormulario(new Cliente())
+  }
+
+  ngOnInit() {
+    let id: string = '';
+    this.route.params.subscribe(params => {
+      id = params['id'];
     })
-    this.dataSource = new MatTableDataSource(this.clientes2);
+    if(id !== ''){
+      const response = this.service.getPacienteById(id).then((response)=>{
+
+       this.paciente = response;
+       // console.log(this.data);
+
+      }).catch(()=>{
+       this.router.navigate(['/clientes']);
+       this.messageService.add({
+         severity: 'error',
+         summary: 'Erro',
+         detail: 'Ocorreu um erro ao carregar o paciente',
+         life: 2000
+       })
+      })
+     }
+
+     this.criaFormulario(this.paciente)
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  trocaMenu(menu: number) {
+    switch (menu) {
+      case 1: {
+        this.infPes = true;
+        this.cons = false;
+        this.pag = false;
+        this.util = false;
+        break;
+      }
+      case 2: {
+        this.infPes = false;
+        this.cons = true;
+        this.pag = false;
+        this.util = false;
+        break;
+      }
+      case 3: {
+        this.infPes = false;
+        this.cons = false;
+        this.pag = true;
+        this.util = false;
+        break;
+      }
+      case 4: {
+        this.infPes = false;
+        this.cons = false;
+        this.pag = false;
+        this.util = true;
+        break;
+      }
+      default: {
+        this.infPes = false;
+        this.cons = true;
+        this.pag = false;
+        this.util = false;
+        break;
+      }
     }
+  }
+
+  onUpdate() {
+
+  }
+
+  async criaFormulario(cliente: Cliente) {
+    this.formulario = this.formBuilder.group({
+      id: [cliente.id],
+      numPasta: [cliente.numPasta, Validators.required],
+      login: [cliente.login,Validators.required],
+      senha: [cliente.senha, Validators.required],
+      email: [cliente.email, Validators.required],
+      nome: [cliente.nome, Validators.required],
+      cpf: [cliente.cpf, Validators.required],
+      dataCadastro: [''],
+      dataNascimento: [cliente.dataNascimento, Validators.required],
+      telefone: [cliente.telefone, Validators.required],
+
+      // Endereço
+      endereco: this.formBuilder.group({
+        cidade: ['', Validators.required],
+        bairro: ['', Validators.required],
+        logradouro: ['', Validators.required],
+        numero: ['', Validators.required],
+        cep: ['36048502', Validators.required],
+        complemento: ['', Validators.required],
+        referencia: [''],
+      }),
+
+      // Responsável
+      responsavel: this.formBuilder.group({
+        nome: [''],
+        telefone: [''],
+        cpf: [''],
+      }),
+
+      // Anamnese
+      anamnese: this.formBuilder.group({
+        problemaSaude: ['', Validators.required],
+        tratamento: ['', Validators.required],
+        remedio: ['', Validators.required],
+        alergia: ['', Validators.required],
+        sangramentoExcessivo: [false],
+        hipertenso: [false],
+        gravida: [false],
+        traumatismoFace: [false],
+      }),
+    });
   }
 }

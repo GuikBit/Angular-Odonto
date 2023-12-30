@@ -128,6 +128,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.component';
 // import { InputSwitchModule } from 'primeng/inputswitch';
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { AppRoutingModule } from './app-routing.module';
     CustomSnackbarComponent,
     ClienteNovoComponent,
     ClienteListComponent,
+    ClienteInfoComponent
     // ConsultaListComponent
   ],
   imports: [

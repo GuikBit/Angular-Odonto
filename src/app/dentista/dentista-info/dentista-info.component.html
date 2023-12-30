@@ -1,195 +1,465 @@
-<div class="card m-3">
-  <div class="row flex">
-    <div class="col-3 ">
-      <div class="row flex justify-content-around m-2">
-        <div class="card shadow-2 bg-white " [style]="{'height': '100vh', 'width': '100%', 'border-radius': '5px'}">
-          <div class="row flex justify-content-center mt-5 bg-blue-200 " [style]="{'height': '20vh', 'width': '100%'}">
-            <p-image src="https://sorrisologia.com.br/documents/37259750/37287069/15627-mais-do-que-tratar-do-seu-sorriso-o-den-slider_medias-2.jpg/186392e9-1639-b3ba-2d73-c1cd82a4608a?t=1622581613231" alt="Image" width="150" [preview]="true" ></p-image>
+<div class="card m-3 mb-8">
+  <div class="row flex ">
+    <div class="col-1 flex align-items-center justify-content-center ">
+      <p-avatar image="https://sorrisologia.com.br/documents/37259750/37287069/15627-mais-do-que-tratar-do-seu-sorriso-o-den-slider_medias-2.jpg/186392e9-1639-b3ba-2d73-c1cd82a4608a?t=1622581613231" size="xlarge" shape="circle"></p-avatar>
 
-          </div>
-          <div class="row" [style]="{'height': '45vh'}">
-            <div class="row flex justify-content-center " >
-              <h3>{{data.nome}}</h3>
-            </div>
-            <div class="row flex justify-content-around " >
-              <div class="col-3">
-                <!-- {{data.cro}} -->
-              </div>
-              <div class="col-3">
-                {{data.dataNascimento}}
-              </div>
-            </div>
-            <div class="row flex justify-content-around ">
-              <div class="col-3">
-                {{data.telefone}}
-              </div>
-              <div class="col-3">
-                {{data.dataNascimento}}
-              </div>
-            </div>
-          </div>
-          <div class="row flex justify-content-around" [style]="{'height': '35vh'}">
-            teste
-          </div>
-        </div>
+    </div>
+    <div class="col-8 mt-4 mb-4">
+      <span class="dNome">{{data.nome}}</span><br>
+      <i>&nbsp;&nbsp;{{data.especialidade.tipo}}&nbsp;&nbsp;-&nbsp;&nbsp;
+        @if (data.ativo){
+          <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
+        }
+        @else {
+          <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
+        }
+      </i>
+
+    </div>
+    <div class="col-3  flex align-items-center justify-content-end">
+      <ul >
+        <li pTooltip="Informações" tooltipPosition="top">
+          <p-button icon="pi pi-info-circle" [rounded]="true" [outlined]="true" [style]="{'color': '#7692BC'}"></p-button>
+        </li>
+        <li pTooltip="Editar" tooltipPosition="top">
+          <p-button icon="pi pi-user-edit" [rounded]="true" [outlined]="true" [style]="{'color': '#7692BC'}"></p-button>
+        </li>
+        <li pTooltip="Exportar" tooltipPosition="top">
+          <p-button icon="pi pi-download" [rounded]="true"[outlined]="true" [style]="{'color': '#7692BC'}"></p-button>
+        </li>
+        <li pTooltip="Deletar" tooltipPosition="top">
+          <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="true"></p-button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="row flex justify-content-between m-3">
+
+    <div class="card box  flex " [style]="{'height': '16vh', 'width':'31vw'}">
+      <div class="col-5 p-4 pl-6" >
+       <span class="cardTitulo">Consultas</span><br>
+       <span class="cardValor ">45</span><br>
+       <span class="cardPorc ml-3 mt-3">- 5% <i class="pi pi-arrow-down text-bold"></i></span>
+      </div>
+      <div class="col-6 flex mt-2 justify-content-end">
+        <p-chart type="line"
+        height="100"
+        [responsive]="true"
+        [data]="{
+          labels: [ '', '', '', '','','','', ''],
+          datasets: [
+            {
+              fill: false,
+              data: [35, 55, 37, 31, 39, 43, 41, 40],
+              borderColor: '#875B59',
+              tension: 0.4
+            }
+          ],
+        }"
+        [options]="{
+          maintainAspectRatio: false,
+          aspectRatio: 2,
+          name: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+              x: {
+                display: false,
+                ticks: {
+                    color: 'transparent',
+                  },
+                  grid: {
+                    color: 'transparent',
+                    drawBorder: false
+                  }
+              },
+              y: {
+                display: false,
+                  ticks: {
+                    color: 'transparent',
+                  },
+                  grid: {
+                    color: 'transparent',
+                      drawBorder: false
+                  }
+              }
+          },
+          elements: {
+            point: {
+                radius:0
+            },
+
+          },
+          layout: {
+            padding: 0
+          }
+        }"
+
+      ></p-chart>
       </div>
     </div>
-    <div class="col-9 ">
 
-      <div class="row flex justify-content-around  mb-2">
-        <div class="col-3 ">
-          <div class="card shadow-2 bg-white" [style]="{'height': '12vh', 'width': '100%', 'border-radius': '5px'}">
+    <div class="card box  flex" [style]="{'height': '16vh', 'width':'31vw'}">
+      <div class="col-5 p-4 pl-6" >
+        <span class="cardTitulo">Atrasos</span><br>
+        <span class="cardValor ">15 min</span><br>
+        <span class="cardPorcVerd ml-3 mt-3">+ 13% <i class="pi pi-arrow-up text-bold"></i></span>
+       </div>
+       <div class="col-6 flex mt-2 justify-content-center">
+        <p-chart type="line"
+        height="100"
+        [responsive]="true"
+        [data]="{
+          labels: [ '', '', '', '','','','', ''],
+          datasets: [
+            {
+              fill: false,
+              data: [12, 10, 8, 11, 13, 7, 5, 8],
+              borderColor: '#D98400',
+              tension: 0.4
+            }
+          ],
+        }"
+        [options]="{
+          hide: false,
+          legend: false,
+          maintainAspectRatio: false,
+          aspectRatio: 2,
+          name: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+              x: {
+                display: false,
+                ticks: {
+                    color: 'transparent',
+                  },
+                  grid: {
+                    color: 'transparent',
+                    drawBorder: false
+                  }
+              },
+              y: {
+                display: false,
+                  ticks: {
+                    color: 'transparent',
+                  },
+                  grid: {
+                    color: 'transparent',
+                      drawBorder: false
+                  }
+              }
+          },
+          elements: {
+            point: {
+                radius:0
+            },
 
+          },
+          layout: {
+            padding: 0
+          }
+        }"
+
+      ></p-chart>
+       </div>
+    </div>
+
+    <div class="card box  flex" [style]="{'height': '16vh', 'width':'31vw'}">
+      <div class="col-5 p-4  pl-6 " >
+        <span class="cardTitulo">Gastos</span><br>
+        <span class="cardValor ">R$ 12.596</span><br>
+        <span class="cardPorcVerd ml-3 mt-3">+ 15% <i class="pi pi-arrow-up text-bold"></i></span>
+       </div>
+       <div class="col-6 flex mt-2 justify-content-center">
+        <p-chart type="line"
+        height="100"
+        [responsive]="true"
+        [data]="{
+          labels: [ '', '', '', '','','','', ''],
+          datasets: [
+            {
+              fill: false,
+              data: [65, 59, 67, 56, 73, 63, 45, 69],
+              borderColor: '#006B5F',
+              tension: 0.4
+            }
+          ],
+        }"
+        [options]="{
+          hide: false,
+          legend: false,
+          maintainAspectRatio: false,
+          aspectRatio: 2,
+          name: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+              x: {
+                display: false,
+                ticks: {
+                    color: 'transparent',
+                  },
+                  grid: {
+                    color: 'transparent',
+                    drawBorder: false
+                  }
+              },
+              y: {
+                display: false,
+                  ticks: {
+                    color: 'transparent',
+                  },
+                  grid: {
+                    color: 'transparent',
+                      drawBorder: false
+                  }
+              }
+          },
+          elements: {
+            point: {
+                radius:0
+            },
+
+          },
+          layout: {
+            padding: 0
+          }
+        }"
+
+      ></p-chart>
+
+       </div>
+    </div>
+
+  </div>
+
+  <div class="flex justify-content-center" >
+    <div class="row flex">
+      <div class="col">
+          <div class="row flex justify-content-around m-2">
+            <div class="card box p-3 flex justify-content-center align-items-center" [style]="{'height': '43vh', 'width': '100%'}">
+              <p-chart type="doughnut" [data]="dataGrafic1" [options]="options1"></p-chart>
+            </div>
           </div>
-
-
-        </div>
-        <div class="col-3 ">
-          <div class="card shadow-2 bg-white" [style]="{'height': '12vh', 'width': '100%', 'border-radius': '5px'}">
-
+          <div class="row flex justify-content-around m-2 mt-5">
+            <div class="card box p-3"  [style]="{'height': '57vh', 'width': '100%'}">
+              <p-chart type="line" [data]="dataGrafic2" [options]="options2" ></p-chart>
+            </div>
           </div>
-        </div>
-        <div class="col-3 ">
-          <div class="card shadow-2 bg-white" [style]="{'height': '12vh', 'width': '100%', 'border-radius': '5px'}">
-
-          </div>
-        </div>
-        <div class="col-3 ">
-          <div class="card shadow-2 bg-white" [style]="{'height': '12vh', 'width': '100%', 'border-radius': '5px'}">
-
-          </div>
-        </div>
       </div>
+      <div class="col-8 ">
+        <div class="row flex align-items-center">
+          <div class="col-12">
+            <div class="card box p-5  " [style]="{'height': 'auto', 'width': '100%'}">
+              <div class="flex justify-content-between m-3 ">
+                <span class="p-float-label p-input-icon-left ">
+                  <i class="pi pi-search azul" ></i>
+                  <input pInputText id="search"  class="search"/>
+                  <label for="search" class="azul">Buscar Consulta...</label>
+                </span>
+                <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
 
-      <div class="row flex align-items-center">
-        <div class="col-12">
-          <div class="card shadow-2 bg-white p-3  " [style]="{'height': '85vh', 'width': '100%', 'border-radius': '5px'}">
-            <p-table
-              #productsTable
-              [value]="data.consultas"
-              [rows]="10"
-              [paginator]="true"
-              [responsive]="true"
-              [globalFilterFields]="['name', 'amount']"
-              [tableStyle]="{ 'min-width': '75rem' }"
-              [rowHover]="true"
-              [showCurrentPageReport]="true"
-              dataKey="id"
-              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
-            >
-              <ng-template pTemplate="header">
-                <tr>
-                  <th pSortableColumn="paciente">
-                    <div class="flex justify-content-between align-items-center">
-                      <div class="flex justify-content-center align-items-center">
-                        Paciente
-                      </div>
-                      <div class="flex justify-content-center align-items-center">
-                        <p-sortIcon
-                          field="paciente"
-                          pTooltip="Ordenar"
-                          tooltipPosition="top"
-                        ></p-sortIcon>
-                        <p-columnFilter
-                          type="text"
-                          field="paciente"
-                          display="menu"
-                          matchMode="contains"
-                          [showMatchModes]="false"
-                          [showOperator]="false"
-                          [showAddButton]="false"
-                          pTooltip="Filtrar"
-                          tooltipPosition="top"
-                        ></p-columnFilter>
-                      </div>
-                    </div>
-                  </th>
-                  <th pSortableColumn="dataConsulta">
-                    <div class="flex justify-content-between align-items-center">
-                      <div class="flex justify-content-between align-items-center">
-                        Data Consulta
-                      </div>
-                      <div class="flex justify-content-between align-items-center">
-                        <p-sortIcon
-                          field="dataConsulta"
-                          pTooltip="Ordenar"
-                          tooltipPosition="top"
+              </div>
+              <p-table
+                #productsTable
+                [value]="data.consultas"
+                [rows]="8"
+                [paginator]="true"
+                [responsive]="true"
+                [globalFilterFields]="['nome', 'dataConsulta']"
+                [tableStyle]="{ 'min-width': '70rem' }"
+                [rowHover]="true"
+                [showCurrentPageReport]="true"
+                dataKey="id"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="paciente" [width]="420">
+                      <div class="flex row align-items-center">
+                        <div class="col-8 flex justify-content-center align-items-center">
+                          Paciente
+                        </div>
+                        <div class="col-4 flex justify-content-end align-items-center">
+                          <p-sortIcon
+                            field="paciente"
+                            pTooltip="Ordenar"
+                            tooltipPosition="top"
                           ></p-sortIcon>
-                        <p-columnFilter
-                          type="text"
+                          <p-columnFilter
+                            type="text"
+                            field="paciente"
+                            display="menu"
+                            pTooltip="Filtrar"
+                            tooltipPosition="top"
+                          ></p-columnFilter>
+                        </div>
+                      </div>
+                    </th>
+                    <th pSortableColumn="dataConsulta" [width]="250">
+                      <div class="flex row align-items-center">
+                        <div class="col-8 flex justify-content-center align-items-center">
+                          Data
+                        </div>
+                        <div class="col-4 flex justify-content-end align-items-center">
+                          <p-sortIcon
+                            field="dataConsulta"
+                            pTooltip="Ordenar"
+                            tooltipPosition="top"
+                            ></p-sortIcon>
+                          <!-- <p-columnFilter
+                            type="text"
+                            field="dataConsulta"
+                            display="menu"
+                            matchMode="contains"
+                            [showMatchModes]="false"
+                            [showOperator]="false"
+                            [showAddButton]="false"
+                            pTooltip="Filtrar"
+                            tooltipPosition="top"
+                          ></p-columnFilter> -->
+                          <p-columnFilter
+                          type="date"
                           field="dataConsulta"
+                          dateFormat="dd/mm/yyyy"
                           display="menu"
-                          matchMode="contains"
-                          [showMatchModes]="false"
-                          [showOperator]="false"
-                          [showAddButton]="false"
                           pTooltip="Filtrar"
                           tooltipPosition="top"
-                        ></p-columnFilter>
+                          ></p-columnFilter>
+                        </div>
                       </div>
-                    </div>
-                  </th>
-
-                  <!-- <th pSortableColumn="espec">
-                    <div class="flex justify-content-between align-items-center">
-                      <div class="flex justify-content-between align-items-center">
-                        Especialidade
-                      </div>
-                      <div class="flex justify-content-between align-items-center">
-                        <p-sortIcon
-                          field="espec"
-                          pTooltip="Ordenar"
-                          tooltipPosition="top"
-                        ></p-sortIcon>
-                        <p-columnFilter
-                          type="text"
-                          field="espec"
+                    </th>
+                    <th pSortableColumn="horaConsulta" [width]="250">
+                      <div class="flex row align-items-center">
+                        <div class="col-8 flex justify-content-center align-items-center ">
+                          Hora
+                        </div>
+                        <div class="col-4 flex justify-content-end align-items-center ">
+                          <p-sortIcon
+                            field="horaConsulta"
+                            pTooltip="Ordenar"
+                            tooltipPosition="top"
+                            ></p-sortIcon>
+                          <!-- <p-columnFilter
+                            type="text"
+                            field="horaConsulta"
+                            display="menu"
+                            matchMode="contains"
+                            [showMatchModes]="false"
+                            [showOperator]="false"
+                            [showAddButton]="false"
+                            pTooltip="Filtrar"
+                            tooltipPosition="top"
+                          ></p-columnFilter> -->
+                          <p-columnFilter
+                          type="time"
+                          field="time"
+                          dateFormat="dd/mm/yyyy"
                           display="menu"
-                          matchMode="contains"
-                          [showMatchModes]="false"
-                          [showOperator]="false"
-                          [showAddButton]="false"
                           pTooltip="Filtrar"
                           tooltipPosition="top"
-                        ></p-columnFilter>
+                          ></p-columnFilter>
+                        </div>
                       </div>
-                    </div>
-                  </th> -->
+                    </th>
 
+                    <th pSortableColumn="pagamento" [width]="170">
+                      <div class="flex row align-items-center">
+                        <div class="col-8 flex justify-content-center align-items-center ">
+                          Status
+                        </div>
+                        <div class="col-4 flex justify-content-end align-items-center ">
+                          <!-- <p-sortIcon
+                            field="pagamento"
+                            pTooltip="Ordenar"
+                            tooltipPosition="top"
+                          ></p-sortIcon> -->
+                          <p-columnFilter
+                            type="text"
+                            field="pagamento"
+                            display="menu"
+                            matchMode="contains"
+                            [showMatchModes]="false"
+                            [showOperator]="false"
+                            [showAddButton]="false"
+                            pTooltip="Filtrar"
+                            tooltipPosition="top"
+                          ></p-columnFilter>
+                        </div>
+                      </div>
+                    </th>
+                    <th [width]="100"></th>
+                </ng-template>
 
-                  <th [width]="300"></th>
-              </ng-template>
+                <ng-template pTemplate="body" let-consulta>
+                  <tr >
+                    <td>
+                      {{ consulta?.paciente.nome }}
+                    </td>
+                    <td>
+                      {{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}
+                    </td>
+                    <td>
+                      {{ consulta?.horaConsulta }}
+                    </td>
+                    <td>@if (consulta?.pagamento.pago)
+                      {
+                        <!-- <p-chip styleClass="pl-0 pr-3 bg-green-500">
+                          <span class=" border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
+                            <i class="material-icons" style="color: white">attach_money</i>
+                          </span>
+                          <span class="ml-2 font-medium " style="color: white">Pago</span>
+                        </p-chip> -->
+                        <p-tag icon="pi pi-dollar" severity="success" value="Concluído" [rounded]="true"></p-tag>
 
-              <ng-template pTemplate="body" let-consulta>
-                <tr >
-                  <td>
-                    {{ consulta?.paciente.nome }}
-                  </td>
-                  <td>
-                    {{ consulta?.dataConsulta }}
-                  </td>
-                  <!-- <td>
-                    {{ dentista?.especialidade.tipo }}
-                  </td> -->
-
-                  <td [width]="100">
-                    <div
-                      class="flex justify-content-around">
-
-
+                      }
+                      @else
+                      {
+                        <!-- <p-chip styleClass="pl-0 pr-3 bg-red-400">
+                          <span class=" border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
+                            <i class="material-icons" style="color: white">attach_money</i>
+                          </span>
+                          <span class="ml-2 font-medium primary-color-text " style="color: white"></span>
+                        </p-chip> -->
+                        <p-tag icon="pi pi-dollar" severity="danger" value="Pendente" [rounded]="true"></p-tag>
+                      }
+                    </td>
+                    <td>
+                      <div class="flex justify-content-around">
                         <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="infoShow(data.consultas.id)"><i class="material-icons">info</i></p-button>
-                        <!-- <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="EditShowDialog(dentista?.id)"><i class="material-icons" >edit</i></p-button>
-                        <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top" (click)="DeletShowDialog()"><i class="material-icons">delete</i></p-button> -->
-
-                    </div>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr >
+                      <td colspan="5">Não foram encontrado dados</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
           </div>
         </div>
+
       </div>
 
     </div>
   </div>
+  <!-- <div class="card flex justify-content-center m-3">
+    <p-fieldset legend="Informações Pessoais" [toggleable]="true" >
+
+    </p-fieldset>
+  </div> -->
+
 </div>

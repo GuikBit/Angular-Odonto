@@ -19,10 +19,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
-    ClienteInfoComponent,
+    // ClienteInfoComponent,
     // ClienteListComponent,
     ClienteEditComponent,
     // ClienteNovoComponent
@@ -40,9 +42,11 @@ import { ConfirmationService } from 'primeng/api';
     DropdownModule,
     ConfirmDialogModule,
     TooltipModule,
+    DialogModule,
+    CalendarModule
   ],
   exports: [
-    ClienteInfoComponent,
+    // ClienteInfoComponent,
     // ClienteListComponent,
     ClienteEditComponent
   ],

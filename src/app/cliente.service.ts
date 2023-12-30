@@ -21,31 +21,31 @@ export class ClienteService {
     //   return this.http.post<Cliente>(`${this.apiURL}/novoPaciente`, cliente);
     // }
 
-    atualizarCliente(cliente : Cliente) : Observable<any>
-    {
-      return this.http.put<Cliente>(`${this.apiURL}/${cliente.id}`, cliente);
-    }
+    // atualizarCliente(cliente : Cliente) : Observable<any>
+    // {
+    //   return this.http.put<Cliente>(`${this.apiURL}/${cliente.id}`, cliente);
+    // }
 
-    getClientes(): Observable<Cliente[]>{
-      return this.http.get<Cliente[]>(`${this.apiURL}`);
-    }
-    getClientesPage(page:any, size:any): Observable<ClientePagina>{
-      const params = new HttpParams().set('page', page).set('size', size);
-      return this.http.get<ClientePagina>(`${this.apiURL}/web?${params.toString()}`);
-    }
+    // getClientes(): Observable<Cliente[]>{
+    //   return this.http.get<Cliente[]>(`${this.apiURL}`);
+    // }
+    // getClientesPage(page:any, size:any): Observable<ClientePagina>{
+    //   const params = new HttpParams().set('page', page).set('size', size);
+    //   return this.http.get<ClientePagina>(`${this.apiURL}/web?${params.toString()}`);
+    // }
 
-    getClienteId(id : number) : Observable<Cliente>{
-      return this.http.get<any>(`${this.apiURL}/${id}`);
-    }
+    // getClienteId(id : number) : Observable<Cliente>{
+    //   return this.http.get<any>(`${this.apiURL}/${id}`);
+    // }
 
-    deletarCliente(cliente : Cliente) : Observable<any>
-    {
-      return this.http.delete<any>(`${this.apiURL}/${cliente.id}`);
-    }
+    // deletarCliente(cliente : Cliente) : Observable<any>
+    // {
+    //   return this.http.delete<any>(`${this.apiURL}/${cliente.id}`);
+    // }
 
     //Novo com axios
 
-    async salvarPaciente(paciente : any){
+    async postPaciente(paciente : any){
       const instance = axios.create({
         baseURL: `${this.apiURL}`,
         timeout: 1000,
@@ -61,6 +61,24 @@ export class ClienteService {
 
       } catch (error) {
         console.log("Deu erro na requisição")
+        console.error(error);
+        return null
+      }
+    }
+
+    async getPacienteById(id: any){
+
+      const instance = axios.create({
+        baseURL: `${this.apiURL}`,
+        timeout: 1000,
+        headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+      });
+
+      try {
+        const response = await instance.get(`${this.apiURL}/${id}`);
+        return response.data;
+
+      } catch (error) {
         console.error(error);
         return null
       }
@@ -83,23 +101,23 @@ export class ClienteService {
       }
     }
 
-    async getPacientesPaginado(page:number, size:number){
+    // async getPacientesPaginado(page:number, size:number){
 
-      const instance = axios.create({
-        baseURL: `${this.apiURL}`,
-        timeout: 1000,
-        headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-      });
+    //   const instance = axios.create({
+    //     baseURL: `${this.apiURL}`,
+    //     timeout: 1000,
+    //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    //   });
 
-      try {
-        const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`);
-        return response;
+    //   try {
+    //     const response = await instance.get(`${this.apiURL}s?page=${page}&size=${size}`);
+    //     return response;
 
-      } catch (error) {
-        console.error(error);
-        return null
-      }
-    }
+    //   } catch (error) {
+    //     console.error(error);
+    //     return null
+    //   }
+    // }
 
     async getToken(){
       return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''

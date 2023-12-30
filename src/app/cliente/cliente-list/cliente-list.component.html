@@ -1,172 +1,215 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 ">
-      <p-card
-        styleClass="shadow-3 m-5 text-indigo-800"
 
-      >
-      <div class="flex justify-content-between mb-3 ml-5 mr-5">
-        <span class="p-float-label p-input-icon-left search">
-          <i class="pi pi-search azul" ></i>
-          <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
-          <label for="search" class="azul">Buscar Paciente...</label>
-        </span>
-        <button pButton type="button" label="Novo Paciente" styleClass="linear-gradient"  (click)="cadastro()" icon="pi pi-user-plus"></button>
-        <!-- <button pButton type="button" label="Area ADM"  styleClass="linear-gradient" (click)="cadastro()"  routerLinkActive="btnHomeAtivo"  icon="pi pi-home"></button> -->
+      <div class="card box p-5 m-5 text-indigo-800">
+        <div class="flex justify-content-between mb-3 ml-5 mr-5">
+          <span class="p-float-label p-input-icon-left search">
+            <i class="pi pi-search azul" ></i>
+            <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
+            <label for="search" class="azul">Buscar Paciente...</label>
+          </span>
+          <button pButton type="button" label="Novo Paciente" styleClass="linear-gradient"  (click)="cadastro()" icon="pi pi-user-plus"></button>
+          <!-- <button pButton type="button" label="Area ADM"  styleClass="linear-gradient" (click)="cadastro()"  routerLinkActive="btnHomeAtivo"  icon="pi pi-home"></button> -->
+          </div>
+
+          <p-table
+            #productsTable
+            [value]="dataSource.data"
+            [rows]="10"
+            [paginator]="true"
+            [responsive]="true"
+            [globalFilterFields]="['nome', 'numPasta', 'cpf']"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            [rowHover]="true"
+            [showCurrentPageReport]="true"
+            dataKey="id"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} pacientes"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="numPasta">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-center align-items-center">
+                      N Pasta
+                    </div>
+                    <div class="flex justify-content-center align-items-center">
+                      <p-sortIcon
+                        field="numPasta"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="numPasta"
+                        display="menu"
+                        matchMode="contains"
+                        [showMatchModes]="false"
+                        [showOperator]="false"
+                        [showAddButton]="false"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="nome">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-between align-items-center">
+                      Nome
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="nome"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="nome"
+                        display="menu"
+                        matchMode="contains"
+                        [showMatchModes]="false"
+                        [showOperator]="false"
+                        [showAddButton]="false"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+
+                <th pSortableColumn="cpf">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-between align-items-center">
+                      CPF
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="cpf"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="cpf"
+                        display="menu"
+                        matchMode="contains"
+                        [showMatchModes]="false"
+                        [showOperator]="false"
+                        [showAddButton]="false"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+
+                <th pSortableColumn="dataNascimento">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-between align-items-center">
+                      Data Cadastro
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="dataNascimento"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="dataNascimento"
+                        display="menu"
+                        matchMode="contains"
+                        [showMatchModes]="false"
+                        [showOperator]="false"
+                        [showAddButton]="false"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="ativo" [width]="180">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-between align-items-center">
+                      Status
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="ativo"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="ativo"
+                        display="menu"
+                        matchMode="contains"
+                        [showMatchModes]="false"
+                        [showOperator]="false"
+                        [showAddButton]="false"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+
+                <th [width]="250"></th>
+
+
+
+
+
+            </ng-template>
+
+            <ng-template pTemplate="body" let-paciente>
+              <tr>
+                <td [width]="180">{{ paciente?.numPasta }}</td>
+                <td>{{ paciente?.nome }}</td>
+                <td>{{ paciente?.cpf }}</td>
+                <td [width]="300">{{ paciente?.dataCadastro }}</td>
+                <!-- <td [pTooltip]="paciente?.description" tooltipPosition="top">
+                  {{ paciente?.description }}
+                </td>
+                <td>{{ paciente?.category?.name }}</td> -->
+                <td>
+                  @if (paciente?.ativo){
+                    <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
+                  }
+                  @else {
+                    <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
+                  }
+                </td>
+                <td>
+                  <div
+                    class="flex justify-content-around">
+
+
+                      <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="info(paciente.id)"><i class="material-icons">info</i></p-button>
+                      <!-- <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="editPaciente(paciente.id)"><i class="material-icons" >edit</i></p-button> -->
+                      <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons" (click)="delet(paciente.id)">delete</i></p-button>
+
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr >
+                  <td colspan="5">Não foram encontrado dados</td>
+              </tr>
+            </ng-template>
+          </p-table>
       </div>
-
-        <p-table
-          #productsTable
-          [value]="dataSource.data"
-          [rows]="10"
-          [paginator]="true"
-          [responsive]="true"
-          [globalFilterFields]="['nome', 'numPasta', 'cpf']"
-          [tableStyle]="{ 'min-width': '75rem' }"
-          [rowHover]="true"
-          [showCurrentPageReport]="true"
-          dataKey="id"
-          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} pacientes"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="numPasta">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-center align-items-center">
-                    N Pasta
-                  </div>
-                  <div class="flex justify-content-center align-items-center">
-                    <p-sortIcon
-                      field="numPasta"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="numPasta"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="nome">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Nome
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
-                      field="nome"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="nome"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-
-              <th pSortableColumn="cpf">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    CPF
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
-                      field="cpf"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="cpf"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-
-              <th pSortableColumn="dataNascimento">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Data Cadastro
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
-                      field="dataNascimento"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="dataNascimento"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th [width]="300"></th>
-
-
-
-
-
-          </ng-template>
-
-          <ng-template pTemplate="body" let-paciente>
-            <tr>
-              <td [width]="180">{{ paciente?.numPasta }}</td>
-              <td>{{ paciente?.nome }}</td>
-              <td>{{ paciente?.cpf }}</td>
-              <td [width]="300">{{ paciente?.dataNascimento }}</td>
-              <!-- <td [pTooltip]="paciente?.description" tooltipPosition="top">
-                {{ paciente?.description }}
-              </td>
-              <td>{{ paciente?.category?.name }}</td> -->
-              <td>
-                <div
-                  class="flex justify-content-around">
-
-
-                    <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top"><i class="material-icons">info</i></p-button>
-                    <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top"><i class="material-icons" >edit</i></p-button>
-                    <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons">delete</i></p-button>
-
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-card>
     </div>
   </div>
+</div>
+
+<div class="card flex justify-content-center">
+  <p-dialog header="Editar paciente" [(visible)]="editar" [modal]="true" [style]="{ width: '100vw' }" [draggable]="false" [resizable]="false">
+    <app-cliente-novo *ngIf="clienteSelecionado" [pacienteSelecionado]="clienteSelecionado"></app-cliente-novo>
+  </p-dialog>
 </div>
 
 

@@ -3,7 +3,7 @@
 @import "primeng/resources/primeng.css";
 
 html, body { height: auto; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #EFF3F8;}
+body { margin: 0; font-family: "Open Sans", sans-serif; background-color: #EFF3F8;}
 
 
 .SuccessSnackbar {

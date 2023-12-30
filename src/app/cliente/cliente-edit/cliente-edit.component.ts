@@ -10,8 +10,11 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 })
 export class ClienteEditComponent {
   cliente: Cliente = new Cliente();
+  indiceStep = 1;
+
+
   constructor(private _formBuilder: FormBuilder) {}
-  
+
 
   InfoPessoaisFormGroup = this._formBuilder.group({
     nome: ['', Validators.required],
@@ -37,20 +40,4 @@ export class ClienteEditComponent {
   });
 
 }
-export class StepperErrorsExample {
-InfoPessoaisFormGroup = this._formBuilder.group({
-  nome: ['', Validators.required],
-  cpf: ['', Validators.required],
-  dataCadastro: ['', Validators.required],
-  dataNascimento: ['', Validators.required],
-  telefone: ['', Validators.required],
-  naturalidade: ['', Validators.required],
-  escolaridade: ['', Validators.required],
-  ocupacao: ['', Validators.required],
-});
-secondFormGroup = this._formBuilder.group({
-  secondCtrl: ['', Validators.required],
-});
 
-constructor(private _formBuilder: FormBuilder) {}
-}
