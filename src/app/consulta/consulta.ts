@@ -1,12 +1,19 @@
+import { Time } from "@angular/common";
+import { Cliente } from "../cliente/cliente";
+import { Dentista } from "../dentista/dentista";
+
 export class Consulta{
     id?: number;
-    nSerie?: number;
-    login?: string;
-    senha?: string;
-    email?: string;
-    nome?: string;
-    cpf?: string;
-    dataCadastro?: string;
-    dataNascimento?: string;
-    telefone?: string; 
+    // pacienteId: number;
+    // dentistaId: number;
+    dataConsulta: Date;
+    horaConsulta: Time;
+    dataHoraAtendimento: Date;
+    procedimento: string;
+    tempoPrevisto: string;
+
+    // EspecConsulta: EspecConsulta;
+    paciente: Cliente;
+    dentista: Dentista;
+    
 }

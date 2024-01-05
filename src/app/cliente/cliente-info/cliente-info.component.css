@@ -94,9 +94,16 @@ form h2{
     margin-left: 1%;
     margin-right: 1%;
     position: relative;
-    top: -50px;
+    top: -40px;
     display: flex;
-
+    /* background-image: url("src/assets/img/teste2.png"); */
+    background-image: url("https://wallpapercave.com/wp/wp11901739.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center center;
+    border-radius: 7px ;
+    border: 1px solid #c4ddf3;
+    box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 }
 
 .box{
@@ -122,6 +129,65 @@ background: #f2f7fc;
   width: 100%;
 }
 
+ul {
+  list-style-type: none;
+
+}
+
+li {
+  float:left;
+  margin: 15px
+}
+
+.imgPaciente{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  overflow: hidden;
+  object-fit: cover;
+
+}
+
+:host ::ng-deep .p-menubar {
+  border: 1px #c4ddf3;
+  border-style: solid;
+  border-radius: 50px;
+  background: #FFFFFF;
+  /* box-shadow: 0px 4px 6px 0px green; */
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+:host ::ng-deep .p-tabview{
+  padding: 30px;
+  margin-bottom: 15px;
+  border: 1px #c4ddf3;
+  border-style: solid;
+  /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
+}
 
 
+button{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: 0.9rem;
+  width: 10vw;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+}
 
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
+
+th{
+  /* background: #c4ddf3 !important; */
+  color: #2070b4;
+  font-size: large;
+
+}
+
+
+.search{
+color: #2070b4;
+border-color:  #2070b4;
+width: 25vw;
+border-radius: 50px;
+}

@@ -21,6 +21,12 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { AccordionModule } from 'primeng/accordion';
+import { DividerModule } from 'primeng/divider';
+import { TabViewModule } from 'primeng/tabview';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { MenubarModule } from 'primeng/menubar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -43,7 +49,13 @@ import { CalendarModule } from 'primeng/calendar';
     ConfirmDialogModule,
     TooltipModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    AccordionModule,
+    DividerModule,
+    TabViewModule,
+    SpeedDialModule,
+    MenubarModule,
+    MatIconModule
   ],
   exports: [
     // ClienteInfoComponent,

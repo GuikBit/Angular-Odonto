@@ -3,7 +3,6 @@ import { Cliente } from './cliente/cliente';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
-import { ClientePagina } from './cliente/clientePagina';
 import axios from 'axios';
 
 @Injectable({

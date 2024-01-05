@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //import { ServicoPrestado } from './servico-prestado/servicoPrestado';
 import { environment } from 'src/environments/environments';
-import { DentistaPagina } from './dentista/dentistaPagina';
 //import { ServicoPrestadoBusca } from './servico-prestado/servico-prestado-lista/servicoPrestadoBusca';
 import axios from 'axios';
 
@@ -21,13 +20,13 @@ export class ConsultaService {
 
   busca(nome: string, mes: number):Observable<ServicoPrestadoBusca>{
     const httpParans = new HttpParams().set("nome", nome?nome:"").set("mes", mes? mes.toString():"");
-    const url = this.apiURL + "?"+httpParans.toString(); 
- 
+    const url = this.apiURL + "?"+httpParans.toString();
+
     return this.http.get<any>(url);
   }*/
 
-  // getDentistaPage(page:any, size:any): Observable<DentistaPagina>{ 
-  //   const params = new HttpParams().set('page', page).set('size', size);     
+  // getDentistaPage(page:any, size:any): Observable<DentistaPagina>{
+  //   const params = new HttpParams().set('page', page).set('size', size);
   //   return this.http.get<DentistaPagina>(`${this.apiURL}s?${params.toString()}`);
   // }
   async getToken(){
@@ -42,9 +41,9 @@ export class ConsultaService {
     });
 
     try{
-      const response = await instance.get(`${this.apiURL}`)      
+      const response = await instance.get(`${this.apiURL}`)
       return response.data;
-      
+
     }catch (error) {
       console.error(error);
       return null
@@ -57,9 +56,9 @@ export class ConsultaService {
   //     timeout: 1000,
   //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
   //   });
-  //   try { 
+  //   try {
   //     console.log(`${this.apiURL}s/total`)
-  //     const response = await instance.get(`${this.apiURL}s/total`);      
+  //     const response = await instance.get(`${this.apiURL}s/total`);
   //     return response.data;
   //   } catch (error) {
   //     console.error(error);

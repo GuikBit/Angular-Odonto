@@ -11,7 +11,7 @@
           </span>
           <button pButton type="button" label="Novo Paciente" styleClass="linear-gradient"  (click)="cadastro()" icon="pi pi-user-plus"></button>
           <!-- <button pButton type="button" label="Area ADM"  styleClass="linear-gradient" (click)="cadastro()"  routerLinkActive="btnHomeAtivo"  icon="pi pi-home"></button> -->
-          </div>
+        </div>
 
           <p-table
             #productsTable
@@ -175,7 +175,7 @@
                 </td>
                 <td>{{ paciente?.category?.name }}</td> -->
                 <td>
-                  @if (paciente?.ativo){
+                  @if (paciente.ativo){
                     <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
                   }
                   @else {

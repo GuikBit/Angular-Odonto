@@ -1,134 +1,829 @@
-<!-- <div class="clienteMain">
-  <div class="bannerCliente">
-      <div class="clienteFoto">
-          <mat-card class="example-card">
-              <img mat-card-image src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="Photo of a Shiba Inu">
-          </mat-card>
-      </div>
-      <div class="clienteInfo">
-         <span >Guilherme Oliveira</span>
-         <span>32 998220082</span>
-
-      </div>
-
-  </div>
-
-
-
-
-</div> -->
 
 <div class="card box m-6 mt-8 mb-8">
-  <div class="card box bannerCliente">
-    <div class="col-2 bg-blue-200">
+  <div class="bannerCliente">
 
+    <div class="col-2 flex justify-content-center align-items-center">
+      <p-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
+      width="180"
+      alt="Foto de perfil do paciente"
+      [preview]="true"
+      ></p-image>
     </div>
-    <div class="col-10 bg-blue-300">
-      {{paciente.nome}}
-    </div>
-  </div>
 
-  <div class="flex m-4">
-    <div class="col-2 row ">
-      <div class="flex flex-column h-full ">
-        <ul class="list-none p-0 m-0 overflow-hidden">
-          <li class="mt-2">
-              <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(1)" [style]="infPes? 'background: #f2f7fc;':''">
-                  <i class="pi pi-user mr-2"></i>
-                  <span class="font-medium">Informações Pessoais</span>
-              </a>
-          </li>
-          <li class="mt-2">
-            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(2)" [style]="cons? 'background: #f2f7fc;':''">
-                <i class="pi pi-briefcase mr-2"></i>
-                <span class="font-medium">Consultas</span>
-            </a>
-          </li>
-          <li class="mt-2">
-            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(3)" [style]="pag? 'background: #f2f7fc;':''">
-                <i class="pi pi-dollar"></i>
-                <span class="font-medium">Pagamentos</span>
-            </a>
-          </li>
-          <li class="mt-2">
-            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple options" (click)="trocaMenu(4)" [style]="util? 'background: #f2f7fc;':''">
-                <i class="pi pi-wrench mr-2"></i>
-                <span class="font-medium">Util</span>
-            </a>
-          </li>
-        </ul>
+    <div class="col-10">
+      <div class="grid">
+        <div class="col-12">
+          <div class="mt-6">
+            <span class="text-5xl font-semibold flex align-items-end p-component">{{paciente.nome}}</span>
+            <span clas="ml-3">
+            @if (paciente.ativo){
+              <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
+            }
+            @else {
+              <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
+            }</span>
+          </div>
+        </div>
+      </div>
+      <div class="grid mt-2">
+        <div class="col-2 flex justify-content-center">
+          <p class="text-xl font-semibold flex align-items-end p-component">
+            <i class="pi pi-folder-open text-2xl"></i>
+            &nbsp;&nbsp;{{paciente.numPasta}}
+          </p>
+        </div>
+        <div class="col-2 flex justify-content-center align-content-center ">
+          <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer" (click)="abrirwhatsapp()">
+           <i class="pi pi-whatsapp text-2xl text-green-700 "></i>
+            &nbsp;&nbsp;{{paciente.telefone}}
+          </p>
+        </div>
+        <div class="col-2 flex justify-content-end align-content-start ">
+
+        </div>
+        <div class="col-2 flex justify-content-end align-content-start ">
+
+        </div>
+        <div class="col-3"></div>
+        <div class="col-1 ">
+          <!-- <p-speedDial [model]="items" direction="down" [transitionDelay]="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial> -->
+        </div>
       </div>
     </div>
-    <div class="col-10">
+  </div>
+  <div class="card flex justify-content-end m-3">
+    <p-menubar [model]="items" styleClass="menuBar"></p-menubar>
+  </div>
+  <div class="flex m-3 ">
+    <div class="col-12">
+      <p-tabView styleClass="tabview-custom" [(activeIndex)]="activeIndex">
+        <p-tabPanel header="Informacoes" >
+          <ng-template pTemplate="header">
+            <i class="pi pi-fw pi-user"></i>
+            <span>&nbsp;Informacoes</span>
+          </ng-template>
+            <form  [formGroup]="formulario" (ngSubmit)="onUpdate()" class="pl-8 pr-8">
 
-        @if (infPes) {
-          <div class="card">
-            <div class="row">
-              <div class="flex justify-content-center bg-blue-200">
-                <form  [formGroup]="formulario" (ngSubmit)="onUpdate()">
+            <!-- <p-divider align="left" type="solid" >
+              <i class="pi pi-info-circle" ></i>
+              <b>&nbsp;&nbsp;&nbsp;Informações Pessoais</b>
+            </p-divider> -->
 
-                  <div class="row flex justify-content-center m-5">
-                    <div class="col-4">
-                      <div class="field ">
-                        <span class="p-float-label p-input-icon-left width">
-                          <i class="pi pi-pencil azul"></i>
-                          <input pInputText id="nome" formControlName="nome" [value]="paciente.nome" required class="width" [disabled]="true" />
-                          <label for="nome" class="azul">Nome Completo</label>
-                        </span>
-                        <small *ngIf="formulario.controls['nome'].errors?.['required'] || formulario.controls['nome'].getRawValue() === ''"  class="p-error "><br>* Campo obrigatório</small>
-                      </div>
-                    </div>
+            <div class="row flex justify-content-center m-5">
+              <div class="col-4">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-pencil azul"></i>
+                    <input pInputText id="nome" [value]="paciente.nome" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Nome Completo</label>
+                  </span>
+                </div>
+              </div>
 
+              <div class="col-3">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                    <i class="pi pi-id-card azul"></i>
+                    <input pInputText id="cpf"  [value]="paciente.cpf" maxlength="14" minlength="11" required class="width"  [disabled]="true"/>
+                    <label for="cpf" class="azul">CPF</label>
+                  </span>
+                </div>
+              </div>
 
-                      <div class="field mr-4">
-                        <span class="p-float-label p-input-icon-left p-input-icon-right">
-                          <i class="pi pi-id-card azul"></i>
-                          <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" required  [disabled]="true"/>
-                          <label for="cpf" class="azul">CPF</label>
-                        </span>
-                      </div>
-
-                      <div class="field ml-4">
-                        <span class="p-float-label p-input-icon-left">
-
-                          <p-calendar formControlName="dataNascimento" inputId="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" class="lb3">
-                            <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-left">
-                              <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                            </ng-template>
-                          </p-calendar>
-                          <label for="dataNascimento" class="azul">Data Nascimento</label>
-                        </span>
-
-                      </div>
-
-                    </div>
-                </form>
+              <div class="col-1">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-folder-open azul"></i>
+                    <input pInputText id="nome"  [value]="paciente.numPasta" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">N Pasta</label>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        }
-        @else if (cons) {
-          <div class="card">
-            <div class="row">
+
+            <div class="row flex justify-content-center m-5">
+              <div class="col-3">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-phone azul"></i>
+                    <input pInputText id="nome" [value]="paciente.telefone" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Telefone</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-envelope azul"></i>
+                    <input pInputText id="nome"  [value]="paciente.email" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">E-mail</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="field">
+                  <span class="p-float-label p-input-icon-left">
+                    <p-calendar [value]="paciente.dataNascimento" inputId="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" class="lb3">
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-left">
+                        <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                      </ng-template>
+                    </p-calendar>
+                    <label for="dataNascimento" class="azul">Data Nascimento</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p-divider align="left" type="solid" >
+              <i class="pi pi-map-marker" ></i>
+              <b>&nbsp;&nbsp;&nbsp;Endereço</b>
+            </p-divider>
+
+            <div class="row flex justify-content-center m-5">
+              <div class="col-2">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map-marker azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.cep" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">CEP</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-pencil azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.cidade" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Cidade</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-pencil azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.bairro" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Bairro</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row flex justify-content-center m-5">
+              <div class="col-4">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.logradouro" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Logradouro</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-1">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.numero" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Numero</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.complemento" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Complemento</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row flex justify-content-center m-5">
+              <div class="col-4">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.endereco.referencia" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Referencia</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p-divider align="left" type="solid" >
+              <i class="pi pi-users" ></i>
+              <b>&nbsp;&nbsp;&nbsp;Responsável</b>
+            </p-divider>
+
+              <div class="row flex justify-content-center m-5">
+                <div class="col-4">
+                  <div class="field">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="nome" [value]="paciente.responsavel.nome" required class="width" [disabled]="disable" />
+                      <label for="nome" class="azul">Nome</label>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-2">
+                  <div class="field">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="nome" [value]="paciente.responsavel.cpf" required class="width" [disabled]="disable" />
+                      <label for="nome" class="azul">CPF</label>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-3">
+                  <div class="field">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="nome" [value]="paciente.responsavel.telefone" required class="width" [disabled]="disable" />
+                      <label for="nome" class="azul">Telefone</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+
+            <p-divider align="left" type="solid" >
+              <i class="pi pi-file-edit" ></i>
+              <b>&nbsp;&nbsp;&nbsp;Anamnese</b>
+            </p-divider>
+
+            <div class="row flex justify-content-center m-5">
+              <div class="col-4">
+                <div class="field">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.anamnese.problemaSaude" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Portador(a) de alguma doença?</label>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-3">
+                <div class="field">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.anamnese.tratamento" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Em tratamento médico?</label>
+                  </span>
+                </div>
+              </div>
+
 
             </div>
-          </div>
-        }
-        @else if (pag) {
-          <div class="card">
-            <div class="row">
+
+            <div class="row flex justify-content-center m-5">
+              <div class="col-3">
+                <div class="field">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.anamnese.alergia" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Alérgico(a) a algum medicamento?</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="field">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" [value]="paciente.anamnese.remedio" required class="width" [disabled]="disable" />
+                    <label for="nome" class="azul">Em uso de medicação?</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row flex justify-content-center mt-5">
+              <div class="col-1"></div>
+              <div class="col-4">
+                <span class=" flex justify-content-start align-items-center  m-3">
+                  <p-inputSwitch id="hipertenso" [value]="paciente.anamnese.hipertenso"></p-inputSwitch>
+                  <label for="hipertenso" class="azul">&nbsp;&nbsp;Hipertenso?</label>
+                </span>
+                <span class=" flex justify-content-start align-items-center  m-3">
+                  <p-inputSwitch id="gravida" [value]="paciente.anamnese.gravida" ></p-inputSwitch>
+                  <label for="gravida" class="azul">&nbsp;&nbsp;Está Gestante?</label>
+                </span>
+              </div>
+              <div class="col-4">
+                <span class=" flex justify-content-start align-items-center m-3">
+                  <p-inputSwitch id="traumatismoFace" [value]="paciente.anamnese.traumatismoFace" ></p-inputSwitch>
+                  <label for="traumatismoFace" class="azul">&nbsp;&nbsp;Possui algum traumatismo na face?</label>
+                </span>
+                <span class=" flex justify-content-start align-items-center  m-3">
+                  <p-inputSwitch id="sangramentoExcessivo" [value]="paciente.anamnese.sangramentoExcessivo"></p-inputSwitch>
+                  <label for="sangramentoExcessivo" class="azul">&nbsp;&nbsp;Possui sangramento excessivo?</label>
+                </span>
+              </div>
+
 
             </div>
-          </div>
-        }
-        @else if (util) {
-          <div class="card">
-            <div class="row">
 
+            </form>
+        </p-tabPanel>
+        <p-tabPanel header="Consultas">
+            <ng-template pTemplate="header">
+              <!-- <i class="material-icons">oral_disease</i> -->
+              <i class="pi pi-fw pi-briefcase"></i>
+              <span>&nbsp;Consultas</span>
+            </ng-template>
+            <div class="flex justify-content-between m-5">
+              <span class="p-float-label p-input-icon-left search">
+                <i class="pi pi-search azul" ></i>
+                <input pInputText id="search"  class="search"/>
+                <label for="search" class="azul">Buscar Consulta...</label>
+              </span>
+              <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"   icon="pi pi-briefcase"></button>
+              <!-- <button pButton type="button" label="Area ADM"  styleClass="linear-gradient" (click)="cadastro()"  routerLinkActive="btnHomeAtivo"  icon="pi pi-home"></button> -->
             </div>
-          </div>
-        }
+              <p-table
+              #productsTable
+              [value]="paciente.consultas"
+              [rows]="10"
+              [paginator]="true"
+              [responsive]="true"
+              [globalFilterFields]="['Paciente', 'nomeDentista', 'espec', 'pagamento']"
+              [tableStyle]="{ 'min-width': '75rem' }"
+              [rowHover]="true"
+              [showCurrentPageReport]="true"
+              dataKey="id"
+              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="paciente">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-center align-items-center">
+                        Paciente
+                      </div>
+                      <div class="flex justify-content-center align-items-center">
+                        <p-sortIcon
+                          field="paciente"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="paciente"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="nomeDentista">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Dentista
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="nomeDentista"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                          ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="nomeDentista"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
 
+                  <th pSortableColumn="dataConsulta" [width]="150">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Data
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="dataConsulta"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="dataConsulta"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="horaConsulta" [width]="150">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Hora
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="horaConsulta"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="horaConsulta"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="pagamento" [width]="180">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Status
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="pagamento"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="pagamento"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+
+
+                  <th [width]="200"></th>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-consulta>
+                <tr >
+                  <td>
+                    {{ paciente.nome }}
+                  </td>
+                  <td>
+                    {{ consulta?.dentista.nome }}
+                  </td>
+                  <td>
+                    {{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}
+                  </td>
+                  <td>
+                    {{ consulta?.horaConsulta }}
+                  </td>
+                  <td>
+                    @if (consulta?.pagamento.pago)
+                    {
+                      <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
+                    }
+                    @else
+                    {
+                      <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
+                    }
+                  </td>
+
+                  <td [width]="400">
+                    <div class="flex justify-content-around">
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'warning'"
+                        [disabled]="consulta?.pagamento.pago"
+                        pTooltip="Iniciar Consulta"
+                        tooltipPosition="top"
+                        ><i class="material-icons">play_arrow</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="info"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        ><i class="material-icons">info</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'success'"
+                        [disabled]="consulta?.pagamento.pago"
+                        pTooltip="Pagamento"
+                        tooltipPosition="top"
+                        ><i class="material-icons">paid</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'help'"
+                        [disabled]="consulta?.dataHoraAtendimento == null && consulta?.pagamento.pago"
+                        pTooltip="Reagendar"
+                        tooltipPosition="top"
+                        ><i class="material-icons">edit_document</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
+                        [disabled]="consulta?.pagamento.pago"
+                        pTooltip="Deletar"
+                        tooltipPosition="top"
+                        ><i class="material-icons">delete</i>
+                      </p-button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr >
+                    <td colspan="4">Não foram encontrado dados</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+        </p-tabPanel>
+        <p-tabPanel header="Pagamentos">
+            <ng-template pTemplate="header">
+              <i class="pi pi-fw pi-dollar"></i>
+              <span>&nbsp;Pagamentos</span>
+            </ng-template>
+            <div class="flex justify-content-between m-5">
+              <span class="p-float-label p-input-icon-left search">
+                <i class="pi pi-search azul" ></i>
+                <input pInputText id="search"  class="search"/>
+                <label for="search" class="azul">Buscar Pagamento...</label>
+              </span>
+              <button pButton type="button" label="Novo Pagamento" styleClass="linear-gradient"   icon="pi pi-briefcase"></button>
+              <!-- <button pButton type="button" label="Area ADM"  styleClass="linear-gradient" (click)="cadastro()"  routerLinkActive="btnHomeAtivo"  icon="pi pi-home"></button> -->
+            </div>
+              <p-table
+              #productsTable
+              [value]="paciente.consultas"
+              [rows]="10"
+              [paginator]="true"
+              [responsive]="true"
+              [globalFilterFields]="['Paciente', 'nomeDentista', 'espec', 'pagamento']"
+              [tableStyle]="{ 'min-width': '75rem' }"
+              [rowHover]="true"
+              [showCurrentPageReport]="true"
+              dataKey="id"
+              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="paciente">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-center align-items-center">
+                        Paciente
+                      </div>
+                      <div class="flex justify-content-center align-items-center">
+                        <p-sortIcon
+                          field="paciente"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="paciente"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="nomeDentista">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Dentista
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="nomeDentista"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                          ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="nomeDentista"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+
+                  <th pSortableColumn="dataConsulta" [width]="150">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Data
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="dataConsulta"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="dataConsulta"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="horaConsulta" [width]="150">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Hora
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="horaConsulta"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="horaConsulta"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+                  <th pSortableColumn="pagamento" [width]="180">
+                    <div class="flex justify-content-between align-items-center">
+                      <div class="flex justify-content-between align-items-center">
+                        Status
+                      </div>
+                      <div class="flex justify-content-between align-items-center">
+                        <p-sortIcon
+                          field="pagamento"
+                          pTooltip="Ordenar"
+                          tooltipPosition="top"
+                        ></p-sortIcon>
+                        <p-columnFilter
+                          type="text"
+                          field="pagamento"
+                          display="menu"
+                          matchMode="contains"
+                          [showMatchModes]="false"
+                          [showOperator]="false"
+                          [showAddButton]="false"
+                          pTooltip="Filtrar"
+                          tooltipPosition="top"
+                        ></p-columnFilter>
+                      </div>
+                    </div>
+                  </th>
+
+
+                  <th [width]="200"></th>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-consulta>
+                <tr >
+                  <td>
+                    {{ paciente.nome }}
+                  </td>
+                  <td>
+                    {{ consulta?.dentista.nome }}
+                  </td>
+                  <td>
+                    {{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}
+                  </td>
+                  <td>
+                    {{ consulta?.horaConsulta }}
+                  </td>
+                  <td>
+                    @if (consulta?.pagamento.pago)
+                    {
+                      <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
+                    }
+                    @else
+                    {
+                      <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
+                    }
+                  </td>
+
+                  <td [width]="400">
+                    <div class="flex justify-content-around">
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'warning'"
+                        [disabled]="consulta?.pagamento.pago"
+                        pTooltip="Iniciar Consulta"
+                        tooltipPosition="top"
+                        ><i class="material-icons">play_arrow</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="info"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        ><i class="material-icons">info</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'success'"
+                        [disabled]="consulta?.pagamento.pago"
+                        pTooltip="Pagamento"
+                        tooltipPosition="top"
+                        ><i class="material-icons">paid</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'help'"
+                        [disabled]="consulta?.dataHoraAtendimento == null && consulta?.pagamento.pago"
+                        pTooltip="Reagendar"
+                        tooltipPosition="top"
+                        ><i class="material-icons">edit_document</i>
+                      </p-button>
+                      <p-button icon="pi"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
+                        [disabled]="consulta?.pagamento.pago"
+                        pTooltip="Deletar"
+                        tooltipPosition="top"
+                        ><i class="material-icons">delete</i>
+                      </p-button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr >
+                    <td colspan="4">Não foram encontrado dados</td>
+                </tr>
+              </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Outros">
+          <ng-template pTemplate="header">
+            <i class="pi pi-fw pi-wrench"></i>
+            <span>&nbsp;Outros</span>
+          </ng-template>
+          <p>
+            Em construcao ainda...
+          </p>
+        </p-tabPanel>
+      </p-tabView>
     </div>
   </div>
 </div>
+

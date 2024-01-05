@@ -10,9 +10,7 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./dentista-info.component.css']
 })
 export class DentistaInfoComponent implements OnInit {
-infoShow(arg0: any) {
-throw new Error('Method not implemented.');
-}
+
   data: any;
   dataGrafic1: any;
   dataGrafic2: any;
@@ -107,7 +105,7 @@ throw new Error('Method not implemented.');
                     tension: 0.4,
                 }
             ]
-        }
+          }
 
         this.options2 = {
 
@@ -141,5 +139,8 @@ throw new Error('Method not implemented.');
         }
 
       }
+  infoShow(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
 
 }
