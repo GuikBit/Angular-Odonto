@@ -268,7 +268,8 @@
                   <input pInputText id="search"  class="search"/>
                   <label for="search" class="azul">Buscar Consulta...</label>
                 </span>
-                <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+                <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus"></button>
+
 
               </div>
               <p-table
@@ -363,8 +364,8 @@
                             tooltipPosition="top"
                           ></p-columnFilter> -->
                           <p-columnFilter
-                          type="time"
-                          field="time"
+                          type="date"
+                          field="horaConsulta"
                           dateFormat="dd/mm/yyyy"
                           display="menu"
                           pTooltip="Filtrar"
@@ -399,20 +400,16 @@
                         </div>
                       </div>
                     </th>
-                    <th [width]="100"></th>
+                    <th [width]="100">
+                      <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+                    </th>
                 </ng-template>
 
                 <ng-template pTemplate="body" let-consulta>
                   <tr >
-                    <td>
-                      {{ consulta?.paciente.nome }}
-                    </td>
-                    <td>
-                      {{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}
-                    </td>
-                    <td>
-                      {{ consulta?.horaConsulta }}
-                    </td>
+                    <td>{{ consulta?.paciente.nome }}</td>
+                    <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ consulta?.dataConsulta | date: 'HH:mm' }}</td>
                     <td>@if (consulta?.pagamento.pago)
                       {
                         <!-- <p-chip styleClass="pl-0 pr-3 bg-green-500">

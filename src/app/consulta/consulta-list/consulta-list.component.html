@@ -4,14 +4,56 @@
 
       <div class="card box p-5 m-5 text-indigo-800">
         <div class="flex justify-content-between mb-3 ml-5 mr-5 ">
-          <span class="p-float-label p-input-icon-left ">
+          <!-- <span class="p-float-label p-input-icon-left ">
             <i class="pi pi-search azul" ></i>
             <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
             <label for="search" class="azul">Buscar Consulta...</label>
-          </span>
-          <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-user-plus"></button>
+          </span> -->
+
+          <div class="flex align-items-center">
+            <p-selectButton
+            [options]="paymentOptions"
+            [(ngModel)]="filtro"
+            [multiple]="false"
+            optionLabel="name"
+            optionValue="value"
+            class="selectButton"
+            onOptionClick="filtarTabela(value)"
+            (onChange)="filtrarTabela($event)"
+            >
+            </p-selectButton>
           </div>
 
+          <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-plus"></button>
+          </div>
+
+          <!--<div class="row flex justify-content-between m-2 ">
+            <div class="col-3 ml-2 ">
+               <p-dropdown
+
+                formControlName="selectedCity"
+                [options]="[
+                  {name: 'Selecione um dentista', code: ''},
+                  { name: 'Australia', code: 'AU' },
+                  { name: 'Brazil', code: 'BR' },
+                  { name: 'China', code: 'CN' },
+                  { name: 'Egypt', code: 'EG' },
+                  { name: 'France', code: 'FR' },
+                  { name: 'Germany', code: 'DE' },
+                  { name: 'India', code: 'IN' },
+                  { name: 'Japan', code: 'JP' },
+                  { name: 'Spain', code: 'ES' },
+                  { name: 'United States', code: 'US' },
+                ]"
+                [filter]="true"
+                optionLabel="name"
+                [style]="{'width': '20vw'}"
+                scrollHeight="300px"
+                ></p-dropdown>
+            </div>
+
+
+          </div> -->
           <p-table
             #productsTable
             [value]="dataSource.data"
@@ -197,8 +239,8 @@
               <tr>
                 <td>{{ consulta?.paciente.nome }}</td>
                 <td>{{ consulta?.dentista.nome }}</td>
-                <td>{{ consulta?.dataConsulta }}</td>
-                <td>{{ consulta?.horaConsulta }}</td>
+                <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}}</td>
+                <td>{{  consulta?.dataConsulta | date: 'HH:mm' }}</td>
                 <td>@if (consulta?.pagamento.pago)
                       {
                         <!-- <p-chip styleClass="pl-0 pr-3 bg-green-500">
@@ -225,14 +267,60 @@
                 </td>
                 <td>{{ paciente?.category?.name }}</td> -->
                 <td >
-                  <div
-                    class="flex justify-content-around">
+                  <div class="flex justify-content-around">
 
 
-                      <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top"><i class="material-icons">info</i></p-button>
+                      <!-- <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="consultaInfo()"><i class="material-icons">info</i></p-button>
                       <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top"><i class="material-icons" >edit</i></p-button>
-                      <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons">delete</i></p-button>
-
+                      <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons">delete</i></p-button> -->
+                      <td [width]="400">
+                        <div class="flex justify-content-around">
+                          <p-button icon="pi"
+                            [rounded]="true"
+                            [outlined]="true"
+                            [severity]="consulta?.pagamento.pago? 'secondary':'warning'"
+                            [disabled]="consulta?.pagamento.pago"
+                            pTooltip="Iniciar Consulta"
+                            tooltipPosition="top"
+                            ><i class="material-icons">play_arrow</i>
+                          </p-button>
+                          <p-button icon="pi"
+                            [rounded]="true"
+                            [outlined]="true"
+                            severity="info"
+                            pTooltip="Informações"
+                            tooltipPosition="top"
+                            ><i class="material-icons">info</i>
+                          </p-button>
+                          <p-button icon="pi"
+                            [rounded]="true"
+                            [outlined]="true"
+                            [severity]="consulta?.pagamento.pago? 'secondary':'success'"
+                            [disabled]="consulta?.pagamento.pago"
+                            pTooltip="Pagamento"
+                            tooltipPosition="top"
+                            ><i class="material-icons">paid</i>
+                          </p-button>
+                          <p-button icon="pi"
+                            [rounded]="true"
+                            [outlined]="true"
+                            [severity]="consulta?.pagamento.pago? 'secondary':'help'"
+                            [disabled]="consulta?.dataHoraAtendimento == null && consulta?.pagamento.pago"
+                            pTooltip="Reagendar"
+                            tooltipPosition="top"
+                            ><i class="material-icons">edit_document</i>
+                          </p-button>
+                          <p-button icon="pi"
+                            [rounded]="true"
+                            [outlined]="true"
+                            [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
+                            [disabled]="consulta?.pagamento.pago"
+                            pTooltip="Deletar"
+                            tooltipPosition="top"
+                            ><i class="material-icons">delete</i>
+                          </p-button>
+                        </div>
+                      </td>
                   </div>
                 </td>
               </tr>
@@ -247,6 +335,10 @@
     </div>
   </div>
 </div>
+
+<p-dialog header="Nova Consulta" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" class="box" [draggable]="false" [resizable]="false">
+  <app-consulta-nova></app-consulta-nova>
+</p-dialog>
 
 
 

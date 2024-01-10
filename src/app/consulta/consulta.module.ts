@@ -142,14 +142,17 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { MessageService } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 
+
 @NgModule({
   declarations: [
     ConsultaListComponent,
     ConsultaNovaComponent,
     ConsultaInfoComponent,
-    ConsultaEditComponent
+    ConsultaEditComponent,
+
   ],
   imports: [
+    CommonModule,
     CardModule,
     ButtonModule,
     TableModule,
@@ -160,10 +163,17 @@ import { RouterModule } from '@angular/router';
     InputNumberModule,
     DynamicDialogModule,
     DropdownModule,
+    DialogModule,
     ConfirmDialogModule,
     TooltipModule,
     ChipModule,
-    TagModule
+    TagModule,
+    DropdownModule,
+    SelectButtonModule,
+    RadioButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CalendarModule
   ],exports: [
     ConsultaEditComponent,
     ConsultaListComponent,

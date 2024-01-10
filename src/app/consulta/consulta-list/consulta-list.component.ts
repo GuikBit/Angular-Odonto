@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from './../consulta';
 
-import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -30,8 +29,16 @@ export class ConsultaListComponent{
 
   msgSalvar: string;
   msgSalvarStyle: string;
+  filtro: any;
+  visible: boolean = false;
 
-  constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private _snackBar: MatSnackBar){
+  paymentOptions: any[] = [
+    { name: 'Dia', icon: 'pi pi-calendar', value: 1, styleClass: "selectButton" },
+    { name: 'Semana', icon: 'pi pi-calendar',  value: 2, styleClass: "selectButton"},
+    { name: 'Mês', icon: 'pi pi-calendar', value: 3, styleClass: "selectButton" }
+  ];
+
+  constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute){
     this.criaTabelaConsulta();
   }
 
@@ -47,11 +54,13 @@ export class ConsultaListComponent{
         this.msgSalvar = "Novo paciente salvo com sucesso!";
         this.msgSalvarStyle = "SuccessSnackbar";
         this.criaTabelaConsulta(); // Chame aqui
-        this.openSnackBar();
+
       }
     })
   }
-
+  filtrarTabela(event: any){
+    console.log(event.value)
+  }
   // async viewTable( pagina: any, tamanho: any){
 
   //   const response = await this.service.getConsultas(pagina, tamanho)
@@ -70,6 +79,9 @@ export class ConsultaListComponent{
       this.dataSource.paginator.firstPage();
     }
   }
+  consultaInfo(){
+    this.router.navigate([`/consultas/info/1`])
+  }
 
   async criaTabelaConsulta() {
     try {
@@ -84,7 +96,8 @@ export class ConsultaListComponent{
   }
 
  cadastro(){
-  this.router.navigate([`/consultas/nova`])
+  // this.router.navigate([`/consultas/nova`])
+  this.visible = true;
  }
 
   // edit(id: any){
@@ -97,14 +110,6 @@ export class ConsultaListComponent{
   //   this.router.navigate([`/dentista/info/${id}`])
   // }
 
-  openSnackBar ( ) {
-    const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
-      data: { message: this.msgSalvar },
-      duration: 3000,
-      panelClass: [this.msgSalvarStyle],
-      verticalPosition: 'top',
-      horizontalPosition: 'end',
-    });
-  }
+
 
 }

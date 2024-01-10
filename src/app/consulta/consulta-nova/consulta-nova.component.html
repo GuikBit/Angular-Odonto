@@ -1,1 +1,102 @@
-<p>consulta-nova works!</p>
+
+
+<div class="container p-component">
+  <div class="card new">
+    <!-- <div class="row flex justify-content-center">
+      <h3>Nova Consulta</h3>
+    </div> -->
+    <div class="row flex justify-content-center">
+      <div class="col-5 flex justify-content-center bg-blue-200">
+        <p-dropdown
+          [options]="pacientes"
+          [filter]="true"
+          optionLabel="name"
+          [style]="{'width': '20vw'}"
+          scrollHeight="300px"
+          ></p-dropdown>
+      </div>
+      <div class="col-5 flex justify-content-center bg-blue-300">
+        <div class="field">
+          <!-- <span class="p-float-label p-input-icon-right">
+            <i class="pi pi-clock"></i>
+            <label for="dataConsulta">Hora Consulta</label>
+            <p-dropdown
+              [options]="dentistas"
+              [filter]="true"
+              optionLabel="name"
+              placeholder="Select a City"
+              [style]="{'width': '20vw'}"
+              scrollHeight="300px"
+            ></p-dropdown>
+          </span> -->
+          <span class="p-float-label">
+            <p-dropdown [options]="dentistas"  placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
+            <label for="float-label">Select a City</label>
+        </span>
+        </div>
+      </div>
+    </div>
+    <div class="row flex justify-content-center">
+        <div class="col-4 flex justify-content-around bg-blue-400">
+          <div class="field">
+            <span class="p-float-label">
+              <p-calendar  [iconDisplay]="'input'" [showIcon]="true" inputId="dataConsulta" placeholder="dd/mm/yyyy"></p-calendar>
+              <label for="dataConsulta">Data Consulta</label>
+            </span>
+          </div>
+        </div>
+        <div class="col-4 flex justify-content-around bg-blue-500">
+          <div class="field">
+            <span class="p-float-label p-input-icon-right">
+              <i class="pi pi-clock"></i>
+              <p-inputMask mask="99:99" slotChar="--:--"></p-inputMask>
+              <label for="dataConsulta">Hora Consulta</label>
+            </span>
+          </div>
+      </div>
+    </div>
+
+    <div class="row card flex justify-content-center">
+      <div class="col-1"></div>
+      <div class="col-3">
+        <div class="row flex justify-content-start">
+          <h4>Procedimento da Consulta</h4>
+        </div>
+        <div class="flex align-items-center m-2 ">
+          <p-radioButton name="Avaliação" value="1" [(ngModel)]="ingredient" inputId="avaliacao" label="Avaliação"></p-radioButton>
+        </div>
+        <div class="flex align-items-center m-2">
+          <p-radioButton name="Manutenção Convencional" value="2" [(ngModel)]="ingredient" inputId="manutencao1" label="Manutenção Convencional"></p-radioButton>
+        </div>
+        <div class="flex align-items-center m-2">
+          <p-radioButton name="Manutenção Invisalign" value="3" [(ngModel)]="ingredient" inputId="manutencao2" label="Manutenção Invisalign"></p-radioButton>
+        </div>
+        <div class="flex align-items-center m-2">
+          <p-radioButton name="Geral" value="4" [(ngModel)]="ingredient" inputId="geral" label="Geral"></p-radioButton>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="row flex justify-content-start">
+          <h4>Tempo Previsto</h4>
+        </div>
+        <div class="flex align-items-center m-2 ">
+          <p-radioButton name="tempo1" value="t1" [(ngModel)]="ingredient" inputId="tempo1" label="15 Minutos"></p-radioButton>
+        </div>
+        <div class="flex align-items-center m-2">
+          <p-radioButton name="tempo2" value="t2" [(ngModel)]="ingredient" inputId="tempo2" label="30 Minutos"></p-radioButton>
+        </div>
+        <div class="flex align-items-center m-2">
+          <p-radioButton name="tempo3" value="t3" [(ngModel)]="ingredient" inputId="tempo3" label="60 Minutos"></p-radioButton>
+        </div>
+      </div>
+
+    </div>
+    <div class="row flex justify-content-center m-5">
+      <span class="p-float-label">
+        <textarea id="float-input" rows="3" cols="70" pInputTextarea></textarea>
+        <label for="float-input">Observação</label>
+    </span>
+    </div>
+  </div>
+</div>

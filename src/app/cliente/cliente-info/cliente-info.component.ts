@@ -64,10 +64,6 @@ export class ClienteInfoComponent implements OnInit {
      this.criaFormulario()
      this.items = [
       {
-          // tooltipOptions: {
-          //   tooltipLabel: 'Editar Informações',
-          //   tooltipPosition: 'top'
-          // },
           icon:'pi pi-fw pi-user',
           label:"Paciente",
           items: [
@@ -99,15 +95,13 @@ export class ClienteInfoComponent implements OnInit {
                 icon: 'pi pi-fw pi-external-link'
             }
         ],
-
-
       },
       {
         label: 'Consultas',
         icon: 'pi pi-fw pi-briefcase',
         items:[
           {
-            label: 'Novo',
+            label: 'Nova',
             icon: 'pi pi-pw pi-plus'
           },
           {
@@ -154,9 +148,6 @@ export class ClienteInfoComponent implements OnInit {
       {
         icon: 'pi pi-fw pi-file-export',
         label:"Relatorios",
-        // command: () => {
-        //     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-        // }
         items: [
           {
             label: 'Atestado',
@@ -177,7 +168,7 @@ export class ClienteInfoComponent implements OnInit {
     },
       {
           icon: 'pi pi-wrench',
-          // label:"Inativar Paciente",
+          //label:"Inativar Paciente",
           command: () => {
               this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
           }

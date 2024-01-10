@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente';
 import { FormBuilder } from '@angular/forms';
-import { CustomSnackbarComponent } from 'src/app/util/custom-snackbar/custom-snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -86,7 +85,7 @@ export class ClienteListComponent implements AfterViewInit{
         this.msgSalvar = "Novo paciente salvo com sucesso!";
         this.msgSalvarStyle = "SuccessSnackbar";
         this.criaTabelaPaciente();
-        this.openSnackBar();
+
       }
     })
   }
@@ -139,13 +138,5 @@ export class ClienteListComponent implements AfterViewInit{
 // }
   deletarCliente(){}
 
-  openSnackBar ( ) {
-    const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
-      data: { message: this.msgSalvar },
-      duration: 3000,
-      panelClass: [this.msgSalvarStyle],
-      verticalPosition: 'top',
-      horizontalPosition: 'end',
-    });
-  }
+
 }

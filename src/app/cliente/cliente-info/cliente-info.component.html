@@ -3,7 +3,7 @@
   <div class="bannerCliente">
 
     <div class="col-2 flex justify-content-center align-items-center">
-      <p-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
+      <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
       width="180"
       alt="Foto de perfil do paciente"
       [preview]="true"
@@ -663,7 +663,7 @@
                           tooltipPosition="top"
                         ></p-sortIcon>
                         <p-columnFilter
-                          type="text"
+                          type="date"
                           field="dataConsulta"
                           display="menu"
                           matchMode="contains"
@@ -676,20 +676,20 @@
                       </div>
                     </div>
                   </th>
-                  <th pSortableColumn="horaConsulta" [width]="150">
+                  <th pSortableColumn="dataConsulta" [width]="150">
                     <div class="flex justify-content-between align-items-center">
                       <div class="flex justify-content-between align-items-center">
                         Hora
                       </div>
                       <div class="flex justify-content-between align-items-center">
                         <p-sortIcon
-                          field="horaConsulta"
+                          field="dataConsulta"
                           pTooltip="Ordenar"
                           tooltipPosition="top"
                         ></p-sortIcon>
                         <p-columnFilter
                           type="text"
-                          field="horaConsulta"
+                          field="dataConsulta"
                           display="menu"
                           matchMode="contains"
                           [showMatchModes]="false"
@@ -733,18 +733,10 @@
 
               <ng-template pTemplate="body" let-consulta>
                 <tr >
-                  <td>
-                    {{ paciente.nome }}
-                  </td>
-                  <td>
-                    {{ consulta?.dentista.nome }}
-                  </td>
-                  <td>
-                    {{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}
-                  </td>
-                  <td>
-                    {{ consulta?.horaConsulta }}
-                  </td>
+                  <td>{{ paciente.nome }}</td>
+                  <td>{{ consulta?.dentista.nome }}</td>
+                  <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy HH:mm'}}</td>
+                  <td>{{ consulta?.dataConsulta | date: 'HH:mm' }}</td>
                   <td>
                     @if (consulta?.pagamento.pago)
                     {

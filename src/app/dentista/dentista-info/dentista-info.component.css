@@ -61,5 +61,15 @@ li {
   font-size: medium;
 }
 
+button{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: 0.9rem;
+  width: 10vw;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+}
 
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
 

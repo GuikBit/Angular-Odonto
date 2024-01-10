@@ -15,7 +15,6 @@ import { HomeComponent } from './home/home.component'
 // import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
 import { DentistaModule } from './dentista/dentista.module';
 import { ConsultaModule } from './consulta/consulta.module';
-import { CustomSnackbarComponent } from './util/custom-snackbar/custom-snackbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Cliente } from './cliente/cliente';
 import { ClienteNovoComponent } from './cliente/cliente-novo/cliente-novo.component';
@@ -40,7 +39,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BadgeModule } from 'primeng/badge';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+// import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ChartModule } from 'primeng/chart';
@@ -136,14 +135,14 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
     LoginComponent,
     LayoutComponent,
     HomeComponent,
-    CustomSnackbarComponent,
     ClienteNovoComponent,
     ClienteListComponent,
-    ClienteInfoComponent
+    ClienteInfoComponent,
     // ConsultaListComponent
+
+
   ],
   imports: [
-
     ClienteModule,
     DentistaModule,
     ConsultaModule,
@@ -162,7 +161,7 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
     BreadcrumbModule,
     BlockUIModule,
     ButtonModule,
-    CalendarModule,
+    // CalendarModule,
     CarouselModule,
     CascadeSelectModule,
     ChartModule,

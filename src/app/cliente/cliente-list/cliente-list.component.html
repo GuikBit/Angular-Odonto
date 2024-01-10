@@ -1,7 +1,6 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 ">
-
       <div class="card box p-5 m-5 text-indigo-800">
         <div class="flex justify-content-between mb-3 ml-5 mr-5">
           <span class="p-float-label p-input-icon-left search">
@@ -169,7 +168,7 @@
                 <td [width]="180">{{ paciente?.numPasta }}</td>
                 <td>{{ paciente?.nome }}</td>
                 <td>{{ paciente?.cpf }}</td>
-                <td [width]="300">{{ paciente?.dataCadastro }}</td>
+                <td [width]="300">{{ paciente?.dataCadastro | date: 'dd/MM/yyyy'}}</td>
                 <!-- <td [pTooltip]="paciente?.description" tooltipPosition="top">
                   {{ paciente?.description }}
                 </td>
