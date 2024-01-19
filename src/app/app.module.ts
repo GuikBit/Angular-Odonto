@@ -39,7 +39,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BadgeModule } from 'primeng/badge';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
-// import { CalendarModule } from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { ChartModule } from 'primeng/chart';
@@ -129,6 +129,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.component';
 // import { InputSwitchModule } from 'primeng/inputswitch';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,6 +144,7 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
 
   ],
   imports: [
+    ReactiveFormsModule,
     ClienteModule,
     DentistaModule,
     ConsultaModule,
@@ -161,7 +163,7 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
     BreadcrumbModule,
     BlockUIModule,
     ButtonModule,
-    // CalendarModule,
+    CalendarModule,
     CarouselModule,
     CascadeSelectModule,
     ChartModule,

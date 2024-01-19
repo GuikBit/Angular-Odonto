@@ -1,0 +1,110 @@
+<div class="flex justify-content-between header">
+  <p-menubar [model]="items" styleClass="menuBar" >  </p-menubar>
+  <div class="flex justify-content-center align-items-center mr-4">
+    @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
+      <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
+    }
+  @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
+    <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
+    }
+  @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
+    {
+      <p-tag severity="success" value="&nbsp;Atendida&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+    }
+  @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
+    {
+      <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
+    }
+  </div>
+
+</div>
+<div class="card p-component new pl-5 pr-5 pb-7">
+  <div class="row flex justify-content-center">
+    <div class="col-5 flex justify-content-center">
+      <div>
+        <h4 class="flex justify-content-center">Paciente</h4>
+        <span class="azul"><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.nome}}</span>
+      </div>
+
+    </div>
+    <div class="col-5 flex justify-content-center">
+      <div >
+        <h4 class="flex justify-content-center">Dentista</h4>
+        <span class="azul"><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dentista.nome}}</span>
+      </div>
+    </div>
+  </div>
+  <p-divider></p-divider>
+    <div class="row flex justify-content-center">
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center">Data</h4>
+          @if(!editar){
+            <span class="azul"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span>
+          }@else {
+            <div class="field">
+              <span class="p-float-label p-float-icon-left">
+                <p-calendar
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  inputId="dataConsulta"
+                  (ngModel)="consultaSelecionada.dataConsulta"
+                  [style]="{'width': '8vw'}"
+
+                  ></p-calendar>
+
+              </span>
+            </div>
+          }
+
+        </div>
+      </div>
+
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center">Inicio</h4>
+          @if(!editar){
+            <span class="azul"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span>
+          }@else {
+            <div class="field">
+              <span class="p-float-label p-input-icon-right">
+                <i class="pi pi-clock azul"></i>
+                <p-inputMask mask="99:99" [style]="{'width': '6vw'}" [value]="consultaSelecionada.dataConsulta | date: 'HH:mm'"></p-inputMask>
+
+              </span>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center">Fim</h4>
+          @if(!editar){
+            <span class="azul"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span>
+          }
+          @else {
+            <span><i class="pi pi-clock azul"></i>&nbsp;&nbsp;--:--</span>
+          }
+
+        </div>
+      </div>
+
+    </div>
+  <p-divider></p-divider>
+  <div class="row flex justify-content-start">
+    <div class="col-12 flex justify-content-center">
+      <div>
+        <h4>Observação</h4>
+        <textarea id="float-input" rows="2" cols="61" pInputTextarea [value]="consultaSelecionada.observacao" class="azul"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row flex justify-content-between">
+    <div class="col-12 flex justify-content-center">
+
+    </div>
+  </div>
+
+</div>
+

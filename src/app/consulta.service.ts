@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 //import { ServicoPrestadoBusca } from './servico-prestado/servico-prestado-lista/servicoPrestadoBusca';
 import axios from 'axios';
+import { Consulta } from './consulta/consulta';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +15,6 @@ export class ConsultaService {
   apiURL : String = environment.apiURLBase+'/v1/consulta'
   constructor(private http: HttpClient) { }
 
-  /*salvar(servicoPrestado : ServicoPrestado) : Observable<ServicoPrestado>{
-    return this.http.post<ServicoPrestado>(`${this.apiURL}`, servicoPrestado);
-  }
-
-  busca(nome: string, mes: number):Observable<ServicoPrestadoBusca>{
-    const httpParans = new HttpParams().set("nome", nome?nome:"").set("mes", mes? mes.toString():"");
-    const url = this.apiURL + "?"+httpParans.toString();
-
-    return this.http.get<any>(url);
-  }*/
-
-  // getDentistaPage(page:any, size:any): Observable<DentistaPagina>{
-  //   const params = new HttpParams().set('page', page).set('size', size);
-  //   return this.http.get<DentistaPagina>(`${this.apiURL}s?${params.toString()}`);
-  // }
   async getToken(){
     return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
   }
@@ -49,6 +35,55 @@ export class ConsultaService {
       return null
     }
   }
+  async getConsultaById(id: any): Promise<Consulta> {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken())},
+    });
+
+    try{
+      const response = await instance.get(`${this.apiURL}/${id}`)
+      return response.data;
+
+    }catch (error) {
+      console.error(error);
+      return new Consulta();
+    }
+  }
+  async postConsulta(consulta: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()),
+      'Content-Type': 'application/json'},
+    });
+    try{
+      console.log(consulta);
+      const response = await instance.post(`${this.apiURL}`, consulta)
+      return response.data;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+  async getEspecConsulta() {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.get(`${this.apiURL}s/novaespec`)
+      return response.data;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
 
   // async totalConsultas(){
   //   const instance = axios.create({

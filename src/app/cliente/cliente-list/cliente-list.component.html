@@ -5,7 +5,7 @@
         <div class="flex justify-content-between mb-3 ml-5 mr-5">
           <span class="p-float-label p-input-icon-left search">
             <i class="pi pi-search azul" ></i>
-            <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
+            <input pInputText id="search" class="search"/>
             <label for="search" class="azul">Buscar Paciente...</label>
           </span>
           <button pButton type="button" label="Novo Paciente" styleClass="linear-gradient"  (click)="cadastro()" icon="pi pi-user-plus"></button>
@@ -39,15 +39,11 @@
                         tooltipPosition="top"
                       ></p-sortIcon>
                       <p-columnFilter
-                        type="text"
-                        field="numPasta"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
+                      type="text"
+                      field="numPasta"
+                      display="menu"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                       ></p-columnFilter>
                     </div>
                   </div>
@@ -64,15 +60,11 @@
                         tooltipPosition="top"
                       ></p-sortIcon>
                       <p-columnFilter
-                        type="text"
-                        field="nome"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
+                      type="text"
+                      field="nome"
+                      display="menu"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                       ></p-columnFilter>
                     </div>
                   </div>
@@ -90,15 +82,11 @@
                         tooltipPosition="top"
                       ></p-sortIcon>
                       <p-columnFilter
-                        type="text"
-                        field="cpf"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
+                      type="text"
+                      field="cpf"
+                      display="menu"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                       ></p-columnFilter>
                     </div>
                   </div>
@@ -116,15 +104,12 @@
                         tooltipPosition="top"
                       ></p-sortIcon>
                       <p-columnFilter
-                        type="text"
-                        field="dataNascimento"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
+                      type="date"
+                      field="dataNascimento"
+                      dateFormat="dd/MM/yyyy"
+                      display="menu"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
                       ></p-columnFilter>
                     </div>
                   </div>
@@ -140,7 +125,7 @@
                         pTooltip="Ordenar"
                         tooltipPosition="top"
                       ></p-sortIcon>
-                      <p-columnFilter
+                      <!-- <p-columnFilter
                         type="text"
                         field="ativo"
                         display="menu"
@@ -150,16 +135,38 @@
                         [showAddButton]="false"
                         pTooltip="Filtrar"
                         tooltipPosition="top"
-                      ></p-columnFilter>
+                      ></p-columnFilter> -->
+                      <!-- <p-columnFilter field="ativo" matchMode="equals" display="menu">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <p-dropdown
+                              [ngModel]="value"
+                              [options]="[
+                                { label: 'Ativo', value: 'Ativo', bool: 1 },
+                                { label: 'Inativo', value: 'Inativo', bool: 0 },
+                                ]"
+                              (change)="applyFilter()"
+                              placeholder="Any"
+                            >
+                              <ng-template let-option pTemplate="item">
+                                  <p-tag [icon]="option.bool? 'pi pi-check' : 'pi pi-times'" [value]="option.value" [severity]="getSeverity(option.bool)" [rounded]="true"></p-tag>
+                              </ng-template>
+                            </p-dropdown>
+                        </ng-template>
+                    </p-columnFilter> -->
+                    <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                      <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="applyFilter()" placeholder="Any">
+                          <ng-template let-option pTemplate="item">
+                            <p-tag [icon]="option.value == 'Ativo'? 'pi pi-check' : 'pi pi-times'" [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
+                          </ng-template>
+                        </p-dropdown>
+                      </ng-template>
+                    </p-columnFilter>
                     </div>
                   </div>
                 </th>
 
-                <th [width]="250"></th>
-
-
-
-
+                <th [width]="200"></th>
 
             </ng-template>
 
@@ -168,24 +175,13 @@
                 <td [width]="180">{{ paciente?.numPasta }}</td>
                 <td>{{ paciente?.nome }}</td>
                 <td>{{ paciente?.cpf }}</td>
-                <td [width]="300">{{ paciente?.dataCadastro | date: 'dd/MM/yyyy'}}</td>
-                <!-- <td [pTooltip]="paciente?.description" tooltipPosition="top">
-                  {{ paciente?.description }}
-                </td>
-                <td>{{ paciente?.category?.name }}</td> -->
+                <td [width]="300">{{ paciente?.dataCadastro }}</td>
                 <td>
-                  @if (paciente.ativo){
-                    <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
-                  }
-                  @else {
-                    <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
-                  }
+                  <p-tag [icon]="paciente?.ativo? 'pi pi-check' : 'pi pi-times'"  [value]="paciente?.ativo? 'Ativo ':'Inativo '" [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')" [rounded]="true"></p-tag>
                 </td>
                 <td>
                   <div
                     class="flex justify-content-around">
-
-
                       <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="info(paciente.id)"><i class="material-icons">info</i></p-button>
                       <!-- <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="editPaciente(paciente.id)"><i class="material-icons" >edit</i></p-button> -->
                       <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons" (click)="delet(paciente.id)">delete</i></p-button>
@@ -204,6 +200,12 @@
     </div>
   </div>
 </div>
+<div class="card flex justify-content-center">
+  <p-dialog header="Novo Paciente" [(visible)]="newUser" [modal]="true" [style]="{ width: '85vw' }" [draggable]="false" [resizable]="false">
+    <app-cliente-novo (msgReturn)="mostraMensagem($event)" (closeModal)="closeModal($event)"></app-cliente-novo>
+  </p-dialog>
+</div>
+
 
 <div class="card flex justify-content-center">
   <p-dialog header="Editar paciente" [(visible)]="editar" [modal]="true" [style]="{ width: '100vw' }" [draggable]="false" [resizable]="false">

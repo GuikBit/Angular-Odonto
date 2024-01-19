@@ -1,102 +1,129 @@
 
 
-<div class="container p-component">
-  <div class="card new">
-    <!-- <div class="row flex justify-content-center">
-      <h3>Nova Consulta</h3>
-    </div> -->
-    <div class="row flex justify-content-center">
-      <div class="col-5 flex justify-content-center bg-blue-200">
-        <p-dropdown
-          [options]="pacientes"
-          [filter]="true"
-          optionLabel="name"
-          [style]="{'width': '20vw'}"
-          scrollHeight="300px"
-          ></p-dropdown>
-      </div>
-      <div class="col-5 flex justify-content-center bg-blue-300">
-        <div class="field">
-          <!-- <span class="p-float-label p-input-icon-right">
-            <i class="pi pi-clock"></i>
-            <label for="dataConsulta">Hora Consulta</label>
+
+  <div class="card p-component pt-4 new">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <div class="row flex justify-content-around mt-2 h-4rem">
+        <div class="">
+          <span class="p-float-label p-input-icon-right ">
             <p-dropdown
-              [options]="dentistas"
+              *ngIf="!pacienteSelecionado"
+              [options]="listaPaciente"
+              formControlName="paciente"
               [filter]="true"
-              optionLabel="name"
-              placeholder="Select a City"
-              [style]="{'width': '20vw'}"
+              filterBy="nome"
+              optionLabel="nome"
+              [style]="{'width': '14vw', 'height':'46px'}"
               scrollHeight="300px"
+              inputId="paciente"
             ></p-dropdown>
-          </span> -->
-          <span class="p-float-label">
-            <p-dropdown [options]="dentistas"  placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
-            <label for="float-label">Select a City</label>
-        </span>
-        </div>
-      </div>
-    </div>
-    <div class="row flex justify-content-center">
-        <div class="col-4 flex justify-content-around bg-blue-400">
-          <div class="field">
-            <span class="p-float-label">
-              <p-calendar  [iconDisplay]="'input'" [showIcon]="true" inputId="dataConsulta" placeholder="dd/mm/yyyy"></p-calendar>
-              <label for="dataConsulta">Data Consulta</label>
-            </span>
-          </div>
-        </div>
-        <div class="col-4 flex justify-content-around bg-blue-500">
-          <div class="field">
-            <span class="p-float-label p-input-icon-right">
-              <i class="pi pi-clock"></i>
-              <p-inputMask mask="99:99" slotChar="--:--"></p-inputMask>
-              <label for="dataConsulta">Hora Consulta</label>
-            </span>
-          </div>
-      </div>
-    </div>
-
-    <div class="row card flex justify-content-center">
-      <div class="col-1"></div>
-      <div class="col-3">
-        <div class="row flex justify-content-start">
-          <h4>Procedimento da Consulta</h4>
-        </div>
-        <div class="flex align-items-center m-2 ">
-          <p-radioButton name="Avaliação" value="1" [(ngModel)]="ingredient" inputId="avaliacao" label="Avaliação"></p-radioButton>
-        </div>
-        <div class="flex align-items-center m-2">
-          <p-radioButton name="Manutenção Convencional" value="2" [(ngModel)]="ingredient" inputId="manutencao1" label="Manutenção Convencional"></p-radioButton>
-        </div>
-        <div class="flex align-items-center m-2">
-          <p-radioButton name="Manutenção Invisalign" value="3" [(ngModel)]="ingredient" inputId="manutencao2" label="Manutenção Invisalign"></p-radioButton>
-        </div>
-        <div class="flex align-items-center m-2">
-          <p-radioButton name="Geral" value="4" [(ngModel)]="ingredient" inputId="geral" label="Geral"></p-radioButton>
-        </div>
+            <i class="pi pi-pw pi-angle-down text-xl" *ngIf="pacienteSelecionado"></i>
+            <input pInputText id="nome" *ngIf="pacienteSelecionado" [value]="pacienteSelecionado.nome" required [disabled]="true" class="width" />
+            <label for="paciente" class="azul">{{pacienteSelecionado? "Paciente":"Selecione o Paciente"}}</label>
+          </span>
+          <small *ngIf="formulario.get('paciente')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
       </div>
 
-      <div class="col-3">
-        <div class="row flex justify-content-start">
+        <div class="">
+          <span class="p-float-label  p-input-icon-right">
+            <p-dropdown
+              [options]="listaDentista"
+              formControlName="dentista"
+              optionLabel="nome"
+              [filter]="true"
+              filterBy="nome"
+              [style]="{'width': '14vw', 'height':'46px'}"
+              scrollHeight="300px"
+              inputId="dentista"
+              ></p-dropdown>
+
+            <label for="dentista" class="azul ">Selecione o Dentista</label>
+          </span>
+          <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+        </div>
+
+      </div>
+
+      <div class="row flex justify-content-around mt-6 h-4rem">
+
+            <div class="field">
+              <span class="p-float-label  p-input-icon-right">
+                <p-calendar
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  inputId="dataConsulta"
+                  placeholder="dd/mm/yyyy"
+                  dateFormat="dd/mm/yy"
+                  [showButtonBar]="true"
+                  [style]="{'color':'#2070B4', 'width': '12vw'}"
+                  formControlName="dataConsulta"
+                  >
+                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                  </ng-template>
+                </p-calendar>
+                <label for="dataConsulta" class="azul">Data Consulta</label>
+              </span>
+              <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+            </div>
+
+            <div class="field">
+              <span class="p-float-label p-input-icon-right">
+                <i class="pi pi-clock azul"></i>
+                <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '12vw'}"></p-inputMask>
+                <label for="horaConsulta" class="azul">Hora Consulta</label>
+              </span>
+              <small *ngIf="formulario.get('horaConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+            </div>
+      </div>
+      <div class="row flex justify-content-center mt-6 h-4rem ">
+          <div class="field">
+            <span class="p-float-label  p-input-icon-right">
+              <p-dropdown
+                [options]="listaEspecConsulta"
+                formControlName="consultaEspecialidade"
+                optionLabel="tipo"
+                [style]="{'width': '16vw', 'height':'46px'}"
+                scrollHeight="300px"
+                inputId="especConsulta"
+                ></p-dropdown>
+              <label for="consultaEspecialidade" class="azul">Procedimento da Consulta</label>
+              <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('erro')"class="p-error text-xs"><br>*Houve um erro ao buscar os tipos de consultas</small>
+            </span>
+            <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+          </div>
+      </div>
+      <div class="row h-6rem mt-3">
+        <div class="flex justify-content-center">
           <h4>Tempo Previsto</h4>
         </div>
-        <div class="flex align-items-center m-2 ">
-          <p-radioButton name="tempo1" value="t1" [(ngModel)]="ingredient" inputId="tempo1" label="15 Minutos"></p-radioButton>
-        </div>
-        <div class="flex align-items-center m-2">
-          <p-radioButton name="tempo2" value="t2" [(ngModel)]="ingredient" inputId="tempo2" label="30 Minutos"></p-radioButton>
-        </div>
-        <div class="flex align-items-center m-2">
-          <p-radioButton name="tempo3" value="t3" [(ngModel)]="ingredient" inputId="tempo3" label="60 Minutos"></p-radioButton>
+        <div class="flex justify-content-center">
+              <div class="flex align-items-center ">
+                <p-radioButton name="tempoPrevisto" value="1" class="azul" formControlName="tempoPrevisto" inputId="tempo1" label="15 Minutos"></p-radioButton>
+              </div>
+              <div class="flex align-items-center ml-2">
+                <p-radioButton name="tempoPrevisto" value="2" class="azul" formControlName="tempoPrevisto" inputId="tempo2" label="30 Minutos"></p-radioButton>
+              </div>
+              <div class="flex align-items-center ml-2 mr-2">
+                <p-radioButton name="tempoPrevisto" value="3" class="azul" formControlName="tempoPrevisto" inputId="tempo3" label="45 Minutos"></p-radioButton>
+              </div>
+              <div class="flex align-items-center">
+                <p-radioButton name="tempoPrevisto" value="4" class="azul" formControlName="tempoPrevisto" inputId="tempo4" label="60 Minutos"></p-radioButton>
+              </div>
         </div>
       </div>
 
-    </div>
-    <div class="row flex justify-content-center m-5">
-      <span class="p-float-label">
-        <textarea id="float-input" rows="3" cols="70" pInputTextarea></textarea>
-        <label for="float-input">Observação</label>
-    </span>
-    </div>
+      <div class="row flex justify-content-center mt-5">
+        <span class="p-float-label width">
+          <textarea id="float-input" rows="3" class="width" formControlName="observacao" pInputTextarea></textarea>
+          <label for="float-input" class="azul">Observações</label>
+        </span>
+      </div>
+      <div class="flex justify-content-center align-content-center mt-4">
+        <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar"></button>
+     </div>
+  </form>
   </div>
-</div>
+
+
+

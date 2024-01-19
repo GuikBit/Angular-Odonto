@@ -142,7 +142,6 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { MessageService } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 
-
 @NgModule({
   declarations: [
     ConsultaListComponent,
@@ -173,7 +172,11 @@ import { RouterModule } from '@angular/router';
     RadioButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    CalendarModule
+    CalendarModule,
+    MenubarModule,
+    SidebarModule,
+    TagModule,
+    DividerModule
   ],exports: [
     ConsultaEditComponent,
     ConsultaListComponent,

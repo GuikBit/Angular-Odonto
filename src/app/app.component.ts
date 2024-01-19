@@ -16,9 +16,26 @@ export class AppComponent implements OnInit {
     this.config.setTranslation({
       accept: 'Aceitar',
       reject: 'Cancelar',
-      //translations
       clear: 'Limpar',
       apply: 'Aplicar',
+      startsWith: 'Começa com',
+      contains: 'Contém',
+      notContains: 'Não contém',
+      endsWith: 'Termina com',
+      equals: 'É igual a',
+      notEquals: 'Não é igual',
+      lt: 'Menor que',
+      lte: 'Menor que ou igual a',
+      gt: 'Maior que',
+      gte: 'Maior que ou igual a',
+      dateIs: 'Data igual',
+      dateIsNot: 'Data não igual',
+      dateBefore: 'Data posterior a',
+      dateAfter: 'Data anterior a',
+      matchAll: 'Filtrar todos',
+      matchAny: 'Filtrar com qualquer',
+      today: 'Hoje'
+      
       // matchAll: 'Marcar todos'
       //date
 

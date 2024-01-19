@@ -222,7 +222,7 @@ hr {
     margin-left: 5%;
   }
 
-  input[type=file]{
+  /* input[type=file]{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,8 +236,8 @@ hr {
     border: 1px dashed #979696;
     font: 14px/20px Roboto, sans-serif;
 
-  }
-  input[type=file]::file-selector-button {
+  } */
+  /*input[type=file]::file-selector-button {
     font-weight: 500;
     margin-right: 20px;
     border: none;
@@ -255,7 +255,7 @@ hr {
   input[type=file]::file-selector-button:hover {
     background: #80634E;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.131), 0 10px 10px rgba(0, 0, 0, 0.091);
-  }
+  } */
   .blocoInfoFotter{
     display:flex;
     justify-content: center;

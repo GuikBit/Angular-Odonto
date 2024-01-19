@@ -1,4 +1,6 @@
-import { Component,AfterViewInit,ViewChild } from '@angular/core';
+
+import { MessageService } from 'primeng/api';
+import { Component,AfterViewInit,ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente';
@@ -8,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
+import { Message } from '../cliente-novo/cliente-novo.component';
 
 interface PageEvent {
   first: number;
@@ -27,8 +30,7 @@ interface PageEvent {
   templateUrl: './cliente-list.component.html',
   styleUrls: ['./cliente-list.component.css']
 })
-export class ClienteListComponent implements AfterViewInit{
-
+export class ClienteListComponent implements OnInit{
 
   clienteSelecionado?: any;
   msgSuccess?: string;
@@ -40,15 +42,14 @@ export class ClienteListComponent implements AfterViewInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator ;
   @ViewChild(MatSort) sort: MatSort;
-
-  msgSalvar: string;
-  msgSalvarStyle: string;
-  first: number = 0;
-  rows: number = 10;
+  statuses!: any[];
 
   editar: boolean = false;
+  newUser: boolean = false;
+  filtroAtivo: string | null = null;
+  pacientesFiltrados: Cliente[] = [];
 
-  constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private _snackBar: MatSnackBar) {
+  constructor(private service: ClienteService, private router : Router, private route: ActivatedRoute,  private fb: FormBuilder, private messageService: MessageService) {
 
    this.criaTabelaPaciente();
   }
@@ -68,35 +69,47 @@ export class ClienteListComponent implements AfterViewInit{
 
   }
 
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.rows = event.rows;
-  }
-
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
+  ngOnInit() {
+    this.route.params.subscribe(async params => {
       if (params['salvo']) {
-        this.msgSalvar = "Novo paciente salvo com sucesso!";
-        this.msgSalvarStyle = "SuccessSnackbar";
-        this.criaTabelaPaciente();
+        this.newUser = false;
 
       }
     })
+    this.statuses = [
+      { label: 'ativo', value: 'Ativo' },
+      { label: 'inativo', value: 'Inativo' }
+  ];
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+   getSeverity(status: string): 'danger' | 'success' | undefined {
+    if (status == 'ativo') {
+      return 'success';
     }
+
+    if (status == 'inativo') {
+      return 'danger';
+    }
+
+    return undefined;
+  }
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  //   if (this.dataSource.paginator) {
+  //     this.dataSource.paginator.firstPage();
+  //   }
+  // }
+
+  applyFilter() {
+    this.pacientesFiltrados = this.dataSource.data.filter((paciente) => {
+      if (this.filtroAtivo === null) {
+        return true; // Sem filtro de status, retorna todos os pacientes
+      } else {
+        return paciente.ativo === (this.filtroAtivo === 'Ativo');
+      }
+    });
   }
 
   async criaTabelaPaciente() {
@@ -111,7 +124,8 @@ export class ClienteListComponent implements AfterViewInit{
   }
 
   cadastro(){
-    this.router.navigate(['/clientes/novo'])
+     //this.router.navigate(['/clientes/novo'])
+    this.newUser = true;
   }
   edit(id: any){
     this.router.navigate([`/clientes/edit/${id}`])
@@ -138,5 +152,25 @@ export class ClienteListComponent implements AfterViewInit{
 // }
   deletarCliente(){}
 
+  mostraMensagem(msg: Message) {
+    this.messageService.add({
+      severity: msg.type,
+      summary: 'Aviso',
+      detail: msg.content
+    })
+  }
+
+   async closeModal(close: boolean) {
+    this.newUser = close;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Aviso',
+      detail:'Paciente salvo com sucesso.'
+    })
+    const response = await this.service.getPacientes();
+    this.dataSource = new MatTableDataSource(response);
+  }
+
 
 }
+

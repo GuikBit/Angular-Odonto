@@ -62,7 +62,7 @@
               <span class="p-float-label" [style]="{width: '100%'}">
                 <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
                 <p-dropdown [options]="especialidades" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
-                <label for="float-label azul">Especialidade</label>
+                <label for="float-label" class="azul">Especialidade</label>
 
               </span>
               <small *ngIf="formulario.controls['especialidade'].errors?.['required']"  class="p-error ">* Campo obrigatório</small>

@@ -208,26 +208,6 @@
                     </div>
                   </div>
                 </th>
-
-                <!-- <th pSortableColumn="dataNascimento">
-                  <div class="flex justify-content-around align-items-center">
-                    <div class="flex justify-content-between align-items-center">
-                      Data Cadastro
-                    </div>
-                    <div class="flex justify-content-between align-items-center">
-                      <p-sortIcon field="dataNascimento"></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="dataNascimento"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th> -->
                 <th [width]="250">
                   <div class="flex justify-content-end align-items-center">
                     <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
@@ -241,47 +221,42 @@
                 <td>{{ consulta?.dentista.nome }}</td>
                 <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}}</td>
                 <td>{{  consulta?.dataConsulta | date: 'HH:mm' }}</td>
-                <td>@if (consulta?.pagamento.pago)
+                <td>
+                  <!-- @if (consulta?.pagamento.pago)
                       {
-                        <!-- <p-chip styleClass="pl-0 pr-3 bg-green-500">
-                        <span class=" border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
-                          <i class="material-icons" style="color: white">attach_money</i>
-                        </span>
-                        <span class="ml-2 font-medium " style="color: white">Pago</span>
-                        </p-chip> -->
                         <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
                       }
                     @else
                       {
-                        <!-- <p-chip styleClass="pl-0 pr-3 bg-red-400">
-                        <span class=" border-circle w-2rem h-2rem flex align-items-center justify-content-center" >
-                          <i class="material-icons" style="color: white">attach_money</i>
-                        </span>
-                        <span class="ml-2 font-medium primary-color-text " style="color: white"></span>
-                        </p-chip> -->
                         <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
+                      } -->
+                      @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                        <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
+                      }
+                    @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+                      <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
+                      }
+                    @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+                      {
+                        <p-tag severity="success" value="&nbsp;Atendido&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+                      }
+                    @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+                      {
+                        <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
                       }
                 </td>
-                <!-- <td [pTooltip]="paciente?.description" tooltipPosition="top">
-                  {{ paciente?.description }}
-                </td>
-                <td>{{ paciente?.category?.name }}</td> -->
                 <td >
                   <div class="flex justify-content-around">
-
-
-                      <!-- <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="consultaInfo()"><i class="material-icons">info</i></p-button>
-                      <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top"><i class="material-icons" >edit</i></p-button>
-                      <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons">delete</i></p-button> -->
-                      <td [width]="400">
+                    <td [width]="230">
                         <div class="flex justify-content-around">
                           <p-button icon="pi"
                             [rounded]="true"
                             [outlined]="true"
-                            [severity]="consulta?.pagamento.pago? 'secondary':'warning'"
-                            [disabled]="consulta?.pagamento.pago"
+                            [severity]="'warning'"
+                            [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                             pTooltip="Iniciar Consulta"
                             tooltipPosition="top"
+
                             ><i class="material-icons">play_arrow</i>
                           </p-button>
                           <p-button icon="pi"
@@ -290,18 +265,19 @@
                             severity="info"
                             pTooltip="Informações"
                             tooltipPosition="top"
+                            (click)="consultaSelecionadaInfo(consulta?.id)"
                             ><i class="material-icons">info</i>
                           </p-button>
                           <p-button icon="pi"
                             [rounded]="true"
                             [outlined]="true"
-                            [severity]="consulta?.pagamento.pago? 'secondary':'success'"
-                            [disabled]="consulta?.pagamento.pago"
+                            [severity]="'success'"
+                            [disabled]="!consulta?.dataHoraFimAtendimento"
                             pTooltip="Pagamento"
                             tooltipPosition="top"
                             ><i class="material-icons">paid</i>
                           </p-button>
-                          <p-button icon="pi"
+                          <!-- <p-button icon="pi"
                             [rounded]="true"
                             [outlined]="true"
                             [severity]="consulta?.pagamento.pago? 'secondary':'help'"
@@ -309,8 +285,8 @@
                             pTooltip="Reagendar"
                             tooltipPosition="top"
                             ><i class="material-icons">edit_document</i>
-                          </p-button>
-                          <p-button icon="pi"
+                          </p-button> -->
+                          <!-- <p-button icon="pi"
                             [rounded]="true"
                             [outlined]="true"
                             [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
@@ -318,7 +294,7 @@
                             pTooltip="Deletar"
                             tooltipPosition="top"
                             ><i class="material-icons">delete</i>
-                          </p-button>
+                          </p-button> -->
                         </div>
                       </td>
                   </div>
@@ -336,10 +312,21 @@
   </div>
 </div>
 
-<p-dialog header="Nova Consulta" [(visible)]="visible" [modal]="true" [style]="{ width: '70vw' }" class="box" [draggable]="false" [resizable]="false">
+<p-dialog header="Nova Consulta" [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: '85vh' }" class="box" [draggable]="false" [resizable]="false">
   <app-consulta-nova></app-consulta-nova>
 </p-dialog>
 
+<!-- <p-dialog header="Detalhes da consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw', height: '90vh' }" class="box" [draggable]="false" [resizable]="false">
+  <app-consulta-info ></app-consulta-info>
+</p-dialog> -->
+
+<p-dialog header="Detalhes da Consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw',  height: '90vh' }" [draggable]="false" [resizable]="false">
+  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (closeModal)="closeModal($event)"></app-consulta-info>
+</p-dialog>
+
+<!-- <p-sidebar [(visible)]="infoConsulta" styleClass="w-30rem" position="right" >
+  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada"></app-consulta-info>
+</p-sidebar> -->
 
 
 

@@ -16,7 +16,8 @@
 
 .new{
   border: 1px solid #c4ddf3;
-  padding: 2vw
+  padding: 2vw;
+  border-radius: 8px;
 }
 .width{
   width: 100%;

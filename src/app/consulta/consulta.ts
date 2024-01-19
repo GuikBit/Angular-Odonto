@@ -1,19 +1,20 @@
 import { Time } from "@angular/common";
 import { Cliente } from "../cliente/cliente";
 import { Dentista } from "../dentista/dentista";
+import { ConsultaEspecialidade } from "./consultaEspecialidade";
 
 export class Consulta{
     id?: number;
-    // pacienteId: number;
-    // dentistaId: number;
     dataConsulta: Date;
-    horaConsulta: Time;
-    dataHoraAtendimento: Date;
-    procedimento: string;
-    tempoPrevisto: string;
-
-    // EspecConsulta: EspecConsulta;
+    dataConsultaReserva: Date;
+    dataHoraInicioAtendimento: Date;
+    dataHoraFimAtendimento: Date;
+    tempoPrevisto: number;
     paciente: Cliente;
     dentista: Dentista;
-    
+    // pagamento: Pagamento;
+    consultaEspecialidade: ConsultaEspecialidade;
+    observacao: string;
+    ausente: boolean;
+
 }

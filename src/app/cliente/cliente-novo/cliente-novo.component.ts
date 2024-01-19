@@ -1,12 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/cliente.service';
 import { Cliente } from '../cliente'
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { AssyncServiceService } from 'src/app/assync-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { controllers } from 'chart.js';
+import { Subject } from 'rxjs';
+
+export interface Message {
+  type: 'success' | 'error';
+  content: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -18,66 +25,56 @@ import { MenuItem, MessageService } from 'primeng/api';
   styleUrls: ['./cliente-novo.component.css'],
 
 })
-export class ClienteNovoComponent implements OnInit {
+export class ClienteNovoComponent implements OnInit, OnDestroy {
 
-  @Input() pacienteSelecionado: Cliente;
+  // @Input() pacienteSelecionado: Cliente;
+  @Output() msgReturn = new EventEmitter<Message>();
+  @Output() closeModal = new EventEmitter<boolean>();
   // Dados do Cliente
-cliente: Cliente;
-//id: number;
+  cliente: Cliente;
+  //id: number;
 
-// Controle de Estado
-success: boolean = false;
-hide = true;
-loading: boolean = false;
+  // Controle de Estado
+  success: boolean = false;
+  hide = true;
+  loading: boolean = false;
+  uploadedFiles: any[] = [];
+  // Formulário
+  formulario: FormGroup;
+  items: MenuItem[] | undefined;
 
-// Formulário
-formulario: FormGroup;
-items: MenuItem[] | undefined;
+  activeIndex: number = 0;
 
-    activeIndex: number = 0;
+  // Upload de Arquivo
+  fileToUpload: File | null = null;
 
-// Upload de Arquivo
-fileToUpload: File | null = null;
-
-// Endereço (se faz sentido agrupar)
+  // Endereço (se faz sentido agrupar)
 
 
-// Mensagens
-msgSalvar: string;
-msgSalvarStyle: string;
-errors: string | null;
+  // Validações
 
-// Validações
-
-validacaoLogin: boolean | null = null;
-validacaoCPF: boolean | null = null;
-RespValidacaoCPF: boolean | null = null;
-existeCPF: boolean | null = null;
-buscouCEP: boolean | null = null ;
-indiceStep = 1;
-
+  validacaoLogin: boolean | null = null;
+  validacaoCPF: boolean | null = null;
+  RespValidacaoCPF: boolean | null = null;
+  existeCPF: boolean | null = null;
+  buscouCEP: boolean | null = null ;
+  indiceStep = 1;
 
   constructor( private service : ClienteService, private router: Router, private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, private assync: AssyncServiceService, public messageService: MessageService) {
+    private formBuilder: FormBuilder, private assync: AssyncServiceService, private messageService: MessageService) {
     this.cliente = new Cliente();
     this.criaFormulario(new Cliente());
   }
-
-
-  nextStep() {
-    this.indiceStep++;
-    this.activeIndex ++;
-  }
-
-  prevStep() {
-    this.indiceStep--;
-    this.activeIndex --;
+  ngOnDestroy(): void {
+    this.indiceStep = 1
+    this.activeIndex = 0;
   }
 
   ngOnInit(): void {
-    if(this.pacienteSelecionado !== null || this.pacienteSelecionado !== undefined){
-      this.cliente = this.pacienteSelecionado
-    }
+    // if(this.pacienteSelecionado !== null || this.pacienteSelecionado !== undefined){
+    //   this.cliente = this.pacienteSelecionado
+    // }
+
     this.items = [
       {
           id: '1',
@@ -103,62 +100,62 @@ indiceStep = 1;
   }
 
   onSubmit(){
-
-      // console.log(this.formulario.value)
     const paciente = this.formulario.value;
     const pacienteJson = JSON.stringify(paciente);
-    console.log(paciente)
-      if(this.formulario.valid){
+
+    if(this.validaFormulario()){
       this.service.postPaciente(pacienteJson)
       .then(response =>{
-        console.log(response)
+        // console.log(response)
         if(response?.status === 201 || response?.status === 200 ){
-          this.router.navigate(['/clientes', {salvo: true}])
+          this.closeModal.emit(false)
+          // this.router.navigate(['/clientes', {salvo: true}])
+
         }
         else{
           this.success = false;
-          this.msgSalvar = "Houve um erro na requisicao";
-          this.msgSalvarStyle = "WarningSnackbar";
-          //this.errors = errorResponse.error.erros;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Houve um erro na requisicao para salvar o paciente.'
+          });
         }
 
       }).catch(errorResponse => {
           this.success = false;
-          this.msgSalvar = "Houve um erro ao salvar o paciente!";
-          this.msgSalvarStyle = "DangerSnackbar";
-          this.errors = errorResponse.error.erros;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Houve um erro interno ao salvar um o paciente.'
+          });
+
       })
 
 
     }else{
       this.success = false;
-      this.msgSalvar = "Houve erro no formulário, confira os campos obrigatórios!";
-      this.msgSalvarStyle = "WarningSnackbar";
-      //this.openSnackBar();
+      const mensagem: Message = {
+        type: 'error',
+        content: 'Houve erro nas informações digitadas, confira os campos obrigatórios!',
+      };
+
+      this.msgReturn.emit(mensagem);
+
     }
 
   }
 
+  onBasicUploadAuto(event: any) {
+    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
+  }
+
   onActiveIndexChange(event: number) {
     this.activeIndex = event;
-}
+  }
 
-  // openSnackBar ( ) {
-  //   const snackbarRef = this._snackBar.openFromComponent(CustomSnackbarComponent, {
-  //     data: { message: this.msgSalvar },
-  //     duration: 3000,
-  //     panelClass: [this.msgSalvarStyle],
-  //     verticalPosition: 'top',
-  //     horizontalPosition: 'end',
-  //   });
-
-
-
-  // }
   uploadFoto(): void {  }
 
   buscaCEP(){
-
     this.loading = true;
     let cep = this.formulario.get('endereco.cep')
     const cpfLimpo = cep?.value.replace(/\D/g, '').substring(0, 8);
@@ -186,9 +183,6 @@ indiceStep = 1;
         this.loading = false;
       }
     }, 1000);
-
-
-
   }
 
 
@@ -309,23 +303,16 @@ indiceStep = 1;
   }
 
   async criaFormulario(cliente: Cliente) {
-    const endereco = cliente.endereco || {};
-    const responsavel = cliente.responsavel || {};
-    const anamnese = cliente.anamnese || {};
-
-
-
     this.formulario = this.formBuilder.group({
-      id: [cliente.id],
-      numPasta: [cliente.numPasta, Validators.required],
-      login: [cliente.login,Validators.required],
-      senha: [cliente.senha, Validators.required],
-      email: [cliente.email, Validators.required],
-      nome: [cliente.nome, Validators.required],
-      cpf: [cliente.cpf, Validators.required],
+      numPasta: ['', Validators.required],
+      login: ['',Validators.required],
+      senha: ['', Validators.required],
+      email: ['', Validators.required],
+      nome: ['', Validators.required],
+      cpf: ['', Validators.required],
       dataCadastro: [''],
-      dataNascimento: [cliente.dataNascimento, Validators.required],
-      telefone: [cliente.telefone, Validators.required],
+      dataNascimento: ['', Validators.required],
+      telefone: ['', Validators.required],
 
       // Endereço
       endereco: this.formBuilder.group({
@@ -333,16 +320,16 @@ indiceStep = 1;
         bairro: ['', Validators.required],
         logradouro: ['', Validators.required],
         numero: ['', Validators.required],
-        cep: ['36048502', Validators.required],
+        cep: ['', Validators.required],
         complemento: ['', Validators.required],
-        referencia: [''],
+        referencia: [],
       }),
 
       // Responsável
       responsavel: this.formBuilder.group({
-        nome: [''],
-        telefone: [''],
-        cpf: [''],
+        nome: [],
+        telefone: [],
+        cpf: [],
       }),
 
       // Anamnese
@@ -370,5 +357,38 @@ indiceStep = 1;
     tipo === 1 ? this.formulario.get('telefone')?.setValue(telFormatado) : this.formulario.get('responsavel.telefone')?.setValue(telFormatado) ;
 
   }
+
+  validaFormulario(): boolean{
+    if(!this.formulario.get('endereco')?.valid){
+      this.indiceStep = 3;
+      this.activeIndex = 2;
+      return false;
+    }
+    else if(!this.formulario.get('anamnese')?.valid){
+      this.indiceStep = 4;
+      this.activeIndex = 3;
+      return false;
+
+    }
+    else if(!this.formulario.valid){
+      this.indiceStep = 1;
+      this.activeIndex = 0;
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  nextStep() {
+    this.indiceStep++;
+    this.activeIndex ++;
+  }
+
+  prevStep() {
+    this.indiceStep--;
+    this.activeIndex --;
+  }
+
 
 }

@@ -60,7 +60,7 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     ChartModule,
     FieldsetModule,
     TagModule,
-    
+
     FormsModule,
     ReactiveFormsModule
 

@@ -27,7 +27,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { MenubarModule } from 'primeng/menubar';
 import {MatIconModule} from '@angular/material/icon';
-
+import { FileUploadModule } from 'primeng/fileupload';
 @NgModule({
   declarations: [
     // ClienteInfoComponent,
@@ -55,7 +55,8 @@ import {MatIconModule} from '@angular/material/icon';
     TabViewModule,
     SpeedDialModule,
     MenubarModule,
-    MatIconModule
+    MatIconModule,
+    FileUploadModule
   ],
   exports: [
     // ClienteInfoComponent,
