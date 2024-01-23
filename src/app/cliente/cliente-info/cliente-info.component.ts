@@ -19,6 +19,10 @@ import { AssyncServiceService } from 'src/app/assync-service.service';
   providers: [DatePipe]
 })
 export class ClienteInfoComponent implements OnInit {
+  
+consultaSelecionadaInfo(arg0: any) {
+throw new Error('Method not implemented.');
+}
 
   paciente: any;
 
@@ -365,7 +369,16 @@ export class ClienteInfoComponent implements OnInit {
     const anos = Math.floor(diffMeses / 12);
     const meses = diffMeses % 12;
 
-    return `${anos} anos e ${meses} mês`;
+    if(anos <= 1 && meses <= 1 ){
+      return `${anos} ano e ${meses} mês`;
+    }
+    else if(anos !== 1 && meses === 1 ){
+      return `${anos} anos e ${meses} mês`;
+    }
+    else{
+      return `${anos} anos e ${meses} mêses`;
+    }
+
   }
 
   replaceTelefone(tipo: number){
@@ -505,10 +518,18 @@ export class ClienteInfoComponent implements OnInit {
     }
   }
   async closeModal(close: boolean) {
-    this.novaConsulta = false;
-    this.service.getPacienteById(this.paciente.id).then((response)=>{
+
+    console.log("Cheguei aqui, ação: ", close);
+    this.novaConsulta = close;
+
+    await this.service.getPacienteById(this.paciente.id).then((response)=>{
       this.paciente = response;
       // console.log(this.data);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Aviso',
+        detail:'Consulta agendada com sucesso!'
+      })
      }).catch(()=>{
       this.router.navigate(['/clientes']);
       this.messageService.add({
@@ -518,11 +539,7 @@ export class ClienteInfoComponent implements OnInit {
         life: 2000
       })
      })
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Aviso',
-      detail:'Consulta agendada com sucesso!'
-    })
+
   }
   // async closeModal(close: boolean) {
 

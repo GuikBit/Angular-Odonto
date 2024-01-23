@@ -1,5 +1,5 @@
 import { Dentista } from './../dentista';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DentistaService } from 'src/app/dentista.service';
@@ -14,8 +14,8 @@ import { isEmpty } from 'rxjs';
 })
 export class DentistaNovoComponent implements OnInit{
 
-  @Input() dentistaEdit: Dentista;
-
+  // @Input() dentistaEdit: Dentista;
+  @Output() closeModal = new EventEmitter<boolean>();
   especialidades: any[]|undefined;
   dentista: Dentista;
 
@@ -41,34 +41,22 @@ export class DentistaNovoComponent implements OnInit{
 
   ];
   }
-  async ngOnInit() {
-    if(this.dentistaEdit?.id !== null || this.dentistaEdit?.id !== undefined){
-
-      this.formulario.get('login')?.setValue(this.dentistaEdit?.login);
-      this.formulario.get('senha')?.setValue(this.dentistaEdit?.senha);
-      this.formulario.get('email')?.setValue(this.dentistaEdit?.email);
-      this.formulario.get('nome')?.setValue(this.dentistaEdit?.nome);
-      this.formulario.get('cpf')?.setValue(this.dentistaEdit?.cpf);
-      this.formulario.get('telefone')?.setValue(this.dentistaEdit?.telefone);
-      this.formulario.get('cro')?.setValue(this.dentistaEdit?.cro);
-      this.formulario.get('especialidade')?.setValue(this.dentistaEdit?.especialidade);
-    }
+  ngOnInit() {
 
   }
 
   criaFormulario(dentista: Dentista) {
     this.formulario = this.formBuilder.group({
-      id: [dentista.id],
-      login: [dentista.login, Validators.required],
-      senha: [dentista.senha, Validators.required],
-      email: [dentista.email, Validators.required],
-      nome: [dentista.nome, Validators.required],
-      cpf: [dentista.cpf, Validators.required],
+      login: ['', Validators.required],
+      senha: ['', Validators.required],
+      email: ['', Validators.required],
+      nome: ['', Validators.required],
+      cpf: ['', Validators.required],
       dataCadastro: [''],
-      dataNascimento: [dentista.dataNascimento, Validators.required],
-      telefone: [dentista.telefone, Validators.required],
-      cro: [dentista.cro, Validators.required],
-      especialidade: [dentista.especialidade, Validators.required]
+      dataNascimento: ['', Validators.required],
+      telefone: ['', Validators.required],
+      cro: ['', Validators.required],
+      especialidade: ['', Validators.required]
     })
   }
 
@@ -180,6 +168,20 @@ export class DentistaNovoComponent implements OnInit{
 
   }
   onSubmit() {
-    throw new Error('Method not implemented.');
+    console.log(this.formulario)
+    console.log("Form novo dentista valido: ",this.formulario.valid)
+    if(this.formulario.valid){
+      this.service.postDentita(JSON.stringify(this.formulario.value)).then((response)=>{
+        if(response?.status == 200 || response?.status === 201){
+          this.closeModal.emit(false);
+        }
+      }).catch((error)=>{
+        this.messageService.add({
+          summary: 'warn',
+          severity: 'Aviso',
+          detail: 'Houve um erro ao salvar o dentista.'
+        })
+      })
     }
+  }
 }

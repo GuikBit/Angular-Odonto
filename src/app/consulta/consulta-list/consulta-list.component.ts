@@ -38,12 +38,13 @@ export class ConsultaListComponent{
   visible: boolean = false;
   infoConsulta: boolean = false;
   close: boolean;
-
+  pagamentoInfo: boolean = false;
   paymentOptions: any[] = [
     { name: 'Dia', icon: 'pi pi-calendar', value: 1, styleClass: "selectButton" },
     { name: 'Semana', icon: 'pi pi-calendar',  value: 2, styleClass: "selectButton"},
     { name: 'Mês', icon: 'pi pi-calendar', value: 3, styleClass: "selectButton" }
   ];
+
 
   constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private messageService: MessageService){
     this.criaTabelaConsulta();
@@ -125,8 +126,31 @@ export class ConsultaListComponent{
   }
 
   closeModal(close: boolean) {
-    this.infoConsulta = close;
-    
+    this.visible = close;
+    this.criaTabelaConsulta();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Aviso',
+      detail: 'Consulta agendada com sucesso!',
+      life: 2000
+    })
+  }
+  pagamentoStatus(id: any){
+    if(id != null){
+      this.service.getConsultaById(id).then((response)=>{
+
+        this.consultaSelecionada = response;
+        this.pagamentoInfo = true;
+
+      }).catch((error)=>{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Aviso',
+          detail: 'Houve algum problema ao buscar a consulta',
+          life: 2000
+        })
+      })
+    }
   }
 
 }

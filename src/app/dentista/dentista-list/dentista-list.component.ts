@@ -15,6 +15,7 @@ import { DentistaService } from 'src/app/dentista.service';
 })
 export class DentistaListComponent implements AfterViewInit{
 
+
   dentista: any;
   colunas : string []= ['nome', 'cpf', 'dataCadastro', 'btns'];
   dataSource: MatTableDataSource<Dentista>;
@@ -130,5 +131,13 @@ export class DentistaListComponent implements AfterViewInit{
   // info(id: any){
   //   this.router.navigate([`/dentista/info/${id}`])
   // }
-
+  closeModal(close: boolean) {
+    this.novo = close;
+    this.criaTabelaDentista();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Aviso',
+      detail: 'Dentista salvo com sucesso!'
+    })
+  }
 }

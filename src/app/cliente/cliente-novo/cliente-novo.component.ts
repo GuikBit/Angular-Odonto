@@ -106,11 +106,8 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     if(this.validaFormulario()){
       this.service.postPaciente(pacienteJson)
       .then(response =>{
-        // console.log(response)
         if(response?.status === 201 || response?.status === 200 ){
           this.closeModal.emit(false)
-          // this.router.navigate(['/clientes', {salvo: true}])
-
         }
         else{
           this.success = false;

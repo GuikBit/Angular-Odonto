@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { AuthGuard } from './auth.guard';
@@ -16,6 +17,8 @@ import { ConsultaEditComponent } from './consulta/consulta-edit/consulta-edit.co
 import { DentistaNovoComponent } from './dentista/dentista-novo/dentista-novo.component';
 import { DentistaInfoComponent } from './dentista/dentista-info/dentista-info.component';
 import { DentistaEditComponent } from './dentista/dentista-edit/dentista-edit.component';
+import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
+import { AdminMainComponent } from './admin/admin-main/admin-main.component';
 
 
 
@@ -23,7 +26,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path: '', component: LayoutComponent, children:[
     //home
-    {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+    {path: 'dashboard', component: HomeComponent, canActivate: [AuthGuard]},
 
     //cliente
     {path: 'clientes', component: ClienteListComponent, canActivate: [AuthGuard]},
@@ -44,6 +47,8 @@ const routes: Routes = [
     {path: 'consultas/edit/:id', component: ConsultaEditComponent, canActivate: [AuthGuard]},
     //{path: 'relatorio', component: RelatorioComponent, canActivate: [AuthGuard]},
 
+    {path: 'areaAdmin', component: AdminTemplateComponent, canActivate: [AuthGuard]},
+    {path: 'areaAdmin/paciente', component:AdminMainComponent, canActivate: [AuthGuard]},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
   ]}
 ];

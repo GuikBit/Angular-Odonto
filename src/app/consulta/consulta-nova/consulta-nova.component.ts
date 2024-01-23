@@ -32,7 +32,6 @@ export class ConsultaNovaComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private servicePaciente: ClienteService, private serviceDentista: DentistaService,
     private serviceConsulta: ConsultaService, private messageService: MessageService){
 
-
     }
 
 
@@ -107,62 +106,88 @@ export class ConsultaNovaComponent implements OnInit {
       this.limpaInformacoes();
 
       if(this.formulario.valid){
-        this.novaConsulta()
-        const jsonString = JSON.stringify(this.formulario.value, function (key, value) {
-          if (value instanceof Date) {
-            // Formata a data para uma string que inclui o fuso horário
-            return value.toISOString();
-          }
-          return value;
-        });
-        console.log(jsonString);
-        this.serviceConsulta.postConsulta(jsonString).then((response)=>{
-          if(response.status === 200){
-            this.closeModal.emit(false)
-          }
-        }).catch(()=>{
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Aviso',
-            detail: 'Houve erro na requisição para salvar a consulta.'
-          })
-        })
-
+        if(this.dataConsulta() && this.horaConsulta()){
+        // this.serviceConsulta.postConsulta(JSON.stringify(this.formulario.value))
+        // .then(response =>{
+        //   if(response?.status === 201 || response?.status === 200 ){
+        //     this.closeModal.emit(false)
+        //   }
+        // }).catch(()=>{
+        //   this.messageService.add({
+        //     severity: 'error',
+        //     summary: 'Aviso',
+        //     detail: 'Houve erro na requisição para salvar a consulta.'
+        //   })
+        // })
+        }
       }else{
         this.messageService.add({
           severity: 'error',
           summary: 'Aviso',
-          detail: 'Houve erro nas informações digitadas, confira os campos obrigatórios!'
+          detail: 'Houve erro ao marcar a consulta, confira os campos obrigatórios!'
         })
       }
     }
 
-    async novaConsulta() {
-      if (this.formulario.valid) {
+    // validaConsulta(){
+    //   if (this.dataConsulta()) {
+    //     return true;
+    //   }
+    //   else{
+    //     this.formulario.get('dataConsulta')?.setValue('');
+    //     this.formulario.get('horaConsulta')?.setValue('');
+    //     this.messageService.add({
+    //       severity: 'error',
+    //       summary: 'Aviso',
+    //       detail: 'Houve um erro de digitação da Data e Hora, digite novamente.'
+    //     })
+    //     return false;
+    //   }
+
+    // }
+
+    dataConsulta() {
+
         const dataConsulta = new Date(this.formulario.get('dataConsulta')?.value);
-        const horaConsulta = this.formulario.get('horaConsulta')?.value;
-        const [hr, min] = horaConsulta.split(':');
-        dataConsulta.setHours(parseInt(hr, 10), parseInt(min, 10));
 
         const dataAtual = new Date();
-        const dataHoraConsulta = new Date(dataConsulta);
-        dataHoraConsulta.setSeconds(0, 0);
 
-        if (dataHoraConsulta > dataAtual) {
-          console.log("Data ajustada: ",dataHoraConsulta)
-          console.log("Formulario: ", this.formulario.get('dataConsulta')?.value)
-          this.formulario.get('dataConsulta')?.setValue(dataHoraConsulta);
-          console.log("Formulario Ajustada: ", this.formulario.get('dataConsulta')?.value)
+        dataConsulta.setSeconds(0, 0);
+        dataAtual.setHours(0,0);
+        dataAtual.setSeconds(0,0);
 
-        } else {
+        console.log(dataAtual, dataConsulta)
+        if (dataConsulta >= dataAtual) {
+          return true;
+        }else{
           this.formulario.get('dataConsulta')?.setValue('');
           this.formulario.get('horaConsulta')?.setValue('');
           this.messageService.add({
             severity: 'error',
             summary: 'Aviso',
-            detail: 'A data e hora precisa ser posterior a atual.'
+            detail: 'Houve um erro de digitação da Data, digite novamente.'
           })
+          return false;
+
         }
+    }
+
+    horaConsulta(){
+      const horaConsulta = this.formulario.get('horaConsulta')?.value;
+      const [hr, min] = horaConsulta.split(':');
+      const hora = new Date().setHours(hr,min,0,0);
+      const horaAtual = new Date().setSeconds(0,0);
+      if((hr >= 0 && hr <= 23 && min >= 0 && min <= 59) && (hora >= horaAtual)){
+        return true;
+      }else{
+        this.formulario.get('horaConsulta')?.setValue('');
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Aviso',
+            detail: 'Houve um erro de digitação da Hora, digite novamente.'
+          })
+          return false;
       }
+
     }
 }

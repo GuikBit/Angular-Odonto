@@ -59,13 +59,13 @@ export class ConsultaService {
       'Content-Type': 'application/json'},
     });
     try{
-      console.log(consulta);
-      const response = await instance.post(`${this.apiURL}`, consulta)
-      return response.data;
+      // console.log(consulta);
+      const response = await instance.post(`${this.apiURL}`, consulta);
+      return response;
 
     }catch (error) {
       console.error(error);
-      return error;
+      return null;
     }
   }
   async getEspecConsulta() {

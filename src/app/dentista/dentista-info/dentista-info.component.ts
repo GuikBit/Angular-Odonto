@@ -10,6 +10,9 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./dentista-info.component.css']
 })
 export class DentistaInfoComponent implements OnInit {
+consultaSelecionadaInfo(arg0: any) {
+throw new Error('Method not implemented.');
+}
 
   data: any;
   dataGrafic1: any;

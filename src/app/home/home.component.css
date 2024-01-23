@@ -1,56 +1,29 @@
 
-.cores1{
-    width: 100px;
-    height: 70px;
-  
-    border-radius: 20%;
-    background-color: #54a2dc;
+.box{
+  background: #FFFFFF;
+  border-radius: 7px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+
 }
-.cores2{
-    width: 100px;
-    height: 70px;
-
-    border-radius: 20%;
-    background-color: #f2f8fd;
+.cardTitulo{
+  color:#303030;
+  font-weight: 700;
+  font-size:medium;
 }
-.cores3{
-    width: 100px;
-    height: 70px;
-
-    border-radius: 20%;
-    background-color: #2070b4;
-    color: white;
+.cardValor{
+  color:#303030;
+  font-weight: 700;
+  font-size: xx-large;
+  margin-top: 1rem;
 }
-.cores6{
-    width: 100px;
-    height: 70px;
-
-    border-radius: 20%;
-    background-color: #f44336;
-    color: white;
+.cardPorc{
+  color:red;
+  font-weight: 500;
+  font-size: medium;
 }
-.cores4{
-    width: 100px;
-    height: 70px;
-
-    border-radius: 20%;
-    background-color: #ffe3e1;
-    color: white;
-}
-.cores5{
-    width: 100px;
-    height: 70px;
-
-    border-radius: 20%;
-    background-color: #e5f3e6;
-    color: white;
-}
-.cores7{
-    background-color: #407945;
-    width: 100px;
-    height: 70px;
-
-    border-radius: 20%;
-
-    color: white;
+.cardPorcVerd{
+  color:#159D47;
+  font-weight: 500;
+  font-size: medium;
 }

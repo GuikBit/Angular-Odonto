@@ -8,7 +8,7 @@ button{
   width: 10vw;
   border-radius: 50px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
-  border:none
+  border:none;
 }
 
 button:hover{
@@ -24,7 +24,8 @@ button:hover{
 }
 .new{
   border: 1px solid #c4ddf3;
-  padding: 2vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
   border-radius: 8px;
 }
 .width{

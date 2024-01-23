@@ -127,7 +127,10 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.component';
+import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.component'
+import { AdminModule } from './admin/admin.module';
+import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
+import { AdminMainComponent } from './admin/admin-main/admin-main.component';
 // import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
@@ -146,6 +149,7 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
   imports: [
     ReactiveFormsModule,
     ClienteModule,
+
     DentistaModule,
     ConsultaModule,
     HttpClientModule,

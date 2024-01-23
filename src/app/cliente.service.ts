@@ -27,9 +27,7 @@ export class ClienteService {
       try {
 
         const response = await instance.post(`${this.apiURL}`, paciente);
-
         return response;
-        // return null;
 
       } catch (error) {
         console.log("Deu erro na requisição")

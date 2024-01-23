@@ -2,14 +2,14 @@
   <div class="">
     <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
       <div class="card">
-        <div class="row flex justify-content-center ">
+        <div class="row flex justify-content-around ">
 
-          <div class="field mr-4">
-            <span class="p-float-label p-input-icon-left p-input-icon-right">
+          <div class="field col-4">
+            <span class="p-float-label p-input-icon-left p-input-icon-right width">
               <i class="pi pi-user azul"></i>
               <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
               <i [ngClass]="validacaoLogin? 'pi pi-check azul': ''" style="font-size: 1.3rem; color: #136C34"></i>
-              <input pInputText id="login" formControlName="login" required (input)="buscaLogin()" minlength="3" [style]="validacaoLogin? 'border-color:  #136C34': ''" />
+              <input pInputText id="login" formControlName="login" required (input)="buscaLogin()" minlength="3" [style]="validacaoLogin? 'border-color:  #136C34': ''" class="width"/>
               <label for="login " class="azul">Login</label>
             </span>
             <small *ngIf="formulario.controls['login'].errors?.['required']" class="p-error"><br>* Campo obrigatório</small>
@@ -17,15 +17,28 @@
             <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
           </div>
 
-          <div class="field ml-4">
-            <span class="p-float-label p-input-icon-left p-input-icon-right ">
+          <div class="field col-4">
+            <span class="p-float-label p-input-icon-left p-input-icon-right  width">
               <i class="pi pi-key azul"></i>
               <i [ngClass]="hide? 'pi pi-eye azul' : 'pi pi-eye-slash azul'" (click)="hide = !hide"></i>
-              <input pInputText [type]="hide ? 'password' : 'text'" id="password" formControlName="senha" />
+              <input pInputText [type]="hide ? 'password' : 'text'" id="password" formControlName="senha" class="width"/>
               <label for="password" class="azul">Senha</label>
             </span>
             <small *ngIf="formulario.controls['senha'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
+
+          <div class="field col-3">
+            <span class="p-float-label p-input-icon-right width">
+              <p-calendar inputId="dataNascimento" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width">
+                <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                  <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                </ng-template>
+              </p-calendar>
+              <label for="dataNascimento" class="azul">Data Nascimento</label>
+            </span>
+            <small *ngIf="formulario.controls['dataNascimento'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
+          </div>
+
         </div>
 
         <div class=" row flex justify-content-center  mt-3 mb-3">
@@ -99,18 +112,7 @@
             <small *ngIf="formulario.controls['email'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <!-- <div class="field ml-4">
-            <span class="p-float-label p-input-icon-left">
 
-              <p-calendar formControlName="dataNascimento" inputId="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false">
-                <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-left">
-                  <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                </ng-template>
-              </p-calendar>
-              <label for="dataNascimento" class="azul">Data Nascimento</label>
-            </span>
-            <small *ngIf="formulario.controls['dataNascimento'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
-          </div> -->
 
         </div>
 
@@ -118,7 +120,7 @@
       <div class="flex justify-content-center align-content-center">
 
         <!-- <button pButton type="button" (click)="prevStep()" label="Voltar" icon="pi pi-angle-left" class="btnVoltar"></button> -->
-        <button pButton type="button"  label="Salvar" icon="pi pi-save" class="btnSalvar"></button>
+        <button pButton type="submit"  label="Salvar" icon="pi pi-save" class="btnSalvar"></button>
      </div>
 
     </form>

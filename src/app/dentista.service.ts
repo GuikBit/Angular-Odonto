@@ -11,6 +11,7 @@ import axios from 'axios';
 })
 export class DentistaService {
 
+
   apiURL : String = environment.apiURLBase + '/v1/dentista';
 
   constructor() { }
@@ -62,11 +63,25 @@ export class DentistaService {
       const response = await instance.get(`${this.apiURL}/${id}`)
       return response.data;
     }catch(error){
-      console.error(error);
+
       return null
     }
   }
+  async postDentita(dentista: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()),
+      'Content-Type': 'application/json' },
+    });
+    try{
+      const response = await instance.post(`${this.apiURL}`, dentista)
+      return response;
 
+    }catch(error){
+      return null
+    }
+  }
   async buscaLogin(login: string) {
     const instance = axios.create({
       baseURL: `${this.apiURL}`,

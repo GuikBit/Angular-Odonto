@@ -208,6 +208,30 @@
                     </div>
                   </div>
                 </th>
+                <!-- <th pSortableColumn="status" [width]="180">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-between align-items-center">
+                      Pagamento
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="status"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="status"
+                        display="menu"
+                        matchMode="contains"
+                        [showMatchModes]="false"
+                        [showOperator]="false"
+                        [showAddButton]="false"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th> -->
                 <th [width]="250">
                   <div class="flex justify-content-end align-items-center">
                     <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
@@ -222,14 +246,6 @@
                 <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}}</td>
                 <td>{{  consulta?.dataConsulta | date: 'HH:mm' }}</td>
                 <td>
-                  <!-- @if (consulta?.pagamento.pago)
-                      {
-                        <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
-                      }
-                    @else
-                      {
-                        <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
-                      } -->
                       @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
                         <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
                       }
@@ -245,6 +261,16 @@
                         <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
                       }
                 </td>
+                <!-- <td>
+                    @if (consulta?.pagamento.pago)
+                      {
+                        <p-tag severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+                      }
+                    @else
+                      {
+                        <p-tag severity="danger" value="&nbsp;Pendente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
+                      }
+                </td> -->
                 <td >
                   <div class="flex justify-content-around">
                     <td [width]="230">
@@ -272,9 +298,10 @@
                             [rounded]="true"
                             [outlined]="true"
                             [severity]="'success'"
-                            [disabled]="!consulta?.dataHoraFimAtendimento"
+
                             pTooltip="Pagamento"
                             tooltipPosition="top"
+                            (onClick)="pagamentoStatus(consulta?.id)"
                             ><i class="material-icons">paid</i>
                           </p-button>
                           <!-- <p-button icon="pi"
@@ -313,20 +340,72 @@
 </div>
 
 <p-dialog header="Nova Consulta" [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: '85vh' }" class="box" [draggable]="false" [resizable]="false">
-  <app-consulta-nova></app-consulta-nova>
+  <app-consulta-nova (closeModal)="closeModal($event)"></app-consulta-nova>
 </p-dialog>
 
 <!-- <p-dialog header="Detalhes da consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw', height: '90vh' }" class="box" [draggable]="false" [resizable]="false">
   <app-consulta-info ></app-consulta-info>
 </p-dialog> -->
 
-<p-dialog header="Detalhes da Consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw',  height: '90vh' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Detalhes da Consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw',  height: '99vh' }" [draggable]="false" [resizable]="false">
   <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (closeModal)="closeModal($event)"></app-consulta-info>
 </p-dialog>
 
-<!-- <p-sidebar [(visible)]="infoConsulta" styleClass="w-30rem" position="right" >
-  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada"></app-consulta-info>
-</p-sidebar> -->
+<p-sidebar [(visible)]="pagamentoInfo" position="right" styleClass="w-30rem">
+  <h3>Pagamento</h3>
+
+  <div class="row m-4">
+    <div class="flex justify-content-center">
+      <span class="font-bold m-2">Paciente</span>
+    </div>
+    <div class="flex justify-content-center">
+      <i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.paciente?.nome}}
+    </div>
+  </div>
+
+  <div class="row m-4">
+    <div class="flex justify-content-center">
+      <span class="font-bold m-2">Data Consulta</span>
+    </div>
+    <div class="flex justify-content-around">
+      <div class="col-6 flex justify-content-center">
+        <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.dataConsulta | date:'dd/MM/yyy'}}
+      </div>
+      <div class="col-6 flex justify-content-center">
+        <i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.dataConsulta | date:'HH:mm'}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row  flex justify-content-center">
+    <div class="col-6 ">
+      <div class="flex justify-content-center">
+        <span class="font-bold m-2">Tipo de Consulta</span>
+      </div>
+      <div class="flex justify-content-center">
+        <i class="pi pi-briefcase azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.consultaEspecialidade?.tipo }}
+      </div>
+    </div>
+    <div class="col-6 ">
+      <div class="flex justify-content-center">
+        <span class="font-bold m-2">Tipo de Aparelho</span>
+      </div>
+      <div class="flex justify-content-center">
+        <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.consultaEspecialidade?.tipoAparelho }}
+      </div>
+    </div>
+  </div>
+  <div class="row  flex justify-content-center">
+    <div class="col-6 ">
+      <div class="flex justify-content-center">
+        <span class="font-bold m-2">Valor Base</span>
+      </div>
+      <div class="flex justify-content-center">
+        {{consultaSelecionada?.consultaEspecialidade?.valorBase | currency:'BRL' }}
+      </div>
+    </div>
+  </div>
+</p-sidebar>
 
 
 

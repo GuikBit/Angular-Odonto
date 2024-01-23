@@ -314,8 +314,6 @@
 
 
   <p-dialog header="Novo Dentista" [(visible)]="novo" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
-    <app-dentista-novo></app-dentista-novo>
+    <app-dentista-novo (closeModal)="closeModal($event)"></app-dentista-novo>
   </p-dialog>
-  <p-dialog header="Novo Dentista" [(visible)]="editar" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
-    <app-dentista-novo *ngIf="dentista" [dentistaEdit]="dentista"></app-dentista-novo>
-  </p-dialog>
+

@@ -2,6 +2,7 @@ import { Time } from "@angular/common";
 import { Cliente } from "../cliente/cliente";
 import { Dentista } from "../dentista/dentista";
 import { ConsultaEspecialidade } from "./consultaEspecialidade";
+import { Pagamento } from "./pagamento";
 
 export class Consulta{
     id?: number;
@@ -12,7 +13,7 @@ export class Consulta{
     tempoPrevisto: number;
     paciente: Cliente;
     dentista: Dentista;
-    // pagamento: Pagamento;
+    pagamento: Pagamento;
     consultaEspecialidade: ConsultaEspecialidade;
     observacao: string;
     ausente: boolean;

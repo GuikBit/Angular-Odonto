@@ -559,25 +559,40 @@
                     {{ consulta?.dataConsulta | date: 'HH:mm' }}
                   </td>
                   <td>
-                    @if (consulta?.pagamento.pago)
-                    {
-                      <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
-                    }
-                    @else
-                    {
-                      <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
-                    }
+                    <!-- @if (consulta?.pagamento.pago)
+                        {
+                          <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
+                        }
+                      @else
+                        {
+                          <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
+                        } -->
+                        @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                          <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
+                        }
+                      @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+                        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
+                        }
+                      @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+                        {
+                          <p-tag severity="success" value="&nbsp;Atendido&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+                        }
+                      @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+                        {
+                          <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
+                        }
                   </td>
 
-                  <td [width]="400">
+                  <td [width]="230">
                     <div class="flex justify-content-around">
                       <p-button icon="pi"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta?.pagamento.pago? 'secondary':'warning'"
-                        [disabled]="consulta?.pagamento.pago"
+                        [severity]="'warning'"
+                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                         pTooltip="Iniciar Consulta"
                         tooltipPosition="top"
+
                         ><i class="material-icons">play_arrow</i>
                       </p-button>
                       <p-button icon="pi"
@@ -586,18 +601,19 @@
                         severity="info"
                         pTooltip="Informações"
                         tooltipPosition="top"
+                        (click)="consultaSelecionadaInfo(consulta?.id)"
                         ><i class="material-icons">info</i>
                       </p-button>
                       <p-button icon="pi"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta?.pagamento.pago? 'secondary':'success'"
-                        [disabled]="consulta?.pagamento.pago"
+                        [severity]="'success'"
+                        [disabled]="!consulta?.dataHoraFimAtendimento"
                         pTooltip="Pagamento"
                         tooltipPosition="top"
                         ><i class="material-icons">paid</i>
                       </p-button>
-                      <p-button icon="pi"
+                      <!-- <p-button icon="pi"
                         [rounded]="true"
                         [outlined]="true"
                         [severity]="consulta?.pagamento.pago? 'secondary':'help'"
@@ -605,8 +621,8 @@
                         pTooltip="Reagendar"
                         tooltipPosition="top"
                         ><i class="material-icons">edit_document</i>
-                      </p-button>
-                      <p-button icon="pi"
+                      </p-button> -->
+                      <!-- <p-button icon="pi"
                         [rounded]="true"
                         [outlined]="true"
                         [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
@@ -614,7 +630,7 @@
                         pTooltip="Deletar"
                         tooltipPosition="top"
                         ><i class="material-icons">delete</i>
-                      </p-button>
+                      </p-button> -->
                     </div>
                   </td>
                 </tr>

@@ -11,12 +11,14 @@ import { MenuItem, MessageService } from 'primeng/api';
 export class ConsultaInfoComponent implements OnInit {
 
 
+
   @Input() consultaSelecionada: Consulta;
   @Output() closeModal = new EventEmitter<boolean>();
 
   items: MenuItem[] ;
   editar: boolean = false;
   formulario: FormGroup;
+  pagamentoInfo: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService){
 
@@ -89,7 +91,7 @@ export class ConsultaInfoComponent implements OnInit {
       //     ],
       // }
       ]
-
+      console.log(this.consultaSelecionada)
     this.criaFormulario(this.consultaSelecionada);
   }
 
@@ -109,6 +111,10 @@ export class ConsultaInfoComponent implements OnInit {
 
   onSubmit() {
 
+  }
+
+  pagamentoinfo() {
+    this.pagamentoInfo = true;
   }
 
 }

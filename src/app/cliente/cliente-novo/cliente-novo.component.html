@@ -670,7 +670,7 @@
 
                       <div class="field col-3">
                         <span class="p-float-label width">
-                          <p-calendar inputId="dataNascimento" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" class="width">
+                          <p-calendar inputId="dataNascimento" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width">
                             <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                               <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
                             </ng-template>

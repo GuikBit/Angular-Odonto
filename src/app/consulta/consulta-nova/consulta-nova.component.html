@@ -95,9 +95,13 @@
       </div>
       <div class="row h-6rem mt-3">
         <div class="flex justify-content-center">
-          <h4>Tempo Previsto</h4>
+          <div>
+            <h4>Tempo Previsto</h4>
+          </div>
+
         </div>
-        <div class="flex justify-content-center">
+
+        <div class="flex justify-content-center ">
               <div class="flex align-items-center ">
                 <p-radioButton name="tempoPrevisto" value="1" class="azul" formControlName="tempoPrevisto" inputId="tempo1" label="15 Minutos"></p-radioButton>
               </div>
@@ -111,18 +115,21 @@
                 <p-radioButton name="tempoPrevisto" value="4" class="azul" formControlName="tempoPrevisto" inputId="tempo4" label="60 Minutos"></p-radioButton>
               </div>
         </div>
+        <div class="flex justify-content-center ">
+          <small *ngIf="formulario.get('tempoPrevisto')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+        </div>
       </div>
 
-      <div class="row flex justify-content-center mt-5">
+      <div class="row flex justify-content-center mt-7">
         <span class="p-float-label width">
           <textarea id="float-input" rows="3" class="width" formControlName="observacao" pInputTextarea></textarea>
           <label for="float-input" class="azul">Observações</label>
         </span>
       </div>
-      <div class="flex justify-content-center align-content-center mt-4">
+      <div class="flex justify-content-center align-content-center m-3">
         <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar"></button>
      </div>
-  </form>
+    </form>
   </div>
 
 

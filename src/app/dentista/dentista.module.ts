@@ -24,7 +24,7 @@ import { ChartModule } from 'primeng/chart';
 import { ChipModule } from 'primeng/chip';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TagModule } from 'primeng/tag';
-
+import { CalendarModule } from 'primeng/calendar';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
@@ -60,7 +60,7 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     ChartModule,
     FieldsetModule,
     TagModule,
-
+    CalendarModule,
     FormsModule,
     ReactiveFormsModule
 

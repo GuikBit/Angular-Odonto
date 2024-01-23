@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('access_token', JSON.stringify(response.data.result));
           localStorage.setItem('userLogado', JSON.stringify(response.data.usuario));
           this.loginForm.reset()
-          this.router.navigate(['/home']);
+          this.router.navigate(['/dashboard']);
           this.messageService.add({
             severity: 'success',
             summary: `Olá ${response.data.usuario.nome}`,
