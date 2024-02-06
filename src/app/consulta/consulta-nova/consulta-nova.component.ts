@@ -104,21 +104,21 @@ export class ConsultaNovaComponent implements OnInit {
   }
   onSubmit(){
       this.limpaInformacoes();
-
       if(this.formulario.valid){
-        if(this.dataConsulta() && this.horaConsulta()){
-        // this.serviceConsulta.postConsulta(JSON.stringify(this.formulario.value))
-        // .then(response =>{
-        //   if(response?.status === 201 || response?.status === 200 ){
-        //     this.closeModal.emit(false)
-        //   }
-        // }).catch(()=>{
-        //   this.messageService.add({
-        //     severity: 'error',
-        //     summary: 'Aviso',
-        //     detail: 'Houve erro na requisição para salvar a consulta.'
-        //   })
-        // })
+        if(this.dataConsulta() && this.horaConsulta() ){
+        this.serviceConsulta.postConsulta(JSON.stringify(this.formulario.value))
+        .then(response =>{
+          if(response?.status === 201 || response?.status === 200 ){
+            this.closeModal.emit(false)
+            this.limpaInformacoes()
+          }
+        }).catch(()=>{
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Aviso',
+            detail: 'Houve erro na requisição para salvar a consulta.'
+          })
+        })
         }
       }else{
         this.messageService.add({
@@ -149,14 +149,13 @@ export class ConsultaNovaComponent implements OnInit {
     dataConsulta() {
 
         const dataConsulta = new Date(this.formulario.get('dataConsulta')?.value);
-
+        const horaConsulta = this.formulario.get('horaConsulta')?.value;
+        const [hr, min] = horaConsulta.split(':');
+        dataConsulta.setHours(hr,min,0,0);
         const dataAtual = new Date();
+        dataAtual.setHours(0, 0, 0, 0);
 
-        dataConsulta.setSeconds(0, 0);
-        dataAtual.setHours(0,0);
-        dataAtual.setSeconds(0,0);
 
-        console.log(dataAtual, dataConsulta)
         if (dataConsulta >= dataAtual) {
           return true;
         }else{
@@ -177,7 +176,7 @@ export class ConsultaNovaComponent implements OnInit {
       const [hr, min] = horaConsulta.split(':');
       const hora = new Date().setHours(hr,min,0,0);
       const horaAtual = new Date().setSeconds(0,0);
-      if((hr >= 0 && hr <= 23 && min >= 0 && min <= 59) && (hora >= horaAtual)){
+      if((hr >= 0 && hr <= 23 && min >= 0 && min <= 59)){
         return true;
       }else{
         this.formulario.get('horaConsulta')?.setValue('');

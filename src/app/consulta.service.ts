@@ -12,6 +12,8 @@ import { Consulta } from './consulta/consulta';
 })
 export class ConsultaService {
 
+
+
   apiURL : String = environment.apiURLBase+'/v1/consulta'
   constructor(private http: HttpClient) { }
 
@@ -35,6 +37,7 @@ export class ConsultaService {
       return null
     }
   }
+
   async getConsultaById(id: any): Promise<Consulta> {
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
@@ -51,6 +54,7 @@ export class ConsultaService {
       return new Consulta();
     }
   }
+
   async postConsulta(consulta: any) {
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
@@ -59,7 +63,6 @@ export class ConsultaService {
       'Content-Type': 'application/json'},
     });
     try{
-      // console.log(consulta);
       const response = await instance.post(`${this.apiURL}`, consulta);
       return response;
 
@@ -68,6 +71,41 @@ export class ConsultaService {
       return null;
     }
   }
+
+  async putConsulta(id: any, consulta: any){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()),
+      'Content-Type': 'application/json'},
+    });
+    try{
+      const response = await instance.put(`${this.apiURL}`, id, consulta);
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  async deleteConsulta(id: any){
+const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()),
+      'Content-Type': 'application/json'},
+    });
+    try{
+      const response = await instance.delete(`${this.apiURL}`, id );
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   async getEspecConsulta() {
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
@@ -84,20 +122,67 @@ export class ConsultaService {
     }
   }
 
+  async iniciarConsulta(id: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.get(`${this.apiURL}/iniciar/${id}`)
+      return response;
 
-  // async totalConsultas(){
-  //   const instance = axios.create({
-  //     baseURL: `${this.apiURL}`,
-  //     timeout: 1000,
-  //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-  //   });
-  //   try {
-  //     console.log(`${this.apiURL}s/total`)
-  //     const response = await instance.get(`${this.apiURL}s/total`);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error(error);
-  //     return <any> 0;
-  //   }
-  // }
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  async finalizarConsulta(id: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.get(`${this.apiURL}/finalizar/${id}`)
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  async ausentarPaciente(id: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.get(`${this.apiURL}/ausentar/${id}`)
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+  async presencaPaciente(id: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.get(`${this.apiURL}/presenca/${id}`)
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
 }

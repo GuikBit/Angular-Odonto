@@ -131,7 +131,9 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
 import { AdminModule } from './admin/admin.module';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
 import { AdminMainComponent } from './admin/admin-main/admin-main.component';
-// import { InputSwitchModule } from 'primeng/inputswitch';
+import { PagamentoComponent } from './pagamento/pagamento.component';
+import { Location } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -142,14 +144,11 @@ import { AdminMainComponent } from './admin/admin-main/admin-main.component';
     ClienteNovoComponent,
     ClienteListComponent,
     ClienteInfoComponent,
-    // ConsultaListComponent
-
-
-  ],
+    PagamentoComponent
+   ],
   imports: [
     ReactiveFormsModule,
     ClienteModule,
-
     DentistaModule,
     ConsultaModule,
     HttpClientModule,
@@ -251,12 +250,13 @@ import { AdminMainComponent } from './admin/admin-main/admin-main.component';
     CardModule,
     RippleModule,
     StyleClassModule,
-
+    MessagesModule
   ],
   providers: [
   //  ClientesService,
   //  ServicoPrestadoService,
     AuthService,
+    Location,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

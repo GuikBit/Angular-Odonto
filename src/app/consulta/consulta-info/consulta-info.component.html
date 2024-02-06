@@ -1,160 +1,402 @@
-<div class="flex justify-content-between header">
-  <p-menubar [model]="items" styleClass="menuBar" >  </p-menubar>
-  <div class="flex justify-content-center align-items-center mr-4">
-    @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
-      <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
-    }
-  @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
-    <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
-    }
-  @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
-    {
-      <p-tag severity="success" value="&nbsp;Atendida&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
-    }
-  @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
-    {
-      <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
-    }
-  </div>
+<div class="card box p-component p-5 m-8 " >
 
-</div>
-<div class="card p-component new pl-5 pr-5 pb-7">
-  <div class="row flex justify-content-center pb-4 border-none border-bottom-1 border-solid border-gray-100">
-    <div class="col-5 flex justify-content-center">
-      <div>
-        <h4 class="flex justify-content-center">Paciente</h4>
-        <span class="azul"><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.nome}}</span>
-      </div>
+  <div class="flex header">
+    <div class="col-2 flex justify-content-start align-items-center" >
+      <!-- <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
+      width="180"
+      alt="Foto de perfil do paciente"
+      [preview]="true"
 
-    </div>
-    <div class="col-5 flex justify-content-center">
-      <div >
-        <h4 class="flex justify-content-center">Dentista</h4>
-        <span class="azul"><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dentista.nome}}</span>
+      ></p-image> -->
+      <div class="flex justify-content-end">
+        @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
+          <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
+        }
+      @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
+        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
+        }
+      @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
+        {
+          <p-tag severity="success" value="&nbsp;Atendida&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+        }
+      @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
+        {
+          <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
+        }
       </div>
     </div>
+    <div class="col-5 ">
+
+
+    </div>
+    <div class="col-5 ">
+
+      <div class="flex align-items-center justify-content-end ">
+        <!-- <p-menubar [model]="items" styleClass="menuBar" >  </p-menubar> -->
+        <ul>
+
+          <li pTooltip="Iniciar Consulta" tooltipPosition="top"  *ngIf="!loading.iniciar">
+            <p-button
+
+            icon="pi pi-play"
+            [rounded]="true"
+            [outlined]="true"
+            [style]="{'color': '#FA8E42'}"
+            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true"
+            (onClick)="iniciarConsulta()"
+            ></p-button>
+          </li>
+          <li *ngIf="loading.iniciar">
+            <p-button
+            icon="pi pi-spin pi-spinner"
+            [rounded]="true"
+            [outlined]="true"
+            [style]="{'color': '#FA8E42'}"
+          >
+          </p-button>
+          </li>
+
+          <li pTooltip="Finalizar Consulta" tooltipPosition="top" *ngIf="!loading.finalizar">
+            <p-button
+              icon="pi"
+              [rounded]="true"
+              [outlined]="true"
+              [style]="{'color': '#1DA750'}"
+              [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
+              (onClick)="finalizarConsulta()"
+              >
+              <i class="material-icons">task_alt</i>
+            </p-button>
+          </li>
+          <li *ngIf="loading.finalizar">
+            <p-button
+            icon="pi pi-spin pi-spinner"
+            [rounded]="true"
+            [outlined]="true"
+            [style]="{'color': '#1DA750'}"
+          >
+          </p-button>
+
+          <li pTooltip="Salvar" tooltipPosition="top" *ngIf="this.loading.editar">
+            <p-button
+              [rounded]="true"
+              icon="pi"
+              [outlined]="true"
+              [style]="{'color': '#3B82F6'}"
+
+              (onClick)="salvarEdicao()"
+              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
+            >
+              <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
+            </p-button>
+          </li>
+          <li pTooltip="Editar" tooltipPosition="top" *ngIf="!this.loading.editar">
+            <p-button
+              [rounded]="true"
+              icon="pi"
+              [outlined]="true"
+              [style]="{'color': '#3B82F6'}"
+              (onClick)="this.loading.editar = true"
+              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
+            >
+              <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
+            </p-button>
+          </li>
+
+          <li pTooltip="Ausentar Paciente" tooltipPosition="top" *ngIf="!consultaSelecionada.ausente && !loading.ausentar">
+            <p-button
+              *ngIf="!loading.ausentar"
+              icon="pi"
+              [rounded]="true"
+              [outlined]="true"
+              [style]="{'color': '#EEC137'}"
+              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
+              (onClick)="ausentarPaciente()"
+            >
+              <i class="material-icons">person_off</i>
+            </p-button>
+          </li>
+          <li *ngIf="loading.ausentar">
+            <p-button
+
+            icon="pi pi-spin pi-spinner"
+            [rounded]="true"
+            [outlined]="true"
+            [style]="{'color': '#FA8E42'}"
+          >
+          </p-button>
+          </li>
+          <li pTooltip="Presença do Paciente" tooltipPosition="top" *ngIf="consultaSelecionada.ausente">
+            <p-button
+              icon="pi"
+              [rounded]="true"
+              [outlined]="true"
+              [style]="{'color': '#1DA750'}"
+              (onClick)="presencaPaciente()"
+            >
+              <i class="material-icons">person_add</i>
+            </p-button>
+          </li>
+
+          <li pTooltip="Deletar Consulta" tooltipPosition="top">
+            <p-button
+              icon="pi"
+              [rounded]="true"
+              [outlined]="true"
+              [style]="{'color': '#FF3D32'}"
+              [disabled]="consultaSelecionada.pagamento.pago === true"
+              (onClick)="deletarConsulta()"
+              >
+              <i class="material-icons">delete</i>
+            </p-button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
-  <div class="row flex justify-content-center pb-4 border-none border-bottom-1 border-solid border-gray-100">
+    <p-fieldset [toggleable]="true" >
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center gap-2 px-2">
+            <span class="font-bold">Detalhes&nbsp;&nbsp;</span>
+            <i class="pi pi-pw pi-list"></i>
+        </div>
+      </ng-template>
+      <div class="flex">
+        <div class="col-1">
 
-        <div class="col-4 flex justify-content-center">
-          <div>
-            <h4 class="flex justify-content-center">Data</h4>
-            @if(!editar){
-              <span class="azul"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span>
-            }@else {
-              <div class="field">
-                <span class="p-float-label p-float-icon-left">
-                  <p-calendar
-                    [iconDisplay]="'input'"
-                    [showIcon]="true"
-                    inputId="dataConsulta"
-                    (ngModel)="consultaSelecionada.dataConsulta"
-                    [style]="{'width': '8vw'}"
-                    dateFormat="dd/mm/yy"
-                    ></p-calendar>
-
-                </span>
+        </div>
+        <div class="col-10">
+          <div class="row flex justify-content-around ">
+            <div class="col-5 flex justify-content-center ">
+              <div>
+                <h4 class="flex justify-content-center text-lg ">Paciente</h4>
+                <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.nome}}</span>
               </div>
-            }
+            </div>
+            <div class="col-3 flex justify-content-center ">
+              <div>
+                <h4 class="flex justify-content-center text-lg ">Pasta</h4>
+                <span class="azul text-lg "><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.numPasta}}</span>
+              </div>
+            </div>
+            <div class="col-4 flex justify-content-center">
+              <div>
+                <h4 class="flex justify-content-center text-lg ">Idade</h4>
+                <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}</span>
+              </div>
+            </div>
+          </div>
+
+          <p-divider layout="horizontal"></p-divider>
+
+
+          <div class="row flex justify-content-around">
+              <div class="col-5 flex justify-content-center">
+                <div>
+                  <h4 class="flex justify-content-center text-lg ">Dentista</h4>
+                  <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dentista.nome}}</span>
+                </div>
+              </div>
+              <div class="col-2 flex justify-content-center">
+                <div>
+                  <h4 class="flex justify-content-center text-lg ">Data</h4>
+                  @if(!loading.editar){
+                    <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span>
+                  }@else {
+                    <div class="field">
+                      <span class="p-float-label p-float-icon-left">
+                        <p-calendar
+                          [iconDisplay]="'input'"
+                          [showIcon]="true"
+                          inputId="dataConsulta"
+                          (ngModel)="consultaSelecionada.dataConsulta"
+                          [style]="{'width': '8vw'}"
+                          dateFormat="dd/mm/yy"
+                          ></p-calendar>
+
+                      </span>
+                    </div>
+                  }
+
+                </div>
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                <div>
+                  <h4 class="flex justify-content-center text-lg ">Inicio</h4>
+                  @if(!loading.editar){
+                    <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span>
+                  }@else {
+                    <div class="field">
+                      <span class="p-float-label p-input-icon-right">
+                        <i class="pi pi-clock azul"></i>
+                        <p-inputMask mask="99:99" [style]="{'width': '6vw'}" [value]="consultaSelecionada.dataConsulta | date: 'HH:mm'"></p-inputMask>
+
+                      </span>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                <div *ngIf="!loading.editar">
+                  <h4 class="flex justify-content-center text-lg ">Fim</h4>
+                    <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span>
+                </div>
+                <div *ngIf="loading.editar" >
+                  <h4 >&nbsp;</h4>
+                  <p-button label="Reagendar" icon="pi pi-save" [outlined]="true" severity="info" size="small"></p-button>
+                </div>
+              </div>
 
           </div>
+
+          <div class="row flex justify-content-center mt-6">
+            <div class="col-5 flex justify-content-center ">
+              <div>
+                <h4 class="flex justify-content-center text-lg ">Tipo de Consulta</h4>
+                <span class="azul text-lg "><i class="pi pi-tag azul"></i>&nbsp;&nbsp;{{consultaSelecionada.consultaEspecialidade.tipo}}</span>
+              </div>
+
+            </div>
+            <div class="col-7">
+              <div class="flex justify-content-center">
+                <div class="row">
+                  <h4 class="text-lg flex justify-content-center align-items-center"><i class="pi pi-pw pi-align-left azul"></i>&nbsp;&nbsp;Observação</h4>
+                  <textarea  id="float-input" rows="2" cols="45" pInputTextarea [value]="consultaSelecionada.observacao" class="azul" disabled></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p-divider layout="horizontal"></p-divider>
         </div>
+        <div class="col-1">
 
-        <div class="col-4 flex justify-content-center">
-          <div>
-            <h4 class="flex justify-content-center">Inicio</h4>
-            @if(!editar){
-              <span class="azul"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span>
-            }@else {
-              <div class="field">
-                <span class="p-float-label p-input-icon-right">
-                  <i class="pi pi-clock azul"></i>
-                  <p-inputMask mask="99:99" [style]="{'width': '6vw'}" [value]="consultaSelecionada.dataConsulta | date: 'HH:mm'"></p-inputMask>
+        </div>
+      </div>
 
+      <div class="row">
+          <div class="flex justify-content-center">
+            <div class="col-8 p-fluid">
+              <span class=" text-lg flex justify-content-center align-items-center mb-5 font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
+              <p-chips [separator]="separatorExp" placeholder="Digite os procedimentos da consulta" class="azul"></p-chips>
+            </div>
+
+          </div>
+      </div>
+    </p-fieldset>
+
+
+
+  <!-- <p-button label="Secondary" [text]="true" severity="secondary" (onClick)="pagamento()"></p-button> -->
+    <div class="mt-5" [formGroup]="formulario">
+      <p-fieldset [toggleable]="true" >
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2 px-2">
+              <span class="font-bold">Pagamento&nbsp;&nbsp;</span>
+              <i class="material-icons" [style]="consultaSelecionada.pagamento.pago? 'color: #22C55E':'color: #F97316'">attach_money</i>
+          </div>
+        </ng-template>
+        <div class="col-12">
+          <div class="row flex justify-content-start">
+            <div class="col-4 flex justify-content-center">
+              <div>
+                <h4 class="flex align-items-center" ><i class="pi pi-pw pi-bookmark azul"></i>&nbsp;&nbsp;Status do pagamento&nbsp;</h4>
+                <span class="flex justify-content-center">
+                  @if (consultaSelecionada.pagamento.pago)
+                  {
+                    <p-tag icon="pi pi-dollar" severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"></p-tag>
+                  }
+                  @else
+                  {
+                    <p-tag icon="pi pi-dollar" severity="warning" value="&nbsp;Pendente&nbsp;" [rounded]="true"></p-tag>
+                  }
                 </span>
               </div>
-            }
+            </div>
+            <div class="col-4 flex justify-content-center">
+              <div>
+                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-dollar azul"></i>&nbsp;&nbsp;Valor base da consulta</h4>
+                <span class=" flex justify-content-center">{{consultaSelecionada.consultaEspecialidade.valorBase | currency:'BRL'}}</span>
+              </div>
+            </div>
+            <div class="col-4 flex justify-content-center">
+              <div>
+                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-calendar azul"></i>&nbsp;&nbsp;Data Pagamento</h4>
+                @if (consultaSelecionada.pagamento.dataDoPagamento) {
+                  <span class=" flex justify-content-center align-items-center">{{consultaSelecionada.pagamento.dataDoPagamento | date: 'dd/MM/yyyy HH:mm'}}</span>
+                }
+                @else {
+                  <span class=" flex justify-content-center"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;--/--/---- --:--</span>
+                }
+              </div>
+            </div>
           </div>
+
+          <div class="row flex justify-content-around mt-3">
+            <div class="col-3 flex justify-content-center">
+              <div>
+                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-wallet azul"></i>&nbsp;&nbsp;Forma de pagamento</h4>
+                <p-dropdown [options]="[
+
+                  {
+                    descricao: 'Pix',
+                    tipo: 'pix'
+                  },
+                  {
+                    descricao: 'Dinheiro',
+                    tipo: 'dinheiro'
+                  },
+                  {
+                    descricao: 'Outro',
+                    tipo: 'outro'
+                  }
+                ]"
+                [style]="{'width': '14vw', 'height':'46px'}"
+                formControlName="formaPagamento"
+                optionLabel="descricao"
+                class="width"
+                ></p-dropdown>
+              </div>
+            </div>
+            <div class="col-3 flex justify-content-center">
+              <div>
+                <h4 class="flex justify-content-center  align-items-center"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;Desconto (R$)</h4>
+                <span class="p-float-label">
+                  <p-inputNumber inputId="minmaxfraction" formControlName="desconto" prefix="R$ " mode="decimal" (onInput)="calculoValorConsulta()" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>
+                </span>
+
+              </div>
+            </div>
+            <div class="col-3 flex justify-content-center">
+              <div>
+                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-arrow-circle-up azul"></i>&nbsp;&nbsp;Acréscimo (R$)</h4>
+                <span class="p-float-label">
+                  <p-inputNumber inputId="minmaxfraction" prefix="R$ " formControlName="acrescimo" mode="decimal" (onInput)="calculoValorConsulta()" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>
+                </span>
+              </div>
+            </div>
+            <div class="col-3 flex justify-content-center">
+              <div>
+                <h4 class="flex align-items-center justify-content-center"><i class="pi pi-pw pi-dollar azul"></i>&nbsp;&nbsp;Total a pagar</h4>
+                <!-- <p-inputNumber inputId="minmaxfraction" prefix="R$ " [(ngModel)]="valor" mode="currency" [minFractionDigits]="2" [maxFractionDigits]="5" > </p-inputNumber> -->
+                <span class="flex justify-content-center">{{ valor | currency: 'BRL' }}</span>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row flex justify-content-center mt-5">
+            <p-button label="Realizar Pagamento" icon="pi pi-dollar" [outlined]="true" severity="success" ></p-button>
+          </div>
+
         </div>
+      </p-fieldset>
+    </div>
 
 
-
-      <div class="col-4 flex justify-content-center">
-        <div *ngIf="!editar">
-          <h4 class="flex justify-content-center">Fim</h4>
-            <span class="azul"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span>
-        </div>
-        <div *ngIf="editar" >
-          <h4 >&nbsp;</h4>
-          <p-button label="Reagendar" icon="pi pi-save" [outlined]="true" severity="info" size="small"></p-button>
-        </div>
-      </div>
-  </div>
-
-  <div class="row flex justify-content-center pb-4 border-none border-bottom-1 border-solid border-gray-100">
-    <div class="col-5 flex justify-content-center">
-      <div>
-        <h4 class="flex justify-content-center">Tipo de Consulta</h4>
-        <span class="azul"><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.consultaEspecialidade.tipo}}</span>
-      </div>
-
-    </div>
-    <div class="col-5 flex justify-content-center">
-      <div>
-        <h4 class="flex justify-content-center">Aparelho</h4>
-        <span class="azul"><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.consultaEspecialidade.tipoAparelho}}</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="row flex justify-content-start pb-4 border-none border-bottom-1 border-solid border-gray-100">
-    <div class="col-4 flex justify-content-center">
-      <div>
-        <h4 >Status do pagamento&nbsp;</h4>
-        <span class="flex justify-content-center">
-          @if (consultaSelecionada.pagamento.pago)
-          {
-            <p-tag icon="pi pi-dollar" severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"></p-tag>
-          }
-          @else
-          {
-            <p-tag icon="pi pi-dollar" severity="warning" value="&nbsp;Pendente&nbsp;" [rounded]="true"></p-tag>
-          }
-        </span>
-      </div>
-    </div>
-    <div class="col-4 flex justify-content-center">
-      <div>
-        <h4 class="flex justify-content-center">Valor</h4>
-        @if (consultaSelecionada.pagamento.valorTotal ) {
-          <span class="azul flex justify-content-center">{{consultaSelecionada.pagamento.valorTotal | currency:'BRL'}}</span>
-        }
-        @else {
-          <span class="azul flex justify-content-center">R$ ---,--</span>
-        }
-      </div>
-    </div>
-    <div class="col-4 flex justify-content-center">
-      <div>
-        <h4 class="flex justify-content-center">Data Pagamento</h4>
-        @if (consultaSelecionada.pagamento.dataDoPagamento) {
-          <span class="azul flex justify-content-center align-items-center"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.pagamento.dataDoPagamento | date: 'dd/MM/yyyy HH:mm'}}</span>
-        }
-        @else {
-          <span class="azul flex justify-content-center"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;--/--/----</span>
-        }
-      </div>
-    </div>
-  </div>
-  <div class="row flex justify-content-center mt-3">
-    <div class="col-3 flex justify-content-center">
-        <h4>Observação</h4>
-    </div>
-    <div class="col-9 flex justify-content-center">
-        <textarea id="float-input" rows="2" cols="45" pInputTextarea [value]="consultaSelecionada.observacao" class="azul"></textarea>
-
-    </div>
-  </div>
 </div>
+
 

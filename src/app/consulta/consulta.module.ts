@@ -176,7 +176,11 @@ import { RouterModule } from '@angular/router';
     MenubarModule,
     SidebarModule,
     TagModule,
-    DividerModule
+    DividerModule,
+    ImageModule,
+    ChipsModule,
+    FieldsetModule,
+    CheckboxModule,
   ],exports: [
     ConsultaEditComponent,
     ConsultaListComponent,

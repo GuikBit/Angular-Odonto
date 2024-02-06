@@ -19,6 +19,7 @@ ul {
 li {
   float: left;
   margin-inline: 10px;
+  padding: 0.25rem;
 }
 
 .dNome{
@@ -34,7 +35,7 @@ li {
 
 .box{
   background: #FFFFFF;
-  border-radius: 7px ;
+  border-radius: 15px ;
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 

@@ -1,282 +1,462 @@
-<div class="row flex justify-content-center">
 
-  <div class="col-3">
-    <div class="card box  flex" >
-      <div class="col-5 p-4 pl-4 " >
-      <span class="cardTitulo">Consultas</span><br>
-      <span class="cardValor ">45</span><br>
-      <span class="cardPorc ml-3 mt-3">- 5% <i class="pi pi-arrow-down text-bold"></i></span>
+  <div class="flex justify-content-center">
+      <p-messages></p-messages>
+  </div>
+  <div class="row flex justify-content-center mb-8">
+    <!-- Filtros -->
+    <div class="col-2">
+      <div class="card box h-full mt-2 p-3">
+        <div class="h-11rem">
+          <span class="text-x1 font-bold flex justify-content-center m-3">Data</span>
+          <div class="mt-5">
+
+            <div class="field flex justify-content-center">
+              <span class="p-float-label  p-input-icon-right">
+                <p-calendar
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  inputId="dataConsulta"
+                  placeholder="dd/mm/yyyy"
+                  dateFormat="dd/mm/yy"
+                  [showButtonBar]="true"
+                  [style]="{'color':'#2070B4', 'width': '11vw'}"
+
+                  >
+                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                  </ng-template>
+                </p-calendar>
+                <label for="dataConsulta" class="azul">De</label>
+              </span>
+              <!-- <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
+            </div>
+            <div class="field flex justify-content-center">
+              <span class="p-float-label  p-input-icon-right">
+                <p-calendar
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  inputId="dataConsulta"
+                  placeholder="dd/mm/yyyy"
+                  dateFormat="dd/mm/yy"
+                  [showButtonBar]="true"
+                  [style]="{'color':'#2070B4', 'width': '11vw'}"
+
+                  >
+                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                  </ng-template>
+                </p-calendar>
+                <label for="dataConsulta" class="azul">Até</label>
+              </span>
+              <!-- <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
+            </div>
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="h-7rem">
+          <span class="text-x1 font-bold flex justify-content-center m-3">Dentista</span>
+          <div class="field flex justify-content-center mt-5">
+            <span class="p-float-label p-input-icon-right">
+              <i class="pi pi-user"></i>
+              <p-dropdown [options]="dentistas" placeholder="Escolha o dentista" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
+              <label for="float-label" class="azul">Escolha o dentista</label>
+            </span>
+          </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="h-7rem">
+          <span class="text-x1 font-bold flex justify-content-center m-3">Procedimentos</span>
+          <div class="field flex justify-content-center mt-5">
+            <span class="p-float-label p-input-icon-right">
+              <i class="pi pi-user"></i>
+              <p-dropdown [options]="procedimentos" placeholder="Escolha o procedimento" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
+              <label for="float-label" class="azul">Escolha o procedimento</label>
+            </span>
+          </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="h-7rem">
+          <span class="text-x1 font-bold flex justify-content-center m-3">Especialidade</span>
+          <div class="field flex justify-content-center mt-5">
+            <span class="p-float-label p-input-icon-right">
+              <i class="pi pi-user"></i>
+              <p-dropdown [options]="especialidades" placeholder="Escolha a especialidade" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
+              <label for="float-label" class="azul">Escolha a especialidade</label>
+            </span>
+          </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="flex justify-content-center">
+          <button pButton type="button" label="Filtrar" styleClass="linear-gradient"  icon="pi pi-filter"></button>
+        </div>
       </div>
-      <div class="col-6 flex mt-2 justify-content-end">
-        <p-chart type="line"
-        height="100"
-        [responsive]="true"
-        [data]="{
-          labels: [ '', '', '', '','','','', ''],
-          datasets: [
-            {
-              fill: false,
-              data: [35, 55, 37, 31, 39, 43, 41, 40],
-              borderColor: '#875B59',
-              tension: 0.4
-            }
-          ],
-        }"
-        [options]="{
-          maintainAspectRatio: false,
-          aspectRatio: 2,
-          name: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-              x: {
-                display: false,
-                ticks: {
-                    color: 'transparent',
+
+
+    </div>
+    <!-- Graficos -->
+    <div class="col-10 ">
+    <div class="row flex">
+      <div class="col-3">
+        <div class="card box  flex" >
+          <div class="col-5 p-4 pl-4 " >
+            <div class="absolute z-0 ">
+              <i class="pi pi-briefcase text-8xl text-100"></i>
+            </div>
+            <div class="row z-1 relative">
+              <span class="cardTitulo ">
+                Consultas
+              </span>
+            </div>
+            <div class="row z-1 relative">
+              <span class="cardValor ">45</span>
+            </div>
+            <div class="row flex justify-content-around align-items-center px-3 z-1 relative" >
+              <span class="back">
+                <i class="pi pi-arrow-down text-bold text-red-500"></i>
+              </span>
+              <span class="cardPorc ">- 5% </span>
+            </div>
+          </div>
+          <div class="col-7 flex mt-2 justify-content-end">
+
+            <p-chart type="line"
+            height="80"
+            width="200"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [35, 55, 37, 31, 39, 43],
+                  borderColor: '#875B59',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              maintainAspectRatio: false,
+              aspectRatio: 2,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
                   },
-                  grid: {
-                    color: 'transparent',
-                    drawBorder: false
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
                   }
               },
-              y: {
-                display: false,
-                  ticks: {
-                    color: 'transparent',
-                  },
-                  grid: {
-                    color: 'transparent',
-                      drawBorder: false
-                  }
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: 0
               }
-          },
-          elements: {
-            point: {
-                radius:0
-            },
+            }"
 
-          },
-          layout: {
-            padding: 0
-          }
-        }"
-
-      ></p-chart>
+          ></p-chart>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="col-3">
-    <div class="card box  flex" >
-      <div class="col-5 p-4 pl-4" >
-        <span class="cardTitulo">Atrasos</span><br>
-        <span class="cardValor ">15 min</span><br>
-        <span class="cardPorcVerd ml-3 mt-3">+ 13% <i class="pi pi-arrow-up text-bold"></i></span>
-      </div>
-      <div class="col-6 flex mt-2 justify-content-center">
-        <p-chart type="line"
-        height="100"
-        [responsive]="true"
-        [data]="{
-          labels: [ '', '', '', '','','','', ''],
-          datasets: [
-            {
-              fill: false,
-              data: [12, 10, 8, 11, 13, 7, 5, 8],
-              borderColor: '#D98400',
-              tension: 0.4
-            }
-          ],
-        }"
-        [options]="{
-          hide: false,
-          legend: false,
-          maintainAspectRatio: false,
-          aspectRatio: 2,
-          name: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-              x: {
-                display: false,
-                ticks: {
-                    color: 'transparent',
+      <div class="col-3">
+        <div class="card box  flex" >
+          <div class="col-5 p-4 pl-4" >
+            <span class="cardTitulo">Atrasos</span><br>
+            <span class="cardValor ">15 min</span><br>
+            <span class="cardPorcVerd ml-3 mt-3">+ 13% <i class="pi pi-arrow-up text-bold"></i></span>
+          </div>
+          <div class="col-7 flex mt-2 justify-content-end">
+            <div class="absolute z-0 ">
+              <i class="pi pi-clock text-8xl text-100"></i>
+            </div>
+            <p-chart type="line"
+            height="80"
+            width="200"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [12, 10, 8, 11, 13, 7],
+                  borderColor: '#D98400',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              hide: false,
+              legend: false,
+              maintainAspectRatio: false,
+              aspectRatio: 2,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
                   },
-                  grid: {
-                    color: 'transparent',
-                    drawBorder: false
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
                   }
               },
-              y: {
-                display: false,
-                  ticks: {
-                    color: 'transparent',
-                  },
-                  grid: {
-                    color: 'transparent',
-                      drawBorder: false
-                  }
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: 0
               }
-          },
-          elements: {
-            point: {
-                radius:0
-            },
+            }"
 
-          },
-          layout: {
-            padding: 0
-          }
-        }"
-
-      ></p-chart>
+          ></p-chart>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="col-3">
-    <div class="card box  flex" >
-      <div class="col-5 p-4 pl-4 " >
-      <span class="cardTitulo">Consultas</span><br>
-      <span class="cardValor ">45</span><br>
-      <span class="cardPorc ml-3 mt-3">- 5% <i class="pi pi-arrow-down text-bold"></i></span>
-      </div>
-      <div class="col-6 flex mt-2 justify-content-end">
-        <p-chart type="line"
-        height="100"
-        [responsive]="true"
-        [data]="{
-          labels: [ '', '', '', '','','','', ''],
-          datasets: [
-            {
-              fill: false,
-              data: [35, 55, 37, 31, 39, 43, 41, 40],
-              borderColor: '#875B59',
-              tension: 0.4
-            }
-          ],
-        }"
-        [options]="{
-          maintainAspectRatio: false,
-          aspectRatio: 2,
-          name: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-              x: {
-                display: false,
-                ticks: {
-                    color: 'transparent',
+      <div class="col-3">
+        <div class="card box  flex" >
+          <div class="col-5 p-4 pl-4 " >
+
+            <span class="cardTitulo ">Consultas</span><br>
+            <span class="cardValor ">45</span><br>
+            <span class="cardPorc ml-3 mt-3 ">- 5% <i class="pi pi-arrow-down text-bold"></i></span>
+          </div>
+          <div class="col-7 flex mt-2 justify-content-end">
+            <div class="absolute z-0 ">
+              <i class="pi pi-dollar text-8xl text-100"></i>
+            </div>
+            <p-chart type="line"
+            height="80"
+            width="200"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [35, 55, 37, 31, 39, 43],
+                  borderColor: '#875B59',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              maintainAspectRatio: false,
+              aspectRatio: 3,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
                   },
-                  grid: {
-                    color: 'transparent',
-                    drawBorder: false
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
                   }
               },
-              y: {
-                display: false,
-                  ticks: {
-                    color: 'transparent',
-                  },
-                  grid: {
-                    color: 'transparent',
-                      drawBorder: false
-                  }
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: 0
               }
-          },
-          elements: {
-            point: {
-                radius:0
-            },
+            }"
 
-          },
-          layout: {
-            padding: 0
-          }
-        }"
-
-      ></p-chart>
+          ></p-chart>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="col-3">
-    <div class="card box  flex" >
-      <div class="col-5 p-4 pl-4" >
-        <span class="cardTitulo">Atrasos</span><br>
-        <span class="cardValor ">15 min</span><br>
-        <span class="cardPorcVerd ml-3 mt-3">+ 13% <i class="pi pi-arrow-up text-bold"></i></span>
-      </div>
-      <div class="col-6 flex mt-2 justify-content-center">
-        <p-chart type="line"
-        height="100"
-        [responsive]="true"
-        [data]="{
-          labels: [ '', '', '', '','','','', ''],
-          datasets: [
-            {
-              fill: false,
-              data: [12, 10, 8, 11, 13, 7, 5, 8],
-              borderColor: '#D98400',
-              tension: 0.4
-            }
-          ],
-        }"
-        [options]="{
-          hide: false,
-          legend: false,
-          maintainAspectRatio: false,
-          aspectRatio: 2,
-          name: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-              x: {
-                display: false,
-                ticks: {
-                    color: 'transparent',
+      <div class="col-3">
+        <div class="card box  flex" >
+          <div class="col-5 p-4 pl-4" >
+            <span class="cardTitulo">Atrasos</span><br>
+            <span class="cardValor ">15 min</span><br>
+            <span class="cardPorcVerd ml-3 mt-3">+ 13% <i class="pi pi-arrow-up text-bold"></i></span>
+          </div>
+          <div class="col-7 flex mt-2 justify-content-center">
+            <p-chart type="line"
+            height="80"
+            width="200"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [12, 10, 8, 11, 13, 7],
+                  borderColor: '#D98400',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              hide: false,
+              legend: false,
+              maintainAspectRatio: false,
+              aspectRatio: 2,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
                   },
-                  grid: {
-                    color: 'transparent',
-                    drawBorder: false
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
                   }
               },
-              y: {
-                display: false,
-                  ticks: {
-                    color: 'transparent',
-                  },
-                  grid: {
-                    color: 'transparent',
-                      drawBorder: false
-                  }
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: 0
               }
-          },
-          elements: {
-            point: {
-                radius:0
-            },
+            }"
 
-          },
-          layout: {
-            padding: 0
-          }
-        }"
-
-      ></p-chart>
+          ></p-chart>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="row flex">
+      <div class="col-9">
+
+        <div class="card line">
+          <span class="cardTitulo mb-2">Total de Consultas</span>
+          <p-chart
+            type="line"
+            [data]="dataLine"
+            [options]="basicOptions"
+            ></p-chart>
+        </div>
+        <div class="card bar mt-4">
+          <span class="cardTitulo mb-2">Consultas por Dentista</span>
+          <p-chart
+            type="line"
+            [data]="dataLineDent"
+            [options]="basicOptionsDent"
+          ></p-chart>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="card doughnut ">
+          <span class="cardTitulo mb-2">Procedimentos</span>
+          <p-chart
+            type="doughnut"
+            [data]="dataDoughnut"
+            [options]="basicOptionsPie"
+          ></p-chart>
+        </div>
+        <div class="card doughnut mt-4">
+          <span class="cardTitulo mb-2">Especialidades</span>
+          <p-chart
+            type="pie"
+            [data]="dataPie"
+            [options]="basicOptionsPie"
+          ></p-chart>
+        </div>
+        <div class="card doughnut mt-4">
+          <span class="cardTitulo mb-2">Especialidades</span>
+          <p-chart
+            type="pie"
+            [data]="dataPie"
+            [options]="basicOptionsPie"
+          ></p-chart>
+        </div>
+      </div>
+    </div>
+    </div>
+
   </div>
-</div>
+
+
+
+

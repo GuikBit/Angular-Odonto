@@ -1,0 +1,73 @@
+<div class="flex justify-content-center">
+  <h3>Pagamento</h3>
+
+  <div class="row m-4">
+    <div class="flex justify-content-center">
+      <span class="font-bold m-2">Paciente</span>
+    </div>
+    <div class="flex justify-content-center">
+      <i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.paciente.nome}}
+    </div>
+  </div>
+
+  <div class="row m-4">
+    <div class="flex justify-content-center">
+      <span class="font-bold m-2">Data Consulta</span>
+    </div>
+    <div class="flex justify-content-around">
+      <div class="col-6 flex justify-content-center">
+        <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.dataConsulta | date:'dd/MM/yyy'}}
+      </div>
+      <div class="col-6 flex justify-content-center">
+        <i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.dataConsulta | date:'HH:mm'}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row  flex justify-content-center">
+    <div class="col-6 ">
+      <div class="flex justify-content-center">
+        <span class="font-bold m-2">Tipo de Consulta</span>
+      </div>
+      <div class="flex justify-content-center">
+        <i class="pi pi-briefcase azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.consultaEspecialidade.tipo }}
+      </div>
+    </div>
+    <div class="col-6 ">
+      <div class="flex justify-content-center">
+        <span class="font-bold m-2">Tipo de Aparelho</span>
+      </div>
+      <div class="flex justify-content-center">
+        <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.consultaEspecialidade.tipoAparelho }}
+      </div>
+    </div>
+  </div>
+  <div class="row  flex justify-content-center">
+    <div class="col-6 ">
+      <div class="flex justify-content-center">
+        <span class="font-bold m-2">Valor Base</span>
+      </div>
+      <div class="flex justify-content-center">
+        {{consultaSelecionadaPg.consultaEspecialidade.valorBase | currency:'BRL' }}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row flex justify-content-start">
+    <div class="field col-1">
+      <span class="p-float-label p-input-icon-left width">
+        <i class="pi pi-folder-open azul"></i>
+        <input pInputText id="pasta" maxlength="5" required class="width" />
+        <label for="pasta" class="azul">N Pasta</label>
+      </span>
+      <!-- <small *ngIf="formulario.controls['numPasta'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small> -->
+    </div>
+  </div>
+  <div class="row flex justify-content-center">
+    <button type="submit" (click)="closeModalPagamento()">Voltar</button>
+  </div>
+
+</div>
+
+

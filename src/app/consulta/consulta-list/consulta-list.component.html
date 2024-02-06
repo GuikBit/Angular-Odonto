@@ -131,31 +131,14 @@
                         pTooltip="Ordenar"
                         tooltipPosition="top"
                         ></p-sortIcon>
-                      <!-- <p-columnFilter
-                        type="date"
-                        mask="dd/MM/YYYY"
-                        field="dataConsulta"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter> -->
                       <p-columnFilter
                       type="date"
                       field="dataConsulta"
-                      date= 'dd/MM/yyyy'
+                      dateFormt='yyyy-mm-dd'
                       display="menu"
                       pTooltip="Filtrar"
                       tooltipPosition="top"
                       ></p-columnFilter>
-                      <!-- <p-columnFilter [field]="filter_field">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                          <p-calendar #fd [ngModel]="value" dataType="date" dateFormat="dd/mm/yyyy" [showIcon]="false" [showOnFocus]="false(onBlur)="filter(fd.value)"></p-calendar>
-                        </ng-template>
-                      </p-columnFilter> -->
                     </div>
                   </div>
                 </th>
@@ -261,48 +244,55 @@
                         <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
                       }
                 </td>
-                <!-- <td>
-                    @if (consulta?.pagamento.pago)
-                      {
-                        <p-tag severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
-                      }
-                    @else
-                      {
-                        <p-tag severity="danger" value="&nbsp;Pendente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
-                      }
-                </td> -->
                 <td >
                   <div class="flex justify-content-around">
                     <td [width]="230">
                         <div class="flex justify-content-around">
-                          <p-button icon="pi"
+                          <p-button
+                            *ngIf="!inicioConsulta"
+                            icon="pi pi-pw pi-play"
                             [rounded]="true"
                             [outlined]="true"
                             [severity]="'warning'"
                             [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                             pTooltip="Iniciar Consulta"
                             tooltipPosition="top"
-
-                            ><i class="material-icons">play_arrow</i>
+                            (click)="iniciarConsulta(consulta)"
+                            >
                           </p-button>
-                          <p-button icon="pi"
+                          <p-button
+                          *ngIf="inicioConsulta"
+                          icon="pi pi-spin pi-spinner"
+                          [rounded]="true"
+                          [outlined]="true"
+                          [severity]="'warning'"
+                          [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                          pTooltip="Iniciar Consulta"
+                          tooltipPosition="top"
+
+                          >
+                        </p-button>
+                          <p-button
+                            icon="pi pi-pw pi-info-circle"
                             [rounded]="true"
                             [outlined]="true"
                             severity="info"
                             pTooltip="Informações"
                             tooltipPosition="top"
-                            (click)="consultaSelecionadaInfo(consulta?.id)"
-                            ><i class="material-icons">info</i>
+                            (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                            >
+                            <!-- <i class="material-icons">info</i> -->
                           </p-button>
-                          <p-button icon="pi"
+                          <p-button icon="pi pi-pw pi-dollar"
                             [rounded]="true"
                             [outlined]="true"
-                            [severity]="'success'"
+                            [severity]="consulta.pagamento.pago?'secondary':'success'"
 
-                            pTooltip="Pagamento"
+                            [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
                             tooltipPosition="top"
-                            (onClick)="pagamentoStatus(consulta?.id)"
-                            ><i class="material-icons">paid</i>
+                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                            >
+                            <!-- <i class="material-icons">paid</i> -->
                           </p-button>
                           <!-- <p-button icon="pi"
                             [rounded]="true"
@@ -347,65 +337,105 @@
   <app-consulta-info ></app-consulta-info>
 </p-dialog> -->
 
-<p-dialog header="Detalhes da Consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw',  height: '99vh' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Detalhes da Consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '80vw',  height: '99vh' }" [draggable]="false" [resizable]="false">
   <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (closeModal)="closeModal($event)"></app-consulta-info>
 </p-dialog>
 
-<p-sidebar [(visible)]="pagamentoInfo" position="right" styleClass="w-30rem">
-  <h3>Pagamento</h3>
+<p-dialog header="Pagamento da Consulta" *ngIf="consultaSelecionadaPg" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '40vw',  height: '70vh' }" [draggable]="false" [resizable]="false">
+  <!-- <app-pagamento *ngIf="consultaSelecionadaPg"  [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento> -->
+  <div class="pg">
+    <div class="row m-4 ">
+      <div class="flex justify-content-start">
+        <span class="z-1"><span class="font-bold m-2"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:</span> {{consultaSelecionadaPg.paciente.nome}}</span>
+      </div>
+    </div>
 
-  <div class="row m-4">
-    <div class="flex justify-content-center">
-      <span class="font-bold m-2">Paciente</span>
+    <div class="row m-4 z-1">
+      <div class="flex justify-content-start">
+        <span class="z-1"><span class="font-bold m-2"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Data Consulta: </span>{{consultaSelecionadaPg.dataConsulta | date:'dd/MM/yyy'}} - {{consultaSelecionadaPg.dataConsulta | date:'HH:mm'}}</span>
+      </div>
+      <!-- <div class="flex justify-content-around">
+        <div class="col-6 flex justify-content-center">
+          <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.dataConsulta | date:'dd/MM/yyy'}}
+        </div>
+        <div class="col-6 flex justify-content-center">
+          <i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.dataConsulta | date:'HH:mm'}}
+        </div>
+      </div> -->
     </div>
-    <div class="flex justify-content-center">
-      <i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.paciente?.nome}}
-    </div>
-  </div>
 
-  <div class="row m-4">
-    <div class="flex justify-content-center">
-      <span class="font-bold m-2">Data Consulta</span>
-    </div>
-    <div class="flex justify-content-around">
-      <div class="col-6 flex justify-content-center">
-        <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.dataConsulta | date:'dd/MM/yyy'}}
+    <div class="row  flex justify-content-center">
+      <div class="col-4">
+        <div class="flex justify-content-center">
+          <span class="font-bold m-2 z-1">Tipo de Consulta</span>
+        </div>
+        <div class="flex justify-content-center">
+          <span class="z-1"><i class="pi pi-briefcase azul "></i>&nbsp;&nbsp;{{consultaSelecionadaPg.consultaEspecialidade.tipo }}</span>
+        </div>
       </div>
-      <div class="col-6 flex justify-content-center">
-        <i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.dataConsulta | date:'HH:mm'}}
+      <div class="col-4 ">
+        <div class="flex justify-content-center">
+          <span class="font-bold m-2 z-1">Tipo de Aparelho</span>
+        </div>
+        <div class="flex justify-content-center">
+          <span class="z-1"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.consultaEspecialidade.tipoAparelho }}</span>
+        </div>
+      </div>
+      <div class="col-4 ">
+        <div class="flex justify-content-center">
+          <span class="font-bold m-2 z-1">Valor Base</span>
+        </div>
+        <div class="flex justify-content-center">
+          <span class="z-1"> <i class="pi pi-dollar azul"></i>&nbsp;&nbsp;{{consultaSelecionadaPg.consultaEspecialidade.valorBase | currency:'BRL' }}</span>
+        </div>
       </div>
     </div>
-  </div>
+    <h4 class="flex justify-content-center"><span  class="z-1">Pagamento</span></h4>
+    <div class="row flex justify-content-around z-1">
+      <div class="field col-3">
+        <span class="p-float-label p-input-icon-left width z-1">
+          <i class="pi pi-minus azul"></i>
+          <input pInputText id="pasta" maxlength="5" required class="width" />
+          <label for="pasta" class="azul">Desconto</label>
+        </span>
+        <!-- <small *ngIf="formulario.controls['numPasta'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small> -->
+      </div>
+      <div class="field col-3">
+        <span class="p-float-label p-input-icon-left width">
+          <i class="pi pi-plus azul"></i>
+          <input pInputText id="pasta" maxlength="5" required class="width" />
+          <label for="pasta" class="azul">Acrecimo</label>
+        </span>
+        <!-- <small *ngIf="formulario.controls['numPasta'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small> -->
+      </div>
+      <div class="field col-3">
+        <span class="p-float-label p-input-icon-left width">
+          <i class="pi pi-percentage azul"></i>
+          <input pInputText id="pasta" maxlength="5" required class="width" />
+          <label for="pasta" class="azul">Reajuste</label>
+        </span>
+        <!-- <small *ngIf="formulario.controls['numPasta'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small> -->
+      </div>
+    </div>
+    <div class="row flex justify-content-around z-1">
+      <div class="field col-3">
+        <span class="p-float-label p-input-icon-left width">
+          <i class="pi pi-dollar azul"></i>
+          <input pInputText id="pasta" maxlength="5" class="width" value="184,90" [disabled]="true" />
+          <label for="pasta" class="azul">Total</label>
+        </span>
+        <!-- <small *ngIf="formulario.controls['numPasta'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small> -->
+      </div>
 
-  <div class="row  flex justify-content-center">
-    <div class="col-6 ">
-      <div class="flex justify-content-center">
-        <span class="font-bold m-2">Tipo de Consulta</span>
-      </div>
-      <div class="flex justify-content-center">
-        <i class="pi pi-briefcase azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.consultaEspecialidade?.tipo }}
-      </div>
     </div>
-    <div class="col-6 ">
-      <div class="flex justify-content-center">
-        <span class="font-bold m-2">Tipo de Aparelho</span>
-      </div>
-      <div class="flex justify-content-center">
-        <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada?.consultaEspecialidade?.tipoAparelho }}
-      </div>
-    </div>
+    <!-- <div class="row flex justify-content-center">
+      <button type="submit" (click)="closeModalPagamento()">Voltar</button>
+    </div> -->
+
   </div>
-  <div class="row  flex justify-content-center">
-    <div class="col-6 ">
-      <div class="flex justify-content-center">
-        <span class="font-bold m-2">Valor Base</span>
-      </div>
-      <div class="flex justify-content-center">
-        {{consultaSelecionada?.consultaEspecialidade?.valorBase | currency:'BRL' }}
-      </div>
-    </div>
-  </div>
-</p-sidebar>
+</p-dialog>
+
+
 
 
 

@@ -1,0 +1,19 @@
+<!-- <div class="flex">
+  <div class="col-2">
+    <div class="card flex justify-content-center">
+      <p-menu [model]="items" [style]="{'width':'300px'}"></p-menu>
+  </div>
+  </div>
+
+  <div class="col-10">
+      <div class=" bg-primary font-bold">
+
+      </div>
+  </div>
+</div> -->
+<div class="card flex justify-content-start m-3 mr-4 ">
+  <p-menubar [model]="items" styleClass="menuBar"></p-menubar>
+</div>
+<div class="flex justify-content-center">
+  <router-outlet></router-outlet>
+</div>
