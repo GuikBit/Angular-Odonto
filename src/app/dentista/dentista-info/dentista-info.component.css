@@ -75,3 +75,23 @@ button:hover{
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 }
 
+.backGreen{
+  display: flex;
+  width: 1.1vw;
+  height: 2.3vh;
+  border-radius: 50%;
+  background-color: rgba(34, 197, 94, 0.14);
+  justify-content: center;
+  align-items: center;
+  color: #324352
+}
+
+.backRed{
+  display: flex;
+  width: 1.1vw;
+  height: 2.3vh;
+  border-radius: 50%;
+  background-color: rgba(255, 61, 50, 0.14);
+  justify-content: center;
+  align-items: center;
+}

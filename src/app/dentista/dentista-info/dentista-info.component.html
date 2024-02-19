@@ -36,7 +36,7 @@
   </div>
   <div class="row flex justify-content-between m-3">
 
-    <div class="card box  flex " [style]="{'height': '16vh', 'width':'31vw'}">
+    <!-- <div class="card box  flex " [style]="{'height': '16vh', 'width':'31vw'}">
       <div class="col-5 p-4 pl-6" >
        <span class="cardTitulo">Consultas</span><br>
        <span class="cardValor ">45</span><br>
@@ -240,13 +240,298 @@
       ></p-chart>
 
        </div>
+    </div> -->
+    <div class="col-4">
+      <div class="card box flex" >
+        <div class="col-6 py-4 " >
+          <div class="row flex justify-content-start align-items-center ml-2">
+            <span class="font-bold text-600 text-3xl">45</span>
+          </div>
+          <div class="row flex">
+            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
+            <div class="flex align-items-center">
+              <span [class]="1 > 0? 'backGreen':'backRed'">
+                <i [class]="1 > 0?
+                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                ></i>
+              </span>
+              <span [class]="1 > 0?
+                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 flex justify-content-end align-items-center">
+          <div class="absolute z-0 px-3">
+            <i class="pi pi-shopping-cart text-8xl text-100"></i>
+          </div>
+          <div class="pt-2">
+            <p-chart type="line"
+            height="80"
+            width="180"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [35, 41, 37, 33, 39, 35],
+                  borderColor: '#FF6259',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              maintainAspectRatio: false,
+              aspectRatio: 3,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
+                  },
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
+                  }
+              },
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: {
+                left: 0,
+                right: 0,
+                top: 5,
+                bottom: 5
+              }
+              }
+            }"
+
+            ></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card box flex" >
+        <div class="col-6 py-4 " >
+          <div class="row flex justify-content-start align-items-center ml-2">
+            <span class="font-bold text-600 text-3xl">45</span>
+          </div>
+          <div class="row flex">
+            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
+            <div class="flex align-items-center">
+              <span [class]="1 > 0? 'backGreen':'backRed'">
+                <i [class]="1 > 0?
+                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                ></i>
+              </span>
+              <span [class]="1 > 0?
+                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 flex justify-content-end align-items-center">
+          <div class="absolute z-0 px-3">
+            <i class="pi pi-shopping-cart text-8xl text-100"></i>
+          </div>
+          <div class="pt-2">
+            <p-chart type="line"
+            height="80"
+            width="180"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [35, 41, 37, 33, 39, 35],
+                  borderColor: '#FF6259',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              maintainAspectRatio: false,
+              aspectRatio: 3,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
+                  },
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
+                  }
+              },
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: {
+                left: 0,
+                right: 0,
+                top: 5,
+                bottom: 5
+              }
+              }
+            }"
+
+            ></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card box flex" >
+        <div class="col-6 py-4 " >
+          <div class="row flex justify-content-start align-items-center ml-2">
+            <span class="font-bold text-600 text-3xl">45</span>
+          </div>
+          <div class="row flex">
+            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
+            <div class="flex align-items-center">
+              <span [class]="1 > 0? 'backGreen':'backRed'">
+                <i [class]="1 > 0?
+                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                ></i>
+              </span>
+              <span [class]="1 > 0?
+                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 flex justify-content-end align-items-center">
+          <div class="absolute z-0 px-3">
+            <i class="pi pi-shopping-cart text-8xl text-100"></i>
+          </div>
+          <div class="pt-2">
+            <p-chart type="line"
+            height="80"
+            width="180"
+            [responsive]="true"
+            [data]="{
+              labels: [ '', '', '', '','',''],
+              datasets: [
+                {
+                  fill: false,
+                  data: [35, 41, 37, 33, 39, 35],
+                  borderColor: '#FF6259',
+                  tension: 0.4
+                }
+              ],
+            }"
+            [options]="{
+              maintainAspectRatio: false,
+              aspectRatio: 3,
+              name: false,
+              plugins: {
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                  x: {
+                    display: false,
+                    ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                        drawBorder: false
+                      }
+                  },
+                  y: {
+                    display: false,
+                      ticks: {
+                        color: 'transparent',
+                      },
+                      grid: {
+                        color: 'transparent',
+                          drawBorder: false
+                      }
+                  }
+              },
+              elements: {
+                point: {
+                    radius:0
+                },
+
+              },
+              layout: {
+                padding: {
+                left: 0,
+                right: 0,
+                top: 5,
+                bottom: 5
+              }
+              }
+            }"
+
+            ></p-chart>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 
   <div class="flex justify-content-center" >
     <div class="row flex">
-      <div class="col">
+      <div class="col-4">
           <div class="row flex justify-content-around m-2">
             <div class="card box p-3 flex justify-content-center align-items-center" [style]="{'height': '43vh', 'width': '100%'}">
               <p-chart type="doughnut" [data]="dataGrafic1" [options]="options1"></p-chart>
@@ -258,7 +543,7 @@
             </div>
           </div>
       </div>
-      <div class="col-8 ">
+      <div class="col-8">
         <div class="row flex align-items-center">
           <div class="col-12">
             <div class="card box p-5  " [style]="{'height': 'auto', 'width': '100%'}">
@@ -341,7 +626,7 @@
                         </div>
                       </div>
                     </th>
-                    <th pSortableColumn="horaConsulta" [width]="250">
+                    <th pSortableColumn="horaConsulta" [width]="200">
                       <div class="flex row align-items-center">
                         <div class="col-8 flex justify-content-start align-items-center ">
                           Hora
@@ -375,7 +660,7 @@
                       </div>
                     </th>
 
-                    <th pSortableColumn="pagamento" [width]="230">
+                    <th pSortableColumn="pagamento" [width]="200">
                       <div class="flex row align-items-center">
                         <div class="col-8 flex justify-content-start align-items-center ">
                           Status
@@ -400,7 +685,7 @@
                         </div>
                       </div>
                     </th>
-                    <th [width]="100">
+                    <th >
                       <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
                     </th>
                 </ng-template>
@@ -434,35 +719,52 @@
                             <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
                           }
                     </td>
-                    <td [width]="170">
+                    <td [width]="230">
                       <div class="flex justify-content-around">
-                        <p-button icon="pi"
+                        <p-button
+                          *ngIf="!inicioConsulta"
+                          icon="pi pi-pw pi-play"
                           [rounded]="true"
                           [outlined]="true"
                           [severity]="'warning'"
                           [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                           pTooltip="Iniciar Consulta"
                           tooltipPosition="top"
-
-                          ><i class="material-icons">play_arrow</i>
+                          (click)="iniciarConsulta(consulta)"
+                          >
                         </p-button>
-                        <p-button icon="pi"
+                        <p-button
+                        *ngIf="inicioConsulta"
+                        icon="pi pi-spin pi-spinner"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="'warning'"
+                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                        pTooltip="Iniciar Consulta"
+                        tooltipPosition="top"
+
+                        >
+                      </p-button>
+                        <p-button
+                          icon="pi pi-pw pi-info-circle"
                           [rounded]="true"
                           [outlined]="true"
                           severity="info"
                           pTooltip="Informações"
                           tooltipPosition="top"
                           (click)="consultaSelecionadaInfo(consulta?.id)"
-                          ><i class="material-icons">info</i>
+                          >
+                          <!-- <i class="material-icons">info</i> -->
                         </p-button>
-                        <!-- <p-button icon="pi"
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
                           [rounded]="true"
                           [outlined]="true"
-                          [severity]="'success'"
-                          [disabled]="!consulta?.dataHoraFimAtendimento"
-                          pTooltip="Pagamento"
+                          [severity]="consulta.pagamento.pago?'secondary':'success'"
+
+                          [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
                           tooltipPosition="top"
-                          ><i class="material-icons">paid</i>
+                          (onClick)="consultaSelecionadaInfo(consulta?.id)"
+                          >
                         </p-button> -->
                         <!-- <p-button icon="pi"
                           [rounded]="true"
@@ -483,7 +785,7 @@
                           ><i class="material-icons">delete</i>
                         </p-button> -->
                       </div>
-                    </td>
+              </td>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">

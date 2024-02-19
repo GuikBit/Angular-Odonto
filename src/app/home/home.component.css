@@ -36,12 +36,23 @@
 .iconCard{
   background-color: '#F3F4F6';
 }
-.back{
+.backGreen{
   display: flex;
-  width: 1.5vw;
-  height: 3vh;
+  width: 1.1vw;
+  height: 2.3vh;
   border-radius: 50%;
-  background-color: rgba(255, 0, 0, 0.23);
+  background-color: rgba(34, 197, 94, 0.14);
+  justify-content: center;
+  align-items: center;
+  color: #324352
+}
+
+.backRed{
+  display: flex;
+  width: 1.1vw;
+  height: 2.3vh;
+  border-radius: 50%;
+  background-color: rgba(255, 61, 50, 0.14);
   justify-content: center;
   align-items: center;
 }
@@ -54,13 +65,8 @@
   color:#303030;
   font-weight: 700;
   font-size: xx-large;
-  margin-top: 1rem;
 }
-.cardPorc{
-  color:red;
-  font-weight: 500;
-  font-size: medium;
-}
+
 .cardPorcVerd{
   color:#159D47;
   font-weight: 500;
@@ -78,4 +84,22 @@ button{
 
 button:hover{
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
+.limpar{
+  background: white;
+  color:#2070b4;
+  font-size: 0.9rem;
+  width: 6vw;
+  height: 3.5vh;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border: 0.5px solid #2070b4;
+}
+.limpar:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
+
+.top-2 {
+  top: 2%;
+  /* Outras propriedades da classe */
 }

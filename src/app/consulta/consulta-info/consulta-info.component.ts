@@ -24,7 +24,9 @@ export class ConsultaInfoComponent implements OnInit {
   @Output() closeModal = new EventEmitter<boolean>();
 
   consultaSelecionada: Consulta ;
-
+  formaCalculo: any[] | undefined;
+  formaPagamento: any[] | undefined;
+  parcelas: any[] | undefined;
 
   loading: Loading = {
     iniciar: false,
@@ -50,12 +52,33 @@ export class ConsultaInfoComponent implements OnInit {
     this.route.params.subscribe(params => {
       id = params['id'];
     })
+    this.formaPagamento = [
+      { label: 'Pix', value: '1', icon: 'pi pi-arrow-right-arrow-left' },
+      { label: 'Dinheiro', value: '2', icon: 'pi pi-money-bill' },
+      { label: 'Cartão', value: '3', icon: 'pi pi-credit-card' },
+      { label: 'Outro', value: '4', icon: 'pi pi-book' }
+    ]
+    this.parcelas = [
+      { label: 'À vista', value: '1', },
+      { label: 'Parcelado 2x', value: '2',  },
+      { label: 'Parcelado 3x', value: '3',  },
+      { label: 'Parcelado 4x', value: '4',  },
+      { label: 'Parcelado 5x', value: '5', },
+      { label: 'Parcelado 6x', value: '6', },
+    ]
+
+    this.formaCalculo = [
+      { label: 'Dinheiro', value: '1', icon: 'pi pi-money-bill' },
+      { label: 'Porcentagem', value: '2', icon: 'pi pi-percentage' }
+
+    ];
 
     if(id != undefined && id != null){
       await this.buscarConsulta(id);
 
       await this.criaFormulario(this.consultaSelecionada);
       await this.calculoValorConsulta();
+
     }else{
 
     }
@@ -76,6 +99,8 @@ export class ConsultaInfoComponent implements OnInit {
       observacao: ['', Validators.required],
       procedimentos: ['', Validators.required],
       formaPagamento: ['', Validators.required],
+      parcelas: ['', Validators.required],
+      formaCalculo: [1, Validators.required],
       desconto: ['', Validators.required],
       acrescimo: ['', Validators.required],
       total: ['', Validators.required]
@@ -301,8 +326,18 @@ export class ConsultaInfoComponent implements OnInit {
 
   async calculoValorConsulta() {
     if(this.consultaSelecionada !== null){
-      this.valor = (this.consultaSelecionada.consultaEspecialidade.valorBase) - (this.formulario.get('desconto')?.value)
-      + (this.formulario.get('acrescimo')?.value);
+      const precoBase = this.consultaSelecionada.consultaEspecialidade.valorBase;
+      const acrecimo = this.formulario.get('acrescimo')?.value === null || undefined? 0 : this.formulario.get('acrescimo')?.value;
+      const desconto = this.formulario.get('desconto')?.value === null || undefined? 0 : this.formulario.get('desconto')?.value;
+
+      const precoCalculado = precoBase + acrecimo - desconto;
+
+      if(this.formulario.get('formaCalculo')?.value == 2){
+        this.valor = precoCalculado;
+      }else{
+        this.valor = (this.consultaSelecionada.consultaEspecialidade.valorBase) - (this.formulario.get('desconto')?.value)
+        + (this.formulario.get('acrescimo')?.value);
+      }
     }
 
   }

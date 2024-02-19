@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environments';
   providedIn: 'root'
 })
 export class DashboardService {
+
   apiURL : String = environment.apiURLBase+'/v1/dashBord'
 
   constructor() { }
@@ -24,6 +25,22 @@ export class DashboardService {
 
     try{
       const response = await instance.get(`${this.apiURL}`)
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return null
+    }
+  }
+  async getListInfo() {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+
+    try{
+      const response = await instance.get(`${this.apiURL}/listaInfos`)
       return response;
 
     }catch (error) {

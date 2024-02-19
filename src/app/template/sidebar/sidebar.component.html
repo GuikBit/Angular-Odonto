@@ -3,26 +3,23 @@
   <span>Odonto</span>
 </mat-toolbar>  -->
 
+<p-toolbar [style]="{ 'background-image': 'linear-gradient(to right, #2070b4, #1e7bbd, #1c85c7, #1c90cf, #1e9bd8, #309ed9, #3ea1d9, #49a4da, #599fd3, #669bcc, #6f96c4, #7692bc)', 'margin':'0'}">
+  <ng-template pTemplate="start">
+      <img src="assets/img/odontoWhite.png"  width="80" />
+  </ng-template>
+  <ng-template pTemplate="center">
 
-
-  <p-toolbar [style]="{ 'background-image': 'linear-gradient(to right, #2070b4, #1e7bbd, #1c85c7, #1c90cf, #1e9bd8, #309ed9, #3ea1d9, #49a4da, #599fd3, #669bcc, #6f96c4, #7692bc)' }">
-    <ng-template pTemplate="start">
-        <img src="assets/img/odontoWhite.png"  width="80" />
-    </ng-template>
-    <ng-template pTemplate="center">
-
-    </ng-template>
-    <ng-template pTemplate="end">
-        <div class="flex justify-content-center align-items-center gap-2">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-            <span class="font-bold text-bluegray-50">Admin</span>
-        </div>
-        <div class="flex align-items-center">
-          <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" severity="danger " (click)="logout()"></p-button>
-        </div>
-    </ng-template>
-  </p-toolbar>
-
+  </ng-template>
+  <ng-template pTemplate="end">
+      <div class="flex justify-content-center align-items-center gap-2">
+          <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+          <span class="font-bold text-bluegray-50">Admin</span>
+      </div>
+      <div class="flex align-items-center">
+        <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" severity="danger " (click)="logout()"></p-button>
+      </div>
+  </ng-template>
+</p-toolbar>
 
 
 <div class="main">

@@ -10,6 +10,11 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./dentista-info.component.css']
 })
 export class DentistaInfoComponent implements OnInit {
+iniciarConsulta(_t159: any) {
+throw new Error('Method not implemented.');
+}
+inicioConsulta: any;
+
 consultaSelecionadaInfo(arg0: any) {
 throw new Error('Method not implemented.');
 }
@@ -144,6 +149,16 @@ throw new Error('Method not implemented.');
       }
   infoShow(arg0: any) {
     throw new Error('Method not implemented.');
+  }
+  calculaPorcentagem(mesAnterior: number, mesAtual: number) {
+    if(mesAnterior === 0){
+      return ((mesAtual - mesAnterior ) / 1 );
+    }
+    if(mesAtual === 0){
+      return ((mesAnterior - mesAtual ) / 1 );
+    }
+    return ((mesAtual - mesAnterior ) / mesAnterior );
+
   }
 
 }

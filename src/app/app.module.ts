@@ -250,7 +250,9 @@ import { Location } from '@angular/common';
     CardModule,
     RippleModule,
     StyleClassModule,
-    MessagesModule
+    MessagesModule,
+    BadgeModule,
+    SplitButtonModule 
   ],
   providers: [
   //  ClientesService,
