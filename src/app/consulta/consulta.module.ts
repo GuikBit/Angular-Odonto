@@ -141,6 +141,8 @@ import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
 import { MessageService } from 'primeng/api';
 import { RouterModule } from '@angular/router';
+import { PagamentoInfoComponent } from './pagamento-info/pagamento-info.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -148,7 +150,8 @@ import { RouterModule } from '@angular/router';
     ConsultaNovaComponent,
     ConsultaInfoComponent,
     ConsultaEditComponent,
-
+    PagamentoInfoComponent,
+    PagamentoInfoComponent
   ],
   imports: [
     CommonModule,
@@ -181,14 +184,16 @@ import { RouterModule } from '@angular/router';
     ChipsModule,
     FieldsetModule,
     CheckboxModule,
+
   ],exports: [
     ConsultaEditComponent,
     ConsultaListComponent,
     ConsultaInfoComponent,
-    ConsultaNovaComponent
+    ConsultaNovaComponent,
+    PagamentoInfoComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [MessageService]
+  providers: [MessageService, DialogService]
 })
 
 export class ConsultaModule { }

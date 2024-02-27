@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Consulta } from '../consulta';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ConsultaService } from 'src/app/consulta.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {  DialogService } from 'primeng/dynamicdialog';
 
 
 interface Loading {
@@ -19,14 +21,12 @@ interface Loading {
   styleUrls: ['./consulta-info.component.css']
 })
 
-export class ConsultaInfoComponent implements OnInit {
+export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
+
+  @Input() consultaSelecionada: Consulta;
+  @Output() reloading = new EventEmitter<Boolean>();
   @Output() closeModal = new EventEmitter<boolean>();
-
-  consultaSelecionada: Consulta ;
-  formaCalculo: any[] | undefined;
-  formaPagamento: any[] | undefined;
-  parcelas: any[] | undefined;
 
   loading: Loading = {
     iniciar: false,
@@ -34,87 +34,88 @@ export class ConsultaInfoComponent implements OnInit {
     editar: false,
     ausentar: false
   };
-  valor: number = 0.0;
-  formulario: FormGroup;
-  pagamentoInfo: boolean = true;
-  values: string[] | undefined;
+
+  formularioEditar: FormGroup;
+  formularioProcedimentos: FormGroup;
   separatorExp: RegExp = /,| /;
-  exame: string[] = [];
+  dataConsulta: any;
+  horaConsulta: any;
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ConsultaService,
-     private route: ActivatedRoute, private router: Router){
+     private route: ActivatedRoute, private router: Router,public dialogService: DialogService, private cdr: ChangeDetectorRef){
+
+  }
+
+  ngOnDestroy() {
+    if (this.formularioEditar) {
+      this.formularioEditar.reset(); // Limpe os valores dos controles do formulário
+      this.formularioEditar.disable(); // Desative o formulário para evitar interações
+      //this.formularioEditar = null; // Atribua null ao formulário para destruí-lo
+
+    }
 
   }
 
   async ngOnInit() {
+    this.criaFormularioEditar();
+    this.criaFormularioProcedimentos();
+    console.log((this.consultaSelecionada.dataHoraInicioAtendimento !== null && this.consultaSelecionada.dataHoraFimAtendimento === null) || this.consultaSelecionada.ausente === true)
+    console.log(this.consultaSelecionada.procedimentos === '')
+  }
 
-    let id;
-    this.route.params.subscribe(params => {
-      id = params['id'];
-    })
-    this.formaPagamento = [
-      { label: 'Pix', value: '1', icon: 'pi pi-arrow-right-arrow-left' },
-      { label: 'Dinheiro', value: '2', icon: 'pi pi-money-bill' },
-      { label: 'Cartão', value: '3', icon: 'pi pi-credit-card' },
-      { label: 'Outro', value: '4', icon: 'pi pi-book' }
-    ]
-    this.parcelas = [
-      { label: 'À vista', value: '1', },
-      { label: 'Parcelado 2x', value: '2',  },
-      { label: 'Parcelado 3x', value: '3',  },
-      { label: 'Parcelado 4x', value: '4',  },
-      { label: 'Parcelado 5x', value: '5', },
-      { label: 'Parcelado 6x', value: '6', },
-    ]
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['consultaSelecionada'] && !changes['consultaSelecionada'].firstChange) {
+      this.criaFormularioEditar();
+      this.criaFormularioProcedimentos();
+    }
+    this.loading.ausentar = false;
+    this.loading.editar = false;
+    this.loading.finalizar = false;
+    this.loading.iniciar = false;
+    this.dataConsulta = null;
+    this.horaConsulta = null;
 
-    this.formaCalculo = [
-      { label: 'Dinheiro', value: '1', icon: 'pi pi-money-bill' },
-      { label: 'Porcentagem', value: '2', icon: 'pi pi-percentage' }
+  }
 
-    ];
-
-    if(id != undefined && id != null){
-      await this.buscarConsulta(id);
-
-      await this.criaFormulario(this.consultaSelecionada);
-      await this.calculoValorConsulta();
-
-    }else{
+  async criaFormularioEditar() {
+    if(this.consultaSelecionada){
+      const dataConsultaString = this.consultaSelecionada.dataConsulta.toString();
+      let [data, hora] = dataConsultaString.split('T');
+      this.dataConsulta = data;
+      this.horaConsulta = hora;
+      this.formularioEditar = this.formBuilder.group({
+        dataConsulta: [data, Validators.required],
+        horaConsulta: [hora, Validators.required],
+      })
 
     }
 
-
   }
 
-  criaFormulario(consulta: Consulta) {
-    this.formulario = this.formBuilder.group({
+ async criaFormularioProcedimentos(){
 
-      dataConsulta: ['', Validators.required],
-      dataConsultaReserva: ['', Validators.required],
-      dataHoraInicioAtendimento: ['', Validators.required],
-      dataHoraFimAtendimento: ['', Validators.required],
-      tempoPrevisto: ['', Validators.required],
-      dentista: ['', Validators.required],
-      paciente: ['', Validators.required],
-      observacao: ['', Validators.required],
-      procedimentos: ['', Validators.required],
-      formaPagamento: ['', Validators.required],
-      parcelas: ['', Validators.required],
-      formaCalculo: [1, Validators.required],
-      desconto: ['', Validators.required],
-      acrescimo: ['', Validators.required],
-      total: ['', Validators.required]
+    this.formularioProcedimentos = this.formBuilder.group({
+      procedimentos: [this.consultaSelecionada.procedimentos !== ''? JSON.parse(this.consultaSelecionada.procedimentos): [] ,Validators.required]
     })
-
-
   }
 
-  onSubmit() {
+  async salvarProcedimentos(){
+    const procedimentos = JSON.stringify(this.formularioProcedimentos.get('procedimentos')?.value)
 
-  }
+    if(procedimentos){
+      this.consultaSelecionada.procedimentos = procedimentos;
+      this.service.postProcedimentoConsulta(this.consultaSelecionada).then((response)=>{
 
-  pagamento() {
-    this.pagamentoInfo = !this.pagamentoInfo;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Aviso',
+          detail: 'Procedimentos salvo e finalizada'
+        })
+        this.reloading.emit(true);
+      }).catch((error)=>{
+
+      })
+    }
   }
 
   async buscarConsulta(id: any){
@@ -150,50 +151,43 @@ export class ConsultaInfoComponent implements OnInit {
       return `${anos} anos e ${meses} mês`;
     }
     else{
-      return `${anos} anos e ${meses} mêses`;
+      return `${anos} anos e ${meses} meses`;
     }
 
   }
-  abrirwhatsapp() {
-    console.log(this.consultaSelecionada.paciente.telefone)
-    if(this.consultaSelecionada.paciente.telefone !== null && this.consultaSelecionada.paciente.telefone !== undefined){
-      const tel = this.consultaSelecionada.paciente.telefone;
-      const num = tel.replace(/[^\d]/g, "");
-      window.open(`https://wa.me/${num}`, '_blank')
-    }
 
-  }
   deletarConsulta() {
-
-
   }
+
   presencaPaciente() {
-    this.service.presencaPaciente(this.consultaSelecionada.id).then(()=>{
+
+    this.service.presencaPaciente(this.consultaSelecionada?.id).then(()=>{
       this.messageService.clear();
       this.messageService.add({
         severity: 'success',
         summary: 'Aviso',
         detail: 'Presença do paciente alterada...'
       })
-      this.ngOnInit();
     })
+    this.reloading.emit(true);
+
   }
+
   ausentarPaciente() {
-    this.loading.ausentar = true;
+     this.loading.ausentar = true;
     if(this.verificaDataConsulta()){
     setTimeout(async () => {
       if(this.consultaSelecionada !== null){
 
-        this.service.ausentarPaciente(this.consultaSelecionada.id).then(()=>{
+        this.service.ausentarPaciente(this.consultaSelecionada?.id).then(()=>{
           this.messageService.clear();
           this.messageService.add({
             severity: 'success',
             summary: 'Aviso',
             detail: 'Paciente ausentado com sucesso...'
           })
-          this.loading.finalizar = false;
-
-          this.router.navigate(['/consultas']);
+          this.loading.ausentar = false;
+          this.reloading.emit(true);
 
         }).catch(()=>{
           this.messageService.add({
@@ -211,15 +205,104 @@ export class ConsultaInfoComponent implements OnInit {
         })
         this.loading.finalizar = false;
       }
-    }, 1500)
+    }, 500)
     }else{
       this.loading.ausentar = false;
     }
   }
 
-  salvarEdicao() {
-    this.loading.editar = false;
+  async salvarEdicao() {
+    if(this.dataConsulta !== this.formularioEditar.get("dataConsulta")?.value || this.horaConsulta !== this.formularioEditar.get("horaConsulta")?.value){
+      if(await this.validaReagendamento()){
+        this.service.putConsulta(this.consultaSelecionada.id, JSON.stringify(this.formularioEditar.value))
+        .then((response)=>{
+          this.loading.editar = false;
+          this.reloading.emit(true);
+        }).catch((error)=>{
+          this.messageService.add({
+            severity: 'danger',
+            summary: 'Aviso',
+            detail: "Houve um erro ao reagendar a consulta."
+          })
+        })
+      }
 
+    }else{
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Aviso',
+        detail: "Para reagendar uma consulta, altere a data e hora."
+      })
+    }
+
+  }
+
+  async validaReagendamento(){
+      const dataConsulta = new Date(this.dataConsulta);
+      dataConsulta.setHours(0,0,0,0);
+      const dataAtual = new Date();
+      dataAtual.setHours(0, 0, 0, 0);
+
+      if(await this.dataValida(dataAtual) && await this.horaValida()){
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
+
+  async horaValida(){
+    const horaConsulta = this.formularioEditar.get('horaConsulta')?.value;
+    const [hr, min] = horaConsulta.split(':');
+    if((hr >= 0 && hr <= 23 && min >= 0 && min <= 59)){
+      return true;
+    }else{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Aviso',
+          detail: 'Houve um erro de digitação da Hora, digite novamente.'
+        })
+        return false;
+    }
+
+  }
+
+  async dataValida(dataAtual: Date) {
+    const novaData = new Date(this.formularioEditar.get("dataConsulta")?.value);
+    console.log(novaData)
+    novaData.setDate(novaData.getDate())
+    novaData.setHours(0,0,0,0);
+
+    if(novaData >= dataAtual){
+      return true;
+    }
+    else{
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Aviso',
+        detail: "A nova data nao pode ser anterior ao dia corrente"
+      })
+      return false;
+    }
+
+  }
+
+  async regraReagendamento5dias() {
+    const dataAtual = new Date();
+    dataAtual.setDate(dataAtual.getDate() - 5);
+    const dataConsulta = new Date(this.consultaSelecionada.dataConsulta);
+
+    if (dataConsulta >= dataAtual) {
+      return true;
+
+    }else{
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Aviso',
+        detail: 'A consulta esta fora do periodo de 5 dias para reagendamento'
+      })
+      return false;
+    }
   }
 
   finalizarConsulta(){
@@ -232,7 +315,7 @@ export class ConsultaInfoComponent implements OnInit {
     setTimeout(async () => {
       if(this.consultaSelecionada !== null){
 
-        this.service.finalizarConsulta(this.consultaSelecionada.id).then(()=>{
+        this.service.finalizarConsulta(this.consultaSelecionada?.id).then(()=>{
           this.messageService.clear();
           this.messageService.add({
             severity: 'success',
@@ -241,7 +324,7 @@ export class ConsultaInfoComponent implements OnInit {
           })
           this.loading.finalizar = false;
 
-          this.ngOnInit();
+          this.reloading.emit(true);
 
         }).catch(()=>{
           this.messageService.add({
@@ -273,16 +356,18 @@ export class ConsultaInfoComponent implements OnInit {
     setTimeout(async () => {
       if(this.consultaSelecionada !== null){
 
-        this.service.iniciarConsulta(this.consultaSelecionada.id).then(()=>{
+        this.service.iniciarConsulta(this.consultaSelecionada?.id).then((response)=>{
           this.messageService.clear();
+
+          this.consultaSelecionada = response;
+
           this.messageService.add({
             severity: 'success',
             summary: 'Aviso',
             detail: 'Consulta iniciada com sucesso...'
           })
           this.loading.iniciar = false;
-
-          this.ngOnInit();
+          this.reloading.emit(true);
 
         }).catch(()=>{
           this.messageService.add({
@@ -310,36 +395,36 @@ export class ConsultaInfoComponent implements OnInit {
   }
 
   verificaDataConsulta(){
-    const atual = new Date();
-    const dataConsulta = new Date(this.consultaSelecionada.dataConsulta)
-    if(dataConsulta.toLocaleDateString() == atual.toLocaleDateString()){
-      return true;
+    if(this.consultaSelecionada){
+      const atual = new Date();
+      const dataConsulta = new Date(this.consultaSelecionada.dataConsulta)
+      if(dataConsulta.toLocaleDateString() == atual.toLocaleDateString()){
+        return true;
+      }else{
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Aviso',
+          detail: 'A consulta não está agendada para o dia corrente'
+        })
+        return false;
+      }
     }else{
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Aviso',
-        detail: 'A consulta não está agendada para o dia corrente'
-      })
       return false;
     }
+
   }
 
-  async calculoValorConsulta() {
-    if(this.consultaSelecionada !== null){
-      const precoBase = this.consultaSelecionada.consultaEspecialidade.valorBase;
-      const acrecimo = this.formulario.get('acrescimo')?.value === null || undefined? 0 : this.formulario.get('acrescimo')?.value;
-      const desconto = this.formulario.get('desconto')?.value === null || undefined? 0 : this.formulario.get('desconto')?.value;
-
-      const precoCalculado = precoBase + acrecimo - desconto;
-
-      if(this.formulario.get('formaCalculo')?.value == 2){
-        this.valor = precoCalculado;
-      }else{
-        this.valor = (this.consultaSelecionada.consultaEspecialidade.valorBase) - (this.formulario.get('desconto')?.value)
-        + (this.formulario.get('acrescimo')?.value);
-      }
+  async preparaEdicao() {
+    const dataAtual = new Date();
+    dataAtual.setHours(0, 0, 0, 0);
+    if(await this.regraReagendamento5dias()){
+      this.loading.editar = true;
     }
 
+  }
+
+  async fecharJanela() {
+    this.closeModal.emit(false);
   }
 
 }

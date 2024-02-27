@@ -11,6 +11,8 @@ import { Consulta } from './../consulta';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ConsultaInfoComponent } from '../consulta-info/consulta-info.component';
 
 export interface Message {
   type: 'success' | 'error';
@@ -24,6 +26,8 @@ export interface Message {
 })
 
 export class ConsultaListComponent{
+
+
 
   consultaSelecionada: Consulta;
   consultaSelecionadaPg: Consulta;
@@ -40,7 +44,8 @@ export class ConsultaListComponent{
   infoConsulta: boolean = false;
   close: boolean;
   inicioConsulta: boolean = false;
-  pagamentoInfo: boolean = true;
+  pagamentoInfo: boolean = false;
+  ref: DynamicDialogRef ;
   paymentOptions: any[] = [
     { name: 'Dia', icon: 'pi pi-calendar', value: 1, styleClass: "selectButton" },
     { name: 'Semana', icon: 'pi pi-calendar',  value: 2, styleClass: "selectButton"},
@@ -48,7 +53,8 @@ export class ConsultaListComponent{
   ];
 
 
-  constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private messageService: MessageService){
+  constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private messageService: MessageService,
+    private dialogService: DialogService){
     this.criaTabelaConsulta();
   }
 
@@ -87,7 +93,6 @@ export class ConsultaListComponent{
   }
 
  cadastro(){
-  //  this.router.navigate([`/consultas/nova`])
   this.visible = true;
  }
 
@@ -102,29 +107,25 @@ export class ConsultaListComponent{
   // }
 
   async consultaSelecionadaInfo(id: any, tipo: number){
-  // if(id != null){
-  //  await this.service.getConsultaById(id).then((response)=>{
-  //     if(tipo === 1){
-  //       this.consultaSelecionada = response;
-  //       this.infoConsulta = true;
-  //     }else{
-  //       this.consultaSelecionadaPg = response;
-  //       this.pagamentoInfo = true;
-  //     }
+  if(id != null){
+   await this.service.getConsultaById(id).then((response)=>{
+      if(tipo === 1){
+        this.consultaSelecionada = response;
+        this.infoConsulta = true;
+      }else{
+        this.consultaSelecionadaPg = response;
+        this.pagamentoInfo = true;
+      }
 
-
-
-  //   }).catch((error)=>{
-  //     this.messageService.add({
-  //       severity: 'error',
-  //       summary: 'Aviso',
-  //       detail: 'Houve algum problema ao buscar a consulta',
-  //       life: 2000
-  //     })
-  //   })
-  // }
-
-    this.router.navigate([`/consultas/info/${id}`])
+    }).catch((error)=>{
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Aviso',
+        detail: 'Houve algum problema ao buscar a consulta',
+        life: 2000
+      })
+    })
+  }
 
   }
 
@@ -137,6 +138,10 @@ export class ConsultaListComponent{
       detail: 'Consulta agendada com sucesso!',
       life: 2000
     })
+  }
+  async closeInfo(close: boolean) {
+    this.infoConsulta = close;
+    //this.criaTabelaConsulta();
   }
 
   closeModalPagamento(close: boolean) {
@@ -167,7 +172,7 @@ export class ConsultaListComponent{
   //   }
   // }
   iniciarConsulta(consulta: any) {
-    this.inicioConsulta = true;
+    //this.inicioConsulta = true;
    if(consulta !== null){
     const atual = new Date();
     const dataConsulta = new Date(consulta.dataConsulta) ;
@@ -179,7 +184,7 @@ export class ConsultaListComponent{
             summary: 'Aviso',
             detail: 'Consulta inicida com sucesso.'
           })
-          this.inicioConsulta = false;
+          //this.inicioConsulta = false;
           this.criaTabelaConsulta();
         }).catch((error)=>{
           this.inicioConsulta = false;
@@ -199,5 +204,13 @@ export class ConsultaListComponent{
       })
     }
     }
+  }
+
+  async reloading(reloading: Boolean) {
+   if(reloading){
+    const consulta = this.consultaSelecionada.id;
+    this.criaTabelaConsulta();
+    this.consultaSelecionadaInfo(consulta, 1);
+   }
   }
 }

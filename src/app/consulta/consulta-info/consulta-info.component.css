@@ -11,8 +11,6 @@
 
 .new{
   border: 1px solid #c4ddf3;
-  padding: 2vw;
-
   border-radius: 8px;
 }
 
@@ -33,13 +31,6 @@
   width: 100%;
 }
 
-.box{
-  background: #FFFFFF;
-  border-radius: 7px ;
-  border: 1px solid #c4ddf3;
-  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
-
-}
 ul {
   list-style-type: none;
   padding: 0;
@@ -63,6 +54,15 @@ li {
   background: linear-gradient(to right, #2070b4, #24aae3, #3B82F6);
 }
 .atendida{
-
   background: linear-gradient(to right, #2070b4, #24aae3, #22c55e89);
+}
+
+.salvar{
+  font-size: 0.9rem;
+  width: 10vw;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+}
+
+.salvar:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 }

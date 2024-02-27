@@ -1,0 +1,191 @@
+<div class="new p-3">
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <div class="row flex justify-content-start">
+      <div class="col-4 flex justify-content-center">
+        <span class="font-bold text-lg"><i class="pi pi-bookmark azul"></i>&nbsp;&nbsp;Status:&nbsp;</span>
+        @if (consultaSelecionadaPg.pagamento.pago)
+            {
+              <p-tag icon="pi pi-dollar" severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"></p-tag>
+            }
+            @else
+            {
+              <p-tag icon="pi pi-dollar" severity="warning" value="&nbsp;Pendente&nbsp;" [rounded]="true"></p-tag>
+            }
+        <!-- <div>
+          <h4 class="flex align-items-center" ><i class="pi pi-pw pi-bookmark azul"></i>&nbsp;&nbsp;Status do pagamento&nbsp;</h4>
+          <span class="flex justify-content-center">
+            @if (consultaSelecionadaPg.pagamento.pago)
+            {
+              <p-tag icon="pi pi-dollar" severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"></p-tag>
+            }
+            @else
+            {
+              <p-tag icon="pi pi-dollar" severity="warning" value="&nbsp;Pendente&nbsp;" [rounded]="true"></p-tag>
+            }
+          </span>
+        </div> -->
+      </div>
+      <div class="col-4 flex justify-content-center">
+        <span class="font-bold text-lg"><i class="pi pi-dollar azul"></i>&nbsp;&nbsp;Valor base da consulta:&nbsp;</span>
+        <span>{{consultaSelecionadaPg.consultaEspecialidade.valorBase | currency:'BRL'}}</span>
+        <!-- <div>
+          <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-dollar azul"></i>&nbsp;&nbsp;Valor base da consulta</h4>
+          <span class=" flex justify-content-center">{{consultaSelecionadaPg.consultaEspecialidade.valorBase | currency:'BRL'}}</span>
+        </div> -->
+      </div>
+      <div class="col-4 flex justify-content-center">
+        <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Data do pagamento:&nbsp;</span>
+        @if (consultaSelecionadaPg.pagamento.dataDoPagamento) {
+          {{consultaSelecionadaPg.pagamento.dataDoPagamento | date: 'dd/MM/yyyy HH:mm'}}
+        }
+        @else {
+          &nbsp;&nbsp;--/--/---- --:--
+        }
+      </div>
+    </div>
+
+    <div class="row flex justify-content-around mt-3">
+
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-wallet azul"></i>&nbsp;&nbsp;Forma de pagamento</h4>
+          <p-dropdown [options]="formaPagamento"
+          [style]="{'width': '14vw', 'height':'46px'}"
+          formControlName="formaPagamento"
+          optionLabel="descricao"
+          class="width"
+          >
+          <ng-template let-item pTemplate="selectedItem">
+            <i [class]="item?.icon"></i>
+            {{ item?.label }}
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+              <i [class]="item?.icon"></i>
+              {{ item?.label }}
+          </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-calculator azul"></i>&nbsp;&nbsp;Parcelas</h4>
+          <p-dropdown
+            [options]="parcelas"
+            [style]="{'width': '14vw', 'height':'46px'}"
+            formControlName="parcelas"
+            optionLabel="label"
+            optionValue="value"
+            >
+                <ng-template let-item pTemplate="selectedItem">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+            </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-calculator azul"></i>&nbsp;&nbsp;Forma de calculo</h4>
+          <p-dropdown
+            [options]="formaCalculo"
+            [style]="{'width': '14vw', 'height':'46px'}"
+            formControlName="formaCalculo"
+            optionLabel="label"
+            optionValue="value"
+            >
+                <ng-template let-item pTemplate="selectedItem">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+            </p-dropdown>
+        </div>
+      </div>
+
+    </div>
+    <div class="row flex justify-content-around mt-3">
+
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <h4 class="flex justify-content-center  align-items-center"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+            Desconto {{formulario.get('formaCalculo')?.value == 2? '(%)':'(R$)'}}
+
+          </h4>
+          <span class="p-float-label" >
+            @if (formulario.get('formaCalculo')?.value == 2) {
+            <p-inputNumber
+              inputId="percent"
+              suffix="%"
+              [min]="0"
+              [max]="30"
+              formControlName="desconto"
+              (onInput)="calculoValorConsulta()"
+            > </p-inputNumber>
+            }@else {
+            <p-inputNumber
+              mode="currency"
+              inputId="currency-brazil"
+              currency="BRL"
+              locale="pt-BR"
+              formControlName="desconto"
+              (onInput)="calculoValorConsulta()"
+            ></p-inputNumber>
+            }
+          </span>
+
+        </div>
+      </div>
+
+      <div class="col-4 flex justify-content-center ">
+        <div>
+          <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-arrow-circle-up azul"></i>&nbsp;&nbsp;
+            Acréscimo {{formulario.get('formaCalculo')?.value == 2? '(%)':'(R$)'}}</h4>
+          <span class="p-float-label">
+            <span class="p-float-label" >
+              @if (formulario.get('formaCalculo')?.value == 2) {
+              <p-inputNumber
+                inputId="percent"
+                suffix="%"
+                [min]="0"
+                [max]="30"
+                formControlName="acrescimo"
+                (onInput)="calculoValorConsulta()"
+              > </p-inputNumber>
+              }@else {
+              <p-inputNumber
+                mode="currency"
+                inputId="currency-brazil"
+                currency="BRL"
+                locale="pt-BR"
+                formControlName="acrescimo"
+                (onInput)="calculoValorConsulta()"
+              ></p-inputNumber>
+              }
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-4 flex justify-content-center ">
+        <div>
+          <h4 class="flex align-items-center justify-content-center"><i class="pi pi-pw pi-dollar azul"></i>&nbsp;&nbsp;Total a pagar</h4>
+          <span class="flex justify-content-center">{{ valor | currency: 'BRL' }}</span>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row flex justify-content-center mt-5">
+      <p-button label="Realizar Pagamento" type="submit" icon="pi pi-dollar" [rounded]="true" [outlined]="true" severity="success" ></p-button>
+    </div>
+  </form>
+</div>

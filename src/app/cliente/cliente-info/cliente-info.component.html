@@ -585,33 +585,51 @@
 
                   <td [width]="230">
                     <div class="flex justify-content-around">
-                      <p-button icon="pi"
+                      <p-button
+                        *ngIf="!iniciarConsulta"
+                        icon="pi pi-pw pi-play"
                         [rounded]="true"
                         [outlined]="true"
                         [severity]="'warning'"
                         [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                         pTooltip="Iniciar Consulta"
                         tooltipPosition="top"
-
-                        ><i class="material-icons">play_arrow</i>
+                        (click)="iniciarConsulta(consulta)"
+                        >
                       </p-button>
-                      <p-button icon="pi"
+                      <p-button
+                      *ngIf="iniciarConsulta"
+                      icon="pi pi-spin pi-spinner"
+                      [rounded]="true"
+                      [outlined]="true"
+                      [severity]="'warning'"
+                      [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                      pTooltip="Iniciar Consulta"
+                      tooltipPosition="top"
+
+                      >
+                    </p-button>
+                      <p-button
+                        icon="pi pi-pw pi-info-circle"
                         [rounded]="true"
                         [outlined]="true"
                         severity="info"
                         pTooltip="Informações"
                         tooltipPosition="top"
                         (click)="consultaSelecionadaInfo(consulta?.id)"
-                        ><i class="material-icons">info</i>
+                        >
+                        <!-- <i class="material-icons">info</i> -->
                       </p-button>
-                      <p-button icon="pi"
+                      <p-button icon="pi pi-pw pi-dollar"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="'success'"
-                        [disabled]="!consulta?.dataHoraFimAtendimento"
-                        pTooltip="Pagamento"
+                        [severity]="consulta.pagamento.pago?'secondary':'success'"
+
+                        [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
                         tooltipPosition="top"
-                        ><i class="material-icons">paid</i>
+                        (onClick)="consultaSelecionadaInfo(consulta?.id)"
+                        >
+                        <!-- <i class="material-icons">paid</i> -->
                       </p-button>
                       <!-- <p-button icon="pi"
                         [rounded]="true"

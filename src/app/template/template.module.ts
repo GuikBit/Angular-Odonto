@@ -102,8 +102,7 @@ import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
-    SidebarComponent,
-
+    SidebarComponent
   ],
   imports: [
     CommonModule,

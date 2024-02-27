@@ -1,13 +1,7 @@
-<div class="card box p-component p-5 m-8 " >
+<div class="new p-component px-5">
 
-  <div class="flex header">
-    <div class="col-2 flex justify-content-start align-items-center" >
-      <!-- <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
-      width="180"
-      alt="Foto de perfil do paciente"
-      [preview]="true"
-
-      ></p-image> -->
+  <div class="flex justify-content-between">
+    <div class="col-2 flex justify-content-start align-items-center " >
       <div class="flex justify-content-end">
         @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
           <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
@@ -26,11 +20,6 @@
       </div>
     </div>
     <div class="col-5 ">
-
-
-    </div>
-    <div class="col-5 ">
-
       <div class="flex align-items-center justify-content-end ">
         <!-- <p-menubar [model]="items" styleClass="menuBar" >  </p-menubar> -->
         <ul>
@@ -84,7 +73,7 @@
               [outlined]="true"
               [style]="{'color': '#3B82F6'}"
 
-              (onClick)="salvarEdicao()"
+              (onClick)="this.loading.editar = !this.loading.editar"
               [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
             >
               <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
@@ -96,7 +85,7 @@
               icon="pi"
               [outlined]="true"
               [style]="{'color': '#3B82F6'}"
-              (onClick)="this.loading.editar = true"
+              (onClick)="preparaEdicao()"
               [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
             >
               <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
@@ -141,13 +130,25 @@
           <li pTooltip="Deletar Consulta" tooltipPosition="top">
             <p-button
               icon="pi"
+
               [rounded]="true"
               [outlined]="true"
               [style]="{'color': '#FF3D32'}"
-              [disabled]="consultaSelecionada.pagamento.pago === true"
+              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null) || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
               (onClick)="deletarConsulta()"
               >
               <i class="material-icons">delete</i>
+            </p-button>
+          </li>
+          <li pTooltip="Fechar" tooltipPosition="top">
+            <p-button
+              icon="pi"
+              [rounded]="true"
+              [outlined]="true"
+              [style]="{'color': '#6B7280'}"
+              (onClick)="fecharJanela()"
+              >
+              <i class="material-icons">close</i>
             </p-button>
           </li>
         </ul>
@@ -155,334 +156,183 @@
     </div>
 
   </div>
+  <p-divider layout="horizontal"></p-divider>
 
-    <p-fieldset [toggleable]="true" >
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2 px-2">
-            <span class="font-bold">Detalhes&nbsp;&nbsp;</span>
-            <i class="pi pi-pw pi-list"></i>
-        </div>
-      </ng-template>
-      <div class="flex">
-        <div class="col-1">
-
-        </div>
-        <div class="col-10">
-          <div class="row flex justify-content-around ">
-            <div class="col-5 flex justify-content-center ">
-              <div>
+      <div class="flex ">
+        <div class="col-12">
+          <div class="row flex justify-content-around">
+            <div class="col-5 flex justify-content-start ">
+              <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.paciente.nome}}
+              <!-- <div>
                 <h4 class="flex justify-content-center text-lg ">Paciente</h4>
                 <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.nome}}</span>
-              </div>
+              </div> -->
             </div>
-            <div class="col-3 flex justify-content-center ">
-              <div>
+            <div class="col-3 flex justify-content-start ">
+              <span class="font-bold text-lg"><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;Pasta:&nbsp;</span> {{consultaSelecionada.paciente.numPasta}}
+              <!-- <div>
                 <h4 class="flex justify-content-center text-lg ">Pasta</h4>
                 <span class="azul text-lg "><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.numPasta}}</span>
-              </div>
+              </div> -->
             </div>
-            <div class="col-4 flex justify-content-center">
-              <div>
+            <div class="col-4 flex justify-content-start">
+              <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Idade:&nbsp;</span> {{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}
+              <!-- <div>
                 <h4 class="flex justify-content-center text-lg ">Idade</h4>
                 <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}</span>
-              </div>
+              </div> -->
             </div>
           </div>
 
-          <p-divider layout="horizontal"></p-divider>
+          <!-- <p-divider layout="horizontal"></p-divider> -->
 
-
-          <div class="row flex justify-content-around">
-              <div class="col-5 flex justify-content-center">
-                <div>
+         <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()">
+          <div class="row flex justify-content-around mt-5" [style]="{'height':'6vh'}" >
+              <div class="col-5 flex justify-content-start ">
+                <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Dentista:&nbsp;</span> {{consultaSelecionada.dentista.nome}}
+                <!-- <div>
                   <h4 class="flex justify-content-center text-lg ">Dentista</h4>
                   <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dentista.nome}}</span>
-                </div>
-              </div>
-              <div class="col-2 flex justify-content-center">
-                <div>
-                  <h4 class="flex justify-content-center text-lg ">Data</h4>
-                  @if(!loading.editar){
-                    <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span>
-                  }@else {
-                    <div class="field">
-                      <span class="p-float-label p-float-icon-left">
-                        <p-calendar
-                          [iconDisplay]="'input'"
-                          [showIcon]="true"
-                          inputId="dataConsulta"
-                          (ngModel)="consultaSelecionada.dataConsulta"
-                          [style]="{'width': '8vw'}"
-                          dateFormat="dd/mm/yy"
-                          ></p-calendar>
-
-                      </span>
-                    </div>
-                  }
-
-                </div>
+                </div> -->
               </div>
 
-              <div class="col-2 flex justify-content-center">
-                <div>
-                  <h4 class="flex justify-content-center text-lg ">Inicio</h4>
-                  @if(!loading.editar){
-                    <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span>
-                  }@else {
-                    <div class="field">
-                      <span class="p-float-label p-input-icon-right">
-                        <i class="pi pi-clock azul"></i>
-                        <p-inputMask mask="99:99" [style]="{'width': '6vw'}" [value]="consultaSelecionada.dataConsulta | date: 'HH:mm'"></p-inputMask>
+              <div class="col-2 flex justify-content-start">
 
-                      </span>
-                    </div>
-                  }
-                </div>
+                  <div>
+                    <!-- <h4 class="flex justify-content-center text-lg ">Data</h4> -->
+                    @if(!loading.editar){
+                      <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Data:&nbsp;</span> {{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}
+                      <!-- <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span> -->
+                    }@else {
+                      <div class="field ">
+                        <span class="p-float-label p-float-icon-left ">
+                          <p-calendar
+                            [iconDisplay]="'input'"
+                            [showIcon]="true"
+                            inputId="dataConsulta"
+
+                            [showTime]="false"
+                            formControlName="dataConsulta"
+                            [style]="{'width': '8vw', 'height':'4vh'}"
+                            dateFormat="yy-mm-dd"
+                            ></p-calendar>
+                        </span>
+                      </div>
+                    }
+
+                  </div>
               </div>
 
               <div class="col-2 flex justify-content-center">
+                  <div>
+                    <!-- <h4 class="flex justify-content-center text-lg ">Inicio</h4> -->
+                    @if(!loading.editar){
+                      <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;Inicio:&nbsp;</span> {{consultaSelecionada.dataConsulta | date: "HH:mm"}}
+                      <!-- <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span> -->
+                    }@else {
+                      <div class="field">
+                        <span class="p-float-label p-input-icon-right ">
+                          <i class="pi pi-clock azul"></i>
+                          <p-inputMask mask="99:99" [style]="{'width': '6vw', 'height':'4vh'}" formControlName="horaConsulta"></p-inputMask>
+
+                        </span>
+                      </div>
+                    }
+                  </div>
+              </div>
+
+              <div class="col-2 flex justify-content-start ">
                 <div *ngIf="!loading.editar">
-                  <h4 class="flex justify-content-center text-lg ">Fim</h4>
-                    <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span>
+                    <!-- <h4 class="flex justify-content-center text-lg ">Fim</h4> -->
+                      <!-- <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span> -->
+                    <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;Fim:&nbsp;</span> {{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}
                 </div>
-                <div *ngIf="loading.editar" >
-                  <h4 >&nbsp;</h4>
-                  <p-button label="Reagendar" icon="pi pi-save" [outlined]="true" severity="info" size="small"></p-button>
+                <div *ngIf="loading.editar">
+                  <p-button label="Reagendar" type="sumit" icon="pi pi-save" [rounded]="true" [outlined]="true" severity="info" [style]="{'height':'4vh'}"></p-button>
                 </div>
+              </div>
+
+              <div class="col-1 ">
+
               </div>
 
           </div>
+         </form>
 
-          <div class="row flex justify-content-center mt-6">
-            <div class="col-5 flex justify-content-center ">
-              <div>
+          <div class="row flex justify-content-center mt-5 ">
+            <div class="col-5 flex justify-content-start ">
+              <span class="font-bold text-lg"><i class="pi pi-tag azul"></i>&nbsp;&nbsp;Tipo de Consulta:&nbsp;</span> {{consultaSelecionada.consultaEspecialidade.tipo}}
+              <!-- <div>
                 <h4 class="flex justify-content-center text-lg ">Tipo de Consulta</h4>
                 <span class="azul text-lg "><i class="pi pi-tag azul"></i>&nbsp;&nbsp;{{consultaSelecionada.consultaEspecialidade.tipo}}</span>
-              </div>
+              </div> -->
 
             </div>
             <div class="col-7">
               <div class="flex justify-content-center">
-                <div class="row">
+
+                <!-- <div class="row">
                   <h4 class="text-lg flex justify-content-center align-items-center"><i class="pi pi-pw pi-align-left azul"></i>&nbsp;&nbsp;Observação</h4>
-                  <textarea  id="float-input" rows="2" cols="45" pInputTextarea [value]="consultaSelecionada.observacao" class="azul" disabled></textarea>
-                </div>
+                  <textarea  id="float-input" rows="2" cols="70" pInputTextarea [value]="consultaSelecionada.observacao" class="azul" disabled></textarea>
+                </div> -->
               </div>
             </div>
           </div>
-          <p-divider layout="horizontal"></p-divider>
-        </div>
-        <div class="col-1">
+          <div class="row flex justify-content-center align-items-center mt-5 mb-2">
+            <span class="font-bold text-lg"><i class="pi pi-align-left font-medium azul"></i>&nbsp;&nbsp;Observação&nbsp;&nbsp;</span>
+            <!-- <textarea  id="float-input" rows="1" cols="70" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea> -->
+          </div>
 
         </div>
       </div>
 
-      <div class="row">
-          <div class="flex justify-content-center">
-            <div class="col-8 p-fluid">
-              <span class=" text-lg flex justify-content-center align-items-center mb-5 font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
-              <p-chips [separator]="separatorExp" placeholder="Digite os procedimentos da consulta" class="azul"></p-chips>
-            </div>
+      <p-divider layout="horizontal"></p-divider>
+      <form [formGroup]="formularioProcedimentos" (ngSubmit)="salvarProcedimentos()" >
+        <div class="row flex justify-content-center  mb-6">
+          <div class="col-9 p-fluid">
+
+            <span class=" text-lg flex justify-content-center align-items-center mb-3 font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
+            @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
+              <p-chips
+                [separator]="separatorExp"
+                placeholder="Digite os procedimentos realizados na consulta"
+                class="azul"
+                [disabled]="true"
+              ></p-chips>
+            }
+            @else {
+              <p-chips
+                [separator]="separatorExp"
+                placeholder="Digite os procedimentos realizados na consulta"
+                class="azul"
+                formControlName="procedimentos"
+                [disabled]="true"
+                readonly
+              ></p-chips>
+            }
 
           </div>
-      </div>
-    </p-fieldset>
-
+          <div class="col-3 flex justify-content-end align-items-end">
+            <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
+            [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
+            ><i class="material-icons">task_alt</i></p-button>
+          </div>
+        </div>
+      </form>
 
 
   <!-- <p-button label="Secondary" [text]="true" severity="secondary" (onClick)="pagamento()"></p-button> -->
-    <div class="mt-5" [formGroup]="formulario">
+     <!-- <div class="mt-5" [formGroup]="formulario">
       <p-fieldset [toggleable]="true" >
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2 px-2">
               <span class="font-bold">Pagamento&nbsp;&nbsp;</span>
-              <i class="material-icons" [style]="consultaSelecionada.pagamento.pago? 'color: #22C55E':'color: #F97316'">attach_money</i>
+              <i class="material-icons" [style]="consultaSelecionada.pagamento.pago 'color: #22C55E':'color: #F97316'">attach_money</i>
           </div>
         </ng-template>
-        <div class="col-12">
-          <div class="row flex justify-content-start">
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex align-items-center" ><i class="pi pi-pw pi-bookmark azul"></i>&nbsp;&nbsp;Status do pagamento&nbsp;</h4>
-                <span class="flex justify-content-center">
-                  @if (consultaSelecionada.pagamento.pago)
-                  {
-                    <p-tag icon="pi pi-dollar" severity="success" value="&nbsp;Pago&nbsp;" [rounded]="true"></p-tag>
-                  }
-                  @else
-                  {
-                    <p-tag icon="pi pi-dollar" severity="warning" value="&nbsp;Pendente&nbsp;" [rounded]="true"></p-tag>
-                  }
-                </span>
-              </div>
-            </div>
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-dollar azul"></i>&nbsp;&nbsp;Valor base da consulta</h4>
-                <span class=" flex justify-content-center">{{consultaSelecionada.consultaEspecialidade.valorBase | currency:'BRL'}}</span>
-              </div>
-            </div>
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-calendar azul"></i>&nbsp;&nbsp;Data Pagamento</h4>
-                @if (consultaSelecionada.pagamento.dataDoPagamento) {
-                  <span class=" flex justify-content-center align-items-center">{{consultaSelecionada.pagamento.dataDoPagamento | date: 'dd/MM/yyyy HH:mm'}}</span>
-                }
-                @else {
-                  <span class=" flex justify-content-center"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;--/--/---- --:--</span>
-                }
-              </div>
-            </div>
-          </div>
 
-          <div class="row flex justify-content-around mt-3">
-
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-wallet azul"></i>&nbsp;&nbsp;Forma de pagamento</h4>
-                <p-dropdown [options]="formaPagamento"
-                [style]="{'width': '14vw', 'height':'46px'}"
-                formControlName="formaPagamento"
-                optionLabel="descricao"
-                class="width"
-                >
-                <ng-template let-item pTemplate="selectedItem"> <!-- Template para o item selecionado -->
-                  <i [class]="item?.icon"></i>
-                  {{ item?.label }}
-                </ng-template>
-                <ng-template let-item pTemplate="item"> <!-- Template para cada item no dropdown -->
-                    <i [class]="item?.icon"></i>
-                    {{ item?.label }}
-                </ng-template>
-                </p-dropdown>
-              </div>
-            </div>
-
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-calculator azul"></i>&nbsp;&nbsp;Parcelas</h4>
-                <p-dropdown
-                  [options]="parcelas"
-                  [style]="{'width': '14vw', 'height':'46px'}"
-                  formControlName="parcelas"
-                  optionLabel="label"
-                  optionValue="value"
-                  >
-                      <ng-template let-item pTemplate="selectedItem"> <!-- Template para o item selecionado -->
-                          <i [class]="item?.icon"></i>
-                          {{ item?.label }}
-                      </ng-template>
-                      <ng-template let-item pTemplate="item"> <!-- Template para cada item no dropdown -->
-                          <i [class]="item?.icon"></i>
-                          {{ item?.label }}
-                      </ng-template>
-                  </p-dropdown>
-              </div>
-            </div>
-
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-calculator azul"></i>&nbsp;&nbsp;Forma de calculo</h4>
-                <p-dropdown
-                  [options]="formaCalculo"
-                  [style]="{'width': '14vw', 'height':'46px'}"
-                  formControlName="formaCalculo"
-                  optionLabel="label"
-                  optionValue="value"
-                  >
-                      <ng-template let-item pTemplate="selectedItem"> <!-- Template para o item selecionado -->
-                          <i [class]="item?.icon"></i>
-                          {{ item?.label }}
-                      </ng-template>
-                      <ng-template let-item pTemplate="item"> <!-- Template para cada item no dropdown -->
-                          <i [class]="item?.icon"></i>
-                          {{ item?.label }}
-                      </ng-template>
-                  </p-dropdown>
-              </div>
-            </div>
-
-          </div>
-          <div class="row flex justify-content-around mt-3">
-
-            <div class="col-4 flex justify-content-center">
-              <div>
-                <h4 class="flex justify-content-center  align-items-center"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
-                  Desconto {{formulario.get('formaCalculo')?.value == 2? '(%)':'(R$)'}}
-
-                </h4>
-                <span class="p-float-label" >
-                  @if (formulario.get('formaCalculo')?.value == 2) {
-                  <p-inputNumber
-                    inputId="percent"
-                    suffix="%"
-                    [min]="0"
-                    [max]="30"
-                    formControlName="desconto"
-                    (onInput)="calculoValorConsulta()"
-                  > </p-inputNumber>
-                  }@else {
-                  <p-inputNumber
-                    mode="currency"
-                    inputId="currency-brazil"
-                    currency="BRL"
-                    locale="pt-BR"
-                    formControlName="desconto"
-                    (onInput)="calculoValorConsulta()"
-                  ></p-inputNumber>
-                  }
-                </span>
-
-              </div>
-            </div>
-
-            <div class="col-4 flex justify-content-center ">
-              <div>
-                <h4 class="flex justify-content-center align-items-center"><i class="pi pi-pw pi-arrow-circle-up azul"></i>&nbsp;&nbsp;
-                  Acréscimo {{formulario.get('formaCalculo')?.value == 2? '(%)':'(R$)'}}</h4>
-                <span class="p-float-label">
-                  <span class="p-float-label" >
-                    @if (formulario.get('formaCalculo')?.value == 2) {
-                    <p-inputNumber
-                      inputId="percent"
-                      suffix="%"
-                      [min]="0"
-                      [max]="30"
-                      formControlName="acrescimo"
-                      (onInput)="calculoValorConsulta()"
-                    > </p-inputNumber>
-                    }@else {
-                    <p-inputNumber
-                      mode="currency"
-                      inputId="currency-brazil"
-                      currency="BRL"
-                      locale="pt-BR"
-                      formControlName="acrescimo"
-                      (onInput)="calculoValorConsulta()"
-                    ></p-inputNumber>
-                    }
-                  </span>
-                </span>
-              </div>
-            </div>
-
-            <div class="col-4 flex justify-content-center ">
-              <div>
-                <h4 class="flex align-items-center justify-content-center"><i class="pi pi-pw pi-dollar azul"></i>&nbsp;&nbsp;Total a pagar</h4>
-                <!-- <p-inputNumber inputId="minmaxfraction" prefix="R$ " [(ngModel)]="valor" mode="currency" [minFractionDigits]="2" [maxFractionDigits]="5" > </p-inputNumber> -->
-                <span class="flex justify-content-center">{{ valor | currency: 'BRL' }}</span>
-              </div>
-            </div>
-
-
-          </div>
-          <div class="row flex justify-content-center mt-5">
-            <p-button label="Realizar Pagamento" icon="pi pi-dollar" [outlined]="true" severity="success" ></p-button>
-          </div>
-
-        </div>
       </p-fieldset>
-    </div>
+    </div>-->
 
 
 </div>

@@ -131,8 +131,8 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
 import { AdminModule } from './admin/admin.module';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
 import { AdminMainComponent } from './admin/admin-main/admin-main.component';
-import { PagamentoComponent } from './pagamento/pagamento.component';
 import { Location } from '@angular/common';
+import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
 
 
 @NgModule({
@@ -143,9 +143,8 @@ import { Location } from '@angular/common';
     HomeComponent,
     ClienteNovoComponent,
     ClienteListComponent,
-    ClienteInfoComponent,
-    PagamentoComponent
-   ],
+    ClienteInfoComponent
+  ],
   imports: [
     ReactiveFormsModule,
     ClienteModule,
@@ -252,7 +251,7 @@ import { Location } from '@angular/common';
     StyleClassModule,
     MessagesModule,
     BadgeModule,
-    SplitButtonModule 
+    SplitButtonModule
   ],
   providers: [
   //  ClientesService,

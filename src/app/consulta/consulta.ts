@@ -16,7 +16,7 @@ export class Consulta{
     pagamento: Pagamento;
     consultaEspecialidade: ConsultaEspecialidade;
     observacao: string;
-    procedimento: string;
+    procedimentos: string;
     ausente: boolean;
 
 }

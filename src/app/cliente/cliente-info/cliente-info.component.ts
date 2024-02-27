@@ -19,7 +19,9 @@ import { AssyncServiceService } from 'src/app/assync-service.service';
   providers: [DatePipe]
 })
 export class ClienteInfoComponent implements OnInit {
-  
+iniciarConsulta: any;
+
+
 consultaSelecionadaInfo(arg0: any) {
 throw new Error('Method not implemented.');
 }

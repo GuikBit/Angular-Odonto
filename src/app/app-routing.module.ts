@@ -19,7 +19,7 @@ import { DentistaInfoComponent } from './dentista/dentista-info/dentista-info.co
 import { DentistaEditComponent } from './dentista/dentista-edit/dentista-edit.component';
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
 import { AdminMainComponent } from './admin/admin-main/admin-main.component';
-import { PagamentoComponent } from './pagamento/pagamento.component';
+import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
 
 
 
@@ -47,7 +47,7 @@ const routes: Routes = [
     {path: 'consultas/info/:id', component: ConsultaInfoComponent, canActivate: [AuthGuard]},
     {path: 'consultas/edit/:id', component: ConsultaEditComponent, canActivate: [AuthGuard]},
     //{path: 'relatorio', component: RelatorioComponent, canActivate: [AuthGuard]},
-    {path: 'pagamento', component: PagamentoComponent, canActivate: [AuthGuard]},
+    {path: 'pagamento', component: PagamentoInfoComponent, canActivate: [AuthGuard]},
     {path: 'areaAdmin', component: AdminTemplateComponent, canActivate: [AuthGuard]},
     {path: 'areaAdmin/paciente', component:AdminMainComponent, canActivate: [AuthGuard]},
     {path: '', redirectTo: 'home', pathMatch: 'full'},
