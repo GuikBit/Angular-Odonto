@@ -1,47 +1,52 @@
 
 
-<div class="flex justify-content-center align-items-center text-align-center  h-full">
-  <div class="container">
-    <div class="container_left">
-      <img src="assets/img/odonto.png" alt="Logo Odonto" >
+<div class="flex justify-content-center align-items-center h-full">
+  <div class="row flex justify-content-center align-items-center w-auto h-auto border-solid border-2 container">
+    <div class="col-6">
+      <div class="flex justify-content-center align-items-center">
+        <img src="assets/img/odonto.png" alt="Logo Odonto" width="800" >
+      </div>
+
     </div>
-    <div class="container_right">
-      <div class="create">
-        <div class="createBody">
-
-          <div class="createHeader m-5">
-            <h1 class="titulo">Bem Vindo!</h1>
-          </div>
-
+    <div class="col-6">
+        <div class="flex justify-content-center m-5">
+          <h1 class="titulo">Bem Vindo!</h1>
+        </div>
+        <div class="flex justify-content-center">
           <form  (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
 
+            <div class="field">
+              <span class="p-float-label p-input-icon-left">
+                <i class="pi pi-user azul" ></i>
+                <input pInputText id="login" formControlName="userName" autocomplete="off"/>
+                <label for="login" class="azul">Login</label>
+              </span>
 
-              <div class="field ">
-                <span class="p-float-label p-input-icon-left shadow-1">
-                  <i class="pi pi-user azul" ></i>
-                  <input pInputText id="search" formControlName="userName" autocomplete="off"/>
-                  <label for="search" class="azul">Login</label>
-                </span>
-              </div>
-
-              <div class="field mt-5">
-                <span class="p-float-label p-input-icon-left shadow-1">
-                  <i class="pi pi-key azul" ></i>
-                  <input pInputText id="password" type="password" formControlName="password" autocomplete="off"/>
-                  <label for="password" class="azul">Password</label>
-                </span>
-              </div>
-
-
-            <div class="flex justify-content-center mt-6">
-              <!-- <button label="Acessar" [rounded]="true" type="submit" styleClass="shadow-5" ><i class="material-icons" >login</i>&nbsp;&nbsp;&nbsp;</button> -->
-              <button pButton type="submit" label="Acessar" styleClass="shadow-5" icon="pi pi-sign-in"></button>
             </div>
 
+            <div class="field mt-5">
+              <span class="p-float-label p-input-icon-left shadow-1">
+                <i class="pi pi-key azul" ></i>
+                <input pInputText id="password" type="password" formControlName="password" autocomplete="off"/>
+                <label for="password" class="azul">Password</label>
+              </span>
+
+            </div>
+
+            <div class="flex justify-content-center mt-6">
+              <button pButton type="submit" label="Acessar" styleClass="shadow-5" icon="pi pi-sign-in"></button>
+            </div>
           </form>
         </div>
-      </div>
     </div>
   </div>
-</div>
+
+
+  <!-- <div class="container">
+    <div class="container_left">
+
+    </div>
+
+  </div>
+</div> -->
 

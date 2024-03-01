@@ -2,3 +2,42 @@
   border: 1px solid #c4ddf3;
   border-radius: 8px;
 }
+button{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: 0.9rem;
+  width: 11vw;
+  height: 5vh;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border:none;
+
+}
+
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
+
+
+.btnPagar{
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: 0.9rem;
+  width: 6vw;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border:none;
+}
+
+.btnPagar:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}
+.upload{
+  background-color: #FFF !important;
+}
+ng-template{
+  background: #24aae3;
+}
+
+::ng-deep .valorEntrada .p-inputnumber .p-inputtext {
+  width: 18vh; /* Altura desejada */
+}
+

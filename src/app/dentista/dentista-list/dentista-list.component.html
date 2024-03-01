@@ -281,22 +281,46 @@
                 </td>
                 <td>
                   @if (dentista?.ativo){
-                    <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
+                    <p-tag
+                    severity="success"
+                    value="&nbsp;Ativo&nbsp;"
+                    [rounded]="true">
+                      <i class="material-icons" >task_alt</i>
+                    </p-tag>
                   }
                   @else {
-                    <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
+                    <p-tag
+                    severity="success"
+                    value="&nbsp;Inativo&nbsp;"
+                    [rounded]="true">
+                      <i class="material-icons" >block</i>
+                    </p-tag>
                   }
                 </td>
 
                 <td [width]="200">
                   <div
                     class="flex justify-content-around">
-
-
-                      <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="infoShow(dentista.id)"><i class="material-icons">info</i></p-button>
-                      <!-- <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="EditShowDialog(dentista?.id)"><i class="material-icons" >edit</i></p-button> -->
-                      <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top" (click)="DeletShowDialog()"><i class="material-icons">delete</i></p-button>
-
+                    <p-button
+                      icon="pi pi-pw pi-info-circle"
+                      [rounded]="true"
+                      severity="info"
+                      [outlined]="true"
+                      pTooltip="Informações"
+                      tooltipPosition="top"
+                      (click)="infoShow(dentista.id)"
+                    >
+                    </p-button>
+                    <p-button
+                      icon="pi pi-pw pi-trash"
+                      [rounded]="true"
+                      severity="danger"
+                      [outlined]="true"
+                      pTooltip="Deletar"
+                      tooltipPosition="top"
+                      (click)="DeletShowDialog()"
+                    >
+                    </p-button>
                   </div>
                 </td>
               </tr>

@@ -155,9 +155,15 @@
                     </p-columnFilter> -->
                     <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                       <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="applyFilter()" placeholder="Any">
+                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="applyFilter()" placeholder="Status">
                           <ng-template let-option pTemplate="item">
-                            <p-tag [icon]="option.value == 'Ativo'? 'pi pi-check' : 'pi pi-times'" [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
+                            <p-tag
+                              [severity]="getSeverity(option.label)"
+                              [value]="option.value"
+                              [rounded]="true">
+                              <i class="material-icons" *ngIf="option.value == 'Ativo'">task_alt</i>
+                              <i class="material-icons" *ngIf="!(option.value == 'Ativo')">block</i>
+                            </p-tag>
                           </ng-template>
                         </p-dropdown>
                       </ng-template>
@@ -177,14 +183,38 @@
                 <td>{{ paciente?.cpf }}</td>
                 <td [width]="300">{{ paciente?.dataCadastro | date: "dd/MM/yyyy"}}</td>
                 <td>
-                  <p-tag [icon]="paciente?.ativo? 'pi pi-check' : 'pi pi-times'"  [value]="paciente?.ativo? 'Ativo ':'Inativo '" [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')" [rounded]="true"></p-tag>
+                  <p-tag
+                    [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
+                    [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+                    [rounded]="true">
+                    <i class="material-icons" *ngIf="paciente?.ativo">task_alt</i>
+                    <i class="material-icons" *ngIf="!paciente?.ativo">block</i>
+                  </p-tag>
+
                 </td>
                 <td>
                   <div
                     class="flex justify-content-around">
-                      <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="info(paciente.id)"><i class="material-icons">info</i></p-button>
-                      <!-- <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="editPaciente(paciente.id)"><i class="material-icons" >edit</i></p-button> -->
-                      <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top"><i class="material-icons" (click)="delet(paciente.id)">delete</i></p-button>
+                      <p-button
+                        icon="pi pi-pw pi-info-circle"
+                        [rounded]="true"
+                        severity="info"
+                        [outlined]="true"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        (click)="info(paciente.id)"
+                      >
+                      </p-button>
+                      <p-button
+                        icon="pi pi-pw pi-trash"
+                        [rounded]="true"
+                        severity="danger"
+                        [outlined]="true"
+                        pTooltip="Deletar"
+                        tooltipPosition="top"
+                        (click)="delet(paciente.id)"
+                      >
+                      </p-button>
 
                   </div>
                 </td>

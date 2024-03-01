@@ -5,15 +5,13 @@
 }
 
 .container{
-    width: 60vw;
-    display: flex;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 2vh ;
-    border-width: 2px;
-    border-style: solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
     border-color: #54a2dc;
-    background: #f2f8fd;
+    border-radius: 30px;
+    background: #FFFFFF;
 }
+
 .mat-icon{
     color: #2070B4;
     font-size:26px;
@@ -27,7 +25,6 @@
     border-radius: 2vh 0vh 0vh 2vh;
     display: flex;
     justify-content: center;
-
 }
 
 .container_right{
@@ -35,8 +32,6 @@
     width: 60vw;
     height: 40vh;
     border-radius: 0vh 2vh 2vh 0vh;
-    display: flex;
-    text-align: center;
     position: relative;
 
 }

@@ -1,3 +1,5 @@
+import { Parcela } from "./parcela";
+
 export class Pagamento{
   id: number;
   valorTotal: number;
@@ -6,5 +8,7 @@ export class Pagamento{
   desconto: number;
   acrecimo: number;
   dataDoPagamento: Date;
+
+  parcelas: Parcela[];
 
 }

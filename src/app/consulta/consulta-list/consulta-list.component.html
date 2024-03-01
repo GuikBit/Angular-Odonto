@@ -247,7 +247,6 @@
                 <td [width]="230">
                         <div class="flex justify-content-around">
                           <p-button
-                            *ngIf="!inicioConsulta"
                             icon="pi pi-pw pi-play"
                             [rounded]="true"
                             [outlined]="true"
@@ -258,18 +257,7 @@
                             (click)="iniciarConsulta(consulta)"
                             >
                           </p-button>
-                          <p-button
-                          *ngIf="inicioConsulta"
-                          icon="pi pi-spin pi-spinner"
-                          [rounded]="true"
-                          [outlined]="true"
-                          [severity]="'warning'"
-                          [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                          pTooltip="Iniciar Consulta"
-                          tooltipPosition="top"
 
-                          >
-                        </p-button>
                           <p-button
                             icon="pi pi-pw pi-info-circle"
                             [rounded]="true"
@@ -280,6 +268,7 @@
                             (click)="consultaSelecionadaInfo(consulta?.id, 1)"
                           >
                           </p-button>
+
                           <p-button icon="pi pi-pw pi-dollar"
                             [rounded]="true"
                             [outlined]="true"
@@ -287,27 +276,8 @@
                             [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
                             tooltipPosition="top"
                             (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                            >
-                            <!-- <i class="material-icons">paid</i> -->
+                          >
                           </p-button>
-                          <!-- <p-button icon="pi"
-                            [rounded]="true"
-                            [outlined]="true"
-                            [severity]="consulta?.pagamento.pago? 'secondary':'help'"
-                            [disabled]="consulta?.dataHoraAtendimento == null && consulta?.pagamento.pago"
-                            pTooltip="Reagendar"
-                            tooltipPosition="top"
-                            ><i class="material-icons">edit_document</i>
-                          </p-button> -->
-                          <!-- <p-button icon="pi"
-                            [rounded]="true"
-                            [outlined]="true"
-                            [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
-                            [disabled]="consulta?.pagamento.pago"
-                            pTooltip="Deletar"
-                            tooltipPosition="top"
-                            ><i class="material-icons">delete</i>
-                          </p-button> -->
                         </div>
                 </td>
               </tr>
@@ -335,7 +305,7 @@
   <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
 </p-dialog>
 
-<p-dialog header="Pagamento" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '70vw',  height: '60vh' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Pagamento" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false">
   <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info>
 </p-dialog>
 

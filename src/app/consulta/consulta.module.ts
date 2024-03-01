@@ -184,6 +184,8 @@ import { DialogService } from 'primeng/dynamicdialog';
     ChipsModule,
     FieldsetModule,
     CheckboxModule,
+    FileUploadModule,
+    DataViewModule
 
   ],exports: [
     ConsultaEditComponent,

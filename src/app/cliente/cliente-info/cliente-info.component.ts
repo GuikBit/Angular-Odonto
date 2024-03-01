@@ -1,6 +1,6 @@
 import { MessageService } from 'primeng/api';
 
-import { Component, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Cliente} from '../cliente';
 
@@ -11,6 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PrimeIcons, MenuItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { AssyncServiceService } from 'src/app/assync-service.service';
+import { Consulta } from 'src/app/consulta/consulta';
+import { ConsultaService } from 'src/app/consulta.service';
 
 @Component({
   selector: 'app-cliente-info',
@@ -19,12 +21,8 @@ import { AssyncServiceService } from 'src/app/assync-service.service';
   providers: [DatePipe]
 })
 export class ClienteInfoComponent implements OnInit {
-iniciarConsulta: any;
 
-
-consultaSelecionadaInfo(arg0: any) {
-throw new Error('Method not implemented.');
-}
+  iniciarConsulta: any;
 
   paciente: any;
 
@@ -41,14 +39,21 @@ throw new Error('Method not implemented.');
   RespValidacaoCPF: boolean | null;
   validacaoCPF: boolean | null = null;
   novaConsulta: boolean = false;
-  constructor(private service: ClienteService, private route: ActivatedRoute, private router: Router,
-    private messageService: MessageService, private formBuilder: FormBuilder, private datePipe: DatePipe, private assync: AssyncServiceService) {
+
+  infoConsulta: boolean = false;
+  consultaSelecionada: Consulta;
+  @Output() reloading = new EventEmitter<Boolean>();
+  @Output() closeModal = new EventEmitter<boolean>();
+  pagamentoInfo: boolean = false;
+  consultaSelecionadaPg: any;
+
+  constructor(private service: ClienteService, private route: ActivatedRoute, private router: Router,private serviceConsulta: ConsultaService,
+    private messageService: MessageService, private formBuilder: FormBuilder, private assync: AssyncServiceService) {
       this.paciente = new Cliente();
 
   }
 
   ngOnInit() {
-
     this.loading = false;
     this.buscouCEP = null ;
     this.RespValidacaoCPF = null;
@@ -519,9 +524,8 @@ throw new Error('Method not implemented.');
       this.novaConsulta = false;
     }
   }
-  async closeModal(close: boolean) {
 
-    console.log("Cheguei aqui, ação: ", close);
+  async closeModalInfo(close: boolean) {
     this.novaConsulta = close;
 
     await this.service.getPacienteById(this.paciente.id).then((response)=>{
@@ -543,16 +547,53 @@ throw new Error('Method not implemented.');
      })
 
   }
-  // async closeModal(close: boolean) {
 
-  //   this.messageService.add({
-  //     severity: 'success',
-  //     summary: 'Aviso',
-  //     detail:'Paciente salvo com sucesso.'
-  //   })
-  //   const response = await this.service.getPacientes();
-  //   this.dataSource = new MatTableDataSource(response);
-  // }
+  async consultaSelecionadaInfo(id: any, tipo: any){
+    if(id != null){
+      await this.serviceConsulta.getConsultaById(id).then((response)=>{
+        if(tipo === 1){
+          this.consultaSelecionada = response;
+          this.infoConsulta = true;
+        }else{
+          this.consultaSelecionadaPg = response;
+          this.pagamentoInfo = true;
+        }
+      }).catch((error)=>{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Aviso',
+          detail: 'Houve algum problema ao buscar a consulta',
+          life: 2000
+        })
+      })
+    }
+
+  }
+
+  async closeInfo(close: boolean) {
+    this.infoConsulta = close;
+  }
+
+  async reloadingTela(reloading: Boolean) {
+    const consulta = this.consultaSelecionada.id;
+    this.service.getPacienteById(this.paciente.id).then((response)=>{
+      this.paciente = response;
+
+    }).catch(()=>{
+      this.router.navigate(['/clientes']);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Ocorreu um erro ao carregar o paciente',
+        life: 2000
+      })
+    })
+    this.consultaSelecionadaInfo(consulta, 1);
+  }
+
+  async fecharJanela() {
+    this.closeModal.emit(false);
+  }
 
 }
 

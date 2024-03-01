@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Dentista } from '../dentista';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DentistaService } from 'src/app/dentista.service';
 import { MessageService } from 'primeng/api';
+import { ConsultaService } from 'src/app/consulta.service';
+import { Consulta } from 'src/app/consulta/consulta';
 
 @Component({
   selector: 'app-dentista-info',
@@ -10,14 +12,9 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./dentista-info.component.css']
 })
 export class DentistaInfoComponent implements OnInit {
-iniciarConsulta(_t159: any) {
-throw new Error('Method not implemented.');
-}
-inicioConsulta: any;
 
-consultaSelecionadaInfo(arg0: any) {
-throw new Error('Method not implemented.');
-}
+  consultaSelecionada: Consulta;
+
 
   data: any;
   dataGrafic1: any;
@@ -26,7 +23,12 @@ throw new Error('Method not implemented.');
   options1:any;
   options2: any;
 
-  constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService){}
+  infoConsulta: boolean = false;
+
+  inicioConsulta: any;
+
+  constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService,
+    private serviceConsulta: ConsultaService, private cdr: ChangeDetectorRef){}
 
 
   ngOnInit(){
@@ -147,9 +149,11 @@ throw new Error('Method not implemented.');
         }
 
       }
+
   infoShow(arg0: any) {
-    throw new Error('Method not implemented.');
+
   }
+
   calculaPorcentagem(mesAnterior: number, mesAtual: number) {
     if(mesAnterior === 0){
       return ((mesAtual - mesAnterior ) / 1 );
@@ -158,6 +162,62 @@ throw new Error('Method not implemented.');
       return ((mesAnterior - mesAtual ) / 1 );
     }
     return ((mesAtual - mesAnterior ) / mesAnterior );
+
+  }
+
+  closeInfo($event: Event) {
+
+  }
+    reloadingTela($event: Event) {
+
+  }
+  reloading($event: Event) {
+
+    }
+
+  iniciarConsulta(_t159: any) {
+
+  }
+
+
+  // async consultaSelecionadaInfo(id: any) {
+  //   if (id != null) {
+  //     this.serviceConsulta.getConsultaById(id).then(async(response) => {
+  //       this.consultaSelecionada = response;
+  //       this.infoConsulta = true;
+
+  //     }).catch((error) => {
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Aviso',
+  //         detail: 'Houve algum problema ao buscar a consulta',
+  //         life: 2000
+  //       });
+  //     });
+  //   }
+  // }
+  async consultaSelecionadaInfo(id: any, tipo: any){
+    if(id != null){
+      console.log("Entrei aqui")
+      this.serviceConsulta.getConsultaById(id).then((response)=>{
+        console.log("Busquei os dadaos")
+        this.consultaSelecionada = response;
+        console.log("Preenchi uma vez")
+        this.consultaSelecionada = response;
+        console.log("Preenchi duas vezes")
+        console.log(this.consultaSelecionada)
+        this.infoConsulta = true;
+        console.log("Mostra o modal")
+
+      }).catch((error)=>{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Aviso',
+          detail: 'Houve algum problema ao buscar a consulta',
+          life: 2000
+        })
+      })
+    }
 
   }
 

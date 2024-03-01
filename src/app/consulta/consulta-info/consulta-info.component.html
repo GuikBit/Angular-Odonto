@@ -99,7 +99,7 @@
               [rounded]="true"
               [outlined]="true"
               [style]="{'color': '#EEC137'}"
-              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
+              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || (consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
               (onClick)="ausentarPaciente()"
             >
               <i class="material-icons">person_off</i>
@@ -134,7 +134,7 @@
               [rounded]="true"
               [outlined]="true"
               [style]="{'color': '#FF3D32'}"
-              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null) || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
+              [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
               (onClick)="deletarConsulta()"
               >
               <i class="material-icons">delete</i>

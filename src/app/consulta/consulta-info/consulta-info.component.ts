@@ -24,6 +24,7 @@ interface Loading {
 export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
+
   @Input() consultaSelecionada: Consulta;
   @Output() reloading = new EventEmitter<Boolean>();
   @Output() closeModal = new EventEmitter<boolean>();
@@ -47,6 +48,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
+    console.log("Cheguei aqui")
     if (this.formularioEditar) {
       this.formularioEditar.reset(); // Limpe os valores dos controles do formulário
       this.formularioEditar.disable(); // Desative o formulário para evitar interações
@@ -59,8 +61,6 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   async ngOnInit() {
     this.criaFormularioEditar();
     this.criaFormularioProcedimentos();
-    console.log((this.consultaSelecionada.dataHoraInicioAtendimento !== null && this.consultaSelecionada.dataHoraFimAtendimento === null) || this.consultaSelecionada.ausente === true)
-    console.log(this.consultaSelecionada.procedimentos === '')
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -100,22 +100,24 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   async salvarProcedimentos(){
-    const procedimentos = JSON.stringify(this.formularioProcedimentos.get('procedimentos')?.value)
 
-    if(procedimentos){
-      this.consultaSelecionada.procedimentos = procedimentos;
-      this.service.postProcedimentoConsulta(this.consultaSelecionada).then((response)=>{
+      const procedimentos = JSON.stringify(this.formularioProcedimentos.get('procedimentos')?.value)
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Aviso',
-          detail: 'Procedimentos salvo e finalizada'
+      if(procedimentos){
+        this.consultaSelecionada.procedimentos = procedimentos;
+        this.service.postProcedimentoConsulta(this.consultaSelecionada).then((response)=>{
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Aviso',
+            detail: 'Procedimentos salvo e finalizada'
+          })
+          this.reloading.emit(true);
+        }).catch((error)=>{
+
         })
-        this.reloading.emit(true);
-      }).catch((error)=>{
+      }
 
-      })
-    }
   }
 
   async buscarConsulta(id: any){
@@ -306,43 +308,45 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   finalizarConsulta(){
-    this.loading.finalizar = true;
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Aviso',
-      detail: 'Finalizando consulta...'
-    })
-    setTimeout(async () => {
-      if(this.consultaSelecionada !== null){
 
-        this.service.finalizarConsulta(this.consultaSelecionada?.id).then(()=>{
-          this.messageService.clear();
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Aviso',
-            detail: 'Consulta finalizada com sucesso...'
+      this.loading.finalizar = true;
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Aviso',
+        detail: 'Finalizando consulta...'
+      })
+      setTimeout(async () => {
+        if(this.consultaSelecionada !== null){
+
+          this.service.finalizarConsulta(this.consultaSelecionada?.id).then(()=>{
+            this.messageService.clear();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Aviso',
+              detail: 'Consulta finalizada com sucesso...'
+            })
+            this.loading.finalizar = false;
+
+            this.reloading.emit(true);
+
+          }).catch(()=>{
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Aviso',
+              detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
+            })
+            this.loading.finalizar = false;
           })
-          this.loading.finalizar = false;
-
-          this.reloading.emit(true);
-
-        }).catch(()=>{
+        }else{
           this.messageService.add({
             severity: 'warn',
             summary: 'Aviso',
-            detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
+            detail: 'Houve um erro interno, entre em contato com o suporte'
           })
           this.loading.finalizar = false;
-        })
-      }else{
-        this.messageService.add({
-          severity: 'warn',
-          summary: 'Aviso',
-          detail: 'Houve um erro interno, entre em contato com o suporte'
-        })
-        this.loading.finalizar = false;
-      }
-    }, 1500)
+        }
+      }, 1500)
+
   }
 
   iniciarConsulta() {

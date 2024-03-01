@@ -546,7 +546,7 @@
       <div class="col-8">
         <div class="row flex align-items-center">
           <div class="col-12">
-            <div class="card box p-5  " [style]="{'height': 'auto', 'width': '100%'}">
+            <div class="card box p-5" [style]="{'height': 'auto', 'width': '100%'}">
               <div class="flex justify-content-between m-3 ">
                 <span class="p-float-label p-input-icon-left ">
                   <i class="pi pi-search azul" ></i>
@@ -554,8 +554,6 @@
                   <label for="search" class="azul">Buscar Consulta...</label>
                 </span>
                 <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus"></button>
-
-
               </div>
               <p-table
                 #productsTable
@@ -572,20 +570,20 @@
               >
                 <ng-template pTemplate="header">
                   <tr>
-                    <th pSortableColumn="paciente" [width]="420">
+                    <th pSortableColumn="nome" [width]="420">
                       <div class="flex row align-items-center">
                         <div class="col-8 flex justify-content-start align-items-center">
                           Paciente
                         </div>
                         <div class="col-4 flex justify-content-end align-items-center">
                           <p-sortIcon
-                            field="paciente"
+                            field="nome"
                             pTooltip="Ordenar"
                             tooltipPosition="top"
                           ></p-sortIcon>
                           <p-columnFilter
                             type="text"
-                            field="paciente"
+                            field="nome"
                             display="menu"
                             pTooltip="Filtrar"
                             tooltipPosition="top"
@@ -696,15 +694,7 @@
                     <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ consulta?.dataConsulta | date: 'HH:mm' }}</td>
                     <td>
-                      <!-- @if (consulta?.pagamento.pago)
-                          {
-                            <p-tag icon="pi pi-dollar" severity="success" value="Atentida&nbsp;" [rounded]="true"></p-tag>
-                          }
-                        @else
-                          {
-                            <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
-                          } -->
-                          @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                        @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
                             <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
                           }
                         @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
@@ -722,7 +712,6 @@
                     <td [width]="230">
                       <div class="flex justify-content-around">
                         <p-button
-                          *ngIf="!inicioConsulta"
                           icon="pi pi-pw pi-play"
                           [rounded]="true"
                           [outlined]="true"
@@ -734,58 +723,17 @@
                           >
                         </p-button>
                         <p-button
-                        *ngIf="inicioConsulta"
-                        icon="pi pi-spin pi-spinner"
-                        [rounded]="true"
-                        [outlined]="true"
-                        [severity]="'warning'"
-                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                        pTooltip="Iniciar Consulta"
-                        tooltipPosition="top"
-
-                        >
-                      </p-button>
-                        <p-button
                           icon="pi pi-pw pi-info-circle"
                           [rounded]="true"
                           [outlined]="true"
                           severity="info"
                           pTooltip="Informações"
                           tooltipPosition="top"
-                          (click)="consultaSelecionadaInfo(consulta?.id)"
+                          (click)="consultaSelecionadaInfo(consulta?.id, 1)"
                           >
-                          <!-- <i class="material-icons">info</i> -->
                         </p-button>
-                        <!-- <p-button icon="pi pi-pw pi-dollar"
-                          [rounded]="true"
-                          [outlined]="true"
-                          [severity]="consulta.pagamento.pago?'secondary':'success'"
-
-                          [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
-                          tooltipPosition="top"
-                          (onClick)="consultaSelecionadaInfo(consulta?.id)"
-                          >
-                        </p-button> -->
-                        <!-- <p-button icon="pi"
-                          [rounded]="true"
-                          [outlined]="true"
-                          [severity]="consulta?.pagamento.pago? 'secondary':'help'"
-                          [disabled]="consulta?.dataHoraAtendimento == null && consulta?.pagamento.pago"
-                          pTooltip="Reagendar"
-                          tooltipPosition="top"
-                          ><i class="material-icons">edit_document</i>
-                        </p-button> -->
-                        <!-- <p-button icon="pi"
-                          [rounded]="true"
-                          [outlined]="true"
-                          [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
-                          [disabled]="consulta?.pagamento.pago"
-                          pTooltip="Deletar"
-                          tooltipPosition="top"
-                          ><i class="material-icons">delete</i>
-                        </p-button> -->
                       </div>
-              </td>
+                    </td>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
@@ -797,15 +745,11 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
-  <!-- <div class="card flex justify-content-center m-3">
-    <p-fieldset legend="Informações Pessoais" [toggleable]="true" >
-
-    </p-fieldset>
-  </div> -->
-
 </div>
+
+<p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="true">
+  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+</p-dialog>

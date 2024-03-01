@@ -14,19 +14,31 @@
       <div class="grid">
         <div class="col-12">
           <div class="mt-6">
-            <span class="text-5xl font-semibold flex align-items-end p-component">{{paciente.nome}}</span>
+            <span class="text-5xl font-semibold p-component">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
+             <p-tag
+            [severity]="(paciente.ativo? 'success' : 'danger')"
+            [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+            [rounded]="true">
+              <i class="material-icons" *ngIf="paciente?.ativo">task_alt</i>
+              <i class="material-icons" *ngIf="!paciente?.ativo">block</i>
+            </p-tag>
             <span clas="ml-3">
-            @if (paciente.ativo){
-              <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
-            }
-            @else {
-              <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
-            }</span>
+
+            </span>
           </div>
         </div>
       </div>
-      <div class="grid mt-2">
-        <div class="col-2 flex justify-content-center">
+      <div class="grid mt-5">
+        <div class="col-1 flex justify-content-center align-items-center ">
+          <!-- <p-tag
+              [severity]="(paciente.ativo? 'success' : 'danger')"
+              [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+              [rounded]="true">
+                <i class="material-icons" *ngIf="paciente?.ativo">task_alt</i>
+                <i class="material-icons" *ngIf="!paciente?.ativo">block</i>
+            </p-tag> -->
+        </div>
+        <div class="col-1 flex justify-content-center ">
           <p class="text-xl font-semibold flex align-items-end p-component">
             <i class="pi pi-folder-open text-2xl"></i>
             &nbsp;&nbsp;{{paciente.numPasta}}
@@ -38,14 +50,13 @@
             &nbsp;&nbsp;{{ calcularIdade(paciente.dataNascimento) }}
           </p>
         </div>
-        <div class="col-2 flex justify-content-center align-content-center">
+        <div class="col-2 flex justify-content-center align-content-center ">
           <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer" (click)="abrirwhatsapp()">
             <i class="pi pi-whatsapp text-2xl text-green-700 "></i>
              &nbsp;&nbsp;{{paciente.telefone}}
            </p>
         </div>
 
-        <div class="col-3"></div>
         <div class="col-3 ">
           <!-- <p-speedDial [model]="items" direction="down" [transitionDelay]="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial> -->
         </div>
@@ -616,7 +627,7 @@
                         severity="info"
                         pTooltip="Informações"
                         tooltipPosition="top"
-                        (click)="consultaSelecionadaInfo(consulta?.id)"
+                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
                         >
                         <!-- <i class="material-icons">info</i> -->
                       </p-button>
@@ -627,7 +638,7 @@
 
                         [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
                         tooltipPosition="top"
-                        (onClick)="consultaSelecionadaInfo(consulta?.id)"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
                         >
                         <!-- <i class="material-icons">paid</i> -->
                       </p-button>
@@ -838,35 +849,55 @@
                     }
                   </td>
 
-                  <td [width]="400">
+                  <td [width]="230">
                     <div class="flex justify-content-around">
-                      <p-button icon="pi"
+                      <p-button
+                        *ngIf="!iniciarConsulta"
+                        icon="pi pi-pw pi-play"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta?.pagamento.pago? 'secondary':'warning'"
-                        [disabled]="consulta?.pagamento.pago"
+                        [severity]="'warning'"
+                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                         pTooltip="Iniciar Consulta"
                         tooltipPosition="top"
-                        ><i class="material-icons">play_arrow</i>
+                        (click)="iniciarConsulta(consulta)"
+                        >
                       </p-button>
-                      <p-button icon="pi"
+                      <p-button
+                      *ngIf="iniciarConsulta"
+                      icon="pi pi-spin pi-spinner"
+                      [rounded]="true"
+                      [outlined]="true"
+                      [severity]="'warning'"
+                      [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                      pTooltip="Iniciar Consulta"
+                      tooltipPosition="top"
+
+                      >
+                    </p-button>
+                      <p-button
+                        icon="pi pi-pw pi-info-circle"
                         [rounded]="true"
                         [outlined]="true"
                         severity="info"
                         pTooltip="Informações"
                         tooltipPosition="top"
-                        ><i class="material-icons">info</i>
+                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                        >
+                        <!-- <i class="material-icons">info</i> -->
                       </p-button>
-                      <p-button icon="pi"
+                      <p-button icon="pi pi-pw pi-dollar"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta?.pagamento.pago? 'secondary':'success'"
-                        [disabled]="consulta?.pagamento.pago"
-                        pTooltip="Pagamento"
+                        [severity]="consulta.pagamento.pago?'secondary':'success'"
+
+                        [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
                         tooltipPosition="top"
-                        ><i class="material-icons">paid</i>
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                        >
+                        <!-- <i class="material-icons">paid</i> -->
                       </p-button>
-                      <p-button icon="pi"
+                      <!-- <p-button icon="pi"
                         [rounded]="true"
                         [outlined]="true"
                         [severity]="consulta?.pagamento.pago? 'secondary':'help'"
@@ -874,8 +905,8 @@
                         pTooltip="Reagendar"
                         tooltipPosition="top"
                         ><i class="material-icons">edit_document</i>
-                      </p-button>
-                      <p-button icon="pi"
+                      </p-button> -->
+                      <!-- <p-button icon="pi"
                         [rounded]="true"
                         [outlined]="true"
                         [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
@@ -883,7 +914,7 @@
                         pTooltip="Deletar"
                         tooltipPosition="top"
                         ><i class="material-icons">delete</i>
-                      </p-button>
+                      </p-button> -->
                     </div>
                   </td>
                 </tr>
@@ -910,5 +941,13 @@
 </div>
 
 <p-dialog header="Nova Consulta" [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '40vw', height: '85vh' }" class="box" [draggable]="false" [resizable]="false">
-  <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModal($event)"></app-consulta-nova>
+  <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModalInfo($event)"></app-consulta-nova>
+</p-dialog>
+
+<p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="false">
+  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloadingTela($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+</p-dialog>
+
+<p-dialog header="Pagamento" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false">
+  <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info>
 </p-dialog>
