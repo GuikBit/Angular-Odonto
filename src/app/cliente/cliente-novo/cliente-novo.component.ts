@@ -30,6 +30,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   // @Input() pacienteSelecionado: Cliente;
   @Output() msgReturn = new EventEmitter<Message>();
   @Output() closeModal = new EventEmitter<boolean>();
+  @Output() onlyClose = new EventEmitter<boolean>();
   // Dados do Cliente
   cliente: Cliente;
   //id: number;
@@ -65,6 +66,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     this.cliente = new Cliente();
     this.criaFormulario(new Cliente());
   }
+
   ngOnDestroy(): void {
     this.indiceStep = 1
     this.activeIndex = 0;
@@ -78,23 +80,25 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     this.items = [
       {
           id: '1',
+
           label: 'Informações Pessoais',
+          icon: 'pi pi-pw pi-user'
 
       },
       {
           id: '2',
           label: 'Responsável',
-
+          icon: 'pi pi-pw pi-users'
       },
       {
           id: '3',
           label: 'Endereço',
-
+          icon: 'pi pi-map-marker'
       },
       {
           id: '4',
           label: 'Anamnese',
-
+          icon: 'pi pi-pw pi-file'
       }
   ];
   }
@@ -104,8 +108,10 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     const pacienteJson = JSON.stringify(paciente);
 
     if(this.validaFormulario()){
+      // console.log("Paciente: ", paciente)
+      console.log("Paciente json: ",pacienteJson)
       this.service.postPaciente(pacienteJson)
-      .then(response =>{
+      .then((response) =>{
         if(response?.status === 201 || response?.status === 200 ){
           this.closeModal.emit(false)
         }
@@ -142,9 +148,6 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
 
   }
 
-  onBasicUploadAuto(event: any) {
-    this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
-  }
 
   onActiveIndexChange(event: number) {
     this.activeIndex = event;
@@ -307,9 +310,9 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
       email: ['', Validators.required],
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
-      dataCadastro: [''],
       dataNascimento: ['', Validators.required],
       telefone: ['', Validators.required],
+      fotoPerfil: [],
 
       // Endereço
       endereco: this.formBuilder.group({
@@ -385,6 +388,10 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   prevStep() {
     this.indiceStep--;
     this.activeIndex --;
+  }
+
+  fecharModal(){
+    this.onlyClose.emit(false);
   }
 
 

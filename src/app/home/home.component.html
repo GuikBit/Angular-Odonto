@@ -4,7 +4,7 @@
   </div>
   <div class="row flex justify-content-center mb-8">
     <!-- Filtros -->
-    <div class="col-2 pl-3 ">
+    <div class="pl-3 md:none lg:col-2 filtroMovel">
       <!-- <div class="fixed left-5 "id="menu"> -->
       <div class=" "id="menu">
         <div class="card box mt-2 px-5 py-2">
@@ -134,14 +134,14 @@
       </div>
     </div>
     <!-- Graficos -->
-    <div class="col-10 ">
-      <div class="row flex">
+    <div class="col-10 col-12 md:col-12 lg:col-10">
+      <div class="row lg:flex">
 
-        <div class="col-3">
+        <div class="md:col-12 lg:col-3">
           <div class="card box flex" >
             <div class="col-6 py-4 " >
               <div class="row flex justify-content-start align-items-center ml-2">
-                <span class="font-bold text-600 text-3xl" pTooltip="Minutos" tooltipPosition="right">{{this.data.qtdPacienteMes[0]}} novos</span>
+                <span class="font-bold text-600 text-3x1 text-3xl " >{{this.data.qtdPacienteMes[0]}} novos</span>
               </div>
               <div class="row flex">
                 <span class="text-lg text-600 font-medium ml-2 mr-3 ">Pacientes</span>
@@ -173,7 +173,7 @@
                       {
                         fill: false,
                         data: [this.data.qtdPacienteMes[5],this.data.qtdPacienteMes[4], this.data.qtdPacienteMes[3], this.data.qtdPacienteMes[2], this.data.qtdPacienteMes[1], this.data.qtdPacienteMes[0] ],
-                        borderColor: this.data.qtdMes[0] > this.data.qtdMes[1]? '#FF6259':'#4CD07D',
+                        borderColor: this.data.qtdMes[0] < this.data.qtdMes[1]? '#FF6259':'#4CD07D',
                         tension: 0.4
                       }
                     ],
@@ -232,7 +232,7 @@
           </div>
         </div>
 
-        <div class="col-3">
+        <div class="md:col-12 lg:col-3">
           <div class="card box flex" >
             <div class="col-6 py-4 " >
               <div class="row flex justify-content-start align-items-center ml-2">
@@ -269,7 +269,7 @@
                     {
                       fill: false,
                       data: [this.data.qtdAtrasoMes[5], this.data.qtdAtrasoMes[4], this.data.qtdAtrasoMes[3], this.data.qtdAtrasoMes[2], this.data.qtdAtrasoMes[1], this.data.qtdAtrasoMes[0]],
-                      borderColor: this.data.qtdMes[0] < this.data.qtdMes[1]? '#FF6259':'#4CD07D',
+                      borderColor: this.data.qtdMes[0] > this.data.qtdMes[1]? '#FF6259':'#4CD07D',
                       tension: 0.4
                     }
                   ],
@@ -330,7 +330,7 @@
           </div>
         </div>
 
-        <div class="col-3">
+        <div class="md:col-12 lg:col-3">
           <div class="card box flex" >
             <div class="col-6 py-4 " >
               <div class="row flex justify-content-start align-items-center ml-2">
@@ -426,7 +426,7 @@
           </div>
         </div>
 
-        <div class="col-3">
+        <div class="md:col-12 lg:col-3">
           <div class="card box flex" >
             <div class="col-7 py-4 " >
               <div class="row flex justify-content-start align-items-center ">
@@ -525,19 +525,18 @@
 
       </div>
 
-      <div class="row flex">
-        <div class="col-9">
+      <div class="row lg:flex">
+        <div class="md:col-12 lg:col-9">
 
           <div class="card line">
             <span class="cardTitulo mb-2">Total de Consultas</span>
             <p-chart
-              height="452"
               type="line"
               [data]="dataLine"
               [options]="basicOptions"
               ></p-chart>
           </div>
-          <div class="card bar mt-4">
+          <div class="card bar lg:mt-4">
             <span class="cardTitulo mb-2">Consultas por Dentista</span>
             <p-chart
               type="line"
@@ -547,7 +546,7 @@
           </div>
         </div>
 
-        <div class="col-3">
+        <div class="md:col-12 lg:col-3">
           <div class="card doughnut ">
             <span class="cardTitulo mb-2">Procedimentos</span>
             <p-chart
@@ -560,7 +559,6 @@
           <div class="card doughnut mt-4">
             <span class="cardTitulo mb-2">Especialidades</span>
             <p-chart
-
               type="pie"
               [data]="dataPie"
               [options]="basicOptionsPie"

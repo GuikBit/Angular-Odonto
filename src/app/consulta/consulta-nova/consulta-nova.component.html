@@ -1,7 +1,7 @@
 
 
 
-  <div class="card p-component pt-4 new">
+  <div class="card p-component pt-4 new ">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
       <div class="row flex justify-content-around mt-2 h-4rem">
         <div class="">
@@ -9,6 +9,8 @@
             <p-dropdown
               *ngIf="!pacienteSelecionado"
               [options]="listaPaciente"
+              appendTo="body"
+              [autoZIndex]="true"
               formControlName="paciente"
               [filter]="true"
               filterBy="nome"
@@ -28,6 +30,8 @@
           <span class="p-float-label  p-input-icon-right">
             <p-dropdown
               [options]="listaDentista"
+              appendTo="body"
+              [autoZIndex]="true"
               formControlName="dentista"
               optionLabel="nome"
               [filter]="true"
@@ -51,6 +55,8 @@
                 <p-calendar
                   [iconDisplay]="'input'"
                   [showIcon]="true"
+                  appendTo="body"
+                  [autoZIndex]="true"
                   inputId="dataConsulta"
                   placeholder="dd/mm/yyyy"
                   dateFormat="dd/mm/yy"
@@ -81,6 +87,8 @@
             <span class="p-float-label  p-input-icon-right">
               <p-dropdown
                 [options]="listaEspecConsulta"
+                appendTo="body"
+                [autoZIndex]="true"
                 formControlName="consultaEspecialidade"
                 optionLabel="tipo"
                 [style]="{'width': '16vw', 'height':'46px'}"
@@ -127,7 +135,8 @@
         </span>
       </div>
       <div class="flex justify-content-center align-content-center m-3">
-        <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar"></button>
+        <p-button label="Cancelar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
+        <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar mx-2"></button>
      </div>
     </form>
   </div>

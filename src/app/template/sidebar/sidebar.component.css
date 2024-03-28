@@ -53,3 +53,21 @@
   background: linear-gradient(to right, #194973, #0f82ba)
 }
 
+
+@media (max-width: 768px) {
+
+  button {
+      font-size: 0rem; /* Ajustei o tamanho do botão para dispositivos menores */
+      width: 13vw; /* Ajustei a largura do botão para dispositivos menores */
+      height: 3vh;
+      box-shadow: none;
+    }
+
+
+    .menus {
+      position: fixed;
+      bottom: 20px;
+      width: 90vw;
+      height: 6vh;
+    }
+}

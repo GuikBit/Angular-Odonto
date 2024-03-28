@@ -140,4 +140,8 @@ export class DentistaListComponent implements AfterViewInit{
       detail: 'Dentista salvo com sucesso!'
     })
   }
+
+  onlyClose(close: boolean){
+    this.novo = close;
+  }
 }

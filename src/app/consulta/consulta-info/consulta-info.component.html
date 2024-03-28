@@ -268,19 +268,18 @@
               </div> -->
 
             </div>
-            <div class="col-7">
-              <div class="flex justify-content-center">
-
-                <!-- <div class="row">
+             <div class="col-7">
+              <!--<div class="flex justify-content-center">
+                <div class="row">
                   <h4 class="text-lg flex justify-content-center align-items-center"><i class="pi pi-pw pi-align-left azul"></i>&nbsp;&nbsp;Observação</h4>
-                  <textarea  id="float-input" rows="2" cols="70" pInputTextarea [value]="consultaSelecionada.observacao" class="azul" disabled></textarea>
-                </div> -->
-              </div>
+                   <textarea  id="float-input" rows="2" cols="70" pInputTextarea [(ngModel)]="consultaSelecionada.observacao" class="azul" disabled></textarea>
+                </div>
+              </div>-->
             </div>
           </div>
           <div class="row flex justify-content-center align-items-center mt-5 mb-2">
             <span class="font-bold text-lg"><i class="pi pi-align-left font-medium azul"></i>&nbsp;&nbsp;Observação&nbsp;&nbsp;</span>
-            <!-- <textarea  id="float-input" rows="1" cols="70" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea> -->
+            <textarea  id="float-input" rows="2" cols="70" [autoResize]="true" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea>
           </div>
 
         </div>

@@ -751,5 +751,7 @@
 </div>
 
 <p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="true">
-  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+  <ng-template pTemplate="content">
+    <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+  </ng-template>
 </p-dialog>

@@ -1,10 +1,10 @@
-<div class="row flex justify-content-center align-items-center new">
+<div class="row flex justify-content-center align-items-center new lg:px-8">
   <div class="">
     <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
       <div class="card">
-        <div class="row flex justify-content-around ">
+        <div class="row lg:flex lg:justify-content-around ">
 
-          <div class="field col-4">
+          <div class="field md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-left p-input-icon-right width">
               <i class="pi pi-user azul"></i>
               <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
@@ -17,17 +17,17 @@
             <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
           </div>
 
-          <div class="field col-4">
+          <div class="field md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-left p-input-icon-right  width">
               <i class="pi pi-key azul"></i>
               <i [ngClass]="hide? 'pi pi-eye azul' : 'pi pi-eye-slash azul'" (click)="hide = !hide"></i>
-              <input pInputText [type]="hide ? 'password' : 'text'" id="password" formControlName="senha" class="width"/>
+              <input pInputText [type]="hide ? 'text' : 'password'" id="password" formControlName="senha" class="width"/>
               <label for="password" class="azul">Senha</label>
             </span>
             <small *ngIf="formulario.controls['senha'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field col-3">
+          <div class="field md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-right width">
               <p-calendar inputId="dataNascimento" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width" appendTo="body" [autoZIndex]="true">
                 <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
@@ -41,9 +41,9 @@
 
         </div>
 
-        <div class=" row flex justify-content-center  mt-3 mb-3">
+        <div class=" row lg:flex lg:justify-content-center  mt-3 mb-3">
 
-            <div class="field col-5 ">
+            <div class="field md:col-12 lg:col-5 ">
               <span class="p-float-label p-input-icon-left width"  >
                 <i class="pi pi-pencil azul"></i>
                 <input pInputText id="nome" formControlName="nome" required class="width" />
@@ -52,7 +52,7 @@
               <small *ngIf="formulario.controls['nome'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
             </div>
 
-            <div class="field col-4 ml-5 mr-5">
+            <div class="field md:col-12 lg:col-4">
               <span class="p-float-label p-input-icon-left p-input-icon-right width">
                 <i class="pi pi-id-card azul"></i>
                 @if (!validacaoCPF && validacaoCPF != null || existeCPF) {
@@ -70,11 +70,10 @@
               <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
             </div>
 
-
-            <div class="field col-3 ">
+            <div class="field md:col-12 lg:col-3 ">
               <span class="p-float-label" [style]="{width: '100%'}">
                 <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
-                <p-dropdown [options]="especialidades" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
+                <p-dropdown [options]="especialidades" appendTo="body" [autoZIndex]="true" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
                 <label for="float-label" class="azul">Especialidade</label>
 
               </span>
@@ -83,9 +82,9 @@
 
         </div>
 
-        <div class="row flex justify-content-center mt-3 mb-3">
+        <div class="row lg:flex lg:justify-content-center mt-3 mb-3">
 
-          <div class="field col-3 ">
+          <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-id-card azul"></i>
               <input pInputText id="cro" formControlName="cro" maxlength="5" required  class="width" />
@@ -94,7 +93,7 @@
             <small *ngIf="formulario.controls['cro'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field col-3 ml-6 mr-6">
+          <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-phone azul"></i>
               <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required class="width" />
@@ -103,7 +102,7 @@
             <small *ngIf="formulario.controls['telefone'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field col-5 ">
+          <div class="field md:col-12 lg:col-6 ">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-envelope azul"></i>
               <input pInputText id="email" formControlName="email" required  class="width" />
@@ -112,21 +111,15 @@
             <small *ngIf="formulario.controls['email'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-
-
         </div>
-
       </div>
+
       <div class="flex justify-content-center align-content-center">
-
+        <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
         <!-- <button pButton type="button" (click)="prevStep()" label="Voltar" icon="pi pi-angle-left" class="btnVoltar"></button> -->
-        <button pButton type="submit"  label="Salvar" icon="pi pi-save" class="btnSalvar"></button>
-     </div>
-
+        <p-button label="Salvar" [rounded]="true" severity="success" [outlined]="true" icon="pi pi-save" class=" mx-2"></p-button>
+        <!-- <button pButton type="submit"  label="Salvar" icon="pi pi-save" class="btnSalvar mx-2"></button> -->
+      </div>
     </form>
-
   </div>
-
-
-
 </div>

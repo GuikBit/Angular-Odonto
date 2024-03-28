@@ -21,6 +21,13 @@
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 
 }
+.new{
+  background: #FFFFFF;
+  border-radius: 8px ;
+  border: 1px solid #c4ddf3;
+  /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
+
+}
 
 .options{
   background: #FFFFFF;
@@ -107,4 +114,45 @@ border-radius: 50px;
   border-radius: 15px;
   margin-inline: 2vw;
   border: none;
+}
+
+.btnSalvarFoto{
+  width: 7vw;
+  background: linear-gradient(to right, #2070b4, #24aae3);;
+  border-radius: 25px;
+  border: none;
+}
+
+input[type=file]{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 46px;
+  max-width: 100%;
+  color: #8a8989;
+  padding: 5px;
+  background: #fff;
+  border-radius: 7px;
+  border: 1px solid #c7c7c7;
+  font: 14px/20px Roboto, sans-serif;
+
+}
+input[type=file]::file-selector-button {
+  font-weight: 500;
+  margin-right: 20px;
+  border: none;
+  text-emphasis: none;
+  height: 35px;
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: #fff;
+  cursor: pointer;
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12); */
+}
+
+input[type=file]::file-selector-button:hover {
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10), 0 6px 6px rgba(0, 0, 0, 0.10);
 }

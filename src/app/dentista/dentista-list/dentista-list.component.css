@@ -9,16 +9,52 @@
 
 }
 
-@media screen and (min-width: 1400px) {
-  .grid {
-    background-position: top;
+
+
+
+@media only screen and (max-width: 767px) {
+
+  button {
+      font-size: 1.5rem; /* Ajustei o tamanho do botão para dispositivos menores */
+      width: 30vw; /* Ajustei a largura do botão para dispositivos menores */
+      height: 4vh;
+      box-shadow: none;
+  }
+  .width {
+    width: 100vw; /* Define a largura do input como 100% para ocupar toda a largura disponível */
+    margin: 5px 0; /* Adiciona um espaço entre o input e outros elementos */
+  }
+
+  .search{
+    width: 100%;
+  }
+
+  .mobile{
+    display: none;
+  }
+  .web{
+    display: block ;
+  }
+  .p-datatable-tablewrapper {
+    overflow-x: auto; /* Adiciona uma barra de rolagem horizontal se necessário */
+  }
+
+  .p-datatable-table {
+    width: 100%; /* Faz com que a tabela ocupe toda a largura disponível */
+  }
+
+  .p-datatable-thead > tr > th,
+  .p-datatable-tfoot > tr > td {
+    white-space: nowrap; /* Impede que os cabeçalhos e rodapés da tabela quebrem para uma nova linha */
+  }
+
+  .p-datatable-tbody > tr > td {
+    word-break: break-word; /* Permite que o conteúdo da célula quebre em palavras para se ajustar à largura da tela */
+    font-size: 0.8rem; /* Reduz o tamanho da fonte para dispositivos móveis */
   }
 }
-
-@media screen and (max-width: 1000px) {
-  .grid {
-    height: 100vmax;
-  }
+.web{
+  display: none;
 }
 
 
@@ -44,9 +80,9 @@ th{
 
 
 .search{
+  width: 15vw;
   color: #2070b4;
   border-color:  #2070b4;
-  width: 25vw;
   border-radius: 50px;
 }
 

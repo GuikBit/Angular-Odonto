@@ -102,3 +102,16 @@ button:hover{
   top: 2%;
   /* Outras propriedades da classe */
 }
+
+
+@media only screen and (max-width: 767px) {
+  .filtroMovel {
+    display: none; /* Esconde a div em dispositivos móveis com largura de tela menor que 768 pixels */
+  }
+  .card {
+    min-width: auto; /* Remove a largura mínima para os cartões em dispositivos móveis */
+    max-width: 100%; /* Define a largura máxima como 100% para ocupar toda a largura da tela */
+    margin: 0; /* Adiciona margem acima e abaixo dos cartões em dispositivos móveis */
+  }
+
+}

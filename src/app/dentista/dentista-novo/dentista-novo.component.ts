@@ -15,6 +15,7 @@ import { isEmpty } from 'rxjs';
 export class DentistaNovoComponent implements OnInit{
 
   // @Input() dentistaEdit: Dentista;
+  @Output() onlyClose = new EventEmitter<boolean>();
   @Output() closeModal = new EventEmitter<boolean>();
   especialidades: any[]|undefined;
   dentista: Dentista;
@@ -167,6 +168,7 @@ export class DentistaNovoComponent implements OnInit{
     tipo === 1 ? this.formulario.get('telefone')?.setValue(telFormatado) : this.formulario.get('responsavel.telefone')?.setValue(telFormatado) ;
 
   }
+
   onSubmit() {
     console.log(this.formulario)
     console.log("Form novo dentista valido: ",this.formulario.valid)
@@ -183,5 +185,10 @@ export class DentistaNovoComponent implements OnInit{
         })
       })
     }
+  }
+
+
+  fecharModal(){
+    this.onlyClose.emit(false);
   }
 }

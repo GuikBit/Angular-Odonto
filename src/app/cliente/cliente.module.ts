@@ -28,6 +28,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { MenubarModule } from 'primeng/menubar';
 import {MatIconModule} from '@angular/material/icon';
 import { FileUploadModule } from 'primeng/fileupload';
+import { SkeletonModule } from 'primeng/skeleton';
 @NgModule({
   declarations: [
     // ClienteInfoComponent,
@@ -36,6 +37,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     // ClienteNovoComponent
   ],
   imports: [
+    SkeletonModule,
     CardModule,
     ButtonModule,
     TableModule,

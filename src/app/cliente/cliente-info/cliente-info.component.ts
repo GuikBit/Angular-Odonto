@@ -1,6 +1,6 @@
 import { MessageService } from 'primeng/api';
 
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Cliente} from '../cliente';
 
@@ -21,6 +21,8 @@ import { ConsultaService } from 'src/app/consulta.service';
   providers: [DatePipe]
 })
 export class ClienteInfoComponent implements OnInit {
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   iniciarConsulta: any;
 
@@ -47,40 +49,40 @@ export class ClienteInfoComponent implements OnInit {
   pagamentoInfo: boolean = false;
   consultaSelecionadaPg: any;
 
+  alterarFoto: boolean = false;
+  imagemSelecionada: string | ArrayBuffer | null = '';
+
   constructor(private service: ClienteService, private route: ActivatedRoute, private router: Router,private serviceConsulta: ConsultaService,
     private messageService: MessageService, private formBuilder: FormBuilder, private assync: AssyncServiceService) {
       this.paciente = new Cliente();
 
   }
 
-  ngOnInit() {
+  ngOnInit(){
     this.loading = false;
     this.buscouCEP = null ;
     this.RespValidacaoCPF = null;
-    this. validacaoCPF= null;
+    this.validacaoCPF= null;
 
     let id: string = '';
     this.route.params.subscribe(params => {
       id = params['id'];
     })
-    if(id !== ''){
-      const response = this.service.getPacienteById(id).then((response)=>{
-       this.paciente = response;
-       // console.log(this.data);
 
+    if(id !== ''){
+      this.service.getPacienteById(id).then((response)=>{
+       this.paciente = response;
       }).catch(()=>{
        this.router.navigate(['/clientes']);
        this.messageService.add({
          severity: 'error',
          summary: 'Erro',
-         detail: 'Ocorreu um erro ao carregar o paciente',
-         life: 2000
+         detail: 'Ocorreu um erro ao carregar o paciente'
        })
       })
-     }
-     this.criaFormulario()
-
-     this.items = [
+    }
+    this.criaFormulario()
+    this.items = [
       {
           icon:'pi pi-fw pi-user',
           label:"Informações",
@@ -264,26 +266,19 @@ export class ClienteInfoComponent implements OnInit {
           }
       },
 
-  ];
+    ];
   }
 
-
-  abrirwhatsapp() {
-    console.log(this.paciente.telefone)
+  abrirwhatsapp(){
     if(this.paciente.telefone !== null){
       const tel = this.paciente.telefone
       const num = tel.replace(/[^\d]/g, "");
       window.open(`https://wa.me/${num}`, '_blank')
     }
-
   }
 
-
-  onUpdate() {
+  onUpdate(){
     if(this.formulario.valid && this.RespValidacaoCPF){
-      // let novo = this.formulario.value;
-      // novo = novo + this.paciente.consultas;
-
       const novo = JSON.stringify(this.formulario.value);
       console.log("id: ", this.paciente.id)
       console.log(novo)
@@ -320,7 +315,7 @@ export class ClienteInfoComponent implements OnInit {
     this.activeIndex = index
   }
 
-  async criaFormulario() {
+  async criaFormulario(){
     this.formulario = this.formBuilder.group({
       id: [''],
       numPasta: ['', Validators.required],
@@ -367,7 +362,7 @@ export class ClienteInfoComponent implements OnInit {
 
   }
 
-  calcularIdade(dataNascimento: string) {
+  calcularIdade(dataNascimento: string){
     const hoje = new Date();
     const nascimento = new Date(dataNascimento);
     const diffMeses = (hoje.getFullYear() - nascimento.getFullYear()) * 12 +
@@ -452,7 +447,8 @@ export class ClienteInfoComponent implements OnInit {
       this.validacaoCPF = false;
     }
   }
-  isValidCPF(cpf: string) {
+
+  isValidCPF(cpf: string){
     if (typeof cpf !== "string") return false
     cpf = cpf.replace(/[\s.-]*/igm, '')
     if (
@@ -487,7 +483,8 @@ export class ClienteInfoComponent implements OnInit {
     if (resto != parseInt(cpf.substring(10, 11) ) ) return false
     return true
   }
-  async onInactivate() {
+
+  async onInactivate(){
     await this.service.inativarPaciente(this.paciente.id).then((response)=>{
       if(response?.status == 204){
         this.messageService.add({
@@ -499,7 +496,7 @@ export class ClienteInfoComponent implements OnInit {
     })
     this.ngOnInit()
   }
-  async onReactivate() {
+  async onReactivate(){
     await this.service.reativarPaciente(this.paciente.id).then((response)=>{
       if(response?.status == 204){
         this.messageService.add({
@@ -512,7 +509,7 @@ export class ClienteInfoComponent implements OnInit {
     this.ngOnInit();
   }
 
-  novaConsultaPaciente() {
+  novaConsultaPaciente(){
     if(this.paciente.ativo){
       this.novaConsulta = true;
     }else{
@@ -525,7 +522,7 @@ export class ClienteInfoComponent implements OnInit {
     }
   }
 
-  async closeModalInfo(close: boolean) {
+  async closeModalInfo(close: boolean){
     this.novaConsulta = close;
 
     await this.service.getPacienteById(this.paciente.id).then((response)=>{
@@ -546,6 +543,10 @@ export class ClienteInfoComponent implements OnInit {
       })
      })
 
+  }
+
+  onlyClose(close: boolean){
+    this.novaConsulta = close;
   }
 
   async consultaSelecionadaInfo(id: any, tipo: any){
@@ -570,11 +571,11 @@ export class ClienteInfoComponent implements OnInit {
 
   }
 
-  async closeInfo(close: boolean) {
+  async closeInfo(close: boolean){
     this.infoConsulta = close;
   }
 
-  async reloadingTela(reloading: Boolean) {
+  async reloadingTela(reloading: Boolean){
     const consulta = this.consultaSelecionada.id;
     this.service.getPacienteById(this.paciente.id).then((response)=>{
       this.paciente = response;
@@ -591,10 +592,30 @@ export class ClienteInfoComponent implements OnInit {
     this.consultaSelecionadaInfo(consulta, 1);
   }
 
-  async fecharJanela() {
+  async fecharJanela(){
     this.closeModal.emit(false);
   }
 
+  abrirModalFoto() {
+    this.alterarFoto = true;
+  }
+
+  fecharModalFoto(){
+    this.alterarFoto = false;
+    this.fileInput.nativeElement.value = '';
+    this.imagemSelecionada = '';
+  }
+
+  onFileSelected(event: any){
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagemSelecionada = reader.result;
+      };
+    }
+  }
 }
 
 

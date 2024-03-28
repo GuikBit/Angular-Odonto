@@ -1,13 +1,18 @@
 
 <div class="card box m-6 mt-8 mb-8">
   <div class="bannerCliente">
-
-    <div class="col-2 flex justify-content-center align-items-center">
-      <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
-      width="180"
-      alt="Foto de perfil do paciente"
-      [preview]="true"
-      ></p-image>
+    <div class="col-2 ">
+      <div class="flex justify-content-center align-items-center mt-6">
+        <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
+        width="180"
+        alt="Foto de perfil do paciente"
+        [preview]="true"
+        ></p-image>
+      </div>
+      <div class="flex justify-content-center align-items-center">
+        <!-- <p-button label="Editar" [text]="true" [rounded]="true" severity="danger" icon="pi pi-pencil"size="small"></p-button> -->
+        <span class="text-red-500 font-bold text-sm cursor-pointer hover:text-red-600 m-1" (click)="abrirModalFoto()"> <i class="pi pi-pencil text-sm"></i>&nbsp;&nbsp;Alterar foto</span>
+      </div>
     </div>
 
     <div class="col-10">
@@ -29,15 +34,7 @@
         </div>
       </div>
       <div class="grid mt-5">
-        <div class="col-1 flex justify-content-center align-items-center ">
-          <!-- <p-tag
-              [severity]="(paciente.ativo? 'success' : 'danger')"
-              [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-              [rounded]="true">
-                <i class="material-icons" *ngIf="paciente?.ativo">task_alt</i>
-                <i class="material-icons" *ngIf="!paciente?.ativo">block</i>
-            </p-tag> -->
-        </div>
+
         <div class="col-1 flex justify-content-center ">
           <p class="text-xl font-semibold flex align-items-end p-component">
             <i class="pi pi-folder-open text-2xl"></i>
@@ -51,10 +48,17 @@
           </p>
         </div>
         <div class="col-2 flex justify-content-center align-content-center ">
-          <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer" (click)="abrirwhatsapp()">
-            <i class="pi pi-whatsapp text-2xl text-green-700 "></i>
+          <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
+            <i class="pi pi-whatsapp text-2xl text-green-700"></i>
              &nbsp;&nbsp;{{paciente.telefone}}
            </p>
+        </div>
+        <div class="col-2 mt-3" *ngIf="paciente.responsavel?.telefone">
+          <span class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900 flex justify-content-center align-content-center " (click)="abrirwhatsapp()">
+            <i class="pi pi-whatsapp text-2xl text-green-700"></i>
+             &nbsp;&nbsp;{{paciente.responsavel?.telefone}}
+          </span>
+          <small class="flex justify-content-center ">Contato do responsável</small>
         </div>
 
         <div class="col-3 ">
@@ -70,11 +74,11 @@
     <div class="col-12">
       <p-tabView styleClass="tabview-custom" [(activeIndex)]="activeIndex">
         <p-tabPanel header="Informacoes">
-          <ng-template pTemplate="header"  >
+          <ng-template pTemplate="header">
             <i class="pi pi-fw pi-user"></i>
             <span>&nbsp;Informações</span>
           </ng-template>
-            <form  [formGroup]="formulario" (ngSubmit)="onUpdate()" class="pl-8 pr-8">
+            <form  [formGroup]="formulario" (ngSubmit)="onUpdate()" class="pl-8 pr-8 ">
 
 
             <div class="row flex justify-content-center m-5">
@@ -395,11 +399,11 @@
             </form>
         </p-tabPanel>
         <p-tabPanel header="Consultas">
-            <ng-template pTemplate="header">
-              <!-- <i class="material-icons">oral_disease</i> -->
-              <i class="pi pi-fw pi-briefcase"></i>
-              <span>&nbsp;Consultas</span>
-            </ng-template>
+          <ng-template pTemplate="header">
+            <i class="pi pi-fw pi-briefcase"></i>
+            <span>&nbsp;Consultas</span>
+          </ng-template>
+          <div class="">
             <div class="flex justify-content-between m-5">
               <span class="p-float-label p-input-icon-left search">
                 <i class="pi pi-search azul" ></i>
@@ -670,13 +674,14 @@
                 </tr>
               </ng-template>
             </p-table>
-
+          </div>
         </p-tabPanel>
         <p-tabPanel header="Pagamentos">
-            <ng-template pTemplate="header">
-              <i class="pi pi-fw pi-dollar"></i>
-              <span>&nbsp;Pagamentos</span>
-            </ng-template>
+          <ng-template pTemplate="header">
+            <i class="pi pi-fw pi-dollar"></i>
+            <span>&nbsp;Pagamentos</span>
+          </ng-template>
+          <div class="">
             <div class="flex justify-content-between m-5">
               <span class="p-float-label p-input-icon-left search">
                 <i class="pi pi-search azul" ></i>
@@ -925,29 +930,72 @@
                 </tr>
               </ng-template>
             </p-table>
+          </div>
         </p-tabPanel>
         <p-tabPanel header="Outros">
           <ng-template pTemplate="header">
             <i class="pi pi-fw pi-wrench"></i>
             <span>&nbsp;Outros</span>
           </ng-template>
-          <p>
-            Em construcao ainda...
-          </p>
+          <div class="">
+            <p>
+              Em construcao ainda...
+            </p>
+          </div>
+
         </p-tabPanel>
       </p-tabView>
     </div>
   </div>
 </div>
 
-<p-dialog header="Nova Consulta" [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '40vw', height: '85vh' }" class="box" [draggable]="false" [resizable]="false">
-  <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModalInfo($event)"></app-consulta-nova>
+<p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box" [draggable]="false" [resizable]="false" [closable]="false">
+  <ng-template pTemplate="content">
+    <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModalInfo($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
+  </ng-template>
 </p-dialog>
 
 <p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="false">
-  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloadingTela($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+  <ng-template pTemplate="content">
+    <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloadingTela($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+  </ng-template>
 </p-dialog>
 
 <p-dialog header="Pagamento" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false">
-  <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info>
+  <ng-template pTemplate="content">
+    <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info>
+  </ng-template>
 </p-dialog>
+
+<p-dialog [(visible)]="alterarFoto" [modal]="true" [style]="{width: '50vw', heigth: 'auto'}"[draggable]="false" [resizable]="false" [closable]="false" >
+  <div class="new p-3">
+     <div class="flex justify-content-center">
+      <div class="col-5">
+        <h4>Escolha a nova foto</h4>
+        <input type="file" #fileInput (change)="onFileSelected($event)">
+
+      </div>
+      <div class="col-2 flex justify-content-center">
+        <p-divider layout="vertical" styleClass="hidden md:flex"></p-divider>
+      </div>
+
+      <div class="col-5" >
+        <h4 class="flex justify-content-center">Previsualização da imagem</h4>
+        <p-skeleton width="13rem" height="6rem" *ngIf="!imagemSelecionada" class="flex justify-content-center "></p-skeleton>
+        <p-image *ngIf="imagemSelecionada"
+          [src]="imagemSelecionada"
+          width="180"
+          alt="Nova foto de perfil"
+          class="flex justify-content-center"
+        ></p-image>
+      </div>
+    </div>
+    <div class="row flex justify-content-center mt-3">
+      <p-button label="Cancelar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModalFoto()"></p-button>
+      <button pButton type="submit" icon="pi pi-save" label="Salvar"  class="btnSalvarFoto mx-2"></button>
+    </div>
+  </div>
+
+</p-dialog>
+
+

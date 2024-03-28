@@ -1,4 +1,4 @@
-<div class="new p-3">
+<div class="new p-3 ">
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
     <div class="row flex justify-content-center">
 
@@ -23,13 +23,14 @@
           <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
             Desconto (R$)
           </span>
-          <span class="p-float-label" >
+          <span class="p-float-label flex justify-content-center" >
             <p-inputNumber
               mode="currency"
-              inputId="currency-brazil"
+              inputId="currency-brazil2"
               currency="BRL"
               locale="pt-BR"
               formControlName="desconto"
+              class="desconto"
               (onInput)="calculoValorConsulta()"
             ></p-inputNumber>
           </span>
@@ -42,7 +43,7 @@
           <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-up azul"></i>&nbsp;&nbsp;
             Acréscimo (R$)
           </span>
-          <span class="p-float-label">
+          <span class="p-float-label flex justify-content-center">
             <span class="p-float-label" >
               <p-inputNumber
                 mode="currency"
@@ -50,6 +51,7 @@
                 currency="BRL"
                 locale="pt-BR"
                 formControlName="acrescimo"
+                class="acrescimo"
                 (onInput)="calculoValorConsulta()"
               ></p-inputNumber>
             </span>
@@ -60,16 +62,26 @@
       <div class="col-4 flex justify-content-center ">
         <div>
           <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-calculator azul"></i>&nbsp;&nbsp;Parcelas</span>
-          <p-dropdown
-            [options]="parcelas"
-            appendTo="body"
-            [autoZIndex]="true"
-            [style]="{'width': '12vw', 'height':'46px'}"
-            formControlName="parcelas"
-            optionLabel="label"
-            optionValue="value"
-            (onChange)="ajustaParcelas()"
-            >
+          @if(consultaSelecionadaPg.pagamento.fatFechado){
+          <div class="field">
+            <span class="p-float-label p-input-icon-right">
+              <i class="pi pi-angle-down text-xl"></i>
+              <input pInputText [value]="parcelas[index].label"  [style]="{'width': '11vw', 'height':'46px'}" [disabled]="true" />
+            </span>
+          </div>
+
+          }@else {
+
+            <p-dropdown
+              [options]="parcelas"
+              appendTo="body"
+              [autoZIndex]="true"
+              [style]="{'width': '11vw', 'height':'46px'}"
+              formControlName="parcelas"
+              optionLabel="label"
+              optionValue="value"
+              (onChange)="ajustaParcelas()"
+              >
                 <ng-template let-item pTemplate="selectedItem">
                     <i [class]="item?.icon"></i>
                     {{ item?.label }}
@@ -78,11 +90,17 @@
                     <i [class]="item?.icon"></i>
                     {{ item?.label }}
                 </ng-template>
-          </p-dropdown>
+            </p-dropdown>
+          }
+
+
         </div>
       </div>
+
     </div>
-    <div class="row flex justify-content-start ml-8 mt-2 mb-3">
+    <div *ngIf="!consultaSelecionadaPg.pagamento.fatFechado">
+
+      <div class="row flex justify-content-start ml-8 mt-2 mb-3">
       <i class="azul font-medium underline cursor-pointer" (click)="!addEntrada? criaEntrada() : false"><i class="pi pi-plus-circle text-sm"></i>&nbsp;Incluir Entrada</i>
     </div>
     <div class="row mx-8" *ngIf="addEntrada">
@@ -105,7 +123,7 @@
           <span class="p-float-label" >
             <p-inputNumber
               mode="currency"
-              inputId="currency-brazil"
+              inputId="currency-brazil3"
               currency="BRL"
               locale="pt-BR"
               formControlName="entrada"
@@ -136,37 +154,37 @@
           </p-dropdown>
         </div>
         <div class="col-2 flex justify-content-center">
-          --/--/---- --:--
+          __/__/____
         </div>
         <div class="col-2 flex justify-content-center">
           <p-fileUpload styleClass="upload" [uploadIcon]="'pi pi-file-import'" mode="basic" [disabled]="true" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)" ></p-fileUpload>
         </div>
-        <div class="col-1 flex justify-content-center"><span (click)="excluirEntrada()">Excluir</span></div>
+        <div class="col-1 flex justify-content-center">
+          <p-button label="Excluir" [text]="true" severity="danger" (click)="excluirEntrada()" ></p-button>
+        </div>
       </div>
 
     </div>
 
     <div class="my-5" *ngIf="consultaSelecionadaPg.pagamento.parcelas">
-      <p-dataView #dv [value]="consultaSelecionadaPg.pagamento.parcelas">
-        <ng-template pTemplate="header">
-          <div class="flex justify-content-around">
-            <div class="col-2 flex justify-content-center">Parcelas</div>
-            <div class="col-1 flex justify-content-center">Valor</div>
-            <div class="col-2 flex justify-content-center">Data Vencimento</div>
-            <div class="col-2 flex justify-content-center">Forma de pagamento</div>
-            <div class="col-2 flex justify-content-center">Data Pagamento</div>
-            <div class="col-2 flex justify-content-center">Comprovante</div>
-            <div class="col-1 flex justify-content-center">Acao</div>
-          </div>
-        </ng-template>
 
+      <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
+        <div class="col-2 flex justify-content-center font-bold">Parcelas</div>
+        <div class="col-1 flex justify-content-center font-bold">Valor</div>
+        <div class="col-2 flex justify-content-center font-bold">Data Vencimento</div>
+        <div class="col-2 flex justify-content-center font-bold">Forma de pagamento</div>
+        <div class="col-2 flex justify-content-center font-bold">Data Pagamento</div>
+        <div class="col-2 flex justify-content-center font-bold">Comprovante</div>
+        <div class="col-1 flex justify-content-center font-bold">Acao</div>
+      </div>
+      <p-dataView #dv [value]="consultaSelecionadaPg.pagamento.parcelas">
         <ng-template let-products pTemplate="list"  >
           @for (item of consultaSelecionadaPg.pagamento.parcelas; track $index) {
             @if(item.ehEntrada !== true){
-              <div class="flex justify-content-around align-items-center  border-1 border-solid border-200">
+            <div class="flex justify-content-around align-items-center  border-1 border-solid border-200">
 
               <div class="col-2 flex justify-content-center">
-                @if(this.formulario.get('parcelas')?.value === '1' && addEntrada === false){
+                @if(this.formulario.get('parcelas')?.value === 1 && addEntrada === false){
                   <span>Parcela única</span>
                 }@else{
                     <span>{{$index + 1}}° Parcela</span>
@@ -213,47 +231,198 @@
 
               <div class="col-2 flex justify-content-center">
                 @if(item.dataPagamento){
-                  {{item.dataPagamento}}
+                  {{item.dataPagamento | date: 'dd/MM/yyyy'}}
                 }@else {
-                  --/--/---- --:--
+                  __/__/____
                 }
 
               </div>
 
               <div class="col-2 flex justify-content-center">
-                <p-fileUpload styleClass="upload" [uploadIcon]="'pi pi-file-import'" mode="basic" [disabled]="true" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)" ></p-fileUpload>
+                <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
               </div>
 
               <div class="col-1 flex justify-content-center">
-                <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" [disabled]="true"></p-button>
+                <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" [disabled]="!item.pago" (click)="salvarPagamentoParcela(item.id)"></p-button>
               </div>
-
             </div>
             }
-
-
           }
-
         </ng-template>
-
-          <ng-template pTemplate="footer" class="p-0">
-            <div class="flex justify-content-around">
-              <div class="col-1"></div>
-              <div class="col-2 flex justify-content-center">
-                <span class="font-bold " >Total:&nbsp; {{ calculaValorTotalParcelas() | currency: 'BRL' }}</span>
-              </div>
-              <div class="col-2"></div>
-              <div class="col-2"></div>
-              <div class="col-2"></div>
-              <div class="col-2"></div>
-            </div>
-          </ng-template>
-          @if(formulario.get('parcelas')?.value !== '1'){}@else{}
       </p-dataView>
+      <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
+        <div class="col-1"></div>
+        <div class="col-2 flex justify-content-center">
+          <!-- <span class="font-bold "  >Total:&nbsp; {{ calculaValorTotalParcelas() | currency: 'BRL' }}</span> -->
+        </div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+      </div>
     </div>
-    <div class="row flex justify-content-center" *ngIf="formulario.get('parcelas')?.value">
-      <!-- <p-button label="Salvar" icon="pi pi-dollar" [rounded]="true" class="btnSalvar"></p-button> -->
+    <div class="row flex justify-content-center" *ngIf="!consultaSelecionadaPg.pagamento.fatFechado">
       <button pButton type="submit" icon="pi pi-save" label="Salvar Pagamento"></button>
+    </div>
+    </div>
+
+    <div *ngIf="consultaSelecionadaPg.pagamento.fatFechado">
+
+      @for (item of consultaSelecionadaPg.pagamento.parcelas; track $index) {
+        @if(item.ehEntrada === true){
+          <div class="mx-8 my-4">
+            <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
+
+              <div class="col-1 flex justify-content-center font-bold "></div>
+              <div class="col-2 flex justify-content-center font-bold">Valor</div>
+              <div class="col-3 flex justify-content-center font-bold">Forma de pagamento</div>
+              <div class="col-2 flex justify-content-center font-bold">Data Pagamento</div>
+              <div class="col-2 flex justify-content-center font-bold">Comprovante</div>
+              <div class="col-1 flex justify-content-center font-bold"></div>
+
+            </div>
+            <div class="flex justify-content-around align-items-center border-solid border-1 border-200 ">
+
+              <div class="col-1 flex justify-content-center">
+                <span>Entrada</span>
+              </div>
+              <div class="col-2 flex justify-content-center">
+                {{item.valorParcela | currency: 'BRL'}}
+              </div>
+              <div class="col-3 flex justify-content-center">
+                <!-- <p-dropdown
+                [options]="formaPagamento"
+                [value]="item.formaDePagamento"
+                appendTo="body"
+                [autoZIndex]="true"
+                [style]="{'width': '9vw', 'height':'46px', 'padding': '0'}"
+                optionLabel="descricao"
+                class="width"
+                [disabled]="item.pago"
+                >
+                <ng-template let-item pTemplate="selectedItem">
+                  <i [class]="item?.icon"></i>
+                  {{ item?.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+                </p-dropdown> -->
+                <span class="p-float-label p-input-icon-left p-input-icon-right">
+                  <i [class]="formaPagamento[item.formaDePagamento].icon"></i>
+                  <i class="pi pi-pw pi-angle-down text-xl"></i>
+                  <input pInputText [value]="formaPagamento[item.formaDePagamento].label"  [style]="{'width': '9vw', 'height':'46px'}" [disabled]="true" />
+                </span>
+
+              </div>
+              <div class="col-2 flex justify-content-center">
+                {{item.dataPagamento | date: "dd/MM/yyyy"}}
+              </div>
+              <div class="col-2 flex justify-content-center">
+                <p-fileUpload mode="basic" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)" [disabled]="true" ></p-fileUpload>
+              </div>
+              <div class="col-1 flex justify-content-center">
+                <p-button label="Excluir" [text]="true" severity="danger" (click)="excluirEntrada()" [disabled]="true" ></p-button>
+              </div>
+            </div>
+          </div>
+
+        }
+      }
+          <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
+            <div class="col-2 flex justify-content-center font-bold">Parcelas</div>
+            <div class="col-1 flex justify-content-center font-bold">Valor</div>
+            <div class="col-2 flex justify-content-center font-bold">Data Vencimento</div>
+            <div class="col-2 flex justify-content-center font-bold">Forma de pagamento</div>
+            <div class="col-2 flex justify-content-center font-bold">Data Pagamento</div>
+            <div class="col-2 flex justify-content-center font-bold">Comprovante</div>
+            <div class="col-1 flex justify-content-center font-bold">Acao</div>
+          </div>
+      @for (item of consultaSelecionadaPg.pagamento.parcelas; track $index) {
+        @if(item.ehEntrada !== true){
+
+
+          <p-dataView #dv [value]="consultaSelecionadaPg.pagamento.parcelas">
+            <ng-template let-products pTemplate="list"  >
+
+                <div class="flex justify-content-around align-items-center  border-1 border-solid border-200">
+
+                  <div class="col-2 flex justify-content-center">
+                    @if(consultaSelecionadaPg.pagamento.parcelas.length <= 1){
+                      <span>Parcela única</span>
+                    }@else{
+                        <span>{{$index + 1}}° Parcela</span>
+                    }
+                    <!-- @if (consultaSelecionadaPg.pagamento.pago)
+                      {
+                        <p-tag icon="pi pi-dollar" severity="success" value="" [rounded]="true"></p-tag>
+                      }
+                      @else
+                      {
+                        <p-tag icon="pi pi-dollar" severity="warning" value="" [rounded]="true"></p-tag>
+                      } -->
+                  </div>
+
+                  <div class="col-1 flex justify-content-center">
+                    {{item.valorParcela | currency: 'BRL'}}
+                  </div>
+
+                  <div class="col-2 flex justify-content-center">
+                    {{item.dataVencimento | date: 'dd/MM/yyyy'}}
+                  </div>
+
+                  <div class="col-2 flex justify-content-center">
+                    @if(item.pago){
+                      <span class="p-float-label p-input-icon-left p-input-icon-right">
+                        <i [class]="formaPagamento[item.formaDePagamento].icon"></i>
+                        <i class="pi pi-pw pi-angle-down text-xl"></i>
+                        <input pInputText [value]="formaPagamento[item.formaDePagamento].label"  [style]="{'width': '9vw', 'height':'46px'}" [disabled]="true" />
+                      </span>
+                    }@else {
+                      <p-dropdown
+                    [options]="formaPagamento"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    [style]="{'width': '9vw', 'height':'46px', 'padding': '0'}"
+                    formControlName="formaPagamento"
+                    optionLabel="descricao"
+                    class="width"
+                    >
+                    <ng-template let-item pTemplate="selectedItem">
+                      <i [class]="item?.icon"></i>
+                      {{ item?.label }}
+                    </ng-template>
+                    <ng-template let-item pTemplate="item">
+                        <i [class]="item?.icon"></i>
+                        {{ item?.label }}
+                    </ng-template>
+                    </p-dropdown>
+                    }
+
+
+                  </div>
+                  <div class="col-2 flex justify-content-center">
+                    @if(item.dataPagamento){
+                      {{item.dataPagamento | date: 'dd/MM/yyyy'}}
+                    }@else {
+                      __/__/____
+                    }
+
+                  </div>
+
+                  <div class="col-2 flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+
+                  <div class="col-1 flex justify-content-center">
+                    <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" [disabled]="habilitaBotao(item)" (click)="salvarPagamentoParcela(item.id)"></p-button>
+                  </div>
+                </div>
+            </ng-template>
+          </p-dataView>
+        }
+      }
     </div>
   </form>
 </div>

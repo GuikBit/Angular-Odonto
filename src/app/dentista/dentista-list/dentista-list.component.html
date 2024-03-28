@@ -1,159 +1,25 @@
 <div class="container">
   <div class="grid ">
-    <div class="col-12 ">
-      <!-- <p-card
-        styleClass="shadow-3 m-5 text-indigo-800 "
+    <div class="col-12">
+      <div class="card box  lg:p-5 lg:m-5 text-indigo-800">
+        <div class="flex justify-content-between m-3">
+          <span class="p-float-label p-input-icon-left w-13rem ">
+            <i class="pi pi-search azul" ></i>
+            <input pInputText id="search" (keyup)="applyFilter($event)" class="w-13rem search"/>
+            <label for="search" class="azul">Buscar Dentista...</label>
+          </span>
+          <p-button icon="pi pi-user-plus" [rounded]="true" severity="info" (click)="showDialog()" class="web"></p-button>
 
-      >
-        <div class="flex justify-content-between mb-3 ml-5 mr-5 ">
-        <span class="p-float-label p-input-icon-left ">
-          <i class="pi pi-search azul" ></i>
-          <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
-          <label for="search" class="azul">Buscar Dentista...</label>
-        </span>
-        <button pButton type="button" label="Novo Dentista" styleClass="linear-gradient" (click)="showDialog()" icon="pi pi-user-plus"></button>
+          <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="mobile" ></button>
         </div>
 
         <p-table
-          #productsTable
-          [value]="dataSource.data"
-          [rows]="10"
-          [paginator]="true"
-          [responsive]="true"
-          [globalFilterFields]="['name', 'amount']"
-          [tableStyle]="{ 'min-width': '75rem' }"
-          [rowHover]="true"
-          [showCurrentPageReport]="true"
-          dataKey="id"
-          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="nome">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-center align-items-center">
-                    Nome
-                  </div>
-                  <div class="flex justify-content-center align-items-center">
-                    <p-sortIcon
-                      field="nome"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="nome"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="nomeDentista">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    CPF
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
-                      field="nomeDentista"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                      ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="nomeDentista"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-
-              <th pSortableColumn="espec">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-between align-items-center">
-                    Especialidade
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
-                      field="espec"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="espec"
-                      display="menu"
-                      matchMode="contains"
-                      [showMatchModes]="false"
-                      [showOperator]="false"
-                      [showAddButton]="false"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-
-
-              <th [width]="300"></th>
-          </ng-template>
-
-          <ng-template pTemplate="body" let-dentista>
-            <tr >
-              <td>
-                {{ dentista?.nome }}
-              </td>
-              <td>
-                {{ dentista?.cpf }}
-              </td>
-              <td>
-                {{ dentista?.especialidade.tipo }}
-              </td>
-
-              <td [width]="300">
-                <div
-                  class="flex justify-content-around">
-
-
-                    <p-button icon="pi " [rounded]="true" severity="info" [outlined]="true" pTooltip="Informações" tooltipPosition="top" (click)="infoShow(dentista.id)"><i class="material-icons">info</i></p-button>
-                    <p-button icon="pi " [rounded]="true" severity="warning" [outlined]="true" pTooltip="Editar" tooltipPosition="top" (click)="EditShowDialog(dentista?.id)"><i class="material-icons" >edit</i></p-button>
-                    <p-button icon="pi " [rounded]="true" severity="danger" [outlined]="true"  pTooltip="Deletar" tooltipPosition="top" (click)="DeletShowDialog()"><i class="material-icons">delete</i></p-button>
-
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-card> -->
-      <div class="card box p-5 m-5 text-indigo-800">
-        <div class="flex justify-content-between mb-3 ml-5 mr-5 ">
-          <span class="p-float-label p-input-icon-left ">
-            <i class="pi pi-search azul" ></i>
-            <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
-            <label for="search" class="azul">Buscar Dentista...</label>
-          </span>
-          <button pButton type="button" label="Novo Dentista" styleClass="linear-gradient" (click)="showDialog()" icon="pi pi-user-plus"></button>
-          </div>
-
-          <p-table
             #productsTable
             [value]="dataSource.data"
             [rows]="10"
             [paginator]="true"
             [responsive]="true"
-            [globalFilterFields]="['name', 'amount']"
+            [globalFilterFields]="['nome', 'cpf', 'espec', 'ativo']"
             [tableStyle]="{ 'min-width': '75rem' }"
             [rowHover]="true"
             [showCurrentPageReport]="true"
@@ -187,20 +53,20 @@
                     </div>
                   </div>
                 </th>
-                <th pSortableColumn="nomeDentista">
+                <th pSortableColumn="cpf">
                   <div class="flex justify-content-between align-items-center">
                     <div class="flex justify-content-between align-items-center">
                       CPF
                     </div>
                     <div class="flex justify-content-between align-items-center">
                       <p-sortIcon
-                        field="nomeDentista"
+                        field="cpf"
                         pTooltip="Ordenar"
                         tooltipPosition="top"
                         ></p-sortIcon>
                       <p-columnFilter
                         type="text"
-                        field="nomeDentista"
+                        field="cpf"
                         display="menu"
                         matchMode="contains"
                         [showMatchModes]="false"
@@ -337,7 +203,9 @@
 </div>
 
 
-  <p-dialog header="Novo Dentista" [(visible)]="novo" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
-    <app-dentista-novo (closeModal)="closeModal($event)"></app-dentista-novo>
+  <p-dialog header='Novo Dentista' [(visible)]="novo" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false" class="">
+    <ng-template pTemplate="content">
+      <app-dentista-novo (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-dentista-novo>
+    </ng-template>
   </p-dialog>
 

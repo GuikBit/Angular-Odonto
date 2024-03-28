@@ -56,7 +56,7 @@
           </div> -->
           <p-table
             #productsTable
-            [value]="dataSource.data"
+            [value]="listaFiltro"
             [rows]="10"
             [paginator]="true"
             [responsive]="true"
@@ -269,15 +269,39 @@
                           >
                           </p-button>
 
-                          <p-button icon="pi pi-pw pi-dollar"
+                          @if(consulta.pagamento.fatFechado && !consulta.pagamento.pago){
+                            <p-button icon="pi pi-pw pi-dollar"
                             [rounded]="true"
                             [outlined]="true"
-                            [severity]="consulta.pagamento.pago?'secondary':'success'"
-                            [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
+                            severity="danger"
+                            pTooltip="Financeiro pendente"
                             tooltipPosition="top"
                             (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
                           >
                           </p-button>
+                          }
+                          @else if(consulta.pagamento.fatFechado && consulta.pagamento.pago){
+                            <p-button icon="pi pi-pw pi-dollar"
+                            [rounded]="true"
+                            [outlined]="true"
+                            severity="success"
+                            pTooltip="Financeiro fechado"
+                            tooltipPosition="top"
+                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                          >
+                          </p-button>
+                          }@else {
+                            <p-button icon="pi pi-pw pi-dollar"
+                            [rounded]="true"
+                            [outlined]="true"
+                            severity="secondary"
+                            pTooltip="Financeiro aberto"
+                            tooltipPosition="top"
+                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                          >
+                          </p-button>
+                          }
+
                         </div>
                 </td>
               </tr>
@@ -293,20 +317,26 @@
   </div>
 </div>
 
-<p-dialog header="Nova Consulta" [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: '85vh' }" class="box" [draggable]="false" [resizable]="false">
-  <app-consulta-nova (closeModal)="closeModal($event)"></app-consulta-nova>
+<p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box" [draggable]="false" [resizable]="false" [closable]="false">
+  <ng-template pTemplate="content">
+    <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
+  </ng-template>
 </p-dialog>
 
 <!-- <p-dialog header="Detalhes da consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw', height: '90vh' }" class="box" [draggable]="false" [resizable]="false">
   <app-consulta-info ></app-consulta-info>
 </p-dialog> -->
 
-<p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="false">
-  <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+<p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false" [closable]="false">
+  <ng-template pTemplate="content">
+    <app-consulta-info *ngIf="consultaSelecionada" [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
+  </ng-template>
 </p-dialog>
 
 <p-dialog header="Pagamento" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false">
-  <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info>
+  <ng-template pTemplate="content">
+    <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg" (reloading)="reloadingPagamento($event)"></app-pagamento-info>
+  </ng-template>
 </p-dialog>
 
 

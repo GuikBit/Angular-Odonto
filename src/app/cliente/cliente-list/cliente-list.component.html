@@ -206,7 +206,7 @@
                       >
                       </p-button>
                       <p-button
-                        icon="pi pi-pw pi-trash"
+                        icon="pi pi-pw pi-ban"
                         [rounded]="true"
                         severity="danger"
                         [outlined]="true"
@@ -230,18 +230,20 @@
     </div>
   </div>
 </div>
-<div class="card flex justify-content-center">
-  <p-dialog header="Novo Paciente" [(visible)]="newUser" [modal]="true" [style]="{ width: '85vw' }" [draggable]="false" [resizable]="false">
-    <app-cliente-novo (msgReturn)="mostraMensagem($event)" (closeModal)="closeModal($event)"></app-cliente-novo>
-  </p-dialog>
-</div>
+
+<p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '80vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="false">
+  <ng-template pTemplate="content">
+    <app-cliente-novo (msgReturn)="mostraMensagem($event)" (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
+  </ng-template>
+</p-dialog>
 
 
-<div class="card flex justify-content-center">
-  <p-dialog header="Editar paciente" [(visible)]="editar" [modal]="true" [style]="{ width: '100vw' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Editar paciente" [(visible)]="editar" [modal]="true" [style]="{ width: '100vw' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="content">
     <app-cliente-novo *ngIf="clienteSelecionado" [pacienteSelecionado]="clienteSelecionado"></app-cliente-novo>
-  </p-dialog>
-</div>
+  </ng-template>
+</p-dialog>
+
 
 
 

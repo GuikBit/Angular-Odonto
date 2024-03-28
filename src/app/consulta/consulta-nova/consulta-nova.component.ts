@@ -17,6 +17,7 @@ export class ConsultaNovaComponent implements OnInit {
   @Input() pacienteSelecionado: any;
   @Input() dentistaSelecionado: any;
   @Output() closeModal = new EventEmitter<boolean>();
+  @Output() onlyClose = new EventEmitter<boolean>();
 
   dentista: Dentista | undefined;
   paciente: Cliente | undefined;
@@ -110,7 +111,7 @@ export class ConsultaNovaComponent implements OnInit {
         .then(response =>{
           if(response?.status === 201 || response?.status === 200 ){
             this.closeModal.emit(false)
-            this.limpaInformacoes()
+            this.limpaInformacoes();
           }
         }).catch(()=>{
           this.messageService.add({
@@ -188,5 +189,9 @@ export class ConsultaNovaComponent implements OnInit {
           return false;
       }
 
+    }
+
+    fecharModal(){
+      this.onlyClose.emit(false);
     }
 }

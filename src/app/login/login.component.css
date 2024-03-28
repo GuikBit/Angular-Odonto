@@ -1,8 +1,4 @@
-*{
-    margin: 0 auto;
-    padding: 0 auto;
-    justify-content: center;
-}
+
 
 .container{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
@@ -10,13 +6,14 @@
     border-color: #54a2dc;
     border-radius: 30px;
     background: #FFFFFF;
+    width: 60%;
 }
-
-.mat-icon{
-    color: #2070B4;
-    font-size:26px;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Isso centralizará a imagem na tela */
 }
-
 
 .container_left{
     margin: auto;
@@ -35,9 +32,6 @@
     position: relative;
 
 }
-
-
-
 
 .titulo{
     font-weight: bold;
@@ -59,3 +53,72 @@ button{
 button:hover{
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 }
+
+@media (max-width: 768px) {
+  .container {
+      margin: 10px; /* Reduzi a margem para dispositivos menores */
+  }
+
+  .titulo {
+      font-size: 5vw; /* Ajustei o tamanho do título para dispositivos menores */
+  }
+
+  button {
+      font-size: 4vw; /* Ajustei o tamanho do botão para dispositivos menores */
+      width: 40vw; /* Ajustei a largura do botão para dispositivos menores */
+  }
+}
+
+
+/*
+.container{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+  border-color: #54a2dc;
+  border-radius: 30px;
+  background: #FFFFFF;
+}
+
+
+.container_left{
+  margin: auto;
+  width: 25vw;
+  height: 40vh;
+  border-radius: 2vh 0vh 0vh 2vh;
+  display: flex;
+  justify-content: center;
+}
+
+.container_right{
+  margin: auto;
+  width: 60vw;
+  height: 40vh;
+  border-radius: 0vh 2vh 2vh 0vh;
+  position: relative;
+
+}
+
+
+
+
+.titulo{
+  font-weight: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: xx-large;
+  color:#2070b4;
+
+}
+
+button{
+background: linear-gradient(to right, #2070b4, #24aae3);
+font-size: 0.9rem;
+width: 8vw;
+border-radius: 50px;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+border:none;
+}
+
+button:hover{
+box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+} */
+
+

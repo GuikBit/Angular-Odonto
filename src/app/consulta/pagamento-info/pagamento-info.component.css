@@ -31,13 +31,23 @@ button:hover{
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 }
 .upload{
-  background-color: #FFF !important;
+  width: 300px;
 }
 ng-template{
   background: #24aae3;
 }
+::ng-deep .p-fileupload-content.upload  {
+  background: #FFF
+}
 
 ::ng-deep .valorEntrada .p-inputnumber .p-inputtext {
+  width: 18vh; /* Altura desejada */
+}
+
+::ng-deep .desconto .p-inputnumber .p-inputtext {
+  width: 18vh; /* Altura desejada */
+}
+::ng-deep .acrescimo .p-inputnumber .p-inputtext {
   width: 18vh; /* Altura desejada */
 }
 

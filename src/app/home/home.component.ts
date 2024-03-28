@@ -250,12 +250,12 @@ export class HomeComponent implements OnInit{
 
   calculaPorcentagem(mesAnterior: number, mesAtual: number) {
     if(mesAnterior === 0){
-      return ((mesAtual - mesAnterior ) / 1 );
+      return ((mesAtual - mesAnterior ) / 1 ) * -1;
     }
     if(mesAtual === 0){
-      return ((mesAnterior - mesAtual ) / 1 );
+      return ((mesAnterior - mesAtual ) / 1 ) * -1;
     }
-    return ((mesAtual - mesAnterior ) / mesAnterior );
+    return ((mesAtual - mesAnterior ) / mesAnterior ) * -1;
 
   }
 

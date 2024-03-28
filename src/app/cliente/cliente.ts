@@ -3,7 +3,7 @@ import { Endereco } from './cadastro/endereco';
 import { Responsavel } from './cadastro/responsavel';
 
 export class Cliente {
-    
+
     id?: number;
     numPasta?: string = '';
     login?: string = '';
@@ -13,13 +13,15 @@ export class Cliente {
     cpf?: string = '';
     dataCadastro?: string;
     dataNascimento?: string = '';
-    telefone?: string = ''; 
+    telefone?: string = '';
     ativo?: boolean;
     role?: string;
 
+    fotoPerfil?: File;
+
     endereco: Endereco;
     anamnese: Anamnese;
-    responsavel: Responsavel;  
+    responsavel: Responsavel;
 
 
     //outros

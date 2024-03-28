@@ -88,7 +88,7 @@ export class ConsultaService {
   }
 
   async deleteConsulta(id: any){
-const instance = axios.create({
+    const instance = axios.create({
       baseURL: `${this.apiURL}`,
       timeout: 1000,
       headers: { Authorization: 'Bearer ' + (await this.getToken()),
@@ -111,7 +111,7 @@ const instance = axios.create({
       headers: { Authorization: 'Bearer ' + (await this.getToken()) },
     });
     try{
-      const response = await instance.get(`${this.apiURL}s/novaespec`)
+      const response = await instance.get(`${this.apiURL}/novaespec`)
       return response.data;
 
     }catch (error) {
@@ -189,8 +189,7 @@ const instance = axios.create({
       headers: { Authorization: 'Bearer ' + (await this.getToken()) },
     });
     try{
-      console.log(consulta)
-      const response = await instance.post(`${this.apiURL}s/procedimento`, consulta)
+      const response = await instance.post(`${this.apiURL}/procedimento`, consulta)
       return response;
 
     }catch (error) {
@@ -198,20 +197,21 @@ const instance = axios.create({
       return error;
     }
   }
-  // async putDataHoraConsulta(id: any, valor: any) {
-  //   const instance = axios.create({
-  //     baseURL: `${this.apiURL}`,
-  //     timeout: 1000,
-  //     headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-  //   });
-  //   try{
-  //     const response = await instance.put(`${this.apiURL}/presenca/${id}`)
-  //     return response;
 
-  //   }catch (error) {
-  //     console.error(error);
-  //     return error;
-  //   }
-  // }
+  async salvarPagamento(consulta: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.post(`${this.apiURL}/salvarPagamento`, consulta)
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
 
 }

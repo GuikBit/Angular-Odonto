@@ -171,6 +171,10 @@ export class ClienteListComponent implements OnInit{
     this.dataSource = new MatTableDataSource(response);
   }
 
+  onlyClose(close: boolean){
+    this.newUser = close;
+  }
+
 
 }
 
