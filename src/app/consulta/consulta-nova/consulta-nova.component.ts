@@ -48,7 +48,18 @@ export class ConsultaNovaComponent implements OnInit {
 
       }
       if(this.dentistaSelecionado != null && this.dentistaSelecionado != undefined){
-        this.consulta.dentista = this.dentistaSelecionado;
+        this.serviceDentista.getDentistas().then((response) => {
+          if(response != null){
+            response.forEach((x: any) => {
+              if (x.id === this.dentistaSelecionado) {
+                this.dentistaSelecionado = x;
+                this.formulario.get('dentista')?.setValue(this.dentistaSelecionado)
+                return
+              }
+            });
+          }
+        })
+
         this.servicePaciente.getPacientes().then((response) => {
           this.listaPaciente = response;
         }).catch((erro)=>{

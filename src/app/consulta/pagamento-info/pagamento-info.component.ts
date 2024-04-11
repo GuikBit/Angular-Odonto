@@ -38,7 +38,7 @@ export class PagamentoInfoComponent implements OnInit {
   addEntrada: boolean = false;
   entrada: Parcela | null = null;
   index: any;
-
+  selectedFileName: string = 'Buscar';
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ConsultaService, private cdRef: ChangeDetectorRef, private ngZone: NgZone) { }
 
@@ -325,5 +325,20 @@ export class PagamentoInfoComponent implements OnInit {
     }else{
       return true;
     }
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFileName = file ? this.formatFileName(file.name) : 'Buscar';
+  }
+
+  formatFileName(fileName: string): string {
+    if (fileName.length > 10) {
+      return fileName.substr(0, 4) + '...' + fileName.substr(fileName.length - 3)
+    }
+    return fileName;
+  }
+
+  dowloadArquivo(){
+
   }
 }

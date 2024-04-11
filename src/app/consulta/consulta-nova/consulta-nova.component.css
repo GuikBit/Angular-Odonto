@@ -50,3 +50,20 @@ button:hover{
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 }
 
+.web{
+  display: block;
+}
+
+.mobile{
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .web{
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+
+}

@@ -48,7 +48,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    console.log("Cheguei aqui")
+    console.log("Cheguei aqui dentro do consulta info")
     if (this.formularioEditar) {
       this.formularioEditar.reset(); // Limpe os valores dos controles do formulário
       this.formularioEditar.disable(); // Desative o formulário para evitar interações

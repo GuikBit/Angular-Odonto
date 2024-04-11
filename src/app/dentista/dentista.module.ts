@@ -29,6 +29,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
 import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
+import { ConsultaNovaComponent } from '../consulta/consulta-nova/consulta-nova.component';
+import { ConsultaInfoComponent } from '../consulta/consulta-info/consulta-info.component';
+import { ConsultaModule } from '../consulta/consulta.module';
 
 
 
@@ -37,7 +40,7 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     DentistaNovoComponent,
     DentistaInfoComponent,
     DentistaListComponent,
-    DentistaEditComponent
+    DentistaEditComponent,
   ],
   imports: [
     CommonModule,
@@ -62,8 +65,8 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
     TagModule,
     CalendarModule,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    ConsultaModule
   ],exports: [
     DentistaNovoComponent,
     DentistaInfoComponent,

@@ -8,18 +8,6 @@
   background-repeat: no-repeat;
 
 }
-
-@media screen and (min-width: 1400px) {
-  .grid {
-    background-position: top;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .grid {
-    height: 100vmax;
-  }
-}
 button{
   background: linear-gradient(to right, #2070b4, #24aae3);
   font-size: 0.9rem;
@@ -53,4 +41,25 @@ border-radius: 50px;
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 
+}
+
+.mobile{
+  display: none;
+}
+
+.web{
+  display: block;
+}
+@media only screen and (max-width: 767px) {
+
+  .web{
+    display: none;
+  }
+  .search{
+    width: 55vw;
+  }
+
+  .mobile{
+    display: block;
+  }
 }

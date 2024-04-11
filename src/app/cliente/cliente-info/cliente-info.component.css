@@ -156,3 +156,28 @@ input[type=file]::file-selector-button:hover {
   background: linear-gradient(to right, #2070b4, #24aae3);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10), 0 6px 6px rgba(0, 0, 0, 0.10);
 }
+
+
+.mobile{
+  display: none;
+}
+
+.web{
+  display: block;
+}
+@media only screen and (max-width: 767px) {
+
+  .web{
+    display: none;
+  }
+  .search{
+    width: 55vw;
+  }
+
+  .mobile{
+    display: block;
+  }
+  .bannerCliente{
+    top: -50px;
+  }
+}

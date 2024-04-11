@@ -3,14 +3,13 @@
     <div class="col-12">
       <div class="card box  lg:p-5 lg:m-5 text-indigo-800">
         <div class="flex justify-content-between m-3">
-          <span class="p-float-label p-input-icon-left w-13rem ">
+          <span class="p-float-label p-input-icon-left ">
             <i class="pi pi-search azul" ></i>
-            <input pInputText id="search" (keyup)="applyFilter($event)" class="w-13rem search"/>
+            <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
             <label for="search" class="azul">Buscar Dentista...</label>
           </span>
-          <p-button icon="pi pi-user-plus" [rounded]="true" severity="info" (click)="showDialog()" class="web"></p-button>
-
-          <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="mobile" ></button>
+          <p-button icon="pi pi-plus" [rounded]="true"  (click)="showDialog()" class="mobile" [style]="{'background': '#2070b4'}"></p-button>
+          <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="web"></button>
         </div>
 
         <p-table
@@ -24,7 +23,8 @@
             [rowHover]="true"
             [showCurrentPageReport]="true"
             dataKey="id"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} produtos"
+            currentPageReportTemplate="{first} de {last} de {totalRecords}"
+
           >
             <ng-template pTemplate="header">
               <tr>
@@ -192,7 +192,7 @@
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
-              <tr >
+              <tr>
                   <td colspan="4">Não foram encontrado dados</td>
               </tr>
             </ng-template>

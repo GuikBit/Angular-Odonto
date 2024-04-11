@@ -5,7 +5,7 @@ import { ConsultaEspecialidade } from "./consultaEspecialidade";
 import { Pagamento } from "./pagamento";
 
 export class Consulta{
-    id?: number;
+    id: number;
     dataConsulta: Date;
     dataConsultaReserva: Date;
     dataHoraInicioAtendimento: Date;

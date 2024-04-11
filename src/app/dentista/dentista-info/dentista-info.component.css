@@ -95,3 +95,47 @@ button:hover{
   justify-content: center;
   align-items: center;
 }
+.dentistaConsultas {
+  width: 80vw; /* Definir a largura para 100% do seu contêiner */
+  height: auto; /* Ajustar a altura automaticamente com base na largura */
+}
+
+.mobile{
+  display: none;
+}
+
+.web{
+  display: block;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .p-chart {
+    width: 200; /* Definir a largura para 100% em dispositivos móveis */
+    height: auto; /* Ajustar a altura automaticamente com base na largura */
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  li {
+    float: center;
+    margin-inline: 10px;
+    padding: 0.25rem;
+  }
+  .web{
+    display: none;
+  }
+  .search{
+    width: 55vw;
+  }
+
+  .mobile{
+    display: block;
+  }
+
+
+}

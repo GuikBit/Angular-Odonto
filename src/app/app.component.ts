@@ -34,8 +34,9 @@ export class AppComponent implements OnInit {
       dateAfter: 'Data anterior a',
       matchAll: 'Filtrar todos',
       matchAny: 'Filtrar com qualquer',
-      today: 'Hoje'
+      today: 'Hoje',
       
+
       // matchAll: 'Marcar todos'
       //date
 

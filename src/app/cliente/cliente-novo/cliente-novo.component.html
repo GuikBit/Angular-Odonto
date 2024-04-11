@@ -568,22 +568,8 @@
 
 <div class="p-component new">
 
-    <div class="mx-8 my-5">
-        <!-- <div class="row flex justify-content-around">
-          <div class="col-3 " >
-            <i class="pi pi-user text-8xl text-gray-200 absolute z-1 " *ngIf="indiceStep === 1"></i>
-          </div>
-          <div class="col-3 pl-8 " >
-            <i class="pi pi-users text-8xl text-gray-200 absolute z-1 " *ngIf="indiceStep === 2"></i>
-          </div>
-          <div class="col-3 pl-7 " >
-            <i class="pi pi-map-marker text-8xl text-gray-200 absolute z-1 " *ngIf="indiceStep === 3"></i>
-          </div>
-          <div class="col-3 pl-5 " >
-            <i class="material-icons text-8xl text-gray-200 absolute z-1 " *ngIf="indiceStep === 4">content_paste</i>
-          </div>
-        </div> -->
-      <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" styleClass="background: linear-gradient(to right, #2070b4, #24aae3)">
+    <div class="lg:mx-8 my-5 web">
+      <p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" >
       </p-steps>
 
     </div>
@@ -607,9 +593,10 @@
             <div *ngIf="indiceStep === 1">
 
                   <div class="card z-1">
+                    <h3 class="mobile">Informacoes Pessoais</h3>
                     <!-- login -->
-                    <div class="row flex justify-content-center my-3">
-                      <div class="field col-3">
+                    <div class="row lg:flex lg:justify-content-center my-3">
+                      <div class="field md:col-12 lg:col-3">
                         <span class="p-float-label p-input-icon-left p-input-icon-right width">
                           <i class="pi pi-user azul"></i>
                           <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
@@ -622,7 +609,7 @@
                         <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
                       </div>
 
-                      <div class="field col-3">
+                      <div class="field  md:col-12 lg:col-3">
                         <span class="p-float-label p-input-icon-left p-input-icon-right width">
                           <i class="pi pi-key azul"></i>
                           <i [ngClass]="hide? 'pi pi-eye azul' : 'pi pi-eye-slash azul'" (click)="hide = !hide"></i>
@@ -634,13 +621,13 @@
                       <div class="col-1">
 
                       </div>
-                      <div class="col-4">
+                      <div class=" md:col-12 lg:col-4">
                         <input pInputFile type="file" formControlName="fotoPerfil" >
                       </div>
                     </div>
                     <!-- nome -->
-                    <div class="row flex justify-content-center my-3">
-                      <div class="field col-5">
+                    <div class="row lg:flex lg:justify-content-center my-3">
+                      <div class="field  md:col-12 lg:col-5">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-pencil azul"></i>
                           <input pInputText id="nome" formControlName="nome" required class="width" />
@@ -649,7 +636,7 @@
                         <small *ngIf="formulario.controls['nome'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
-                      <div class="field col-3">
+                      <div class="field  md:col-12 lg:col-3">
                         <span class="p-float-label p-input-icon-left p-input-icon-right width">
                           <i class="pi pi-id-card azul"></i>
                           @if (!validacaoCPF && validacaoCPF != null || existeCPF) {
@@ -667,7 +654,7 @@
                         <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
                       </div>
 
-                      <div class="field col-3">
+                      <div class="field  md:col-12 lg:col-3">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-phone azul"></i>
                           <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required class="width"  />
@@ -684,9 +671,9 @@
 
                     </div>
                     <!-- contato -->
-                    <div class="row flex justify-content-center my-3">
+                    <div class="row lg:flex lg:justify-content-center my-3">
 
-                      <div class="field col-3 ">
+                      <div class="field  md:col-12 lg:col-3 ">
                         <span class="p-float-label p-input-icon-right width ">
                           <p-calendar inputId="dataNascimento" appendTo="body" [autoZIndex]="true" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width">
                             <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
@@ -698,7 +685,7 @@
                         <small *ngIf="formulario.controls['dataNascimento'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
-                      <div class="field col-5">
+                      <div class="field  md:col-12 lg:col-5">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-envelope azul"></i>
                           <input pInputText id="email" formControlName="email" required class="width"  />
@@ -707,7 +694,7 @@
                         <small *ngIf="formulario.controls['email'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
-                      <div class="field col-3">
+                      <div class="field  md:col-12 lg:col-3">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-folder-open azul"></i>
                           <input pInputText id="pasta" formControlName="numPasta" maxlength="5" required class="width" />
@@ -725,16 +712,17 @@
 
             <div *ngIf="indiceStep === 2">
                 <div class="card">
-                  <div class="row flex justify-content-center my-3" formGroupName="responsavel">
+                  <h3 class="mobile">Responsavel</h3>
+                  <div class="row lg:flex lg:justify-content-center my-3" formGroupName="responsavel">
 
-                    <div class="field col-5">
+                    <div class="field md:col-12 lg:col-5">
                       <span class="p-float-label p-input-icon-left width">
                         <i class="pi pi-pencil azul"></i>
                         <input pInputText id="nome" formControlName="nome" class="width" />
                         <label for="nome" class="azul">Nome Completo</label>
                       </span>
                     </div>
-                    <div class="field col-3">
+                    <div class="field md:col-12 lg:col-3">
                       <span class="p-float-label p-input-icon-left p-input-icon-right width">
                         <i class="pi pi-id-card azul"></i>
                         @if (!RespValidacaoCPF && RespValidacaoCPF != null) {
@@ -750,7 +738,7 @@
                       <small *ngIf="RespValidacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
                     </div>
 
-                    <div class="field col-3">
+                    <div class="field md:col-12 lg:col-3">
                       <span class="p-float-label p-input-icon-left width">
                         <i class="pi pi-phone azul"></i>
                         <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(2)" class="width"  />
@@ -763,8 +751,9 @@
             <div *ngIf="indiceStep === 3">
 
                   <div class="card" formGroupName="endereco">
-                    <div class="row flex justify-content-center my-3" >
-                      <div class="field col-3">
+                    <h3 class="mobile">Endereco</h3>
+                    <div class="row lg:flex lg:justify-content-center my-3" >
+                      <div class="field md:col-12 lg:col-3">
                         <span class="p-float-label p-input-icon-left p-input-icon-right width">
                           <i class="pi pi-map-marker azul"></i>
                           <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
@@ -774,7 +763,7 @@
                         <small *ngIf="formulario.get('endereco.cep')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
-                      <div class="field col-4">
+                      <div class="field md:col-12 lg:col-4">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-map-marker azul"></i>
                           <input pInputText id="cidade" formControlName="cidade" required class="width"  />
@@ -783,7 +772,7 @@
                         <small *ngIf="formulario.get('endereco.cidade')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
-                      <div class="field col-4">
+                      <div class="field md:col-12 lg:col-4">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-map-marker azul"></i>
                           <input pInputText id="bairro" formControlName="bairro" required class="width"/>
@@ -793,8 +782,8 @@
                       </div>
                     </div>
 
-                    <div class="row flex justify-content-center my-3">
-                      <div class="field col-5">
+                    <div class="row lg:flex lg:justify-content-center my-3">
+                      <div class="field md:col-12 lg:col-5">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-map azul"></i>
                           <input pInputText id="logradouro" formControlName="logradouro" required class="width" />
@@ -803,7 +792,7 @@
                         <small *ngIf="formulario.get('endereco.logradouro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
 
-                      <div class="field col-2">
+                      <div class="field md:col-12 lg:col-2">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-map azul"></i>
                           <input pInputText id="numero" formControlName="numero" required class="width" />
@@ -811,7 +800,7 @@
                         </span>
                         <small *ngIf="formulario.get('endereco.numero')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small>
                       </div>
-                      <div class="field col-4">
+                      <div class="field md:col-12 lg:col-4">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-map azul"></i>
                           <input pInputText id="complemento" formControlName="complemento" required class="width" />
@@ -822,9 +811,9 @@
 
                     </div>
 
-                    <div class="row flex justify-content-center my-3">
+                    <div class="row lg:flex lg:justify-content-center my-3">
 
-                      <div class="field col-4">
+                      <div class="field md:col-12 lg:col-4">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-map azul"></i>
                           <input pInputText id="referencia" formControlName="referencia" class="width" />
@@ -839,8 +828,9 @@
 
             <div *ngIf="indiceStep === 4">
                   <div class="card" formGroupName="anamnese">
-                    <div class="row flex justify-content-center my-3">
-                      <div class="field col-6">
+                    <h3 class="mobile">Anamnese</h3>
+                    <div class="row lg:flex lg:justify-content-center my-3">
+                      <div class="field md:col-12 lg:col-6">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-file-edit azul"></i>
                           <input pInputText id="problemaSaude" formControlName="problemaSaude" required class="width" />
@@ -848,7 +838,7 @@
                         </span>
                         <small *ngIf="formulario.get('anamnese.problemaSaude')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small>
                       </div>
-                      <div class="field col-4">
+                      <div class="field md:col-12 lg:col-4">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-file-edit azul"></i>
                           <input pInputText id="tratamento" formControlName="tratamento" required class="width" />
@@ -857,9 +847,8 @@
                         <small *ngIf="formulario.get('anamnese.tratamento')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small>
                       </div>
                     </div>
-
-                    <div class="row flex justify-content-center my-3">
-                      <div class="field col-4">
+                    <div class="row lg:flex lg:justify-content-center my-3">
+                      <div class="field md:col-12 lg:col-4">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-file-edit azul"></i>
                           <input pInputText id="alergia" formControlName="alergia" required class="width" />
@@ -867,7 +856,7 @@
                         </span>
                         <small *ngIf="formulario.get('anamnese.alergia')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small>
                       </div>
-                      <div class="field col-6">
+                      <div class="field md:col-12 lg:col-6">
                         <span class="p-float-label p-input-icon-left width">
                           <i class="pi pi-file-edit azul"></i>
                           <input pInputText id="remedio" formControlName="remedio" required class="width" />
@@ -876,9 +865,9 @@
                         <small *ngIf="formulario.get('anamnese.remedio')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small>
                       </div>
                     </div>
-                    <div class="row flex justify-content-center mt-5">
-                      <div class="col-1"></div>
-                      <div class="col-4">
+                    <div class="row lg:flex lg:justify-content-center mt-5">
+                      <div class="col-1 web"></div>
+                      <div class="md:col-12 lg:col-4">
                         <span class=" flex justify-content-start align-items-center  my-3">
                           <p-inputSwitch id="hipertenso" formControlName="hipertenso"></p-inputSwitch>
                           <label for="hipertenso" class="azul">&nbsp;&nbsp;Hipertenso?</label>
@@ -888,7 +877,7 @@
                           <label for="gravida" class="azul">&nbsp;&nbsp;Está Gestante?</label>
                         </span>
                       </div>
-                      <div class="col-4">
+                      <div class="md:col-12 lg:col-4 ">
                         <span class=" flex justify-content-start align-items-center my-3">
                           <p-inputSwitch id="traumatismoFace" formControlName="traumatismoFace"></p-inputSwitch>
                           <label for="traumatismoFace" class="azul">&nbsp;&nbsp;Possui algum traumatismo na face?</label>
@@ -904,15 +893,16 @@
                   </div>
 
             </div>
-            <div class="flex justify-content-center align-content-center m-3">
-              <p-button label="Cancelar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
-              <button pButton type="submit" icon="pi pi-save" label="Salvar"  class="btnSalvar mx-2" *ngIf="indiceStep === 4"></button>
+            <div class="flex flex justify-content-around lg:justify-content-between align-content-center m-3">
+              <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
+              <p-button type="submit" label="Salvar" [rounded]="true" severity="success"  icon="pi pi-save" class="mx-2" *ngIf="indiceStep === 4"></p-button>
+              <!-- <button pButton type="submit" icon="pi pi-save" label="Salvar"  class="btnSalvar mx-2" *ngIf="indiceStep === 4"></button> -->
             </div>
           </form>
         </div>
       </div>
       <!-- Proxímo -->
-      <div class="col-1 ">
+      <div class="col-1 flex justify-content-center align-items-center">
         @if(indiceStep !== 4){
         <i class="pi pi-angle-right"
           style="font-size: 2.4rem; color: #2070B4"

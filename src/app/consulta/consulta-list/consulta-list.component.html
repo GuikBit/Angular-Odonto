@@ -1,14 +1,8 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 ">
-
-      <div class="card box p-5 m-5 text-indigo-800">
-        <div class="flex justify-content-between mb-3 ml-5 mr-5 ">
-          <!-- <span class="p-float-label p-input-icon-left ">
-            <i class="pi pi-search azul" ></i>
-            <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
-            <label for="search" class="azul">Buscar Consulta...</label>
-          </span> -->
+      <div class="card box lg:p-5 lg:m-5 text-indigo-800">
+        <div class="flex justify-content-between m-3">
 
           <div class="flex align-items-center">
             <p-selectButton
@@ -23,66 +17,39 @@
             >
             </p-selectButton>
           </div>
+            <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastro()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
 
-          <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-plus"></button>
+            <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-plus" class="web"></button>
           </div>
-
-          <!--<div class="row flex justify-content-between m-2 ">
-            <div class="col-3 ml-2 ">
-               <p-dropdown
-
-                formControlName="selectedCity"
-                [options]="[
-                  {name: 'Selecione um dentista', code: ''},
-                  { name: 'Australia', code: 'AU' },
-                  { name: 'Brazil', code: 'BR' },
-                  { name: 'China', code: 'CN' },
-                  { name: 'Egypt', code: 'EG' },
-                  { name: 'France', code: 'FR' },
-                  { name: 'Germany', code: 'DE' },
-                  { name: 'India', code: 'IN' },
-                  { name: 'Japan', code: 'JP' },
-                  { name: 'Spain', code: 'ES' },
-                  { name: 'United States', code: 'US' },
-                ]"
-                [filter]="true"
-                optionLabel="name"
-                [style]="{'width': '20vw'}"
-                scrollHeight="300px"
-                ></p-dropdown>
-            </div>
-
-
-          </div> -->
           <p-table
             #productsTable
             [value]="listaFiltro"
             [rows]="10"
             [paginator]="true"
             [responsive]="true"
-            [globalFilterFields]="['name', 'amount']"
+            [globalFilterFields]="['nomePaciente', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
             [tableStyle]="{ 'min-width': '75rem' }"
             [rowHover]="true"
             [showCurrentPageReport]="true"
             dataKey="id"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} consultas"
+            currentPageReportTemplate="{first} de {last} de {totalRecords}"
           >
             <ng-template pTemplate="header">
               <tr>
-                <th pSortableColumn="nomePaciente" [width]="380">
+                <th pSortableColumn="paciente.nome" [width]="380">
                   <div class="flex justify-content-between align-items-center">
                     <div class="flex justify-content-center align-items-center">
                       Paciente
                     </div>
                     <div class="flex justify-content-center align-items-center">
                       <p-sortIcon
-                        field="nomePaciente"
+                        field="paciente.nome"
                         pTooltip="Ordenar"
                         tooltipPosition="top"
                       ></p-sortIcon>
                       <p-columnFilter
                         type="text"
-                        field="nomePaciente"
+                        field="paciente.nome"
                         display="menu"
                         matchMode="contains"
                         [showMatchModes]="false"
@@ -94,20 +61,20 @@
                     </div>
                   </div>
                 </th>
-                <th pSortableColumn="nomeDentista" [width]="380" >
+                <th pSortableColumn="dentista.nome" [width]="380" >
                   <div class="flex justify-content-between align-items-center">
                     <div class="flex justify-content-between align-items-center">
                       Dentista
                     </div>
                     <div class="flex justify-content-between align-items-center">
                       <p-sortIcon
-                        field="nomeDentista"
+                        field="dentista.nome"
                         pTooltip="Ordenar"
                         tooltipPosition="top"
                         ></p-sortIcon>
                       <p-columnFilter
                         type="text"
-                        field="nomeDentista"
+                        field="dentista.nome"
                         display="menu"
                         matchMode="contains"
                         [showMatchModes]="false"
@@ -216,7 +183,7 @@
                   </div>
                 </th> -->
                 <th [width]="250">
-                  <div class="flex justify-content-end align-items-center">
+                  <div class="flex justify-content-end align-items-center web">
                     <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
                   </div>
                 </th>
@@ -229,7 +196,7 @@
                 <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}}</td>
                 <td>{{  consulta?.dataConsulta | date: 'HH:mm' }}</td>
                 <td>
-                      @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                    @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
                         <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
                       }
                     @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
@@ -317,7 +284,12 @@
   </div>
 </div>
 
-<p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box" [draggable]="false" [resizable]="false" [closable]="false">
+<p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
+  <ng-template pTemplate="content">
+    <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
+  </ng-template>
+</p-dialog>
+<p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '90vw', height: 'auto' }" class="box mobile" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
     <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
   </ng-template>

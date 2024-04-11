@@ -5,6 +5,7 @@ import { DentistaService } from 'src/app/dentista.service';
 import { MessageService } from 'primeng/api';
 import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from 'src/app/consulta/consulta';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-dentista-info',
@@ -12,6 +13,7 @@ import { Consulta } from 'src/app/consulta/consulta';
   styleUrls: ['./dentista-info.component.css']
 })
 export class DentistaInfoComponent implements OnInit {
+
 
   consultaSelecionada: Consulta;
 
@@ -27,8 +29,14 @@ export class DentistaInfoComponent implements OnInit {
 
   inicioConsulta: any;
 
+  isMobile: boolean;
+
+  visible: boolean;
+
   constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService,
-    private serviceConsulta: ConsultaService, private cdr: ChangeDetectorRef){}
+    private serviceConsulta: ConsultaService, private cdr: ChangeDetectorRef, private platformLocation: PlatformLocation){
+      this.isMobile = this.detectMobile();
+    }
 
 
   ngOnInit(){
@@ -147,7 +155,7 @@ export class DentistaInfoComponent implements OnInit {
                 }
             }
         }
-
+        console.log(this.isMobile)
       }
 
   infoShow(arg0: any) {
@@ -165,21 +173,12 @@ export class DentistaInfoComponent implements OnInit {
 
   }
 
-  closeInfo($event: Event) {
-
+  private detectMobile(): boolean {
+    const path = this.platformLocation.pathname;
+    // Adicione aqui a lógica para verificar se o caminho corresponde a um dispositivo móvel
+    // Por exemplo, você pode verificar se o caminho contém "/m/" ou "/mobile/"
+    return path.includes('/m/') || path.includes('/mobile/');
   }
-    reloadingTela($event: Event) {
-
-  }
-  reloading($event: Event) {
-
-    }
-
-  iniciarConsulta(_t159: any) {
-
-  }
-
-
   // async consultaSelecionadaInfo(id: any) {
   //   if (id != null) {
   //     this.serviceConsulta.getConsultaById(id).then(async(response) => {
@@ -196,7 +195,7 @@ export class DentistaInfoComponent implements OnInit {
   //     });
   //   }
   // }
-  async consultaSelecionadaInfo(id: any, tipo: any){
+  consultaSelecionadaInfo(id: any, tipo: any){
     if(id != null){
       console.log("Entrei aqui")
       this.serviceConsulta.getConsultaById(id).then((response)=>{
@@ -221,4 +220,48 @@ export class DentistaInfoComponent implements OnInit {
 
   }
 
+  newConsulta(){
+    console.log("Nova consulta")
+    this.visible = true;
+  }
+
+  onlyClose(close: boolean) {
+    this.visible = close;
+  }
+
+  closeModal(close: boolean) {
+    this.visible = close;
+    let id: string = '';
+    this.route.params.subscribe(params => {
+      id = params['id'];
+    })
+    this.service.getDentistaFull(id).then((response)=>{
+
+      this.data = response;
+      // console.log(this.data);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Aviso',
+        detail: 'Consulta agendada com sucesso!',
+        life: 2000
+      })
+     }).catch(()=>{
+      this.router.navigate(['/dentistas']);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Ocorreu um erro ao carregar o dentista',
+        life: 2000
+      })
+     })
+
+  }
+
+  reloading($event: Boolean){
+
+  }
+
+  closeInfo($event: boolean){
+
+  }
 }

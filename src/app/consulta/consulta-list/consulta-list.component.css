@@ -27,18 +27,6 @@
   color:#2070b4,
 }
 
-@media screen and (min-width: 1400px) {
-  .grid {
-    background-position: top;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .grid {
-    height: 100vmax;
-  }
-}
-
 button{
   background: linear-gradient(to right, #2070b4, #24aae3);
   font-size: 0.9rem;
@@ -90,3 +78,19 @@ th{
   width: 100%;
 }
 
+.web{
+  display: block;
+}
+
+.mobile{
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .web{
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+
+}

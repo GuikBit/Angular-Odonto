@@ -151,7 +151,6 @@ import { DialogService } from 'primeng/dynamicdialog';
     ConsultaInfoComponent,
     ConsultaEditComponent,
     PagamentoInfoComponent,
-    PagamentoInfoComponent
   ],
   imports: [
     CommonModule,

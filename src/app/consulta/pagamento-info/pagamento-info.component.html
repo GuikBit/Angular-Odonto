@@ -105,8 +105,7 @@
     </div>
     <div class="row mx-8" *ngIf="addEntrada">
       <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
-
-        <div class="col-1 flex justify-content-center font-bold "></div>
+        <div class="col-1 flex justify-content-center font-bold"></div>
         <div class="col-2 flex justify-content-center font-bold">Valor</div>
         <div class="col-3 flex justify-content-center font-bold">Forma de pagamento</div>
         <div class="col-2 flex justify-content-center font-bold">Data Pagamento</div>
@@ -157,7 +156,8 @@
           __/__/____
         </div>
         <div class="col-2 flex justify-content-center">
-          <p-fileUpload styleClass="upload" [uploadIcon]="'pi pi-file-import'" mode="basic" [disabled]="true" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)" ></p-fileUpload>
+          <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
+          <input type="file" id="file" name="image[]" multiple="multiple" (change)="onFileSelected($event)">
         </div>
         <div class="col-1 flex justify-content-center">
           <p-button label="Excluir" [text]="true" severity="danger" (click)="excluirEntrada()" ></p-button>
@@ -239,7 +239,8 @@
               </div>
 
               <div class="col-2 flex justify-content-center">
-                <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+                <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
+                <input type="file" id="file" name="image[]" multiple="multiple" (change)="onFileSelected($event)">
               </div>
 
               <div class="col-1 flex justify-content-center">
@@ -262,7 +263,7 @@
       </div>
     </div>
     <div class="row flex justify-content-center" *ngIf="!consultaSelecionadaPg.pagamento.fatFechado">
-      <button pButton type="submit" icon="pi pi-save" label="Salvar Pagamento"></button>
+      <p-button type="submit" label="Salvar Pagamento" [rounded]="true" severity="success"  icon="pi pi-save" class="mx-2"></p-button>
     </div>
     </div>
 
@@ -320,7 +321,8 @@
                 {{item.dataPagamento | date: "dd/MM/yyyy"}}
               </div>
               <div class="col-2 flex justify-content-center">
-                <p-fileUpload mode="basic" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)" [disabled]="true" ></p-fileUpload>
+                <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
+                <input type="file" id="file" name="image[]" multiple="multiple" (change)="onFileSelected($event)">
               </div>
               <div class="col-1 flex justify-content-center">
                 <p-button label="Excluir" [text]="true" severity="danger" (click)="excluirEntrada()" [disabled]="true" ></p-button>
@@ -412,7 +414,8 @@
                   </div>
 
                   <div class="col-2 flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Buscar" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+                    <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
+                    <input type="file" id="file" name="image[]" multiple="multiple" (change)="onFileSelected($event)">
                   </div>
 
                   <div class="col-1 flex justify-content-center">
