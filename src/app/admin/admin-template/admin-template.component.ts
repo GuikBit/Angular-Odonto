@@ -279,7 +279,7 @@ export class AdminTemplateComponent implements OnInit {
   converterConsultaParaEvento(consulta: Consulta) {
     return{
       id: consulta.id.toString(),
-      title: consulta.paciente.nome,
+      title: consulta.paciente.nome?.substring(0, 16),
       start: consulta.dataConsulta,
       end: consulta.dataConsultaReserva,
       source: null,
