@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+// import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'Cliente';
 
-  constructor(private config: PrimeNGConfig){}
+  constructor(private config: PrimeNGConfig, 
+    // private translateService: TranslateService
+  ){}
 
   ngOnInit(): void {
 
@@ -37,9 +40,8 @@ export class AppComponent implements OnInit {
       today: 'Hoje',
       
 
-      // matchAll: 'Marcar todos'
-      //date
-
+    // matchAll: 'Marcar todos'
+    //date
     //   primengConfig.filterMatchModeOptions = {
     //     text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
     //     numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
