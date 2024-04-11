@@ -67,7 +67,7 @@
   <div class='demo-app-main z-0'>
     <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos" >
       <ng-template #eventContent let-arg>
-        <div class="flex-grow-1 flex justify-content-center align-itens-center border-1 border-solid border-round-sm p-1 " [class]="arg.event.groupId == 1? 'border-blue-600 bg-blue-100 hover:bg-blue-50' : arg.event.groupId == 2? 'border-green-600 bg-green-100 hover:bg-green-50' : arg.event.groupId == 3? 'border-orange-500 bg-orange-100 hover:bg-orange-50' : 'border-red-600 bg-red-100 hover:bg-red-50 '">
+        <div class="flex-grow-1 flex justify-content-center align-itens-center border-1 border-solid border-round-sm p-1 p-component" [class]="arg.event.groupId == 1? 'border-blue-600 bg-blue-100 hover:bg-blue-50' : arg.event.groupId == 2? 'border-green-600 bg-green-100 hover:bg-green-50' : arg.event.groupId == 3? 'border-orange-500 bg-orange-100 hover:bg-orange-50' : 'border-red-600 bg-red-100 hover:bg-red-50 '">
           <span class="text-xs text-900 white-space-nowrap">
             <i class="pi pi-user text-xs" [class]="arg.event.groupId == 1? 'text-blue-600' : arg.event.groupId == 2? 'text-green-600' : arg.event.groupId == 3? 'text-orange-600' : 'text-red-600'" ></i>
              {{ arg.event.title }}
