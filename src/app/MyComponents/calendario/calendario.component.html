@@ -1,0 +1,24 @@
+<div class="z-0 mx-8">
+  <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos"  >
+    <ng-template #eventContent let-arg>
+      <div class="flex-grow-1 flex justify-content-between align-itens-center border-1 border-solid border-round-sm p-1 p-component hover:bg-white"
+        [style]="{'background': arg.event.display + '25', 'border-color': arg.event.display, 'transition': 'background-color 0.2s'}"
+        pBadge style="font-size: 1rem"
+        [severity]="arg.event.source == 'agen'? 'warning': arg.event.source == 'atdm'? 'info': arg.event.source == 'atd'? 'success' : 'danger'"
+        >
+        <div>
+          <span class="text-xs text-900 white-space-nowrap">
+            <i class="pi pi-user text-xs" [style]="{'color': arg.event.display}" ></i>
+            {{ arg.event.title }}
+          </span>
+        </div>
+        <div>
+          <span class="text-xs text-900 white-space-nowrap">
+            <i class="pi pi-clock text-xs ml-1" [style]="{'color': arg.event.display}"></i>
+            {{arg.event.start | date: 'HH:mm'}}
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </full-calendar>
+</div>

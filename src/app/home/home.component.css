@@ -103,7 +103,9 @@ button:hover{
   /* Outras propriedades da classe */
 }
 
-
+.dashboard{
+  display: flex;
+}
 @media only screen and (max-width: 767px) {
   .filtroMovel {
     display: none; /* Esconde a div em dispositivos móveis com largura de tela menor que 768 pixels */

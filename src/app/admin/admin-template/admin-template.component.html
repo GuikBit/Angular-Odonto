@@ -1,26 +1,7 @@
-<!-- <div class="flex">
-  <div class="col-2">
-    <div class="card flex justify-content-center">
-      <p-menu [model]="items" [style]="{'width':'300px'}"></p-menu>
-  </div>
-  </div>
 
-  <div class="col-10">
-      <div class=" bg-primary font-bold">
-
-      </div>
-  </div>
-</div> -->
 <div class="row lg:flex lg:justify-content-start m-3 mr-4 web">
   <p-menubar [model]="items" styleClass="menuBar"></p-menubar>
 </div>
-
-<!-- <div class="m-8">
-  <full-calendar
-  [options]="calendarOptions"
-  [events]="eventsPromise | async"
-></full-calendar>
-</div> -->
 
 <div class='demo-app'>
 
@@ -53,21 +34,12 @@
         toggle weekends
       </label>
     </div>
-    <!-- <div class='demo-app-sidebar-section '>
-      <h2>All Events ({{currentEvents.length}})</h2>
-      <ul >
-        <li *ngFor='let event of currentEvents()'>
-          <b>{{event.startStr}}</b>
-          <i>{{event.id}}</i>
-        </li>
-      </ul>
-    </div> -->
   </div>
 
   <div class='demo-app-main z-0'>
     <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos" >
       <ng-template #eventContent let-arg>
-        <div class="flex-grow-1 flex justify-content-center align-itens-center border-1 border-solid border-round-sm p-1 p-component" [class]="arg.event.groupId == 1? 'border-blue-600 bg-blue-100 hover:bg-blue-50' : arg.event.groupId == 2? 'border-green-600 bg-green-100 hover:bg-green-50' : arg.event.groupId == 3? 'border-orange-500 bg-orange-100 hover:bg-orange-50' : 'border-red-600 bg-red-100 hover:bg-red-50 '">
+        <div class="flex-grow-1 flex justify-content-center align-itens-center border-1 border-solid border-round-sm p-1 p-component" [style]="{'border-color': arg.event.display, 'background-color': arg.event.display + '25'}">
           <span class="text-xs text-900 white-space-nowrap">
             <i class="pi pi-user text-xs" [class]="arg.event.groupId == 1? 'text-blue-600' : arg.event.groupId == 2? 'text-green-600' : arg.event.groupId == 3? 'text-orange-600' : 'text-red-600'" ></i>
              {{ arg.event.title }}
@@ -80,6 +52,7 @@
 
       </ng-template>
     </full-calendar>
+
   </div>
 
 </div>

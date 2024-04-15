@@ -1,12 +1,36 @@
 <div class="container">
   <div class="grid">
-    <div class="col-12 ">
-      <div class="card box lg:p-5 lg:m-5 text-indigo-800">
-        <div class="flex justify-content-between m-3">
+    <div class="col-12 z-0">
+      <div class="flex align-items-center lg:mx-5 sticky top-0 z-1 m-2">
+        <p-selectButton
+        [options]="listaOuCalendar"
+        [(ngModel)]="filtroListaCalendar"
+        [multiple]="false"
+        optionLabel="name"
+        optionValue="value"
+        class="selectButton"
+        (onChange)="trocaFiltroCalendario($event)"
+        >
+        </p-selectButton>
+
+        <p-dropdown
+          [options]="dentistas"
+          (ngModel)="filtroConsulta.dentista"
+          optionLabel="nome"
+          [showClear]="true"
+          placeholder="Escolha um dentista"
+        ></p-dropdown>
+
+        <p-checkbox label="Ocultar fins de semana" *ngIf="!ehCalendario"></p-checkbox>
+
+        </div>
+       <!-- Lista -->
+      <div class="card box lg:p-5 lg:m-5 text-indigo-800" *ngIf="ehCalendario">
+        <div class="flex justify-content-between m-3"  >
 
           <div class="flex align-items-center">
             <p-selectButton
-            [options]="paymentOptions"
+            [options]="filtroDiaSemanaMes"
             [(ngModel)]="filtro"
             [multiple]="false"
             optionLabel="name"
@@ -20,7 +44,7 @@
             <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastro()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
 
             <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-plus" class="web"></button>
-          </div>
+        </div>
           <p-table
             #productsTable
             [value]="listaFiltro"
@@ -280,6 +304,10 @@
             </ng-template>
           </p-table>
       </div>
+      <!-- Calendar -->
+      <div class="card box lg:p-5 lg:m-5 text-indigo-800" *ngIf="!ehCalendario">
+        <app-calendario [listaConsultas]="lista" [filtro]="filtroConsulta"></app-calendario>
+      </div>
     </div>
   </div>
 </div>
@@ -289,11 +317,11 @@
     <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
   </ng-template>
 </p-dialog>
-<p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '90vw', height: 'auto' }" class="box mobile" [draggable]="false" [resizable]="false" [closable]="false">
+<!-- <p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '90vw', height: 'auto' }" class="box mobile" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
     <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
   </ng-template>
-</p-dialog>
+</p-dialog> -->
 
 <!-- <p-dialog header="Detalhes da consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw', height: '90vh' }" class="box" [draggable]="false" [resizable]="false">
   <app-consulta-info ></app-consulta-info>

@@ -1,13 +1,5 @@
 
 
-.container{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
-    /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
-    border-color: #54a2dc;
-    border-radius: 30px;
-    background: #FFFFFF;
-    width: 60%;
-}
 img {
   max-width: 100%;
   height: auto;

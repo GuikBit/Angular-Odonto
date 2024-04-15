@@ -2,12 +2,11 @@
   <div class="flex justify-content-center">
       <p-messages></p-messages>
   </div>
-  <div class="row flex justify-content-center mb-8">
     <!-- Filtros -->
-    <div class="pl-3 md:none lg:col-2 filtroMovel">
-      <!-- <div class="fixed left-5 "id="menu"> -->
-      <div class=" "id="menu">
-        <div class="card box mt-2 px-5 py-2">
+  <div class="flex pl-3">
+      <div class="lg:col-2 md:none ">
+        <div class="sticky top-0 pt-3">
+          <div class="card box mt-2 px-5 py-2 ">
           <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()">
 
             <div class="h-11rem">
@@ -114,9 +113,9 @@
               </div>
             </div>
 
-            <p-divider></p-divider>
 
-            <div class="flex justify-content-center align-items-center h-5rem">
+
+            <div class="flex justify-content-center align-items-center h-6rem">
               <button pButton label="Limpar" icon="pi pi-filter-slash" class="limpar"></button>
               <button pButton type="submit" label="Filtrar"  icon="pi pi-filter"></button>
               <!-- <p-splitButton label="Filtrar" icon="pi pi-filter" styleClass="splitButton"
@@ -130,13 +129,13 @@
               ></p-splitButton>-->
             </div>
           </form>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Graficos -->
-    <div class="col-10 col-12 md:col-12 lg:col-10">
-      <div class="row lg:flex">
 
+    <!-- Graficos -->
+    <div class="col-10 col-12 md:col-12 lg:col-10 ">
+      <div class="row lg:flex pt-3">
         <div class="md:col-12 lg:col-3">
           <div class="card box flex" >
             <div class="col-6 py-4 " >
@@ -576,3 +575,4 @@
       </div>
     </div>
   </div>
+

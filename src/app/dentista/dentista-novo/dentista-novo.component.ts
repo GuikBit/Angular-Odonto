@@ -57,7 +57,8 @@ export class DentistaNovoComponent implements OnInit{
       dataNascimento: ['', Validators.required],
       telefone: ['', Validators.required],
       cro: ['', Validators.required],
-      especialidade: ['', Validators.required]
+      especialidade: ['', Validators.required],
+      corDentista: [this.generateRandomColor(), Validators.required]
     })
   }
 
@@ -190,5 +191,22 @@ export class DentistaNovoComponent implements OnInit{
 
   fecharModal(){
     this.onlyClose.emit(false);
+  }
+
+  generateRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  getCorDentista(){
+    return this.formulario.get('corDentista')?.value;
+  }
+
+  getCorDentistaOpacidade(){
+    return this.formulario.get('corDentista')?.value + '26';
   }
 }

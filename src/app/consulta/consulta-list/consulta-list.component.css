@@ -2,30 +2,19 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-.grid {
-  /* background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg") !important; */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
 :host::ng-deep {
   /* sets the style for pizza diavola */
   .p-button.p-highlight.selectButton {
     background: linear-gradient(to right, #2070b4, #24aae3);
-    border: #cc8925;
+    border: none;
   }
-  .p-selectbutton.p-highlight{
-    background-color: #24aae3;
-  }
-
   /* sets the style for the hover (general) */
   .p-button.p-highlight:hover {
     background: linear-gradient(to right, #194973, #0f82ba);
   }
 }
-.selectButton{
-  color:#2070b4,
-}
+
 
 button{
   background: linear-gradient(to right, #2070b4, #24aae3);
@@ -41,7 +30,6 @@ button:hover{
 }
 
 th{
-    /* background: #c4ddf3 !important; */
     color: #2070b4;
     font-size: large;
 

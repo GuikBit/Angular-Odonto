@@ -143,6 +143,7 @@ import { MessageService } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { PagamentoInfoComponent } from './pagamento-info/pagamento-info.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
 
 @NgModule({
   declarations: [
@@ -151,8 +152,10 @@ import { DialogService } from 'primeng/dynamicdialog';
     ConsultaInfoComponent,
     ConsultaEditComponent,
     PagamentoInfoComponent,
+
   ],
   imports: [
+    CalendarioModule,
     CommonModule,
     CardModule,
     ButtonModule,
@@ -192,6 +195,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     ConsultaInfoComponent,
     ConsultaNovaComponent,
     PagamentoInfoComponent
+
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [MessageService, DialogService]

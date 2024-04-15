@@ -25,6 +25,8 @@ import { ChipModule } from 'primeng/chip';
 import { FieldsetModule } from 'primeng/fieldset';
 import { TagModule } from 'primeng/tag';
 import { CalendarModule } from 'primeng/calendar';
+import { ColorPickerModule } from 'primeng/colorpicker';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
@@ -45,6 +47,7 @@ import { ConsultaModule } from '../consulta/consulta.module';
   imports: [
     CommonModule,
     CardModule,
+    ColorPickerModule,
     ButtonModule,
     TableModule,
     InputMaskModule,

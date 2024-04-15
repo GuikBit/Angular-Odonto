@@ -14,10 +14,17 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConsultaInfoComponent } from '../consulta-info/consulta-info.component';
 import { SelectButtonChangeEvent } from 'primeng/selectbutton';
 import { SlicePipe } from '@angular/common';
+import { Dentista } from 'src/app/dentista/dentista';
 
 export interface Message {
   type: 'success' | 'error';
   content: string;
+}
+
+export interface Filtro {
+  dentista: Dentista,
+  dataInicio: Date,
+  dataFim: Date
 }
 
 @Component({
@@ -34,11 +41,21 @@ export class ConsultaListComponent implements OnInit{
   lista: Consulta[];
   listaFiltro: Consulta[] = [];
 
+  dentistas: Dentista[];
+  filtroConsulta: Filtro;
+
   msgSalvar: string;
   msgSalvarStyle: string;
+
   filtro: SelectButtonChangeEvent = {
     value: null
   };
+
+  filtroListaCalendar: SelectButtonChangeEvent = {
+    value: null
+  }
+  ehCalendario: boolean = true;
+
   visible: boolean = false;
   infoConsulta: boolean = false;
   close: boolean;
@@ -46,17 +63,23 @@ export class ConsultaListComponent implements OnInit{
   pagamentoInfo: boolean = false;
   ref: DynamicDialogRef ;
 
-  paymentOptions: any[] = [
+
+  filtroDiaSemanaMes: any[] = [
     { name: 'Dia', icon: 'pi pi-calendar', value: 1, styleClass: "selectButton" },
     { name: 'Semana', icon: 'pi pi-calendar',  value: 2, styleClass: "selectButton"},
     { name: 'Mês', icon: 'pi pi-calendar', value: 3, styleClass: "selectButton" }
   ];
+  listaOuCalendar: any[] =[
+    { name: 'Listagem', icon: 'pi pi-list', value: 1, styleClass: "selectButton" },
+    { name: 'Calendário', icon: 'pi pi-calendar',  value: 2, styleClass: "selectButton"},
+  ]
 
 
   constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private messageService: MessageService,
     private dialogService: DialogService, private cdRef: ChangeDetectorRef){
     this.criaTabelaConsulta();
-
+    this.filtroListaCalendar = this.listaOuCalendar[0].value;
+    this.filtro = this.filtroDiaSemanaMes[2].value;
   }
 
   ngOnInit(){
@@ -101,6 +124,19 @@ export class ConsultaListComponent implements OnInit{
           break;
         }
       }
+  }
+
+  trocaFiltroCalendario(filtro: SelectButtonChangeEvent){
+    switch(filtro.value){
+      case 1: {
+        this.ehCalendario = true;
+        break;
+      }
+      case 2:{
+        this.ehCalendario = false;
+        break;
+      }
+    }
   }
 
   calcularIntervaloSemana(): {inicio: Date, fim: Date} {

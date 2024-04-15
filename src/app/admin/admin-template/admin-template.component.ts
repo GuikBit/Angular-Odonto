@@ -42,7 +42,6 @@ export class AdminTemplateComponent implements OnInit {
 
   items: MenuItem[] | undefined;
 
-  consultas: Consulta [] = [];
   eventos: EventInput [] = [];
   fullCalendar: Calendar;
 
@@ -81,8 +80,6 @@ export class AdminTemplateComponent implements OnInit {
       }
 
     }).catch(()=>{})
-
-
   }
 
   OcultaCalendario() {
@@ -288,7 +285,7 @@ export class AdminTemplateComponent implements OnInit {
       groupId: consulta.dentista?.id?.toString() ?? '',
       allDay: false,
       url:'',
-      display: '',
+      display: consulta.dentista.corDentista,
       startEditable: false,
       durationEditable: false,
       constraint: false,

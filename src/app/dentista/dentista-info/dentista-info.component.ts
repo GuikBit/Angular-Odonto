@@ -17,7 +17,6 @@ export class DentistaInfoComponent implements OnInit {
 
   consultaSelecionada: Consulta;
 
-
   data: any;
   dataGrafic1: any;
   dataGrafic2: any;
@@ -35,7 +34,7 @@ export class DentistaInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService,
     private serviceConsulta: ConsultaService, private cdr: ChangeDetectorRef, private platformLocation: PlatformLocation){
-      this.isMobile = this.detectMobile();
+
     }
 
 
@@ -45,10 +44,18 @@ export class DentistaInfoComponent implements OnInit {
       id = params['id'];
     })
     if(id !== ''){
-     const response = this.service.getDentistaFull(id).then((response)=>{
-
-      this.data = response;
-      // console.log(this.data);
+     this.service.getDentistaFull(id).then((response)=>{
+      if(response != null){
+        this.data = response;
+      }else{
+        this.router.navigate(['/dentistas']);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Ocorreu um erro ao carregar o dentista, esse dentista nao existe',
+          life: 2000
+        })
+      }
 
      }).catch(()=>{
       this.router.navigate(['/dentistas']);
@@ -59,25 +66,20 @@ export class DentistaInfoComponent implements OnInit {
         life: 2000
       })
      })
+    }else{
+      this.router.navigate(['/dentistas']);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Ocorreu um erro ao carregar o dentista',
+        life: 2000
+      })
     }
     //grafico 1
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
-        this.dataGrafic1 = {
-            labels: ['A', 'B', 'C'],
-            datasets: [
-                {
-                    data: [300, 50, 100],
-                    //backgroundColor: ['#516EBB', '#7769BC','#9963B7'], //azul com roxo
-                    //hoverBackgroundColor: ['#6789ca', '#8d86ce','#b081cb']
-
-                    backgroundColor: ['#7692BC', '#72AEF8','#ABE3FF'],    // azul com azul
-                    hoverBackgroundColor: ['#8aa8ca', '#95c5fb','#dff2ff']
-                }
-            ],
-
-        };
+        
 
 
         this.options1 = {
@@ -94,36 +96,7 @@ export class DentistaInfoComponent implements OnInit {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.dataGrafic2 = {
-            labels: ['Agosto','Setembro', 'Outobro', 'Novembro', 'Dezembro'],
-            datasets: [
-                // {
-                //     label: 'First Dataset',
-                //     data: [ 81, 56, 55, 40],
-                //     fill: false,
-                //     tension: 0.4,
-                //     borderColor: documentStyle.getPropertyValue('--blue-500')
-                // },
-                // {
-                //     label: 'Second Dataset',
-                //     data: [ 19, 86, 27, 90],
-                //     fill: false,
-                //     borderDash: [5, 5],
-                //     tension: 0.4,
-                //     borderColor: documentStyle.getPropertyValue('--teal-500')
-                // },
-                {
-                    label: 'Third Dataset',
-                    data: [50, 33, 42, 62, 45],
-                    fill: true,
-                    // borderColor: '#7692BC',
-                    // backgroundColor: 'rgba(118, 146, 188, 0.2)'
-                    borderColor: '#516EBB',
-                    backgroundColor: 'rgba(81, 110, 187, 0.2)',
-                    tension: 0.4,
-                }
-            ]
-          }
+        this.dataGrafic2 =
 
         this.options2 = {
 
@@ -175,26 +148,9 @@ export class DentistaInfoComponent implements OnInit {
 
   private detectMobile(): boolean {
     const path = this.platformLocation.pathname;
-    // Adicione aqui a lógica para verificar se o caminho corresponde a um dispositivo móvel
-    // Por exemplo, você pode verificar se o caminho contém "/m/" ou "/mobile/"
     return path.includes('/m/') || path.includes('/mobile/');
   }
-  // async consultaSelecionadaInfo(id: any) {
-  //   if (id != null) {
-  //     this.serviceConsulta.getConsultaById(id).then(async(response) => {
-  //       this.consultaSelecionada = response;
-  //       this.infoConsulta = true;
 
-  //     }).catch((error) => {
-  //       this.messageService.add({
-  //         severity: 'error',
-  //         summary: 'Aviso',
-  //         detail: 'Houve algum problema ao buscar a consulta',
-  //         life: 2000
-  //       });
-  //     });
-  //   }
-  // }
   consultaSelecionadaInfo(id: any, tipo: any){
     if(id != null){
       console.log("Entrei aqui")
@@ -264,4 +220,6 @@ export class DentistaInfoComponent implements OnInit {
   closeInfo($event: boolean){
 
   }
+
+
 }

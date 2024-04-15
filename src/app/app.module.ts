@@ -143,10 +143,12 @@ import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info
     HomeComponent,
     ClienteNovoComponent,
     ClienteListComponent,
-    ClienteInfoComponent
+    ClienteInfoComponent,
+
   ],
   imports: [
     ReactiveFormsModule,
+    CalendarModule,
     ClienteModule,
     DentistaModule,
     ConsultaModule,

@@ -10,9 +10,10 @@ export class Dentista {
     dataNascimento?: string;
     telefone?: string;
     cro?: string;
+    corDentista: string;
     especialidade?: {};
     consultas?: {}
-    
+
 
 
 }

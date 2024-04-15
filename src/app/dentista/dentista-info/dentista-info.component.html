@@ -27,16 +27,16 @@
     <div class="md:col-12 lg:col-3  flex align-items-center justify-content-center">
       <ul>
         <li pTooltip="Informações" tooltipPosition="top">
-          <p-button icon="pi pi-info-circle" [rounded]="true" [outlined]="true" [style]="{'color': '#7692BC'}"></p-button>
+          <p-button icon="pi pi-info-circle" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}"></p-button>
         </li>
         <li pTooltip="Editar" tooltipPosition="top">
-          <p-button icon="pi pi-user-edit" [rounded]="true" [outlined]="true" [style]="{'color': '#7692BC'}"></p-button>
+          <p-button icon="pi pi-user-edit" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista }"></p-button>
         </li>
         <li pTooltip="Exportar" tooltipPosition="top">
-          <p-button icon="pi pi-download" [rounded]="true"[outlined]="true" [style]="{'color': '#7692BC'}"></p-button>
+          <p-button icon="pi pi-download" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista }"></p-button>
         </li>
         <li pTooltip="Deletar" tooltipPosition="top">
-          <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="true"></p-button>
+          <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="false"></p-button>
         </li>
       </ul>
     </div>
@@ -434,18 +434,75 @@
         <div class="row lg:flex lg:justify-content-around m-2">
 
           <div class="card box p-3" >
-            <p-chart type="line" [data]="dataGrafic2" [options]="options2" width="410" height="300"></p-chart>
+            <p-chart
+              type="line"
+              [data]="
+              {
+              labels: ['Agosto','Setembro', 'Outobro', 'Novembro', 'Dezembro'],
+              datasets: [
+                {
+                    label: 'Third Dataset',
+                    data: [50, 33, 42, 62, 45],
+                    fill: true,
+                    borderColor: this.data.corDentista,
+                    backgroundColor: this.data.corDentista + '26',
+                    tension: 0.4,
+                }
+              ]
+              }
+            "
+            [options]="options2"
+            width="410"
+            height="300"
+          ></p-chart>
           </div>
         </div>
         <div class="row lg:flex justify-content-around m-2">
 
           <div class="card box p-3" >
-            <p-chart type="line" [data]="dataGrafic2" [options]="options2" width="410" height="300"></p-chart>
+            <p-chart
+              type="line"
+              [data]="
+                {
+                labels: ['Agosto','Setembro', 'Outobro', 'Novembro', 'Dezembro'],
+                datasets: [
+                {
+                    label: 'Third Dataset',
+                    data: [50, 33, 42, 62, 45],
+                    fill: true,
+                    borderColor: data.corDentista,
+                    backgroundColor: data.corDentista + '26',
+                    tension: 0.4,
+                }
+                ]
+                }
+                "
+              [options]="options2"
+              width="410"
+              height="300"
+              ></p-chart>
           </div>
         </div>
           <div class="row lg:flex justify-content-around m-2">
             <div class="card box p-3 lg:flex justify-content-center align-items-center" >
-              <p-chart type="doughnut" [data]="dataGrafic1" [options]="options1" width="410" height="330"></p-chart>
+              <p-chart
+                type="doughnut"
+                [data]="
+                  {
+                  labels: ['A', 'B', 'C'],
+                  datasets: [
+                    {
+                      data: [300, 50, 100],
+                      backgroundColor: [data.corDentista + 'B3', data.corDentista + '80', data.corDentista + '4D'],
+                      borderColor: data.corDentista,
+                      hoverBackgroundColor: [data.corDentista + '25', data.corDentista + '25', data.corDentista + '25']
+                      }
+                    ]
+                  }"
+                [options]="options1"
+                width="410"
+                height="330"
+                ></p-chart>
             </div>
           </div>
 
@@ -460,12 +517,12 @@
             <div class="card box md:p-3 lg:p-5 ">
               <div class="flex justify-content-between m-3 ">
                 <span class="p-float-label p-input-icon-left ">
-                  <i class="pi pi-search azul" ></i>
-                  <input pInputText id="search"  class="search"/>
-                  <label for="search" class="azul">Buscar Consulta...</label>
+                  <i class="pi pi-search" [style]="{'color': data.corDentista}"></i>
+                  <input pInputText id="search"  class="search" [style]="{'border-color': data.corDentista}"/>
+                  <label for="search" [style]="{'color': data.corDentista}">Buscar Consulta...</label>
                 </span>
-                <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newConsulta()" class="web"></button>
-                <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': '#2070b4'}" (click)="newConsulta()"></p-button>
+                <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newConsulta()" class="web" [style]="{'background': data.corDentista} "></button>
+                <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': data.corDentista}" (click)="newConsulta()"></p-button>
 
               </div>
 
@@ -482,8 +539,8 @@
                 dataKey="id"
                 currentPageReportTemplate="{first} de {last} de {totalRecords}"
               >
-                <ng-template pTemplate="header">
-                  <tr>
+                <ng-template pTemplate="header" >
+                  <tr [style]="{'color': data.corDentista + '26'}">
                     <th pSortableColumn="nome" [width]="420">
                       <div class="flex row align-items-center">
                         <div class="col-8 flex justify-content-start align-items-center">
@@ -614,7 +671,7 @@
                           icon="pi pi-pw pi-info-circle"
                           [rounded]="true"
                           [outlined]="true"
-                          severity="info"
+                          [style]="{'color': data.corDentista}"
                           pTooltip="Informações"
                           tooltipPosition="top"
                           (click)="consultaSelecionadaInfo(consulta?.id, 1)"
