@@ -34,7 +34,9 @@ th{
     font-size: large;
 
 }
-
+.filtro{
+  background: #EFF3F8;
+}
 
 .search{
   color: #2070b4;

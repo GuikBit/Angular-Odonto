@@ -58,8 +58,7 @@ export class ConsultaService {
       baseURL: `${this.apiURL}`,
       timeout: 1000,
       headers: { Authorization: 'Bearer ' + (await this.getToken()),
-      'Content-Type': 'application/json'},
-    });
+  }});
     try{
       const response = await instance.post(`${this.apiURL}`, consulta);
       return response;

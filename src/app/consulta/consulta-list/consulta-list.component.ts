@@ -1,31 +1,13 @@
 
-import { AfterViewInit, Component, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef, OnInit } from '@angular/core';
-
-
-
+import {  Component, ChangeDetectorRef, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from './../consulta';
-
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConsultaInfoComponent } from '../consulta-info/consulta-info.component';
 import { SelectButtonChangeEvent } from 'primeng/selectbutton';
-import { SlicePipe } from '@angular/common';
 import { Dentista } from 'src/app/dentista/dentista';
-
-export interface Message {
-  type: 'success' | 'error';
-  content: string;
-}
-
-export interface Filtro {
-  dentista: Dentista,
-  dataInicio: Date,
-  dataFim: Date
-}
+import { DentistaService } from 'src/app/dentista.service';
 
 @Component({
   selector: 'app-consulta-list',
@@ -35,6 +17,8 @@ export interface Filtro {
 
 export class ConsultaListComponent implements OnInit{
 
+  @Input() fimSemana: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   consultaSelecionada: Consulta;
   consultaSelecionadaPg: Consulta;
   colunas : string [] = ['nome', 'cpf', 'dataCadastro', 'btns'];
@@ -42,10 +26,7 @@ export class ConsultaListComponent implements OnInit{
   listaFiltro: Consulta[] = [];
 
   dentistas: Dentista[];
-  filtroConsulta: Filtro;
-
-  msgSalvar: string;
-  msgSalvarStyle: string;
+  filtroCalendar: any;
 
   filtro: SelectButtonChangeEvent = {
     value: null
@@ -63,6 +44,7 @@ export class ConsultaListComponent implements OnInit{
   pagamentoInfo: boolean = false;
   ref: DynamicDialogRef ;
 
+  novaConsultaCalendar: Date;
 
   filtroDiaSemanaMes: any[] = [
     { name: 'Dia', icon: 'pi pi-calendar', value: 1, styleClass: "selectButton" },
@@ -75,14 +57,15 @@ export class ConsultaListComponent implements OnInit{
   ]
 
 
-  constructor(private service: ConsultaService, private router: Router, private route: ActivatedRoute, private messageService: MessageService,
+  constructor(private service: ConsultaService, private servideDentista: DentistaService , private router: Router, private route: ActivatedRoute, private messageService: MessageService,
     private dialogService: DialogService, private cdRef: ChangeDetectorRef){
-    this.criaTabelaConsulta();
-    this.filtroListaCalendar = this.listaOuCalendar[0].value;
+      this.criaTabelaConsulta();
+    this.filtroListaCalendar = this.listaOuCalendar[1].value;
     this.filtro = this.filtroDiaSemanaMes[2].value;
   }
 
   ngOnInit(){
+
   }
 
   filtrarTabela(filtro: SelectButtonChangeEvent) {
@@ -172,34 +155,29 @@ export class ConsultaListComponent implements OnInit{
     this.router.navigate([`/consultas/info/1`])
   }
 
-  async criaTabelaConsulta() {
+  criaTabelaConsulta() {
     try {
-      await this.service.getConsultas().then((response)=>{
+     this.service.getConsultas().then((response)=>{
         this.lista = response;
-
+        this.ehCalendario = false;
         this.filtrarTabela(this.filtro)
 
+      })
+
+      this.servideDentista.getDentistas().then((response)=>{
+        this.dentistas = response;
       })
       // this.lista = new MatTablelista(response);
 
     } catch (error) {
       console.error('Erro ao obter pacientes:', error);
     }
+
   }
 
  cadastro(){
   this.visible = true;
  }
-
-  // edit(id: any){
-  //   this.router.navigate([`/dentista/edit/${id}`])
-  // }
-  // delet(id: any){
-  //   this.router.navigate([`/dentista/delete/${id}`])
-  // }
-  // info(id: any){
-  //   this.router.navigate([`/dentista/info/${id}`])
-  // }
 
   async consultaSelecionadaInfo(id: any, tipo: number){
   if(id != null){
@@ -227,6 +205,7 @@ export class ConsultaListComponent implements OnInit{
 
   closeModal(close: boolean) {
     this.visible = close;
+    this.ehCalendario = true;
     this.criaTabelaConsulta();
     this.messageService.add({
       severity: 'success',
@@ -320,6 +299,16 @@ export class ConsultaListComponent implements OnInit{
       const consulta = this.consultaSelecionadaPg.id;
       this.consultaSelecionadaInfo(consulta, 2);
     }
+  }
+
+  abrirConsultaSelecionada(idConsulta: any){
+    this.consultaSelecionadaInfo(parseInt(idConsulta), 1);
+  }
+
+  novaConsultaDiaClicado(date: any) {
+    this.novaConsultaCalendar = new Date(date);
+    this.novaConsultaCalendar.setDate(this.novaConsultaCalendar.getDate() + 1);
+    this.visible = true;
   }
 
 }

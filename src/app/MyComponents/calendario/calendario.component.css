@@ -1,5 +1,24 @@
+:host::ng-deep {
+  .fc-button-primary {
+    background: linear-gradient(to right, #206EAF, #206EAF); /* Cor do botão primário */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  }
 
+  .fc-button-primary:hover {
+    background: linear-gradient(to right, #194973, #194973); /* Cor do botão primário ao passar o mouse */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
 
-.fundo:hover {
-  background: rgba(0, 0, 0, 0.05);
+  }
+
+  .seletor-pai .fc-now-indicator {
+    background-color: blue;
+  }
+}
+.seletor-pai .fc-now-indicator {
+  background-color: blue;
+}
+.fc-now-indicator {
+  background-color: blue;
 }

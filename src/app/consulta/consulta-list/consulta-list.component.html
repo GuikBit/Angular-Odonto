@@ -1,33 +1,65 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 z-0">
-      <div class="flex align-items-center lg:mx-5 sticky top-0 z-1 m-2">
-        <p-selectButton
-        [options]="listaOuCalendar"
-        [(ngModel)]="filtroListaCalendar"
-        [multiple]="false"
-        optionLabel="name"
-        optionValue="value"
-        class="selectButton"
-        (onChange)="trocaFiltroCalendario($event)"
-        >
-        </p-selectButton>
+      <div class="flex align-items-center sticky top-0 p-2 z-2 filtro">
+        <div class="col-3 ml-5 ">
+          <p-selectButton
+          [options]="listaOuCalendar"
+          [(ngModel)]="filtroListaCalendar"
+          [multiple]="false"
+          optionLabel="name"
+          optionValue="value"
+          class="selectButton"
+          (onChange)="trocaFiltroCalendario($event)"
+          >
 
-        <p-dropdown
-          [options]="dentistas"
-          (ngModel)="filtroConsulta.dentista"
-          optionLabel="nome"
-          [showClear]="true"
-          placeholder="Escolha um dentista"
-        ></p-dropdown>
-
-        <p-checkbox label="Ocultar fins de semana" *ngIf="!ehCalendario"></p-checkbox>
-
+          </p-selectButton>
         </div>
-       <!-- Lista -->
-      <div class="card box lg:p-5 lg:m-5 text-indigo-800" *ngIf="ehCalendario">
-        <div class="flex justify-content-between m-3"  >
+        <div class="col-9 flex justify-content-end" *ngIf="!ehCalendario">
+          <div class="mr-7">
+            <p-dropdown
+              [options]="dentistas"
+              [(ngModel)]="filtroCalendar"
+              optionLabel="nome"
+              [showClear]="true"
+              placeholder="Filtre por um dentista"
+              [style]="{'width': '16vw', 'height':'46px'}"
 
+            >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="filtroCalendar">
+                <span [style]="{'color': filtroCalendar.corDentista}">
+                  <i class="pi pi-user text-xs ml-1" [style]="{'color': filtroCalendar.corDentista}"></i>
+                  {{filtroCalendar.nome}}
+                  <span class="border-circle w-1rem h-1rem" [style]="{'background': filtroCalendar.corDentista}"></span>
+                </span>
+              </div>
+            </ng-template>
+              <ng-template let-item pTemplate="item">
+                <span [style]="{'color': item.corDentista}">
+                  <i class="pi pi-user text-xs ml-1" [style]="{'color': item.corDentista}"></i>
+                  {{item.nome}}
+                  <span class="border-circle w-1rem h-1rem" [style]="{'background': item.corDentista}"></span>
+                </span>
+              </ng-template>
+            </p-dropdown>
+          </div>
+
+          <!-- <div class="flex align-items-center">
+            <p-checkbox (change)="OcultarFimSemana()" [binary]="true" inputId="fimSemana"></p-checkbox>
+            <label for="fimSemana">&nbsp;&nbsp;Ocultar fins de semana</label>
+          </div>
+
+          <div class="flex align-items-center">
+            <p-checkbox [(ngModel)]="OcultarFimSemana" [binary]="true" inputId="fimSemana" (click)="OcultarFimSemana()"></p-checkbox>
+            <label for="fimSemana">Ocultar fins de semana</label>
+          </div> -->
+        </div>
+
+      </div>
+      <!-- Lista -->
+      <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
+        <div class="flex justify-content-between m-3"  >
           <div class="flex align-items-center">
             <p-selectButton
             [options]="filtroDiaSemanaMes"
@@ -305,8 +337,8 @@
           </p-table>
       </div>
       <!-- Calendar -->
-      <div class="card box lg:p-5 lg:m-5 text-indigo-800" *ngIf="!ehCalendario">
-        <app-calendario [listaConsultas]="lista" [filtro]="filtroConsulta"></app-calendario>
+      <div class="card box lg:p-5 text-indigo-800" *ngIf="!ehCalendario">
+        <app-calendario [listaConsultas]="lista" [filtroCalendar]="filtroCalendar" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
       </div>
     </div>
   </div>
@@ -314,18 +346,9 @@
 
 <p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
-    <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
+    <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)" [novaConsulta]="novaConsultaCalendar"></app-consulta-nova>
   </ng-template>
 </p-dialog>
-<!-- <p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '90vw', height: 'auto' }" class="box mobile" [draggable]="false" [resizable]="false" [closable]="false">
-  <ng-template pTemplate="content">
-    <app-consulta-nova (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
-  </ng-template>
-</p-dialog> -->
-
-<!-- <p-dialog header="Detalhes da consulta" [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '40vw', height: '90vh' }" class="box" [draggable]="false" [resizable]="false">
-  <app-consulta-info ></app-consulta-info>
-</p-dialog> -->
 
 <p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">

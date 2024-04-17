@@ -16,6 +16,7 @@ import { MessageService } from 'primeng/api';
 export class ConsultaNovaComponent implements OnInit {
   @Input() pacienteSelecionado: any;
   @Input() dentistaSelecionado: any;
+  @Input() novaConsulta: Date;
   @Output() closeModal = new EventEmitter<boolean>();
   @Output() onlyClose = new EventEmitter<boolean>();
 
@@ -66,6 +67,10 @@ export class ConsultaNovaComponent implements OnInit {
           this.formulario.get('paciente')?.setErrors({erro: true})
         })
 
+      }
+      if(this.novaConsulta != null && this.novaConsulta != undefined){
+        this.formulario.get('dataConsulta')?.setValue(this.novaConsulta)
+        console.log(this.formulario.get('dataConsulta')?.value)
       }
 
       if(this.pacienteSelecionado == null && this.dentistaSelecionado == null){
@@ -118,7 +123,7 @@ export class ConsultaNovaComponent implements OnInit {
       this.limpaInformacoes();
       if(this.formulario.valid){
         if(this.dataConsulta() && this.horaConsulta() ){
-        this.serviceConsulta.postConsulta(JSON.stringify(this.formulario.value))
+        this.serviceConsulta.postConsulta(this.formulario.value)
         .then(response =>{
           if(response?.status === 201 || response?.status === 200 ){
             this.closeModal.emit(false)
@@ -131,6 +136,7 @@ export class ConsultaNovaComponent implements OnInit {
             detail: 'Houve erro na requisição para salvar a consulta.'
           })
         })
+        console.log(this.formulario.value)
         }
       }else{
         this.messageService.add({
