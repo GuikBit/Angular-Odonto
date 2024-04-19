@@ -1,9 +1,9 @@
-<div class="z-0 mx-8  p-component capitalize">
-  <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos"  >
+<div class="z-0 p-component capitalize">
+  <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos" >
     <ng-template #eventContent let-arg>
-      <div class="flex-grow-1 custom-event flex justify-content-between align-itens-center border-1 border-solid border-round-sm p-1 px-2 p-component cursor-pointer hover:bg-white"
+      <div class="flex-grow-1 custom-event flex justify-content-between shadow-2 align-itens-center border-1 border-solid border-round-sm p-1 px-2 p-component cursor-pointer hover:bg-white"
         [style]="{'background': arg.event.display + '25', 'border-color': arg.event.display, 'transition': 'background-color 0.2s'}">
-        <div class="overflow-hidden text-overflow-ellipsis" style="width:55%">
+        <div class="overflow-hidden text-overflow-ellipsis" style="width:52%">
           <span class="text-xs text-900 font-medium white-space-nowrap">
             <i class="pi pi-user text-xs" [style]="{'color': arg.event.display}" ></i>
             {{ arg.event.title }}
@@ -17,7 +17,7 @@
             {{arg.event.end | date: 'HH:mm'}}
           </span>
         </div>
-        <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:7%">
+        <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:10%">
           <i class="pi pi-circle-fill text-xs ml-1" [style.color]="arg.event.textColor"></i>
         </div>
       </div>
@@ -25,3 +25,11 @@
   </full-calendar>
 </div>
 
+<script>
+  
+    const element = document.querySelector('.fc-button-primary');
+    if (element) {
+      element.style.backgroundColor = 'red';
+    }
+  
+</script>

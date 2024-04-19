@@ -25,8 +25,9 @@ export class CalendarioComponent implements OnInit{
   @Input() filtroCalendar: Filtro | null;
   @Input() ocultarFimSemana: boolean;
   @Output() abrirConsulta: EventEmitter<string> = new EventEmitter<string>();
-  @Output() novaConsulta: EventEmitter<string> = new EventEmitter<string>();
+  @Output() novaConsulta: EventEmitter<Date> = new EventEmitter<Date>();
   eventos: EventInput[];
+  corDinamica: string ;
 
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
@@ -37,7 +38,7 @@ export class CalendarioComponent implements OnInit{
       listPlugin
     ],
     buttonIcons: {
-
+      today: 'fa fa-calendar-day'
 
     },
     headerToolbar: {
@@ -45,6 +46,7 @@ export class CalendarioComponent implements OnInit{
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
+    
     buttonText: {
       today: 'Hoje',
       month: 'Mês',
@@ -53,10 +55,13 @@ export class CalendarioComponent implements OnInit{
       list: 'Lista',
       allday: 'O dia todo'
     },
+    titleFormat: {month: 'long', year: 'numeric'},
+    
     customButtons:{
-      btnFDS:{
+      btnFDS:{        
         text: 'Mostrar/Ocultar FDS',
-        click: ()=>{this.OcultarFimSemana()}
+        click: ()=>{this.OcultarFimSemana()},
+        
       }
     },
     nowIndicator:true ,
@@ -85,7 +90,11 @@ export class CalendarioComponent implements OnInit{
     this.transformaConsultaEmEvento(this.listaConsultas);
 
       this.OcultarFimSemana();
-
+      const element = document.querySelector('.fc-button-primary') as HTMLElement;
+      if (element) {
+        console.log('entrei aqui')
+        element.style.backgroundColor = this.listaConsultas[0].corDentista;
+      }
   }
 
 
@@ -101,7 +110,9 @@ export class CalendarioComponent implements OnInit{
   }
 
   handleDateSelect(diaClicado: DateSelectArg) {
-    this.novaConsulta.emit(diaClicado.startStr);
+    const date = new Date(diaClicado.startStr);
+    date.setHours(0,0,0,0);
+    this.novaConsulta.emit(date);
   }
 
   ClickNoEvento(click: EventClickArg) {
@@ -112,6 +123,7 @@ export class CalendarioComponent implements OnInit{
   }
 
   transformaConsultaEmEvento(consultas: any) {
+    this.corDinamica = consultas.corDentista;
     this.eventos = consultas.map((item: any) => this.converterConsultaParaEvento(item));
 
   }
@@ -127,7 +139,7 @@ export class CalendarioComponent implements OnInit{
       endStr: consulta.dataConsultaReserva.toString(),
       groupId: consulta.dentista?.id?.toString() ?? '',
       allDay: false,
-      display: consulta.dentista.corDentista ,
+      display: consulta.dentista != null ? consulta.dentista.corDentista : consulta.corDentista,
       startEditable: false,
       durationEditable: false,
       constraint: false,

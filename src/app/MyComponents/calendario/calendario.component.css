@@ -2,7 +2,7 @@
   .fc-button-primary {
     background: linear-gradient(to right, #206EAF, #206EAF); /* Cor do botão primário */
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
   }
 
@@ -12,13 +12,5 @@
 
   }
 
-  .seletor-pai .fc-now-indicator {
-    background-color: blue;
-  }
-}
-.seletor-pai .fc-now-indicator {
-  background-color: blue;
-}
-.fc-now-indicator {
-  background-color: blue;
+
 }
