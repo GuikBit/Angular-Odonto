@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/cliente/cliente';
 import { Consulta } from '../consulta';
@@ -13,10 +13,10 @@ import { MessageService } from 'primeng/api';
   templateUrl: './consulta-nova.component.html',
   styleUrls: ['./consulta-nova.component.css']
 })
-export class ConsultaNovaComponent implements OnInit {
+export class ConsultaNovaComponent implements OnInit{
   @Input() pacienteSelecionado: any;
   @Input() dentistaSelecionado: any;
-  @Input() novaConsulta: Date;
+  @Input() novaConsulta: Date | null;
   @Output() closeModal = new EventEmitter<boolean>();
   @Output() onlyClose = new EventEmitter<boolean>();
 
@@ -39,6 +39,7 @@ export class ConsultaNovaComponent implements OnInit {
 
   async ngOnInit() {
       this.criaFormulario();
+
       if(this.pacienteSelecionado != null && this.pacienteSelecionado !=  undefined){
         this.formulario.get('paciente')?.setValue(this.pacienteSelecionado)
         this.serviceDentista.getDentistas().then((response)=>{
@@ -69,12 +70,11 @@ export class ConsultaNovaComponent implements OnInit {
 
       }
       if(this.novaConsulta != null && this.novaConsulta != undefined){
-        this.formulario.get('dataConsulta')?.setValue(this.novaConsulta)
-        console.log(this.formulario.get('dataConsulta')?.value)
+        console.log(this.novaConsulta);
+        this.formulario.get('dataConsulta')?.setValue(this.novaConsulta);
       }
 
       if(this.pacienteSelecionado == null && this.dentistaSelecionado == null){
-
         this.serviceDentista.getDentistas().then((response) => {
           this.listaDentista = response
         }).catch((erro)=>{
@@ -105,7 +105,6 @@ export class ConsultaNovaComponent implements OnInit {
       this.dentistaSelecionado.consultas = null;
 
     }
-
   }
 
   criaFormulario() {
@@ -209,6 +208,8 @@ export class ConsultaNovaComponent implements OnInit {
     }
 
     fecharModal(){
+      this.novaConsulta = null;
+      this.formulario.get('dataConsulta')?.setValue('');
       this.onlyClose.emit(false);
     }
 }

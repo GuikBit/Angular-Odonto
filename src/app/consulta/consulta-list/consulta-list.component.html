@@ -1,7 +1,7 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 z-0">
-      <div class="flex align-items-center sticky top-0 p-2 z-2 filtro">
+      <div class="flex align-items-center sticky top-0 z-2 filtro web">
         <div class="col-3 ml-5 ">
           <p-selectButton
           [options]="listaOuCalendar"
@@ -12,48 +12,115 @@
           class="selectButton"
           (onChange)="trocaFiltroCalendario($event)"
           >
-
           </p-selectButton>
         </div>
-        <div class="col-9 flex justify-content-end" *ngIf="!ehCalendario">
-          <div class="mr-7">
-            <p-dropdown
+        <div class="col-9 flex justify-content-end pr-6" *ngIf="!ehCalendario">
+
+          <div class="field  md:col-12 lg:col-3 ">
+            <span class="p-float-label">
+              <p-dropdown
               [options]="dentistas"
-              [(ngModel)]="filtroCalendar"
+              [(ngModel)]="filtroDentista"
               optionLabel="nome"
               [showClear]="true"
-              placeholder="Filtre por um dentista"
-              [style]="{'width': '16vw', 'height':'46px'}"
-
+              (onChange)="redirecionarDentista(filtroDentista.id)"
+              inputId="filtroDentista"
+              [style]="{'width': '100%', 'height': '46px'}"
             >
             <ng-template pTemplate="selectedItem">
-              <div class="flex align-items-center gap-2" *ngIf="filtroCalendar">
-                <span [style]="{'color': filtroCalendar.corDentista}">
-                  <i class="pi pi-user text-xs ml-1" [style]="{'color': filtroCalendar.corDentista}"></i>
-                  {{filtroCalendar.nome}}
-                  <span class="border-circle w-1rem h-1rem" [style]="{'background': filtroCalendar.corDentista}"></span>
+              <div class="flex align-items-center gap-2" *ngIf="filtroDentista">
+                <span [style]="{'color': filtroDentista.corDentista}">
+                  <i class="pi pi-user  ml-1" [style]="{'color': filtroDentista.corDentista}"></i>
+                  {{filtroDentista.nome}}
+                  <span class="border-circle w-1rem h-1rem" [style]="{'background': filtroDentista.corDentista}"></span>
                 </span>
               </div>
             </ng-template>
               <ng-template let-item pTemplate="item">
                 <span [style]="{'color': item.corDentista}">
-                  <i class="pi pi-user text-xs ml-1" [style]="{'color': item.corDentista}"></i>
+                  <i class="pi pi-user  ml-1" [style]="{'color': item.corDentista}"></i>
                   {{item.nome}}
                   <span class="border-circle w-1rem h-1rem" [style]="{'background': item.corDentista}"></span>
                 </span>
               </ng-template>
-            </p-dropdown>
+              </p-dropdown>
+              <label for="filtroDentista" class="azul">Filtre por um dentista </label>
+            </span>
           </div>
 
-          <!-- <div class="flex align-items-center">
-            <p-checkbox (change)="OcultarFimSemana()" [binary]="true" inputId="fimSemana"></p-checkbox>
-            <label for="fimSemana">&nbsp;&nbsp;Ocultar fins de semana</label>
+          <div class="field  md:col-12 lg:col-3 ">
+            <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
+              <p-calendar
+                inputId="filtroData"
+                appendTo="body"
+                [autoZIndex]="true"
+                [(ngModel)]="rangeDates"
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                [showTime]="false"
+                [showButtonBar]="true"
+                selectionMode="range"
+                dateFormat="dd/mm/yy"
+                class="inputFiltro meu-calendario"
+                [style]="{'width': '100%'}"
+                >
+                <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                  <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                </ng-template>
+              </p-calendar>
+              <label for="filtroData" class="azul">Filtro de data</label>
+            </span>
           </div>
 
-          <div class="flex align-items-center">
-            <p-checkbox [(ngModel)]="OcultarFimSemana" [binary]="true" inputId="fimSemana" (click)="OcultarFimSemana()"></p-checkbox>
-            <label for="fimSemana">Ocultar fins de semana</label>
-          </div> -->
+          <div class="field  md:col-12 lg:col-3">
+            <span class="p-float-label" >
+              <p-dropdown
+              [options]="[
+                {
+                  label:  'Agendado',
+                  cor: '#F97316'
+                },
+                {
+                  label:  'Em atendimento',
+                  cor: '#3B82F6'
+                },
+                {
+                  label:  'Atendido',
+                  cor: '#22C55E'
+                },
+                {
+                  label:  'Ausente',
+                  cor: '#FF3D32'
+                }
+
+              ]"
+              [(ngModel)]="status"
+              optionLabel="label"
+              [showClear]="true"
+              inputId="status"
+              [style]="{'width': '100%', 'height': '46px'}"
+            >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="status">
+                <span>
+                  <i class="pi pi-circle-fill mr-2" [style]="{'color': status.cor}"></i>
+                  {{status.label}}
+                </span>
+              </div>
+            </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <span >
+                    <i class="pi pi-circle-fill  mr-2" [style]="{'color': item.cor}"></i>
+                    {{item.label}}
+                  </span>
+                </div>
+              </ng-template>
+              </p-dropdown>
+              <label for="filtroDentista" class="azul">Filtre por status da consulta </label>
+            </span>
+          </div>
+
         </div>
 
       </div>
@@ -337,8 +404,8 @@
           </p-table>
       </div>
       <!-- Calendar -->
-      <div class="card box lg:p-5 text-indigo-800" *ngIf="!ehCalendario">
-        <app-calendario [listaConsultas]="lista" [filtroCalendar]="filtroCalendar" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
+      <div class="card box lg:p-6 text-indigo-800" *ngIf="!ehCalendario">
+        <app-calendario [listaConsultas]="lista" [filtroDentista]="filtraListaDentista()" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
       </div>
     </div>
   </div>

@@ -1,0 +1,114 @@
+/* Reset CSS */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+nav ul li a:hover{
+  color: #C6DDF1;
+  border-bottom: 1px solid #c6ddf1;
+  padding-bottom: 3px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header {
+  background-image: linear-gradient(to bottom, #1a558a, #206199, #256da9, #2a79b9, #2e86c9);
+  padding: 20px 0;
+  color: #fff;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#hero {
+  background-image: url('/src/assets/img/consultorio.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 200px 0;
+  text-align: center;
+  color: #fff;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #2070b4;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #135689;
+}
+
+.services {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 80px;
+}
+
+.service {
+  text-align: center;
+}
+
+.service img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.team {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 80px;
+}
+
+.member {
+  text-align: center;
+}
+
+.member img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+footer {
+  background-color: #2070b4;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}

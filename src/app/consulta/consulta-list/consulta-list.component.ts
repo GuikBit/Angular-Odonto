@@ -9,6 +9,10 @@ import { SelectButtonChangeEvent } from 'primeng/selectbutton';
 import { Dentista } from 'src/app/dentista/dentista';
 import { DentistaService } from 'src/app/dentista.service';
 
+export interface Status{
+  label: string,
+  cor: string,
+}
 @Component({
   selector: 'app-consulta-list',
   templateUrl: './consulta-list.component.html',
@@ -26,7 +30,10 @@ export class ConsultaListComponent implements OnInit{
   listaFiltro: Consulta[] = [];
 
   dentistas: Dentista[];
-  filtroCalendar: any;
+  filtroDentista: Dentista;
+  rangeDates: Date[];
+  status: Status;
+
 
   filtro: SelectButtonChangeEvent = {
     value: null
@@ -44,7 +51,7 @@ export class ConsultaListComponent implements OnInit{
   pagamentoInfo: boolean = false;
   ref: DynamicDialogRef ;
 
-  novaConsultaCalendar: Date;
+  novaConsultaCalendar: Date | null;
 
   filtroDiaSemanaMes: any[] = [
     { name: 'Dia', icon: 'pi pi-calendar', value: 1, styleClass: "selectButton" },
@@ -307,8 +314,18 @@ export class ConsultaListComponent implements OnInit{
 
   novaConsultaDiaClicado(date: any) {
     this.novaConsultaCalendar = new Date(date);
-    this.novaConsultaCalendar.setDate(this.novaConsultaCalendar.getDate() + 1);
+    this.novaConsultaCalendar.setHours(0,0,0,0);
     this.visible = true;
+    setTimeout(() => {
+      this.novaConsultaCalendar = null;
+
+    }, 1000);
+  }
+  filtraListaDentista(){
+    return this.filtroDentista;
   }
 
+  redirecionarDentista(id: any){
+    this.router.navigate([`/dentistas/info/${id}`])
+  }
 }

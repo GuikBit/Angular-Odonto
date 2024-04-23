@@ -24,8 +24,14 @@
       </div>
 
     </div>
-    <div class="md:col-12 lg:col-3  flex align-items-center justify-content-center">
+    <div class="md:col-12 lg:col-3  flex align-items-center justify-content-center sticky top-0 pt-3 z-1">
       <ul>
+        <li pTooltip="Informações" tooltipPosition="top" *ngIf="!ehCalendario" >
+          <p-button icon="pi pi-calendar" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}" (onClick)="ehCalendario = !ehCalendario"></p-button>
+        </li>
+        <li pTooltip="Informações" tooltipPosition="top" *ngIf="ehCalendario">
+          <p-button icon="pi pi-list" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}" (onClick)="ehCalendario = !ehCalendario"></p-button>
+        </li>
         <li pTooltip="Informações" tooltipPosition="top">
           <p-button icon="pi pi-info-circle" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}"></p-button>
         </li>
@@ -42,7 +48,7 @@
     </div>
 
   </div>
-  <div class="row lg:flex lg:justify-content-center lg:m-3">
+  <div class="row lg:flex lg:justify-content-center ">
 
     <div class="md:col-11 lg:col-3 ">
       <div class="card box flex" >
@@ -426,96 +432,80 @@
     </div>
 
   </div>
-  <!-- <div class="card box p-3"  [style]="{'height': '57vh', 'width': '100%'}"> -->
-  <div class="lg:flex" >
     <div class="row lg:flex">
-
       <div class="md:col-12 lg:col-3 web">
-        <div class="row lg:flex lg:justify-content-around m-2">
-
-          <div class="card box p-3" >
-            <p-chart
-              type="line"
-              [data]="
+        <div class="card box p-3 mb-3" >
+        <p-chart
+            type="line"
+            [data]="
+            {
+            labels: ['Ago','Set', 'Out', 'Nov', 'Dez'],
+            datasets: [
               {
-              labels: ['Agosto','Setembro', 'Outobro', 'Novembro', 'Dezembro'],
+                  label: 'Third Dataset',
+                  data: [50, 33, 42, 62, 45],
+                  fill: true,
+                  borderColor: this.data.corDentista,
+                  backgroundColor: this.data.corDentista + '26',
+                  tension: 0.4,
+              }
+            ]
+            }
+          "
+          [options]="options2"
+
+          height="330"
+        ></p-chart>
+        </div>
+        <div class="card box p-3 mb-3" >
+          <p-chart
+            type="line"
+            [data]="
+              {
+              labels: ['Ago','Set', 'Out', 'Nov', 'Dez'],
               datasets: [
-                {
-                    label: 'Third Dataset',
-                    data: [50, 33, 42, 62, 45],
-                    fill: true,
-                    borderColor: this.data.corDentista,
-                    backgroundColor: this.data.corDentista + '26',
-                    tension: 0.4,
-                }
+              {
+                  label: 'Third Dataset',
+                  data: [50, 33, 42, 62, 45],
+                  fill: true,
+                  borderColor: data.corDentista,
+                  backgroundColor: data.corDentista + '26',
+                  tension: 0.4,
+              }
               ]
               }
-            "
+              "
             [options]="options2"
-            width="410"
-            height="300"
-          ></p-chart>
-          </div>
+            height="330"
+            ></p-chart>
         </div>
-        <div class="row lg:flex justify-content-around m-2">
-
-          <div class="card box p-3" >
-            <p-chart
-              type="line"
-              [data]="
+        <div class="card box p-3 lg:flex justify-content-center align-items-center" >
+          <p-chart
+            type="doughnut"
+            [data]="
+              {
+              labels: ['A', 'B', 'C'],
+              datasets: [
                 {
-                labels: ['Agosto','Setembro', 'Outobro', 'Novembro', 'Dezembro'],
-                datasets: [
-                {
-                    label: 'Third Dataset',
-                    data: [50, 33, 42, 62, 45],
-                    fill: true,
-                    borderColor: data.corDentista,
-                    backgroundColor: data.corDentista + '26',
-                    tension: 0.4,
-                }
+                  data: [300, 50, 100],
+                  backgroundColor: [data.corDentista + 'B3', data.corDentista + '80', data.corDentista + '4D'],
+                  borderColor: data.corDentista,
+                  hoverBackgroundColor: [data.corDentista + '25', data.corDentista + '25', data.corDentista + '25']
+                  }
                 ]
-                }
-                "
-              [options]="options2"
-              width="410"
-              height="300"
-              ></p-chart>
-          </div>
+              }"
+            [options]="options1"
+
+            height="315"
+            ></p-chart>
         </div>
-          <div class="row lg:flex justify-content-around m-2">
-            <div class="card box p-3 lg:flex justify-content-center align-items-center" >
-              <p-chart
-                type="doughnut"
-                [data]="
-                  {
-                  labels: ['A', 'B', 'C'],
-                  datasets: [
-                    {
-                      data: [300, 50, 100],
-                      backgroundColor: [data.corDentista + 'B3', data.corDentista + '80', data.corDentista + '4D'],
-                      borderColor: data.corDentista,
-                      hoverBackgroundColor: [data.corDentista + '25', data.corDentista + '25', data.corDentista + '25']
-                      }
-                    ]
-                  }"
-                [options]="options1"
-                width="410"
-                height="330"
-                ></p-chart>
-            </div>
-          </div>
-
-      </div>
-      <div class="mobile">
-        <h2 class=" flex justify-content-center ">Consultas</h2>
       </div>
 
-      <div class="md:col-12 lg:col-9">
-        <div class="row lg:flex lg:align-items-center ">
-            <!-- <div class="card box p-5" [style]="{'height': 'auto', 'width': '100%'}"> -->
-            <div class="card box md:p-3 lg:p-5 ">
-              <div class="flex justify-content-between m-3 ">
+
+      <div class="md:col-12 lg:col-9 "*ngIf="!ehCalendario">
+        <div class="card box p-3 " >
+              <div >
+                <div class="flex justify-content-between m-3 ">
                 <span class="p-float-label p-input-icon-left ">
                   <i class="pi pi-search" [style]="{'color': data.corDentista}"></i>
                   <input pInputText id="search"  class="search" [style]="{'border-color': data.corDentista}"/>
@@ -524,9 +514,8 @@
                 <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newConsulta()" class="web" [style]="{'background': data.corDentista} "></button>
                 <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': data.corDentista}" (click)="newConsulta()"></p-button>
 
-              </div>
-
-              <p-table
+                </div>
+                <p-table
                 #productsTable
                 [value]="data.consultas"
                 [rows]="10"
@@ -686,29 +675,29 @@
                       <td colspan="5">Não foram encontrado dados</td>
                   </tr>
                 </ng-template>
-              </p-table>
-            </div>
+                </p-table>
+              </div>
         </div>
       </div>
-    </div>
-  </div>
+      <div class="col-9 z-0" *ngIf="ehCalendario">
+        <div class=" box p-5">
 
+            <app-calendario [listaConsultas]="data.consultas" [dentistaInfo]="true" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
+
+        </div>
+
+      </div>
+    </div>
 </div>
 
 <p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
-    <app-consulta-nova [dentistaSelecionado]="data.id" (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
+    <app-consulta-nova [dentistaSelecionado]="data.id" [novaConsulta]="novaConsultaCalendar" (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)" ></app-consulta-nova>
   </ng-template>
 </p-dialog>
 
 <p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="true">
-  @if (consultaSelecionada) {
-    <p>O objeto esta preechido</p>
-  }@else {
-    <p>O objeto nao esta preenchido</p>
-  }
-  <ng-template pTemplate="content" *ngIf="consultaSelecionada" >
-
+  <ng-template pTemplate="content" >
     <app-consulta-info [consultaSelecionada]="consultaSelecionada" (reloading)="reloading($event)" (closeModal)="closeInfo($event)"></app-consulta-info>
   </ng-template>
 </p-dialog>

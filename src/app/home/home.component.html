@@ -23,11 +23,15 @@
                     <p-calendar
                       [iconDisplay]="'input'"
                       [showIcon]="true"
+                      appendTo="body"
+                      [autoZIndex]="true"
+
                       inputId="dataConsulta"
                       dateFormat="dd/mm/yy"
                       [showButtonBar]="true"
                       [style]="{'color':'#2070B4', 'width': '11vw'}"
                       formControlName="dataInicio"
+
                       >
                       <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                         <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
@@ -42,11 +46,14 @@
                     <p-calendar
                       [iconDisplay]="'input'"
                       [showIcon]="true"
+                      appendTo="body"
+                      [autoZIndex]="true"
                       inputId="dataConsulta"
                       dateFormat="dd/mm/yy"
                       [showButtonBar]="true"
                       [style]="{'color':'#2070B4', 'width': '11vw'}"
                       formControlName="dataFim"
+
                       >
                       <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                         <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
@@ -71,7 +78,7 @@
               <div class="field flex justify-content-center mt-5">
                 <span class="p-float-label p-input-icon-right">
                   <i class="pi pi-user"></i>
-                  <p-dropdown [options]="data.dentistasList" formControlName="dentista" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
+                  <p-dropdown [options]="data.dentistasList" formControlName="dentista" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}" ></p-dropdown>
                   <label for="float-label" class="azul">Escolha uma opção</label>
                 </span>
               </div>

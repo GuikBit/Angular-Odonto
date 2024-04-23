@@ -24,14 +24,6 @@ export class HomeComponent implements OnInit{
   procedimentos: any;
   especialidades: any;
 
-  // filtro: FiltroDash = {
-  //   dataInicio: null,
-  //   dataFim: null,
-  //   dentista: null,
-  //   procedimentos: null,
-  //   especialidade: null
-  // };
-
   erro: boolean = false;
   data: any;
   dataDoughnut: any;

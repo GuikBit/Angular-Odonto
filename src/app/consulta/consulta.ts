@@ -18,5 +18,6 @@ export class Consulta{
     observacao: string;
     procedimentos: string;
     ausente: boolean;
+    corDentista: string;
 
 }

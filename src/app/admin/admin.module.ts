@@ -3,21 +3,25 @@ import { CommonModule } from '@angular/common';
 import { AdminTemplateComponent } from './admin-template/admin-template.component';
 import { AdminMainComponent } from './admin-main/admin-main.component'
 import { CalendarModule } from 'primeng/calendar';
-
+import { AdminMenuComponent } from './admin-menu/admin-menu.component';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
   declarations: [
-
-
+    AdminMenuComponent,
+    AdminTemplateComponent,
+    AdminMainComponent
   ],
   imports: [
     CommonModule,
-    CalendarModule
+    CalendarModule,
+    MenuModule
   ],
   exports:[
-
-
+    AdminMenuComponent,
+    AdminTemplateComponent,
+    AdminMainComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

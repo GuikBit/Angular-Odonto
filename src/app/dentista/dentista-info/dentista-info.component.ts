@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { ConsultaService } from 'src/app/consulta.service';
 import { Consulta } from 'src/app/consulta/consulta';
 import { PlatformLocation } from '@angular/common';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-dentista-info',
@@ -28,12 +29,13 @@ export class DentistaInfoComponent implements OnInit {
 
   inicioConsulta: any;
 
-  isMobile: boolean;
+  ehCalendario: boolean = true;
 
   visible: boolean;
+  novaConsultaCalendar: Date | null;
 
   constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService,
-    private serviceConsulta: ConsultaService, private cdr: ChangeDetectorRef, private platformLocation: PlatformLocation){
+    private serviceConsulta: ConsultaService){
 
     }
 
@@ -79,10 +81,7 @@ export class DentistaInfoComponent implements OnInit {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
-        
-
-
-        this.options1 = {
+      this.options1 = {
             cutout: '60%',
             plugins: {
                 legend: {
@@ -91,7 +90,7 @@ export class DentistaInfoComponent implements OnInit {
                     }
                 }
             }
-        }
+      }
     //grafico 2
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
@@ -128,12 +127,7 @@ export class DentistaInfoComponent implements OnInit {
                 }
             }
         }
-        console.log(this.isMobile)
       }
-
-  infoShow(arg0: any) {
-
-  }
 
   calculaPorcentagem(mesAnterior: number, mesAtual: number) {
     if(mesAnterior === 0){
@@ -146,23 +140,13 @@ export class DentistaInfoComponent implements OnInit {
 
   }
 
-  private detectMobile(): boolean {
-    const path = this.platformLocation.pathname;
-    return path.includes('/m/') || path.includes('/mobile/');
-  }
-
   consultaSelecionadaInfo(id: any, tipo: any){
     if(id != null){
-      console.log("Entrei aqui")
+
       this.serviceConsulta.getConsultaById(id).then((response)=>{
-        console.log("Busquei os dadaos")
         this.consultaSelecionada = response;
-        console.log("Preenchi uma vez")
-        this.consultaSelecionada = response;
-        console.log("Preenchi duas vezes")
-        console.log(this.consultaSelecionada)
+        //this.consultaSelecionada = response;
         this.infoConsulta = true;
-        console.log("Mostra o modal")
 
       }).catch((error)=>{
         this.messageService.add({
@@ -177,7 +161,6 @@ export class DentistaInfoComponent implements OnInit {
   }
 
   newConsulta(){
-    console.log("Nova consulta")
     this.visible = true;
   }
 
@@ -194,7 +177,6 @@ export class DentistaInfoComponent implements OnInit {
     this.service.getDentistaFull(id).then((response)=>{
 
       this.data = response;
-      // console.log(this.data);
       this.messageService.add({
         severity: 'success',
         summary: 'Aviso',
@@ -221,5 +203,20 @@ export class DentistaInfoComponent implements OnInit {
 
   }
 
+  abrirConsultaSelecionada(idConsulta: any){
+    this.consultaSelecionadaInfo(parseInt(idConsulta), 1);
+  }
 
+ async novaConsultaDiaClicado(date: any) {
+    this.visible = true;
+    this.novaConsultaCalendar = date;
+    setTimeout(() => {
+      this.novaConsultaCalendar = null;
+
+    }, 1000);
+  }
+
+  dentistaInfoCor(){
+    return true;
+  }
 }

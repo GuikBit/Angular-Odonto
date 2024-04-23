@@ -20,36 +20,46 @@ import { DentistaEditComponent } from './dentista/dentista-edit/dentista-edit.co
 import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
 import { AdminMainComponent } from './admin/admin-main/admin-main.component';
 import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
+import { SiteComponent } from './webSite/site/site.component';
+import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
 
 
 
 const routes: Routes = [
+  {path: 'site', component: SiteComponent},
   {path:'login', component:LoginComponent},
   {path: '', component: LayoutComponent, canActivate: [AuthGuard], children:[
     //home
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     {path: 'dashboard', component: HomeComponent, canActivate: [AuthGuard]},
 
     //cliente
     {path: 'clientes', component: ClienteListComponent, canActivate: [AuthGuard]},
-    {path: 'clientes/novo', component: ClienteNovoComponent, canActivate: [AuthGuard]},
+    //{path: 'clientes/novo', component: ClienteNovoComponent, canActivate: [AuthGuard]},
     {path: 'clientes/info/:id', component: ClienteInfoComponent, canActivate: [AuthGuard]},
-    {path: 'clientes/edit/:id', component: ClienteEditComponent, canActivate: [AuthGuard]},
+   // {path: 'clientes/edit/:id', component: ClienteEditComponent, canActivate: [AuthGuard]},
 
     //dentista
     {path: 'dentistas', component: DentistaListComponent, canActivate: [AuthGuard]},
-    {path: 'dentistas/novo', component: DentistaNovoComponent, canActivate: [AuthGuard]},
+   // {path: 'dentistas/novo', component: DentistaNovoComponent, canActivate: [AuthGuard]},
     {path: 'dentistas/info/:id', component: DentistaInfoComponent, canActivate: [AuthGuard]},
-    {path: 'dentistas/edit/:id', component: DentistaEditComponent, canActivate: [AuthGuard]},
+    //{path: 'dentistas/edit/:id', component: DentistaEditComponent, canActivate: [AuthGuard]},
 
     //consulta
     {path: 'consultas', component: ConsultaListComponent, canActivate: [AuthGuard]},
-    {path: 'consultas/nova', component: ConsultaNovaComponent, canActivate: [AuthGuard]},
-    {path: 'consultas/info/:id', component: ConsultaInfoComponent, canActivate: [AuthGuard]},
-    {path: 'consultas/edit/:id', component: ConsultaEditComponent, canActivate: [AuthGuard]},
+    //{path: 'consultas/nova', component: ConsultaNovaComponent, canActivate: [AuthGuard]},
+    //{path: 'consultas/info/:id', component: ConsultaInfoComponent, canActivate: [AuthGuard]},
+    //{path: 'consultas/edit/:id', component: ConsultaEditComponent, canActivate: [AuthGuard]},
     //{path: 'relatorio', component: RelatorioComponent, canActivate: [AuthGuard]},
-    {path: 'pagamento', component: PagamentoInfoComponent, canActivate: [AuthGuard]},
-    {path: 'areaAdmin', component: AdminTemplateComponent, canActivate: [AuthGuard]},
-    {path: 'areaAdmin/paciente', component:AdminMainComponent, canActivate: [AuthGuard]},
+    //{path: 'pagamento', component: PagamentoInfoComponent, canActivate: [AuthGuard]},
+    {
+      path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard],  children: [
+        { path: 'paciente', component: AdminMainComponent, canActivate: [AuthGuard] },
+        { path: 'template', component: AdminTemplateComponent, canActivate: [AuthGuard]}
+      ]
+    },
+
+
     {path: '', redirectTo: 'home', pathMatch: 'full'},
   ]}
 ];

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, signal } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventInput } from '@fullcalendar/core';
 import { Consulta } from 'src/app/consulta/consulta';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -6,12 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { Dentista } from 'src/app/dentista/dentista';
-
-export interface Filtro {
-  dentista: Dentista,
-  dataInicio: Date,
-  dataFim: Date
-}
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-calendario',
@@ -20,15 +15,21 @@ export interface Filtro {
 })
 export class CalendarioComponent implements OnInit{
 
-
   @Input() listaConsultas: Consulta[];
-  @Input() filtroCalendar: Filtro | null;
+  @Input() dentistaInfo: boolean;
+  @Input() filtroDentista: Dentista ;
   @Input() ocultarFimSemana: boolean;
   @Output() abrirConsulta: EventEmitter<string> = new EventEmitter<string>();
   @Output() novaConsulta: EventEmitter<Date> = new EventEmitter<Date>();
+
   eventos: EventInput[];
   corDinamica: string ;
 
+  cores = {
+    corFundo: '#228DCB',
+    corFundoHover: '#146899',
+    corFundoHover2: '#146899'
+  };
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
@@ -46,22 +47,20 @@ export class CalendarioComponent implements OnInit{
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
-    
+
     buttonText: {
       today: 'Hoje',
       month: 'Mês',
       week: 'Semana',
       day: 'Dia',
       list: 'Lista',
-      allday: 'O dia todo'
     },
     titleFormat: {month: 'long', year: 'numeric'},
-    
     customButtons:{
-      btnFDS:{        
+      btnFDS:{
         text: 'Mostrar/Ocultar FDS',
         click: ()=>{this.OcultarFimSemana()},
-        
+
       }
     },
     nowIndicator:true ,
@@ -84,19 +83,18 @@ export class CalendarioComponent implements OnInit{
     eventBackgroundColor: '#FFF',
   });
 
-  constructor( private changeDetector: ChangeDetectorRef) { }
+  constructor() {  }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.transformaConsultaEmEvento(this.listaConsultas);
+    this.OcultarFimSemana();
+    if(this.dentistaInfo == true){
+      this.cores.corFundo = this.listaConsultas[0].corDentista;
+      this.cores.corFundoHover = this.listaConsultas[0].corDentista + 'B3';
+      this.cores.corFundoHover2 = this.listaConsultas[0].corDentista + 'B2';
+    }
 
-      this.OcultarFimSemana();
-      const element = document.querySelector('.fc-button-primary') as HTMLElement;
-      if (element) {
-        console.log('entrei aqui')
-        element.style.backgroundColor = this.listaConsultas[0].corDentista;
-      }
   }
-
 
   OcultaCalendario() {
     this.calendarVisible.update((bool) => !bool);
@@ -112,6 +110,7 @@ export class CalendarioComponent implements OnInit{
   handleDateSelect(diaClicado: DateSelectArg) {
     const date = new Date(diaClicado.startStr);
     date.setHours(0,0,0,0);
+    date.setDate(date.getDate() + 1)
     this.novaConsulta.emit(date);
   }
 

@@ -1,0 +1,114 @@
+
+  <header>
+    <div class="container">
+      <h1>Consultório Odontológico</h1>
+      <nav class="flex justify-content-end">
+        <ul>
+          <li><a routerLink=""  onclick="scrollToSection('servicos')" class="link"  routerLinkActive="" ><i class="pi pi-info-circle"></i>&nbsp;Sobre nós</a></li>
+          <li><a routerLink="" onclick="scrollToSection('equipe')" class="link"  routerLinkActive=""><i class="pi pi-briefcase"></i>&nbsp;Tratamentos</a></li>
+          <li><a routerLink="" onclick="scrollToSection('contato')" class="link"  routerLinkActive=""><i class="pi pi-whatsapp"></i>&nbsp;Contato</a></li>
+          <li><a href="#" onclick="scrollToSection('endereco')" class="link" routerLinkActive="" ><i class="pi pi-map-marker"></i>&nbsp;Endereço</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero">
+    <div class="container">
+      <h2>Bem-vindo ao Consultório Odontológico</h2>
+      <p>Oferecendo cuidados odontológicos de qualidade para você e sua família.</p>
+      <a href="contato" class="btn">Agende sua consulta</a>
+    </div>
+  </section>
+
+  <section id="servicos">
+    <div class="container">
+      <h2>Nossos Serviços</h2>
+      <div class="services">
+        <div class="service">
+          <img src="/src/assets/img/limpesa.jpg" alt="Limpeza Dental">
+          <h3>Limpeza Dental</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="service">
+          <img src="/src/assets/img/implante.jpg" alt="Implantes Dentários">
+          <h3>Implantes Dentários</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="service">
+          <img src="src/assets/img/orto.png" alt="Implantes Dentários">
+          <h3>Aparelhos Dentários</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="service">
+          <img src="/src/assets/img/cirurgia.jpg" alt="Implantes Dentários">
+          <h3>Cirurgia Dentária</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <!-- Adicione mais serviços conforme necessário -->
+      </div>
+    </div>
+  </section>
+
+  <section id="equipe">
+    <div class="container">
+      <h2>Nossa Equipe</h2>
+      <div class="team">
+        <div class="member">
+          <img src="dentista1.jpg" alt="Dr. João Silva">
+          <h3>Dr. João Silva</h3>
+          <p>Dentista</p>
+        </div>
+        <div class="member">
+          <img src="ortodontista1.jpg" alt="Dra. Maria Santos">
+          <h3>Dra. Maria Santos</h3>
+          <p>Ortodontista</p>
+        </div>
+        <!-- Adicione mais membros da equipe conforme necessário -->
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="container">
+      <h2>Entre em Contato</h2>
+      <p>Agende sua consulta agora mesmo:</p>
+      <form>
+        <input type="text" placeholder="Seu nome">
+        <input type="email" placeholder="Seu e-mail">
+        <textarea placeholder="Sua mensagem"></textarea>
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+    </div>
+  </section>
+  <div >
+    <span class="text-3xl font-bold">fade-in</span>
+</div>
+  <section id="endereco">
+    <div pAnimateOnScroll enterClass="fadein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center border-round animation-duration-1000">
+      <h2>Entre em Contato</h2>
+      <p>Agende sua consulta agora mesmo:</p>
+      <form>
+        <input type="text" placeholder="Seu nome">
+        <input type="email" placeholder="Seu e-mail">
+        <textarea placeholder="Sua mensagem"></textarea>
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+    </div>
+  </section>
+  <div pAnimateOnScroll enterClass="fadein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+    <span class="text-3xl font-bold">fade-in</span>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Consultório Odontológico</p>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToSection(sectionId) {
+      var section = document.getElementById(sectionId);
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>

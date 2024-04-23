@@ -34,6 +34,8 @@ import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
 import { ConsultaNovaComponent } from '../consulta/consulta-nova/consulta-nova.component';
 import { ConsultaInfoComponent } from '../consulta/consulta-info/consulta-info.component';
 import { ConsultaModule } from '../consulta/consulta.module';
+import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -46,6 +48,8 @@ import { ConsultaModule } from '../consulta/consulta.module';
   ],
   imports: [
     CommonModule,
+    FullCalendarModule,
+    CalendarioModule,
     CardModule,
     ColorPickerModule,
     ButtonModule,

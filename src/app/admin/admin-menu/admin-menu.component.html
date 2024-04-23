@@ -1,0 +1,74 @@
+
+<div class="row flex px-4 py-2">
+  <div class="col-2 px-2 p-component new  ">
+    <div class="">
+      <span class="font-bold text-ls text-500 ml-4">Configurações</span>
+    </div>
+    <div class="">
+      <ul>
+        <li>
+          <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
+        </li>
+        <li>
+          <a routerLink="/admin/template" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
+        </li>
+        <li>
+          <a routerLink="/admin/template" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-plus"></i>&nbsp;&nbsp;Especialidades</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="">
+      <span class="font-bold text-ls text-500 ml-4">Pacientes</span>
+    </div>
+    <ul>
+      <li>
+        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
+      </li>
+    </ul>
+    <div class="">
+      <span class="font-bold text-ls text-500 ml-4">Dentistas</span>
+    </div>
+    <ul>
+      <li>
+        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
+      </li>
+    </ul>
+    <div class="">
+      <span class="font-bold text-ls text-500 ml-4">Relatórios</span>
+    </div>
+    <ul>
+      <li>
+        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Pacientes Inativos</a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas Inativos</a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Consultas</a>
+      </li>
+    </ul>
+    <div class="">
+      <span class="font-bold text-ls text-500 ml-4">Financeiro</span>
+    </div>
+    <ul>
+      <li>
+        <a routerLink="/admin/financeiro/entrada" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-arrow-right"></i>&nbsp;&nbsp;Entradas</a>
+      </li>
+      <li>
+        <a routerLink="/admin/financeiro/Saidas" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-arrow-left"></i>&nbsp;&nbsp;Saidas</a>
+      </li>
+    </ul>
+
+
+  </div>
+
+  <div class="col-10 p-component">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>

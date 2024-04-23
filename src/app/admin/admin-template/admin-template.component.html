@@ -1,62 +1,9 @@
 
-<div class="row lg:flex lg:justify-content-start m-3 mr-4 web">
-  <p-menubar [model]="items" styleClass="menuBar"></p-menubar>
-</div>
 
-<div class='demo-app'>
+  <div class="col-10 ">
 
-  <div class='demo-app-sidebar '>
-    <div class='demo-app-sidebar-section'>
-      <h2>Instructions</h2>
-      <ul>
-        <li>Select dates and you will be prompted to create a new event</li>
-        <li>Drag, drop, and resize events</li>
-        <li>Click an event to delete it</li>
-      </ul>
-    </div>
-    <div class='demo-app-sidebar-section'>
-      <label>
-        <input
-          type='checkbox'
-          [checked]='calendarVisible'
-          (change)='OcultaCalendario()'
-        />
-        toggle whole calendar
-      </label>
-    </div>
-    <div class='demo-app-sidebar-section'>
-      <label>
-        <input
-          type='checkbox'
-          [checked]='calendarOptions().weekends'
-          (change)='TiraFimSemana()'
-        />
-        toggle weekends
-      </label>
-    </div>
-  </div>
-
-  <div class='demo-app-main z-0'>
-    <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos" >
-      <ng-template #eventContent let-arg>
-        <div class="flex-grow-1 flex justify-content-center align-itens-center border-1 border-solid border-round-sm p-1 p-component" [style]="{'border-color': arg.event.display, 'background-color': arg.event.display + '25'}">
-          <span class="text-xs text-900 white-space-nowrap">
-            <i class="pi pi-user text-xs" [class]="arg.event.groupId == 1? 'text-blue-600' : arg.event.groupId == 2? 'text-green-600' : arg.event.groupId == 3? 'text-orange-600' : 'text-red-600'" ></i>
-             {{ arg.event.title }}
-            <i class="pi pi-clock text-xs ml-1" [class]="arg.event.groupId == 1? 'text-blue-600' : arg.event.groupId == 2? 'text-green-600' : arg.event.groupId == 3? 'text-orange-600' : 'text-red-600'"></i>
-            {{arg.event.start | date: 'HH:mm'}}
-            -
-            {{arg.event.end | date: 'HH:mm'}}
-          </span>
-        </div>
-
-      </ng-template>
-    </full-calendar>
+      html do templante
 
   </div>
 
-</div>
 
-<div class="">
-  <router-outlet></router-outlet>
-</div>

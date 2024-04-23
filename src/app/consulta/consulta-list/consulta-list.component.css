@@ -4,15 +4,32 @@
 
 
 :host::ng-deep {
-  /* sets the style for pizza diavola */
   .p-button.p-highlight.selectButton {
     background: linear-gradient(to right, #2070b4, #24aae3);
     border: none;
   }
-  /* sets the style for the hover (general) */
   .p-button.p-highlight:hover {
     background: linear-gradient(to right, #194973, #0f82ba);
   }
+
+  /* .p-dropdown {
+    width:'100%';
+    height: 46px;
+    border-color: #c4ddf3;
+    box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+  }
+  .p-dropdown:hover {
+    border-color: #63aff1;
+  }
+  .p-calendar {
+    width:'100%';
+    height: 46px;
+    border-color: #c4ddf3;
+    box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+  }
+  .p-calendar:hover{
+    border-color: #63aff1;
+  } */
 }
 
 
@@ -57,7 +74,6 @@ th{
   border-radius: 7px ;
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
-
 }
 .pg{
   border: 1px solid #c4ddf3;
@@ -75,6 +91,20 @@ th{
 .mobile{
   display: none;
 }
+
+.inputFiltro:hover{
+  border-color: #63aff1;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+
+.meu-calendario {
+  width: 100%;
+  height: 46px;
+  border-color: #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+
+
 @media only screen and (max-width: 767px) {
   .web{
     display: none;
