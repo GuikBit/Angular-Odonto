@@ -1,0 +1,338 @@
+<div>
+  <h3>Constas a pagar</h3>
+    <div class="flex justify-content-between m-3 ">
+      <span class="p-float-label p-input-icon-left ">
+        <i class="pi pi-search" ></i>
+        <input pInputText id="search"  class="search" />
+        <label for="search" >Buscar pendencia...</label>
+      </span>
+      <button pButton type="button" label="Novo" styleClass="linear-gradient"  icon="pi pi-plus"  class="web" (click)="showDialog()"></button>
+    </div>
+
+
+  <p-table
+    [value]="products"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rows]="8"
+    [paginator]="true"
+    [responsive]="true"
+    [globalFilterFields]="['idConsulta', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    dataKey="id"
+    currentPageReportTemplate="{first} de {last} de {totalRecords}"
+    dataKey="id"
+    editMode="row"
+    >
+    <ng-template pTemplate="header">
+        <tr>
+          <th style="width:10%" pSortableColumn="id" >
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center">
+                id
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="id"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="id"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="categoria" >
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center">
+                Categoria
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="categoria"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="categoria"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="valor" >
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center">
+                valor
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="valor"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="valor"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="dataVencimento" >
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center">
+                Data Vencimento
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="dataVencimento"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="date"
+                  field="dataVencimento"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="dataPagamento" >
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center">
+                Data Pagamento
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="dataPagamento"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="date"
+                  field="dataPagamento"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="flex justify-content-around">
+              <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
+              <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
+            </div>
+          </th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="item">
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="item.id" style="width:50%" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.id }}
+                </ng-template>
+              </p-cellEditor>
+
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="item.categoria" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.categoria }}
+                </ng-template>
+              </p-cellEditor>
+
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="number" [(ngModel)]="item.valor" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.valor | currency: 'BRL'}}
+                </ng-template>
+              </p-cellEditor>
+
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="item.dataVencimento" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.dataVencimento | date: 'dd/MM/yyyy' }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="item.dataPagamento" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.dataPagamento | date: 'dd/MM/yyyy' }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <div class="flex align-items-center justify-content-center gap-2">
+                  <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(item)" class="p-button-rounded p-button-text"></button>
+                  <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(item)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                  <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(item, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                  <button  pButton pRipple type="button" pInitEditableRow icon="pi pi-trash" (click)="onRowEditInit(item)" class="p-button-rounded p-button-text p-button-danger"></button>
+              </div>
+          </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr >
+        <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog header="Novo" [(visible)]="visible" [modal]="true" [style]="{ width: '60vw' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="content">
+    <form [formGroup]="formulario" >
+      <div class="row new p-4">
+        <div class="row lg:flex lg:justify-content-between my-3">
+          <div class="field md:col-12 lg:col-4">
+            <span class="p-float-label width">
+
+              <p-dropdown
+                [options]="[
+                  {
+                    name: 'Luz',
+                    value: 'luz'
+                  },
+                  {
+                    name: 'Agua',
+                    value: 'agua'
+                  },
+                  {
+                    name: 'Telefone',
+                    value: 'telefone'
+                  },
+                  {
+                    name: 'Folha Pagamento',
+                    value: 'funcionarios'
+                  },
+                ]"
+                formControlName="categoria"
+                appendTo="body"
+                [autoZIndex]="true"
+                [style]="{'width': '14vw', 'height':'46px'}"
+                optionLabel="name"
+                id="categoria"
+                ></p-dropdown>
+                <label for="categoria" class="azul">Categoria</label>
+            </span>
+          </div>
+          <div class="field md:col-12 lg:col-4">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-map azul"></i>
+              <input pInputText id="descricao" formControlName="descricao" class="width" />
+              <label for="descricao" class="azul">Descrição</label>
+            </span>
+          </div>
+          <div class="field md:col-12 lg:col-4">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-dollar azul"></i>
+              <input pInputText id="valor" formControlName="valor" class="width" />
+              <label for="valor" class="azul">Valor</label>
+            </span>
+          </div>
+
+        </div>
+        <div class="row flex justify-content-between">
+          <div class="field md:col-12 lg:col-4">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-map azul"></i>
+              <input pInputText id="qtd" formControlName="qtd" class="width" />
+              <label for="qtd" class="azul">Quantidade</label>
+            </span>
+          </div>
+          <div class="field md:col-12 lg:col-4">
+            <span class="p-float-label  p-input-icon-right">
+            <p-calendar
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              appendTo="body"
+              [autoZIndex]="true"
+              inputId="dataVencimento"
+              placeholder="dd/mm/yyyy"
+              dateFormat="dd/mm/yy"
+              [showButtonBar]="true"
+              [style]="{'color':'#2070B4', 'width': '12vw'}"
+              formControlName="dataVencimento"
+              class="web"
+            >
+              <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+              </ng-template>
+            </p-calendar>
+            <label for="dataVencimento" class="azul">Data Vencimento</label>
+          </span>
+          </div>
+
+          <div class="field md:col-12 lg:col-4">
+            <span class="p-float-label  p-input-icon-right">
+            <p-calendar
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              appendTo="body"
+              [autoZIndex]="true"
+              inputId="dataPagamento"
+              placeholder="dd/mm/yyyy"
+              dateFormat="dd/mm/yy"
+              [showButtonBar]="true"
+              [style]="{'color':'#2070B4', 'width': '12vw'}"
+              formControlName="dataPagamento"
+              class="web"
+            >
+              <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+              </ng-template>
+            </p-calendar>
+            <label for="dataPagamento" class="azul">Data Pagamento</label>
+          </span>
+          </div>
+
+        </div>
+        <div class="row flex justify-content-center">
+          <span class="p-float-label ">
+            <textarea rows="5" cols="60" inputId="dataPagamento" pInputTextarea formControlName="observacao"></textarea>
+            <label for="dataPagamento" for="dataPagamento" class="azul"><i class="pi pi-file-edit"></i>&nbsp;Observacao</label>
+          </span>
+
+        </div>
+        <div class="flex justify-content-around lg:justify-content-between align-content-center m-3 mx-5">
+          <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
+          <p-button type="submit" label="Salvar" [rounded]="true" severity="success" icon="pi pi-save" class="mx-2" ></p-button>
+       </div>
+      </div>
+    </form>
+  </ng-template>
+
+</p-dialog>

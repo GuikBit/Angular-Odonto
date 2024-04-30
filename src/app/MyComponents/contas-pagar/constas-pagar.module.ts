@@ -1,37 +1,42 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ContasPagarComponent } from './contas-pagar.component';
 import { CalendarModule } from 'primeng/calendar';
-import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
-import { AdminFinanceiroComponent } from './admin-financeiro/admin-financeiro.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { ConstasPagarModule } from '../MyComponents/contas-pagar/constas-pagar.module';
+import { DialogModule } from 'primeng/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 
 @NgModule({
   declarations: [
-    AdminMenuComponent,
-    AdminFinanceiroComponent
+    ContasPagarComponent
   ],
   imports: [
     CommonModule,
-    ConstasPagarModule,
     CalendarModule,
     MenuModule,
     SidebarModule,
     BreadcrumbModule,
     RouterModule,
     TableModule,
-    InputTextModule
+    InputTextModule,
+    DialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DropdownModule,
+    InputTextareaModule
   ],
-  exports:[
-    AdminMenuComponent,
-    AdminFinanceiroComponent
-  ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-
+  exports: [
+    ContasPagarComponent
+  ]
 })
-export class AdminModule { }
+
+
+export class ConstasPagarModule { }

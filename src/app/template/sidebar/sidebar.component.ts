@@ -16,16 +16,28 @@ export class SidebarComponent implements OnInit {
 
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
 
-
-
   sidebarVisible: boolean = false;
+
+  modalConfig: boolean = false;
+  config: boolean = false;
+  noturno: boolean = false;
+  dataHora: string;
 
   position: string = 'top';
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.usuarioLogado = this.authService.getUsuarioAutenticado();
+    this.atualizarDataHora();
 
+    setInterval(() => {
+      this.atualizarDataHora();
+    }, 1000);
+  }
+
+  atualizarDataHora(): void {
+    const agora = new Date();
+    this.dataHora = agora.toLocaleString(); // ou qualquer formato desejado
   }
 
   logout()

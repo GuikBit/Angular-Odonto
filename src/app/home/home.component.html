@@ -1,150 +1,141 @@
 
-  <div class="flex justify-content-center">
-      <p-messages></p-messages>
-  </div>
-    <!-- Filtros -->
-  <div class="flex pl-3">
-      <div class="lg:col-2 md:none ">
-        <div class="sticky top-0 pt-3">
-          <div class="card box mt-2 px-5 py-2 ">
-          <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()">
 
-            <div class="h-11rem">
-              <span class="text-x1 font-bold flex justify-content-center m-3">Data&nbsp;&nbsp;
-                <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
-                pTooltip="O filtro de data será aplicado por um periodo de inicio e fim, e todos os graficos seram alterados para o filtro escolhido."
-                tooltipPosition="right"
-                ></i>
-              </span>
-              <div class="mt-5">
 
-                <div class="field flex justify-content-center">
-                  <span class="p-float-label  p-input-icon-right">
-                    <p-calendar
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      appendTo="body"
-                      [autoZIndex]="true"
 
-                      inputId="dataConsulta"
-                      dateFormat="dd/mm/yy"
-                      [showButtonBar]="true"
-                      [style]="{'color':'#2070B4', 'width': '11vw'}"
-                      formControlName="dataInicio"
+<p-button [icon]="sidebarVisible? 'pi pi-filter-slash' :  'pi pi-filter'" class="sticky top-0 p-3 z-2" [rounded]="true" [text]="true" severity="primary " (click)="toggleSidebar()"></p-button>
 
-                      >
-                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                        <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                      </ng-template>
-                    </p-calendar>
-                    <label for="dataConsulta" class="azul">De</label>
+
+<div class="row flex" >
+  <div class="wrapper new" [class.sidebar-visible]="sidebarVisible" [@slideInOut]="sidebarState"  >
+      <div class="sidebar">
+              <div class="box">
+              <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()">
+
+                <div class="h-11rem">
+                  <span class="text-x1 font-bold flex  ml-5 mt-3">Data&nbsp;&nbsp;
+                    <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
+                    pTooltip="O filtro de data será aplicado por um periodo de inicio e fim, e todos os graficos seram alterados para o filtro escolhido."
+                    tooltipPosition="right"
+                    ></i>
                   </span>
-                  <!-- <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
-                </div>
-                <div class="field flex justify-content-center">
-                  <span class="p-float-label  p-input-icon-right">
-                    <p-calendar
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      appendTo="body"
-                      [autoZIndex]="true"
-                      inputId="dataConsulta"
-                      dateFormat="dd/mm/yy"
-                      [showButtonBar]="true"
-                      [style]="{'color':'#2070B4', 'width': '11vw'}"
-                      formControlName="dataFim"
+                  <div class="mt-5">
 
-                      >
-                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                        <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                      </ng-template>
-                    </p-calendar>
-                    <label for="dataConsulta" class="azul">Até</label>
+                    <div class="field flex justify-content-center">
+                      <span class="p-float-label  p-input-icon-right">
+                        <p-calendar
+                          [iconDisplay]="'input'"
+                          [showIcon]="true"
+                          appendTo="body"
+                          [autoZIndex]="true"
+
+                          inputId="dataConsulta"
+                          dateFormat="dd/mm/yy"
+                          [showButtonBar]="true"
+                          [style]="{'color':'#2070B4', 'width': '11vw'}"
+                          formControlName="dataInicio"
+
+                          >
+                          <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                            <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                          </ng-template>
+                        </p-calendar>
+                        <label for="dataConsulta" class="azul">De</label>
+                      </span>
+
+                    </div>
+                    <div class="field flex justify-content-center">
+                      <span class="p-float-label  p-input-icon-right">
+                        <p-calendar
+                          [iconDisplay]="'input'"
+                          [showIcon]="true"
+                          appendTo="body"
+                          [autoZIndex]="true"
+                          inputId="dataConsulta"
+                          dateFormat="dd/mm/yy"
+                          [showButtonBar]="true"
+                          [style]="{'color':'#2070B4', 'width': '11vw'}"
+                          formControlName="dataFim"
+
+                          >
+                          <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                            <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                          </ng-template>
+                        </p-calendar>
+                        <label for="dataConsulta" class="azul">Até</label>
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+
+                <p-divider></p-divider>
+
+                <div class="h-7rem">
+                  <span class="text-x1 font-bold flex  ml-5">Dentista&nbsp;&nbsp;
+                    <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
+                    pTooltip="O filtro de Dentista é acumulativo com os filtros de data e procedimentos."
+                    tooltipPosition="right"
+                    ></i>
                   </span>
-                  <!-- <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
+                  <div class="field flex justify-content-center mt-5">
+                    <span class="p-float-label p-input-icon-right">
+                      <i class="pi pi-user"></i>
+                      <p-dropdown [options]="data.dentistasList" formControlName="dentista" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}" ></p-dropdown>
+                      <label for="float-label" class="azul">Escolha uma opção</label>
+                    </span>
+                  </div>
                 </div>
+
+                <p-divider></p-divider>
+
+                <div class="h-7rem">
+                  <span class="text-x1 font-bold flex  ml-5">Procedimentos&nbsp;&nbsp;
+                    <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
+                    pTooltip="O filtro de Procedimentos é acumulativo com os filtros de Data e Dentista."
+                    tooltipPosition="right"
+                    ></i>
+                  </span>
+                  <div class="field flex justify-content-center mt-5">
+                    <span class="p-float-label p-input-icon-right">
+                      <i class="pi pi-user"></i>
+                      <p-dropdown [options]="data.procedimentos" formControlName="procedimento" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
+                      <label for="float-label" class="azul">Escolha uma opção</label>
+                    </span>
+                  </div>
+                </div>
+
+                <p-divider></p-divider>
+
+                <div class="h-7rem">
+                  <span class="text-x1 font-bold flex  ml-5">Especialidade&nbsp;&nbsp;
+                    <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
+                    pTooltip="O filtro de Especialidade é acumulativo somente com o filtro de Data."
+                    tooltipPosition="right"
+                    ></i>
+                  </span>
+                  <div class="field flex justify-content-center mt-5">
+                    <span class="p-float-label p-input-icon-right">
+                      <i class="pi pi-user"></i>
+                      <p-dropdown [options]="data.especialidades" formControlName="especialidade" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
+                      <label for="float-label" class="azul">Escolha uma opção</label>
+                    </span>
+                  </div>
+                </div>
+
+
+
+                <div class="flex justify-content-center align-items-center h-6rem">
+                  <button pButton label="Limpar" icon="pi pi-filter-slash" class="limpar"></button>
+                  <button pButton type="submit" label="Filtrar"  icon="pi pi-filter"></button>
+                </div>
+              </form>
               </div>
-            </div>
-
-            <p-divider></p-divider>
-
-            <div class="h-7rem">
-              <span class="text-x1 font-bold flex justify-content-center m-3">Dentista&nbsp;&nbsp;
-                <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
-                pTooltip="O filtro de Dentista é acumulativo com os filtros de data e procedimentos."
-                tooltipPosition="right"
-                ></i>
-              </span>
-              <div class="field flex justify-content-center mt-5">
-                <span class="p-float-label p-input-icon-right">
-                  <i class="pi pi-user"></i>
-                  <p-dropdown [options]="data.dentistasList" formControlName="dentista" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}" ></p-dropdown>
-                  <label for="float-label" class="azul">Escolha uma opção</label>
-                </span>
-              </div>
-            </div>
-
-            <p-divider></p-divider>
-
-            <div class="h-7rem">
-              <span class="text-x1 font-bold flex justify-content-center m-3">Procedimentos&nbsp;&nbsp;
-                <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
-                pTooltip="O filtro de Procedimentos é acumulativo com os filtros de Data e Dentista."
-                tooltipPosition="right"
-                ></i>
-              </span>
-              <div class="field flex justify-content-center mt-5">
-                <span class="p-float-label p-input-icon-right">
-                  <i class="pi pi-user"></i>
-                  <p-dropdown [options]="data.procedimentos" formControlName="procedimento" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
-                  <label for="float-label" class="azul">Escolha uma opção</label>
-                </span>
-              </div>
-            </div>
-
-            <p-divider></p-divider>
-
-            <div class="h-7rem">
-              <span class="text-x1 font-bold flex justify-content-center m-3">Especialidade&nbsp;&nbsp;
-                <i class="pi pi-info-circle" style="font-size: 1rem" style="color: #FFACA7"
-                pTooltip="O filtro de Especialidade é acumulativo somente com o filtro de Data."
-                tooltipPosition="right"
-                ></i>
-              </span>
-              <div class="field flex justify-content-center mt-5">
-                <span class="p-float-label p-input-icon-right">
-                  <i class="pi pi-user"></i>
-                  <p-dropdown [options]="data.especialidades" formControlName="especialidade" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '11vw'}"></p-dropdown>
-                  <label for="float-label" class="azul">Escolha uma opção</label>
-                </span>
-              </div>
-            </div>
-
-
-
-            <div class="flex justify-content-center align-items-center h-6rem">
-              <button pButton label="Limpar" icon="pi pi-filter-slash" class="limpar"></button>
-              <button pButton type="submit" label="Filtrar"  icon="pi pi-filter"></button>
-              <!-- <p-splitButton label="Filtrar" icon="pi pi-filter" styleClass="splitButton"
-              [model]="[
-                {
-                  label: 'Limpar filtros',
-                  icon: 'pi pi-pw pi-filter-slash',
-                  comand: limparFiltros()
-                }
-              ]"
-              ></p-splitButton>-->
-            </div>
-          </form>
-          </div>
-        </div>
       </div>
+  </div>
 
-    <!-- Graficos -->
-    <div class="col-10 col-12 md:col-12 lg:col-10 ">
-      <div class="row lg:flex pt-3">
-        <div class="md:col-12 lg:col-3">
-          <div class="card box flex" >
+  <div class="w-full ">
+      <div class="flex justify-content-between  px-3">
+          <div class="card flex" >
             <div class="col-6 py-4 " >
               <div class="row flex justify-content-start align-items-center ml-2">
                 <span class="font-bold text-600 text-3x1 text-3xl " >{{this.data.qtdPacienteMes[0]}} novos</span>
@@ -236,10 +227,8 @@
 
             </div>
           </div>
-        </div>
 
-        <div class="md:col-12 lg:col-3">
-          <div class="card box flex" >
+          <div class="card flex" >
             <div class="col-6 py-4 " >
               <div class="row flex justify-content-start align-items-center ml-2">
                 <span class="font-bold text-600 text-3xl" pTooltip="Minutos" tooltipPosition="right">{{this.data.qtdAtrasoMes[0] | number: '1.0-0'}} min</span>
@@ -334,10 +323,9 @@
 
             </div>
           </div>
-        </div>
 
-        <div class="md:col-12 lg:col-3">
-          <div class="card box flex" >
+
+          <div class="card flex" >
             <div class="col-6 py-4 " >
               <div class="row flex justify-content-start align-items-center ml-2">
                 <span class="font-bold text-600 text-3xl">45</span>
@@ -430,10 +418,9 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="md:col-12 lg:col-3">
-          <div class="card box flex" >
+
+          <div class="card flex" >
             <div class="col-7 py-4 " >
               <div class="row flex justify-content-start align-items-center ">
                 <span class="font-bold text-600 text-3xl ml-2">{{this.data.qtdFaturamentoMes[0] | currency:'BRL':true:'1.2-2'}}</span>
@@ -527,24 +514,24 @@
               </div>
             </div>
           </div>
-        </div>
+    </div>
 
-      </div>
-
-      <div class="row lg:flex">
+    <div class="row lg:flex">
         <div class="md:col-12 lg:col-9">
 
-          <div class="card line">
+          <div class=" line">
             <span class="cardTitulo mb-2">Total de Consultas</span>
             <p-chart
+              height="350"
               type="line"
               [data]="dataLine"
               [options]="basicOptions"
               ></p-chart>
           </div>
-          <div class="card bar lg:mt-4">
+          <div class=" bar lg:mt-4">
             <span class="cardTitulo mb-2">Consultas por Dentista</span>
             <p-chart
+              height="400"
               type="line"
               [data]="dataLineDent"
               [options]="basicOptionsDent"
@@ -556,7 +543,6 @@
           <div class="card doughnut ">
             <span class="cardTitulo mb-2">Procedimentos</span>
             <p-chart
-
               type="doughnut"
               [data]="dataDoughnut"
               [options]="basicOptionsPie"
@@ -579,7 +565,7 @@
             ></p-chart>
           </div>
         </div>
-      </div>
     </div>
   </div>
 
+</div>

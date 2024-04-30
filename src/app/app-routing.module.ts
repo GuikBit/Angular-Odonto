@@ -17,11 +17,15 @@ import { ConsultaEditComponent } from './consulta/consulta-edit/consulta-edit.co
 import { DentistaNovoComponent } from './dentista/dentista-novo/dentista-novo.component';
 import { DentistaInfoComponent } from './dentista/dentista-info/dentista-info.component';
 import { DentistaEditComponent } from './dentista/dentista-edit/dentista-edit.component';
-import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
-import { AdminMainComponent } from './admin/admin-main/admin-main.component';
 import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
 import { SiteComponent } from './webSite/site/site.component';
 import { AdminMenuComponent } from './admin/admin-menu/admin-menu.component';
+import { AdminFinanceiroComponent } from './admin/admin-financeiro/admin-financeiro.component';
+import { AdminConfiguracoesComponent } from './admin/admin-configuracoes/admin-configuracoes.component';
+import { AdminPacienteComponent } from './admin/admin-paciente/admin-paciente.component';
+import { AdminDentistaComponent } from './admin/admin-dentista/admin-dentista.component';
+import { AdminRelatorioComponent } from './admin/admin-relatorio/admin-relatorio.component';
+import { AdminConsultaComponent } from './admin/admin-consulta/admin-consulta.component';
 
 
 
@@ -54,8 +58,12 @@ const routes: Routes = [
     //{path: 'pagamento', component: PagamentoInfoComponent, canActivate: [AuthGuard]},
     {
       path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard],  children: [
-        { path: 'paciente', component: AdminMainComponent, canActivate: [AuthGuard] },
-        { path: 'template', component: AdminTemplateComponent, canActivate: [AuthGuard]}
+        { path: 'configuracoes', component: AdminConfiguracoesComponent, canActivate: [AuthGuard]},
+        { path: 'paciente', component: AdminPacienteComponent, canActivate: [AuthGuard]},
+        { path: 'dentista', component: AdminDentistaComponent, canActivate: [AuthGuard]},
+        { path: 'consulta', component: AdminConsultaComponent, canActivate: [AuthGuard]},
+        { path: 'relatorio', component: AdminRelatorioComponent, canActivate: [AuthGuard]},
+        { path: 'financeiro', component: AdminFinanceiroComponent, canActivate: [AuthGuard]}
       ]
     },
 

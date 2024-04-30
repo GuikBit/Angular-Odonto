@@ -129,8 +129,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.component'
 import { AdminModule } from './admin/admin.module';
-import { AdminTemplateComponent } from './admin/admin-template/admin-template.component';
-import { AdminMainComponent } from './admin/admin-main/admin-main.component';
 import { Location } from '@angular/common';
 import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
 
@@ -148,6 +146,7 @@ import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info
   ],
   imports: [
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     CalendarModule,
     ClienteModule,
     DentistaModule,

@@ -1,0 +1,198 @@
+
+
+  <div class="row">
+    <div class="box">
+      <h3 class="ml-3">Constas a receber</h3>
+
+      <div class="px-3">
+        <div class="flex justify-content-between m-3 ">
+          <span class="p-float-label p-input-icon-left ">
+            <i class="pi pi-search" ></i>
+            <input pInputText id="search"  class="search" />
+            <label for="search" >Buscar pendencia...</label>
+          </span>
+          <!-- <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus"  class="web" ></button> -->
+        </div>
+        <p-table
+          [value]="contasReceber"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          [rows]="8"
+          [paginator]="true"
+          [responsive]="true"
+          [globalFilterFields]="['idConsulta', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
+          [rowHover]="true"
+          [showCurrentPageReport]="true"
+          dataKey="id"
+          currentPageReportTemplate="{first} de {last} de {totalRecords}"
+          >
+          <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="idConsulta" >
+                  <div class="flex row align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center">
+                       N° Consulta
+                    </div>
+                    <div class="col-4 flex justify-content-end align-items-center">
+                      <p-sortIcon
+                        field="idConsulta"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="idConsulta"
+                        display="menu"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="nomePaciente" >
+                  <div class="flex row align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center">
+                       Paciente
+                    </div>
+                    <div class="col-4 flex justify-content-end align-items-center">
+                      <p-sortIcon
+                        field="nomePaciente"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="nomePaciente"
+                        display="menu"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="nomeDentista" >
+                  <div class="flex row align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center">
+                        Dentista
+                    </div>
+                    <div class="col-4 flex justify-content-end align-items-center">
+                      <p-sortIcon
+                        field="nomeDentista"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="text"
+                        field="nomeDentista"
+                        display="menu"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="dataConsulta" >
+                  <div class="flex row align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center">
+                       Data Consulta
+                    </div>
+                    <div class="col-4 flex justify-content-end align-items-center">
+                      <p-sortIcon
+                        field="dataConsulta"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="date"
+                        field="dataConsulta"
+                        display="menu"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th pSortableColumn="dataVencimento" >
+                  <div class="flex row align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center">
+                       Data Vencimento
+                    </div>
+                    <div class="col-4 flex justify-content-end align-items-center">
+                      <p-sortIcon
+                        field="dataVencimento"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="date"
+                        field="dataVencimento"
+                        display="menu"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div class="flex justify-content-around">
+                    <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
+                    <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
+                  </div>
+                </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+              <tr>
+                  <td>{{ item.idConsulta }}</td>
+                  <td>{{ item.nomePaciente }}</td>
+                  <td>{{ item.nomeDentista }}</td>
+                  <td>{{ item.dataConsulta | date: 'dd/MM/yyyy' }}</td>
+                  <td class="text-red-600 font-semibold">{{ item.parcela.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+                  <td>
+                    <div class="flex justify-content-around">
+                      <p-button
+                      icon="pi pi-info-circle"
+                      [rounded]="true"
+                      [outlined]="true"
+                      [severity]="'info'"
+                      pTooltip="Detalhes"
+                      tooltipPosition="top"
+
+                    >
+                    </p-button>
+
+                    <p-button
+                      icon="pi pi-whatsapp"
+                      [rounded]="true"
+                      [outlined]="true"
+                      [severity]="'success'"
+                      pTooltip="Entrar em contato"
+                      tooltipPosition="top"
+                      size="small"
+                      >
+                    </p-button>
+
+                    </div>
+
+                  </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr >
+              <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="box">
+      <div class="px-3">
+        <app-contas-pagar></app-contas-pagar>
+      </div>
+
+
+    </div>
+  </div>
+

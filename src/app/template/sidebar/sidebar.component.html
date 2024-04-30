@@ -3,25 +3,101 @@
   <span>Odonto</span>
 </mat-toolbar>  -->
 
-<p-toolbar [style]="{ 'background-image': 'linear-gradient(to right, #2070b4, #1e7bbd, #1c85c7, #1c90cf, #1e9bd8, #309ed9, #3ea1d9, #49a4da, #599fd3, #669bcc, #6f96c4, #7692bc)', 'margin':'0'}">
+<p-toolbar  [style]="{ 'background-image': 'linear-gradient(to right, #2070b4, #1e7bbd, #1c85c7, #1c90cf, #1e9bd8, #309ed9, #3ea1d9, #49a4da, #599fd3, #669bcc, #6f96c4, #7692bc)', 'margin':'0'}">
   <ng-template pTemplate="start">
-      <img src="assets/img/odontoWhite.png"  width="80" />
+      <img src="assets/img/odontoWhite.png"  width="80" class="ml-4" />
   </ng-template>
-  <ng-template pTemplate="center">
+  <ng-template pTemplate="center" >
 
   </ng-template>
   <ng-template pTemplate="end">
-      <div class="flex justify-content-center align-items-center gap-2">
-          <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-          <span class="font-bold text-bluegray-50">Admin</span>
-      </div>
-      <div class="flex align-items-center">
-        <p-button icon="pi pi-sign-out" [rounded]="true" [text]="true" severity="danger " (click)="logout()"></p-button>
-      </div>
+    <i class="pi pi-user text-white mr-4" style="font-size: 1.35rem; cursor: pointer;" (click)="modalConfig = !modalConfig"></i>
   </ng-template>
 </p-toolbar>
 
-<div class="main">
+<p-sidebar [(visible)]="modalConfig" position="right">
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-center align-items-center gap-2">
+      <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+      <span class="font-bold">Admin</span>
+    </div>
+    <div class="mt-6">
+      <p class="text-sm">{{ dataHora }}</p>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="body">
+    <div class="box my-4">
+      <div class="flex justify-content-center py-3 cursor-pointer" >
+        <div class="col-3 flex justify-content-center align-items-center">
+          <i class="pi pi-user"></i>
+        </div>
+        <div class="col-9">
+          Meu perfil
+        </div>
+      </div>
+    </div>
+
+    <div class="box my-4" >
+      <div class="flex justify-content-center py-3 " >
+        <div class="col-3 flex justify-content-center align-items-center">
+          <i class="pi pi-cog"></i>
+        </div>
+        <div class="col-6">
+          Configuracoes
+        </div>
+        <div class="col-3 flex justify-content-center align-items-center" (click)="config = !config" >
+          <i [class]="config ? 'pi pi-angle-up' : 'pi pi-angle-down'"></i>
+        </div>
+    </div>
+
+      <div *ngIf="config">
+        <div class=" flex justify-content-center align-items-center ">
+          <span class="flex justify-content-start align-items-center  my-3">
+            <i [class]="noturno ? 'pi pi-moon' : 'pi pi-sun'"></i>
+            <label for="modoNoturno" class="mr-2">&nbsp;&nbsp;Modo noturno</label>
+            <p-inputSwitch [(ngModel)]="noturno" inputId="modoNoturno" [style]="{'height': '10px'}" class="custom-switch"></p-inputSwitch>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="box my-4">
+      <div class="flex justify-content-center py-3 " >
+        <div class="col-3 flex justify-content-center align-items-center">
+          <i class="pi pi-briefcase"></i>
+        </div>
+        <div class="col-9">
+          Minhas consultas
+        </div>
+      </div>
+    </div>
+
+    <div class="box my-4">
+      <div class="flex justify-content-center py-3 " >
+        <div class="col-3 flex justify-content-center align-items-center">
+          <i class="pi pi-bell" pBadge ></i>
+        </div>
+        <div class="col-6">
+          Notificacoes
+        </div>
+        <div class="col-3">
+          <p-badge value="4" badgeSize="large" ></p-badge>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-center align-items-center">
+      <p-button icon="pi pi-sign-out" [rounded]="true" [text]="false" label="Logout" severity="danger " (click)="logout()"></p-button>
+    </div>
+  </ng-template>
+
+
+</p-sidebar>
+
+<div class="main p-component">
     <router-outlet></router-outlet>
 </div>
 

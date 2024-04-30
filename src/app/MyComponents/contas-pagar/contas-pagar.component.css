@@ -1,0 +1,26 @@
+.new{
+  background: #FFFFFF;
+  border-radius: 7px ;
+  border: 1px solid #c4ddf3;
+}
+.search{
+  color: #2070b4;
+  border-color:  #2070b4;
+  width: 25vw;
+  border-radius: 50px;
+}
+
+
+
+/* button{
+
+  font-size: 0.9rem;
+  width: 7vw;
+  border-radius: 50px;
+  border:none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+}
+
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+} */

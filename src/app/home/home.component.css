@@ -5,6 +5,13 @@
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 }
+.card{
+  width: 24%;
+  background: #FFFFFF;
+  border-radius: 15px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
 .bar{
 
   padding: 2rem;
@@ -106,6 +113,29 @@ button:hover{
 .dashboard{
   display: flex;
 }
+
+.wrapper {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  /* Estilos para o conteúdo principal */
+}
+
+.sidebar {
+  width: 270px;
+  display: none;
+}
+
+.sidebar-visible .sidebar {
+  display: block; /* Mostra o sidebar quando a classe sidebar-visible é aplicada */
+}
+
+
+
+
+
 @media only screen and (max-width: 767px) {
   .filtroMovel {
     display: none; /* Esconde a div em dispositivos móveis com largura de tela menor que 768 pixels */

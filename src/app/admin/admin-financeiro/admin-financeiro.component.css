@@ -1,0 +1,37 @@
+:host ::ng-deep {
+  .p-progressbar {
+      height: .5rem;
+      background-color: #D8DADC;
+
+      .p-progressbar-value {
+          background-color: #607D8B;
+      }
+  }
+}
+.box{
+  background: #FFFFFF;
+  border-radius: 7px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+.search{
+  color: #2070b4;
+  border-color:  #2070b4;
+  width: 25vw;
+  border-radius: 50px;
+}
+
+
+
+button{
+
+  font-size: 0.9rem;
+  width: 10vw;
+  border-radius: 50px;
+  border:none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+}
+
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+}

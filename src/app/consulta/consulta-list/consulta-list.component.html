@@ -1,7 +1,7 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 z-0">
-      <div class="flex align-items-center sticky top-0 z-2 filtro web">
+      <div class="flex align-items-start sticky top-0 z-2 filtro web">
         <div class="col-3 ml-5 ">
           <p-selectButton
           [options]="listaOuCalendar"
@@ -14,9 +14,10 @@
           >
           </p-selectButton>
         </div>
-        <div class="col-9 flex justify-content-end pr-6" *ngIf="!ehCalendario">
+        <div class="col-1"></div>
+        <div class="col-7 flex justify-content-center" *ngIf="!ehCalendario">
 
-          <div class="field  md:col-12 lg:col-3 ">
+          <div class="field  md:col-12 lg:col-4 ">
             <span class="p-float-label">
               <p-dropdown
               [options]="dentistas"
@@ -48,7 +49,7 @@
             </span>
           </div>
 
-          <div class="field  md:col-12 lg:col-3 ">
+          <div class="field  md:col-12 lg:col-4 ">
             <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
               <p-calendar
                 inputId="filtroData"
@@ -72,7 +73,7 @@
             </span>
           </div>
 
-          <div class="field  md:col-12 lg:col-3">
+          <div class="field  md:col-12 lg:col-4">
             <span class="p-float-label" >
               <p-dropdown
               [options]="[
@@ -398,7 +399,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
               <tr >
-                  <td colspan="6">Não foram encontrado dados</td>
+                <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
               </tr>
             </ng-template>
           </p-table>

@@ -1,73 +1,136 @@
 
-<div class="row flex px-4 py-2">
-  <div class="col-2 px-2 p-component new  ">
-    <div class="">
-      <span class="font-bold text-ls text-500 ml-4">Configurações</span>
+<div class="row flex ">
+  <div class="wrapper  " [class.sidebar-visible]="sidebarVisible" >
+    <div class="sidebar mx-2">
+
+        <div class="header my-2 flex justify-content-center align-items-center" >
+          <div class=" py-2" (click)="navegacaoRotas('')">
+            <img src="assets/img/odonto.jpg"  width="150" />
+          </div>
+        </div>
+
+        <div class="box my-2 pl-1" routerLinkActive="boxAtivo">
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('configuracoes')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-cog iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Configurações
+            </div>
+          </div>
+        </div>
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('paciente')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-users iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Pacientes
+            </div>
+          </div>
+        </div>
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('dentista')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-user iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Dentistas
+            </div>
+          </div>
+        </div>
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('consulta')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-briefcase iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Consultas
+            </div>
+          </div>
+        </div>
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('relatorio')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-file iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Relatórios
+            </div>
+          </div>
+        </div>
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('financeiro')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-dollar iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Financeiro
+            </div>
+          </div>
+        </div>
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('estoque')" routerLinkActive="boxAtivo">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-box iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Estoque
+            </div>
+          </div>
+        </div>
+
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('')" routerLinkActive="boxAtivo">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-thumbtack iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Nao sei
+            </div>
+          </div>
+        </div>
+
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('')" routerLinkActive="boxAtivo">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-thumbtack iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Nao sei
+            </div>
+          </div>
+        </div>
+
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('')" routerLinkActive="boxAtivo">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-thumbtack iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Nao sei
+            </div>
+          </div>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
     </div>
-    <div class="">
-      <ul>
-        <li>
-          <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
-        </li>
-        <li>
-          <a routerLink="/admin/template" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
-        </li>
-        <li>
-          <a routerLink="/admin/template" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-plus"></i>&nbsp;&nbsp;Especialidades</a>
-        </li>
-      </ul>
+
+  <div class="p-component w-full ">
+    <div class="flex">
+      <p-button class="m-3" icon="pi pi-bars" [rounded]="true" severity="secondary" [outlined]="true" (click)="toggleSidebar()"></p-button>
     </div>
 
-    <div class="">
-      <span class="font-bold text-ls text-500 ml-4">Pacientes</span>
+
+
+    <div class="px-3">
+      Estudar sobre o TanStack Query para o angular, principalmente para pegar o loading e adicionar o SkeletonModule, em quanto faz o carregamento dos dados
+      exemplo simples: https://tanstack.com/query/v5/docs/framework/angular/examples/simple
+      <router-outlet></router-outlet>
     </div>
-    <ul>
-      <li>
-        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
-      </li>
-    </ul>
-    <div class="">
-      <span class="font-bold text-ls text-500 ml-4">Dentistas</span>
-    </div>
-    <ul>
-      <li>
-        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas</a>
-      </li>
-    </ul>
-    <div class="">
-      <span class="font-bold text-ls text-500 ml-4">Relatórios</span>
-    </div>
-    <ul>
-      <li>
-        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Pacientes Inativos</a>
-      </li>
-
-      <li>
-        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Dentistas Inativos</a>
-      </li>
-
-      <li>
-        <a routerLink="/admin/paciente" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-user"></i>&nbsp;&nbsp;Consultas</a>
-      </li>
-    </ul>
-    <div class="">
-      <span class="font-bold text-ls text-500 ml-4">Financeiro</span>
-    </div>
-    <ul>
-      <li>
-        <a routerLink="/admin/financeiro/entrada" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-arrow-right"></i>&nbsp;&nbsp;Entradas</a>
-      </li>
-      <li>
-        <a routerLink="/admin/financeiro/Saidas" class="itemMenu" routerLinkActive="menuAtivo"><i class="pi pi-arrow-left"></i>&nbsp;&nbsp;Saidas</a>
-      </li>
-    </ul>
-
-
-  </div>
-
-  <div class="col-10 p-component">
-
-    <router-outlet></router-outlet>
 
   </div>
 
