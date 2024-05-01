@@ -132,6 +132,11 @@ button:hover{
   display: block; /* Mostra o sidebar quando a classe sidebar-visible é aplicada */
 }
 
+.btnFiltro{
+  position: absolute;
+  top: 30px;
+  left: 320px
+}
 
 
 

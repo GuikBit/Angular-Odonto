@@ -185,9 +185,10 @@
                   <p-tag
                     [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
                     [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-                    [rounded]="true">
-                    <i class="material-icons" *ngIf="paciente?.ativo">task_alt</i>
-                    <i class="material-icons" *ngIf="!paciente?.ativo">block</i>
+                    [rounded]="true"
+                    [style]="{'font-size': '12px', 'font-weight': '400'}"
+                    [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
+                  >
                   </p-tag>
 
                 </td>
@@ -197,14 +198,24 @@
                       <p-button
                         icon="pi pi-pw pi-info-circle"
                         [rounded]="true"
+                        [text]="true"
+                        severity="info"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        (click)="info(paciente.id)"
+
+                      ></p-button>
+                      <!-- <p-button
+                        icon="pi pi-pw pi-info-circle"
+                        [rounded]="true"
                         severity="info"
                         [outlined]="true"
                         pTooltip="Informações"
                         tooltipPosition="top"
                         (click)="info(paciente.id)"
                       >
-                      </p-button>
-                      <p-button
+                      </p-button> -->
+                      <!-- <p-button
                         icon="pi pi-pw pi-ban"
                         [rounded]="true"
                         severity="danger"
@@ -213,7 +224,17 @@
                         tooltipPosition="top"
                         (click)="delet(paciente.id)"
                       >
-                      </p-button>
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-trash"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="danger"
+                        pTooltip="Inativar"
+                        tooltipPosition="top"
+                        (click)="delet(paciente.id)"
+                        [disabled]="!paciente.ativo"
+                      ></p-button>
 
                   </div>
                 </td>

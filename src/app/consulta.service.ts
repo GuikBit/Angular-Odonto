@@ -12,6 +12,7 @@ import { Consulta } from './consulta/consulta';
 })
 export class ConsultaService {
 
+
   apiURL : String = environment.apiURLBase+'/v1/consulta'
   constructor(private http: HttpClient) { }
 
@@ -110,8 +111,56 @@ export class ConsultaService {
       headers: { Authorization: 'Bearer ' + (await this.getToken()) },
     });
     try{
-      const response = await instance.get(`${this.apiURL}/novaespec`)
+      const response = await instance.get(`${this.apiURL}/especialidade`)
       return response.data;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  async postEspecConsulta(espec: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.post(`${this.apiURL}/especialidade`, espec)
+      return response.status;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  async putEspecConsulta(espec: any){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.put(`${this.apiURL}/especialidade`, espec)
+      return response.status;
+
+    }catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  async deleteEspecConsulta(id: any){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+    try{
+      const response = await instance.delete(`${this.apiURL}/especialidade/${id}`)
+      return response.status;
 
     }catch (error) {
       console.error(error);

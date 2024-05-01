@@ -28,14 +28,14 @@
           <div class="mt-6 lg:flex">
             <span class="text-5xl font-semibold p-component web">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
             <span class="text-2xl font-semibold p-component mobile">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
-             <p-tag
-              [severity]="(paciente.ativo? 'success' : 'danger')"
-              [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-              [rounded]="true"
-              class="lg:flex  lg:align-items-center "
-              >
-              <i class="material-icons" *ngIf="paciente?.ativo">task_alt</i>
-              <i class="material-icons" *ngIf="!paciente?.ativo">block</i>
+            <p-tag
+            [severity]="paciente.ativo? 'success' : 'danger'"
+            [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+            [rounded]="true"
+            [style]="{'font-size': '12px', 'font-weight': '400'}"
+            [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
+            class="flex align-items-center"
+            >
             </p-tag>
             <span clas="ml-3">
 
@@ -605,25 +605,25 @@
                           <p-tag icon="pi pi-dollar" severity="warning" value="Agendada&nbsp;" [rounded]="true"></p-tag>
                         } -->
                         @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
-                          <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
+                          <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                         }
                       @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
+                        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
                         }
                       @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
                         {
-                          <p-tag severity="success" value="&nbsp;Atendido&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+                          <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                         }
                       @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
                         {
-                          <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
+                          <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                         }
                   </td>
 
                   <td [width]="230">
+
                     <div class="flex justify-content-around">
-                      <p-button
-                        *ngIf="!iniciarConsulta"
+                      <!-- <p-button
                         icon="pi pi-pw pi-play"
                         [rounded]="true"
                         [outlined]="true"
@@ -633,20 +633,19 @@
                         tooltipPosition="top"
                         (click)="iniciarConsulta(consulta)"
                         >
-                      </p-button>
+                      </p-button> -->
                       <p-button
-                      *ngIf="iniciarConsulta"
-                      icon="pi pi-spin pi-spinner"
-                      [rounded]="true"
-                      [outlined]="true"
-                      [severity]="'warning'"
-                      [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                      pTooltip="Iniciar Consulta"
-                      tooltipPosition="top"
+                        icon="pi pi-pw pi-play"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="warning"
+                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                        pTooltip="Iniciar Consulta"
+                        tooltipPosition="top"
+                        (click)="iniciarConsulta(consulta)"
+                      ></p-button>
 
-                      >
-                    </p-button>
-                      <p-button
+                      <!-- <p-button
                         icon="pi pi-pw pi-info-circle"
                         [rounded]="true"
                         [outlined]="true"
@@ -654,38 +653,80 @@
                         pTooltip="Informações"
                         tooltipPosition="top"
                         (click)="consultaSelecionadaInfo(consulta?.id, 1)"
-                        >
-                        <!-- <i class="material-icons">info</i> -->
-                      </p-button>
-                      <p-button icon="pi pi-pw pi-dollar"
+                      >
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-info-circle"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="info"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                      ></p-button>
+
+
+
+                      @if(consulta.pagamento.fatFechado && !consulta.pagamento.pago){
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta.pagamento.pago?'secondary':'success'"
-
-                        [pTooltip]="consulta.pagamento.pago?'Pagamento Realizado':'Pagamento Aberto'"
+                        severity="danger"
+                        pTooltip="Financeiro pendente"
                         tooltipPosition="top"
                         (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                        >
-                        <!-- <i class="material-icons">paid</i> -->
-                      </p-button>
-                      <!-- <p-button icon="pi"
+                      >
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="danger"
+                        pTooltip="Financeiro pendente"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      ></p-button>
+                      }
+                      @else if(consulta.pagamento.fatFechado && consulta.pagamento.pago){
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta?.pagamento.pago? 'secondary':'help'"
-                        [disabled]="consulta?.dataHoraAtendimento == null && consulta?.pagamento.pago"
-                        pTooltip="Reagendar"
+                        severity="success"
+                        pTooltip="Financeiro fechado"
                         tooltipPosition="top"
-                        ><i class="material-icons">edit_document</i>
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      >
                       </p-button> -->
-                      <!-- <p-button icon="pi"
+                      <p-button
+                        icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="success"
+                        pTooltip="Financeiro fechado"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      ></p-button>
+                      }@else {
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
                         [rounded]="true"
                         [outlined]="true"
-                        [severity]="consulta?.pagamento.pago? 'secondary':'danger'"
-                        [disabled]="consulta?.pagamento.pago"
-                        pTooltip="Deletar"
+                        severity="secondary"
+                        pTooltip="Financeiro aberto"
                         tooltipPosition="top"
-                        ><i class="material-icons">delete</i>
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      >
                       </p-button> -->
+                      <p-button
+                      icon="pi pi-pw pi-dollar"
+                      [rounded]="true"
+                      [text]="true"
+                      severity="secondary"
+                      pTooltip="Financeiro aberto"
+                      tooltipPosition="top"
+                      (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      ></p-button>
+                      }
+
                     </div>
                   </td>
                 </tr>

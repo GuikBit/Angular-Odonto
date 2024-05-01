@@ -27,10 +27,10 @@
           >
           <ng-template pTemplate="header">
               <tr>
-                <th pSortableColumn="idConsulta" >
+                <th pSortableColumn="idConsulta" [width]="120">
                   <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center">
-                       N° Consulta
+                    <div class="col-8 flex justify-content-start align-items-center azul">
+                       N°
                     </div>
                     <div class="col-4 flex justify-content-end align-items-center">
                       <p-sortIcon
@@ -50,7 +50,7 @@
                 </th>
                 <th pSortableColumn="nomePaciente" >
                   <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center azul">
                        Paciente
                     </div>
                     <div class="col-4 flex justify-content-end align-items-center">
@@ -71,7 +71,7 @@
                 </th>
                 <th pSortableColumn="nomeDentista" >
                   <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center azul">
                         Dentista
                     </div>
                     <div class="col-4 flex justify-content-end align-items-center">
@@ -92,7 +92,7 @@
                 </th>
                 <th pSortableColumn="dataConsulta" >
                   <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center azul">
                        Data Consulta
                     </div>
                     <div class="col-4 flex justify-content-end align-items-center">
@@ -113,7 +113,7 @@
                 </th>
                 <th pSortableColumn="dataVencimento" >
                   <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center azul">
                        Data Vencimento
                     </div>
                     <div class="col-4 flex justify-content-end align-items-center">
@@ -152,7 +152,7 @@
                       <p-button
                       icon="pi pi-info-circle"
                       [rounded]="true"
-                      [outlined]="true"
+                      [text]="true"
                       [severity]="'info'"
                       pTooltip="Detalhes"
                       tooltipPosition="top"
@@ -163,9 +163,9 @@
                     <p-button
                       icon="pi pi-whatsapp"
                       [rounded]="true"
-                      [outlined]="true"
+                      [text]="true"
                       [severity]="'success'"
-                      pTooltip="Entrar em contato"
+                      pTooltip="Notificar"
                       tooltipPosition="top"
                       size="small"
                       >

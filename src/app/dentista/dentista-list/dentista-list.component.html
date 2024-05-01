@@ -146,22 +146,15 @@
                   {{ dentista?.especialidade.tipo }}
                 </td>
                 <td>
-                  @if (dentista?.ativo){
-                    <p-tag
-                    severity="success"
-                    value="&nbsp;Ativo&nbsp;"
-                    [rounded]="true">
-                      <i class="material-icons" >task_alt</i>
-                    </p-tag>
-                  }
-                  @else {
-                    <p-tag
-                    severity="success"
-                    value="&nbsp;Inativo&nbsp;"
-                    [rounded]="true">
-                      <i class="material-icons" >block</i>
-                    </p-tag>
-                  }
+                  <p-tag
+                  [severity]="dentista.ativo? 'success' : 'danger'"
+                  [value]="dentista?.ativo? ' Ativo ':' Inativo '"
+                  [rounded]="true"
+                  [style]="{'font-size': '12px', 'font-weight': '400'}"
+                  [icon]="dentista.ativo? 'pi pi-verified' : 'pi pi-ban'"
+                  class="flex align-items-center"
+                  >
+                  </p-tag>
                 </td>
 
                 <td [width]="200">
@@ -171,7 +164,7 @@
                       icon="pi pi-pw pi-info-circle"
                       [rounded]="true"
                       severity="info"
-                      [outlined]="true"
+                      [text]="true"
                       pTooltip="Informações"
                       tooltipPosition="top"
                       (click)="infoShow(dentista.id)"
@@ -181,7 +174,7 @@
                       icon="pi pi-pw pi-trash"
                       [rounded]="true"
                       severity="danger"
-                      [outlined]="true"
+                      [text]="true"
                       pTooltip="Deletar"
                       tooltipPosition="top"
                       (click)="DeletShowDialog()"

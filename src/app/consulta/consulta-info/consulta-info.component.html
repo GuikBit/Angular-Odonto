@@ -1,35 +1,42 @@
 <div class="new p-component px-5">
 
-  <div class="flex justify-content-between">
-    <div class="col-2 flex justify-content-start align-items-center " >
-      <div class="flex justify-content-end">
-        @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
-          <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
+  <div class="flex justify-content-between ">
+
+      <div class="flex justify-content-start align-items-center">
+        @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento &&  !consultaSelecionada.ausente){
+          <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
         }
-      @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
-        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
+        @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
+        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
         }
-      @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
+        @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
         {
-          <p-tag severity="success" value="&nbsp;Atendida&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
+          <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
         }
-      @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
+        @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
         {
-          <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
+          <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
         }
       </div>
-    </div>
-    <div class="col-5 ">
+
+
       <div class="flex align-items-center justify-content-end ">
         <!-- <p-menubar [model]="items" styleClass="menuBar" >  </p-menubar> -->
         <ul>
 
           <li pTooltip="Iniciar Consulta" tooltipPosition="top"  *ngIf="!loading.iniciar">
-            <p-button
-
+            <!-- <p-button
             icon="pi pi-play"
             [rounded]="true"
             [outlined]="true"
+            [style]="{'color': '#FA8E42'}"
+            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true"
+            (onClick)="iniciarConsulta()"
+            ></p-button> -->
+            <p-button
+            icon="pi pi-pw pi-play"
+            [rounded]="true"
+            [text]="true"
             [style]="{'color': '#FA8E42'}"
             [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true"
             (onClick)="iniciarConsulta()"
@@ -39,14 +46,14 @@
             <p-button
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
-            [outlined]="true"
+            [text]="true"
             [style]="{'color': '#FA8E42'}"
           >
           </p-button>
           </li>
 
           <li pTooltip="Finalizar Consulta" tooltipPosition="top" *ngIf="!loading.finalizar">
-            <p-button
+            <!-- <p-button
               icon="pi"
               [rounded]="true"
               [outlined]="true"
@@ -55,32 +62,47 @@
               (onClick)="finalizarConsulta()"
               >
               <i class="material-icons">task_alt</i>
-            </p-button>
+            </p-button> -->
+            <p-button
+            icon="pi pi-pw pi-check-circle"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#1DA750'}"
+            [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
+            (onClick)="finalizarConsulta()"
+            ></p-button>
           </li>
           <li *ngIf="loading.finalizar">
             <p-button
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
-            [outlined]="true"
+            [text]="true"
             [style]="{'color': '#1DA750'}"
           >
           </p-button>
 
           <li pTooltip="Salvar" tooltipPosition="top" *ngIf="this.loading.editar">
-            <p-button
+            <!-- <p-button
               [rounded]="true"
               icon="pi"
               [outlined]="true"
               [style]="{'color': '#3B82F6'}"
-
               (onClick)="this.loading.editar = !this.loading.editar"
               [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
             >
               <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
-            </p-button>
+            </p-button> -->
+            <p-button
+            icon="pi pi-pw pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#3B82F6'}"
+            (onClick)="this.loading.editar = !this.loading.editar"
+            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
+            ></p-button>
           </li>
           <li pTooltip="Editar" tooltipPosition="top" *ngIf="!this.loading.editar">
-            <p-button
+            <!-- <p-button
               [rounded]="true"
               icon="pi"
               [outlined]="true"
@@ -89,11 +111,19 @@
               [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
             >
               <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
-            </p-button>
+            </p-button> -->
+            <p-button
+            icon="pi pi-pw pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#3B82F6'}"
+            (onClick)="preparaEdicao()"
+            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
+            ></p-button>
           </li>
 
           <li pTooltip="Ausentar Paciente" tooltipPosition="top" *ngIf="!consultaSelecionada.ausente && !loading.ausentar">
-            <p-button
+            <!-- <p-button
               *ngIf="!loading.ausentar"
               icon="pi"
               [rounded]="true"
@@ -103,34 +133,39 @@
               (onClick)="ausentarPaciente()"
             >
               <i class="material-icons">person_off</i>
-            </p-button>
+            </p-button> -->
+            <p-button
+            icon="pi pi-pw pi-user-minus"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#EEC137'}"
+            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || (consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
+            (onClick)="ausentarPaciente()"
+            ></p-button>
           </li>
           <li *ngIf="loading.ausentar">
             <p-button
-
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
-            [outlined]="true"
-            [style]="{'color': '#FA8E42'}"
-          >
-          </p-button>
+            [text]="true"
+            [style]="{'color': '#EEC137'}"
+            >
+            </p-button>
           </li>
           <li pTooltip="Presença do Paciente" tooltipPosition="top" *ngIf="consultaSelecionada.ausente">
             <p-button
-              icon="pi"
+              icon="pi pi-user-plus"
               [rounded]="true"
-              [outlined]="true"
+              [text]="true"
               [style]="{'color': '#1DA750'}"
               (onClick)="presencaPaciente()"
             >
-              <i class="material-icons">person_add</i>
             </p-button>
           </li>
 
           <li pTooltip="Deletar Consulta" tooltipPosition="top">
-            <p-button
+            <!-- <p-button
               icon="pi"
-
               [rounded]="true"
               [outlined]="true"
               [style]="{'color': '#FF3D32'}"
@@ -138,27 +173,34 @@
               (onClick)="deletarConsulta()"
               >
               <i class="material-icons">delete</i>
-            </p-button>
+            </p-button> -->
+            <p-button
+              icon="pi pi-trash"
+              [rounded]="true"
+              [text]="true"
+              [style]="{'color': '#FF3D32'}"
+              [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
+              (onClick)="deletarConsulta()"
+            ></p-button>
           </li>
           <li pTooltip="Fechar" tooltipPosition="top">
             <p-button
-              icon="pi"
+              icon="pi pi-times"
               [rounded]="true"
-              [outlined]="true"
+              [text]="true"
               [style]="{'color': '#6B7280'}"
               (onClick)="fecharJanela()"
               >
-              <i class="material-icons">close</i>
             </p-button>
           </li>
         </ul>
       </div>
-    </div>
+
 
   </div>
-  <p-divider layout="horizontal"></p-divider>
+  <p-divider layout="horizontal" [style]="{'margin': '0'}" ></p-divider>
 
-      <div class="flex ">
+      <div class="flex mt-4">
         <div class="col-12">
           <div class="row flex justify-content-around">
             <div class="col-5 flex justify-content-start ">

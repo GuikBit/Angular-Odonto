@@ -12,37 +12,40 @@
       <div class="md:flex md:justify-content-center lg:justify-content-start">
         <span class="dNome ">{{data.nome}}</span>
       </div>
-      <div>
-        <i>&nbsp;&nbsp;{{data.especialidade.tipo}}&nbsp;&nbsp;-&nbsp;&nbsp;
-        @if (data.ativo){
-          <p-tag icon="pi pi-check" severity="success" value="Ativo&nbsp;" [rounded]="true"></p-tag>
-        }
-        @else {
-          <p-tag icon="pi pi-times" severity="danger" value="Inativo&nbsp;" [rounded]="true"></p-tag>
-        }
-        </i>
+      <div class="ml-2">
+        <span class="flex ">{{data.especialidade.tipo}}&nbsp;&nbsp;-&nbsp;&nbsp;
+          <p-tag
+            [severity]="data.ativo? 'success' : 'danger'"
+            [value]="data?.ativo? ' Ativo ':' Inativo '"
+            [rounded]="true"
+            [style]="{'font-size': '12px', 'font-weight': '400'}"
+            [icon]="data.ativo? 'pi pi-verified' : 'pi pi-ban'"
+            class="flex align-items-center"
+            >
+            </p-tag>
+        </span>
       </div>
 
     </div>
     <div class="md:col-12 lg:col-3  flex align-items-center justify-content-center sticky top-0 pt-3 z-1">
       <ul>
         <li pTooltip="Informações" tooltipPosition="top" *ngIf="!ehCalendario" >
-          <p-button icon="pi pi-calendar" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}" (onClick)="ehCalendario = !ehCalendario"></p-button>
+          <p-button icon="pi pi-calendar" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="ehCalendario = !ehCalendario"></p-button>
         </li>
         <li pTooltip="Informações" tooltipPosition="top" *ngIf="ehCalendario">
-          <p-button icon="pi pi-list" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}" (onClick)="ehCalendario = !ehCalendario"></p-button>
+          <p-button icon="pi pi-list" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="ehCalendario = !ehCalendario"></p-button>
         </li>
         <li pTooltip="Informações" tooltipPosition="top">
-          <p-button icon="pi pi-info-circle" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista}"></p-button>
+          <p-button icon="pi pi-info-circle" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}"></p-button>
         </li>
         <li pTooltip="Editar" tooltipPosition="top">
-          <p-button icon="pi pi-user-edit" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista }"></p-button>
+          <p-button icon="pi pi-user-edit" [rounded]="true" [text]="true" [style]="{'color': data.corDentista }"></p-button>
         </li>
         <li pTooltip="Exportar" tooltipPosition="top">
-          <p-button icon="pi pi-download" [rounded]="true" [outlined]="true" [style]="{'color': data.corDentista }"></p-button>
+          <p-button icon="pi pi-download" [rounded]="true" [text]="true" [style]="{'color': data.corDentista }"></p-button>
         </li>
         <li pTooltip="Deletar" tooltipPosition="top">
-          <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="false"></p-button>
+          <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [text]="false"></p-button>
         </li>
       </ul>
     </div>
@@ -532,7 +535,7 @@
                   <tr [style]="{'color': data.corDentista + '26'}">
                     <th pSortableColumn="nome" [width]="420">
                       <div class="flex row align-items-center">
-                        <div class="col-8 flex justify-content-start align-items-center">
+                        <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
                           Paciente
                         </div>
                         <div class="col-4 flex justify-content-end align-items-center">
@@ -553,7 +556,7 @@
                     </th>
                     <th pSortableColumn="dataConsulta" [width]="250">
                       <div class="flex row align-items-center">
-                        <div class="col-8 flex justify-content-start align-items-center">
+                        <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
                           Data
                         </div>
                         <div class="col-4 flex justify-content-end align-items-center">
@@ -575,7 +578,7 @@
                     </th>
                     <th pSortableColumn="horaConsulta" [width]="200">
                       <div class="flex row align-items-center">
-                        <div class="col-8 flex justify-content-start align-items-center ">
+                        <div class="col-8 flex justify-content-start align-items-center " [style]="{'color': data.corDentista}">
                           Hora
                         </div>
                         <div class="col-4 flex justify-content-end align-items-center ">
@@ -599,7 +602,7 @@
 
                     <th pSortableColumn="pagamento" [width]="200">
                       <div class="flex row align-items-center">
-                        <div class="col-8 flex justify-content-start align-items-center ">
+                        <div class="col-8 flex justify-content-start align-items-center " [style]="{'color': data.corDentista}">
                           Status
                         </div>
                         <div class="col-4 flex justify-content-end align-items-center ">
@@ -628,27 +631,27 @@
                     <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ consulta?.dataConsulta | date: 'HH:mm' }}</td>
                     <td>
-                        @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
-                            <p-tag severity="warning" value="&nbsp;Agendada&nbsp;" [rounded]="true"><i class="material-icons" >schedule</i></p-tag>
-                          }
-                        @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                          <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true"><i class="material-icons" >timelapse</i></p-tag>
-                          }
-                        @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
-                          {
-                            <p-tag severity="success" value="&nbsp;Atendido&nbsp;" [rounded]="true"><i class="material-icons" >task_alt</i></p-tag>
-                          }
-                        @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
-                          {
-                            <p-tag severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true"><i class="material-icons" >person_off</i></p-tag>
-                          }
+                      @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                        <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                      }
+                    @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+                      <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                      }
+                    @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+                      {
+                        <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                      }
+                    @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+                      {
+                        <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                      }
                     </td>
                     <td [width]="230">
                       <div class="flex justify-content-around">
                         <p-button
                           icon="pi pi-pw pi-play"
                           [rounded]="true"
-                          [outlined]="true"
+                          [text]="true"
                           [severity]="'warning'"
                           [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
                           pTooltip="Iniciar Consulta"
@@ -659,7 +662,7 @@
                         <p-button
                           icon="pi pi-pw pi-info-circle"
                           [rounded]="true"
-                          [outlined]="true"
+                          [text]="true"
                           [style]="{'color': data.corDentista}"
                           pTooltip="Informações"
                           tooltipPosition="top"

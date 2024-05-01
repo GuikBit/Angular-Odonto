@@ -2,13 +2,13 @@
 
 
 
-<p-button [icon]="sidebarVisible? 'pi pi-filter-slash' :  'pi pi-filter'" class="sticky top-0 p-3 z-2" [rounded]="true" [text]="true" severity="primary " (click)="toggleSidebar()"></p-button>
+<!-- <p-button [icon]="sidebarVisible? 'pi pi-filter-slash' :  'pi pi-filter'" class="sticky top-0 p-3 z-2" [rounded]="true" [text]="true" severity="primary " (click)="toggleSidebar()"></p-button> -->
+<i class="text-white  btnFiltro" [class]="sidebarVisible? 'pi pi-filter-slash' :  'pi pi-filter'" style="font-size: 1.35rem; cursor: pointer;" (click)="toggleSidebar()"></i>
 
-
-<div class="row flex" >
+<div class="row flex pt-3 pl-3" >
   <div class="wrapper new" [class.sidebar-visible]="sidebarVisible" [@slideInOut]="sidebarState"  >
-      <div class="sidebar">
-              <div class="box">
+      <div class="sidebar ">
+              <div class="box shadow-5">
               <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()">
 
                 <div class="h-11rem">

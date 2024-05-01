@@ -1,7 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, Translation } from 'primeng/api';
 // import { TranslateService } from '@ngx-translate/core';
 
+interface CustomTranslation extends Translation {
+  days: {
+    sunday: string;
+    monday: string;
+    tuesday: string;
+    wednesday: string;
+    thursday: string;
+    friday: string;
+    saturday: string;
+  };
+  months: {
+    january: string;
+    february: string;
+    march: string;
+    april: string;
+    may: string;
+    june: string;
+    july: string;
+    august: string;
+    september: string;
+    october: string;
+    november: string;
+    december: string;
+  };
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,7 +35,7 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'Cliente';
 
-  constructor(private config: PrimeNGConfig, 
+  constructor(private config: PrimeNGConfig,
     // private translateService: TranslateService
   ){}
 
@@ -25,29 +50,67 @@ export class AppComponent implements OnInit {
       contains: 'Contém',
       notContains: 'Não contém',
       endsWith: 'Termina com',
-      equals: 'É igual a',
-      notEquals: 'Não é igual',
+      equals: 'Igual',
+      notEquals: 'Diferente',
+      noFilter: 'Sem filtro',
       lt: 'Menor que',
-      lte: 'Menor que ou igual a',
+      lte: 'Menor ou igual a',
       gt: 'Maior que',
-      gte: 'Maior que ou igual a',
-      dateIs: 'Data igual',
-      dateIsNot: 'Data não igual',
-      dateBefore: 'Data posterior a',
-      dateAfter: 'Data anterior a',
-      matchAll: 'Filtrar todos',
-      matchAny: 'Filtrar com qualquer',
+      gte: 'Maior ou igual a',
+      is: 'É',
+      isNot: 'Não é',
+      before: 'Antes',
+      after: 'Depois',
+      dateIs: 'Data é',
+      dateIsNot: 'Data não é',
+      dateBefore: 'Data antes de',
+      dateAfter: 'Data após',
+      matchAll: 'Corresponde a todos',
+      matchAny: 'Corresponde a qualquer',
+      addRule: 'Adicionar regra',
+      removeRule: 'Remover regra',
+      choose: 'Escolher',
+      upload: 'Enviar',
+      cancel: 'Cancelar',
+      fileSizeTypes: ['Bytes', 'KB', 'MB', 'GB', 'TB'],
+      dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      dateFormat: 'dd/mm/yy',
+      firstDayOfWeek: 0,
       today: 'Hoje',
-      
-
-    // matchAll: 'Marcar todos'
-    //date
-    //   primengConfig.filterMatchModeOptions = {
-    //     text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
-    //     numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
-    //     date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
-    // };
-  });
+      weekHeader: 'Sm',
+      weak: 'Fraco',
+      medium: 'Médio',
+      strong: 'Forte',
+      passwordPrompt: 'Informe a senha',
+      emptyMessage: 'Nenhum resultado encontrado',
+      emptyFilterMessage: 'Nenhum resultado encontrado',
+      pending: 'Pendente',
+      chooseYear: 'Escolher ano',
+      chooseMonth: 'Escolher mês',
+      chooseDate: 'Escolher data',
+      prevDecade: 'Década anterior',
+      nextDecade: 'Próxima década',
+      prevYear: 'Ano anterior',
+      nextYear: 'Próximo ano',
+      prevMonth: 'Mês anterior',
+      nextMonth: 'Próximo mês',
+      prevHour: 'Hora anterior',
+      nextHour: 'Próxima hora',
+      prevMinute: 'Minuto anterior',
+      nextMinute: 'Próximo minuto',
+      prevSecond: 'Segundo anterior',
+      nextSecond: 'Próximo segundo',
+      am: 'AM',
+      pm: 'PM',
+      searchMessage: 'Procurar',
+      selectionMessage: 'Selecionar',
+      emptySelectionMessage: 'Nenhum item selecionado',
+      emptySearchMessage: 'Nenhum resultado encontrado',
+    });
 
   }
 }
