@@ -1,4 +1,4 @@
-import { Dentista } from './../dentista';
+import { Dentista } from '../../class/dentista';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,10 +14,10 @@ import { isEmpty } from 'rxjs';
 })
 export class DentistaNovoComponent implements OnInit{
 
-  // @Input() dentistaEdit: Dentista;
   @Output() onlyClose = new EventEmitter<boolean>();
   @Output() closeModal = new EventEmitter<boolean>();
-  especialidades: any[]|undefined;
+
+  especialidades: any[] | undefined;
   dentista: Dentista;
 
   formulario: FormGroup;
@@ -28,21 +28,27 @@ export class DentistaNovoComponent implements OnInit{
   hide: boolean = false;
   loading: boolean | null = false;
 
+  org: any;
 
   constructor( private service : DentistaService, private router: Router, private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder, public messageService: MessageService) {
-    this.dentista = new Dentista();
+
+
+    const organizacaoJson = localStorage.getItem('organizacao');
+
+    if (organizacaoJson) {
+      this.org = JSON.parse(organizacaoJson);
+    }
+
     this.criaFormulario(this.dentista);
 
-    this.especialidades = [
-      { tipo: 'Geral'},
-      { tipo: 'Ortodontia' },
-      { tipo: 'Cirurgião' },
-      { tipo: 'Periodontia' },
-
-  ];
   }
   ngOnInit() {
+    this.service.getByEspecialidades().then((response)=>{
+      if(response){
+        this.especialidades = response;
+      }
+    })
 
   }
 
@@ -53,12 +59,13 @@ export class DentistaNovoComponent implements OnInit{
       email: ['', Validators.required],
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
-      dataCadastro: [''],
       dataNascimento: ['', Validators.required],
       telefone: ['', Validators.required],
       cro: ['', Validators.required],
       especialidade: ['', Validators.required],
-      corDentista: [this.generateRandomColor(), Validators.required]
+      corDentista: [this.generateRandomColor(), Validators.required],
+      organizacaoId: [this.org.id, Validators.required],
+      idOrganizacao: [this.org],
     })
   }
 
@@ -67,7 +74,7 @@ export class DentistaNovoComponent implements OnInit{
     let login = this.formulario.get('login');
     if (login?.value != null && login?.value !== undefined && login?.value !== '' && login?.value.length >= 3) {
         this.service.buscaLogin(login?.value).then((response) => {
-          console.log(response)
+         // console.log(response)
             if (response === true) {
 
                 this.validacaoLogin = true;
@@ -107,7 +114,7 @@ export class DentistaNovoComponent implements OnInit{
 
     if (this.isValidCPF(cpf)) {
       const buscaCPF = await this.service.buscaCPF(cpf)
-      console.log(buscaCPF)
+     // console.log(buscaCPF)
       if(buscaCPF){
         this.existeCPF = false;
         this.validacaoCPF = true;
@@ -116,7 +123,7 @@ export class DentistaNovoComponent implements OnInit{
       }
       // this.validacaoCPF = true;
     }else{
-      console.log("nao valido")
+    //  console.log("nao valido")
       this.validacaoCPF = false;
 
     }
@@ -171,8 +178,8 @@ export class DentistaNovoComponent implements OnInit{
   }
 
   onSubmit() {
-    console.log(this.formulario)
-    console.log("Form novo dentista valido: ",this.formulario.valid)
+   console.log(JSON.stringify(this.formulario.value))
+    // console.log("Form novo dentista valido: ",this.formulario.valid)
     if(this.formulario.valid){
       this.service.postDentita(JSON.stringify(this.formulario.value)).then((response)=>{
         if(response?.status == 200 || response?.status === 201){

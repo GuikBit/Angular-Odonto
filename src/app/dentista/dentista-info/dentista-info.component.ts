@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Dentista } from '../dentista';
+import { Dentista } from '../../class/dentista';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DentistaService } from 'src/app/dentista.service';
 import { MessageService } from 'primeng/api';
 import { ConsultaService } from 'src/app/consulta.service';
-import { Consulta } from 'src/app/consulta/consulta';
+import { Consulta } from 'src/app/class/consulta';
 import { PlatformLocation } from '@angular/common';
 import { timeout } from 'rxjs';
 
@@ -34,9 +34,15 @@ export class DentistaInfoComponent implements OnInit {
   visible: boolean;
   novaConsultaCalendar: Date | null;
 
+  org: any;
+
   constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService,
     private serviceConsulta: ConsultaService){
+      const organizacaoJson = localStorage.getItem('organizacao');
 
+      if (organizacaoJson) {
+        this.org = JSON.parse(organizacaoJson);
+      }
     }
 
 
@@ -46,9 +52,10 @@ export class DentistaInfoComponent implements OnInit {
       id = params['id'];
     })
     if(id !== ''){
-     this.service.getDentistaFull(id).then((response)=>{
+     this.service.getDentistaFull(id, this.org.id).then((response)=>{
       if(response != null){
         this.data = response;
+        console.log(this.data)
       }else{
         this.router.navigate(['/dentistas']);
         this.messageService.add({
@@ -174,7 +181,7 @@ export class DentistaInfoComponent implements OnInit {
     this.route.params.subscribe(params => {
       id = params['id'];
     })
-    this.service.getDentistaFull(id).then((response)=>{
+    this.service.getDentistaFull(id, this.org.id).then((response)=>{
 
       this.data = response;
       this.messageService.add({

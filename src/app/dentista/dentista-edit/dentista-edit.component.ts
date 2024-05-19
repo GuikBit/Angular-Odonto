@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Dentista } from '../dentista';
+import { Dentista } from '../../class/dentista';
 import { DentistaService } from 'src/app/dentista.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -59,7 +59,7 @@ export class DentistaEditComponent {
     let login = this.formulario.get('login');
     if (login?.value != null && login?.value !== undefined && login?.value !== '' && login?.value.length >= 3) {
         this.service.buscaLogin(login?.value).then((response) => {
-          console.log(response)
+         // console.log(response)
             if (response === true) {
 
                 this.validacaoLogin = true;
@@ -99,7 +99,7 @@ export class DentistaEditComponent {
 
     if (this.isValidCPF(cpf)) {
       const buscaCPF = await this.service.buscaCPF(cpf)
-      console.log(buscaCPF)
+      //console.log(buscaCPF)
       if(buscaCPF){
         this.existeCPF = false;
         this.validacaoCPF = true;
@@ -108,7 +108,7 @@ export class DentistaEditComponent {
       }
       // this.validacaoCPF = true;
     }else{
-      console.log("nao valido")
+     // console.log("nao valido")
       this.validacaoCPF = false;
 
     }

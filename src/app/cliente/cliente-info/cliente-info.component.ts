@@ -2,7 +2,7 @@ import { MessageService } from 'primeng/api';
 
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {Cliente} from '../cliente';
+import {Cliente} from '../../class/cliente';
 
 import { ClienteService } from 'src/app/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PrimeIcons, MenuItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { AssyncServiceService } from 'src/app/assync-service.service';
-import { Consulta } from 'src/app/consulta/consulta';
+import { Consulta } from 'src/app/class/consulta';
 import { ConsultaService } from 'src/app/consulta.service';
 
 @Component({
@@ -280,8 +280,8 @@ export class ClienteInfoComponent implements OnInit {
   onUpdate(){
     if(this.formulario.valid && this.RespValidacaoCPF){
       const novo = JSON.stringify(this.formulario.value);
-      console.log("id: ", this.paciente.id)
-      console.log(novo)
+      //console.log("id: ", this.paciente.id)
+     // console.log(novo)
       this.service.putPaciente(this.paciente.id, novo).then((response)=>{
         if(response?.status === 204){
           this.messageService.add({

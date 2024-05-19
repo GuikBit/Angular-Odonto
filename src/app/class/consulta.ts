@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
-import { Cliente } from "../cliente/cliente";
-import { Dentista } from "../dentista/dentista";
+import { Cliente } from "./cliente";
+import { Dentista } from "./dentista";
 import { ConsultaEspecialidade } from "./consultaEspecialidade";
 import { Pagamento } from "./pagamento";
 

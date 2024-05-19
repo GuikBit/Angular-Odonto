@@ -64,7 +64,7 @@ export class AdminConsultaComponent  implements OnInit{
   }
 
   onRowEditSave(item: any) {
-    console.log("Item", item, item.valor !== null)
+    //console.log("Item", item, item.valor !== null)
       if(item.tipo !== null && item.descricao !== null && item.valor !== null ){
         this.serviceConsulta.putEspecConsulta(item).then((response)=>{
           if(response == 200 || response == 201)
@@ -99,12 +99,13 @@ onRowEditCancel(product: any, index: number) {
     this.serviceConsulta.getEspecConsulta().then((response)=>{
       this.listaEspecConsulta = response;
     }).catch((erro)=>{
-      console.log("Erro", erro)
+      //console.log("Erro", erro)
     })
   }
 
   fecharModal() {
     this.novoProcedimento = false;
+    this.formulario.reset();
   }
 
   onSubmit() {
@@ -159,5 +160,23 @@ onRowEditCancel(product: any, index: number) {
             this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
         }
     });
-}
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^\d]/g, ''); // Remove qualquer caractere não numérico
+
+    if (event.key >= '0' && event.key <= '9') {
+      value += event.key; // Adiciona o novo dígito no final
+    } else if (event.key === 'Backspace') {
+      value = value.slice(0, -1); // Remove o último dígito
+    } else {
+      event.preventDefault();
+      return;
+    }
+
+
+    this.formulario.get('valorBase')?.setValue((Number(value) / 100));
+    event.preventDefault();
+  }
 }

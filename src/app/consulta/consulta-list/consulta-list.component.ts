@@ -2,11 +2,11 @@
 import {  Component, ChangeDetectorRef, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from 'src/app/consulta.service';
-import { Consulta } from './../consulta';
+import { Consulta } from '../../class/consulta';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectButtonChangeEvent } from 'primeng/selectbutton';
-import { Dentista } from 'src/app/dentista/dentista';
+import { Dentista } from 'src/app/class/dentista';
 import { DentistaService } from 'src/app/dentista.service';
 
 export interface Status{
@@ -63,9 +63,16 @@ export class ConsultaListComponent implements OnInit{
     { name: 'Calendário', icon: 'pi pi-calendar',  value: 2, styleClass: "selectButton"},
   ]
 
+  org: any;
 
   constructor(private service: ConsultaService, private servideDentista: DentistaService , private router: Router, private route: ActivatedRoute, private messageService: MessageService,
     private dialogService: DialogService, private cdRef: ChangeDetectorRef){
+
+      const organizacaoJson = localStorage.getItem('organizacao');
+
+    if (organizacaoJson) {
+      this.org = JSON.parse(organizacaoJson);
+    }
       this.criaTabelaConsulta();
     this.filtroListaCalendar = this.listaOuCalendar[1].value;
     this.filtro = this.filtroDiaSemanaMes[2].value;
@@ -171,7 +178,7 @@ export class ConsultaListComponent implements OnInit{
 
       })
 
-      this.servideDentista.getDentistas().then((response)=>{
+      this.servideDentista.getDentistas(this.org.id).then((response)=>{
         this.dentistas = response;
       })
       // this.lista = new MatTablelista(response);
@@ -195,7 +202,7 @@ export class ConsultaListComponent implements OnInit{
       }else{
         this.consultaSelecionadaPg = response;
         this.pagamentoInfo = true;
-        console.log("Entrei aqui pra abrir o modal")
+       // console.log("Entrei aqui pra abrir o modal")
       }
 
     }).catch((error)=>{

@@ -2,7 +2,7 @@
   <p-confirmDialog></p-confirmDialog>
   <div class="flex justify-content-between m-3">
     <div>
-      <h3>Especialidades</h3>
+      <h3>Procedimentos de consultas</h3>
     </div>
     <div>
       <button pButton type="button" label="Novo Procedimento" icon="pi pi-plus" (click)="showDialog()" class="btnNew"></button>
@@ -172,11 +172,11 @@
   </p-table>
 </div>
 
-<p-dialog header="Novo Procedimento" [(visible)]="novoProcedimento" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Novo Procedimento" [(visible)]="novoProcedimento" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
       <div class="row new p-4">
-        <div class="lg:flex lg:justify-content-center " >
+        <div class="lg:flex lg:justify-content-between " >
 
           <div class="field md:col-12 lg:col-7 ">
             <span class="p-float-label width">
@@ -184,31 +184,38 @@
               <label for="tipo" class="azul"><i class="pi pi-pencil azul"></i>&nbsp;&nbsp;Tipo</label>
             </span>
           </div>
-
           <div class="field md:col-12 lg:col-5 ">
-            <span class="p-float-label ">
+            <span class="p-float-label width">
               <p-inputNumber
                 mode="currency"
                 inputId="valorBase"
                 currency="BRL"
                 locale="pt-BR"
                 formControlName="valorBase"
-              ></p-inputNumber>
+                [style]="{'width': '100%'}"
+                (keydown)="onKeydown($event)"
+                [value]="formulario.get('valorBase')?.value"
+
+              />
               <label for="valorBase" class="azul"><i class="pi pi-dollar azul"></i>&nbsp;&nbsp;Valor Base</label>
             </span>
           </div>
+        </div>
+        <div class="lg:flex lg:justify-content-center " >
+
+
 
         </div>
 
         <div class="row lg:flex lg:justify-content-center mt-2">
-          <div class="row flex justify-content-center">
-            <span class="p-float-label ">
-              <textarea rows="3" cols="60" inputId="descricao" pInputTextarea formControlName="descricao"></textarea>
+          <div class="row flex justify-content-center col-12">
+            <span class="p-float-label width">
+              <textarea rows="3" inputId="descricao" pInputTextarea formControlName="descricao" class="width"></textarea>
               <label for="descricao" for="descricao" class="azul"><i class="pi pi-file-edit"></i>&nbsp;Descricao</label>
             </span>
           </div>
         </div>
-        <div class="flex justify-content-around lg:justify-content-between align-content-center mt-6 mx-5">
+        <div class="flex justify-content-around lg:justify-content-between align-content-center mt-6">
           <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" size="small" (click)="fecharModal()"></p-button>
           <p-button type="submit" label="Salvar" [rounded]="true" severity="success" icon="pi pi-save" class="mx-2" size="small"  ></p-button>
        </div>

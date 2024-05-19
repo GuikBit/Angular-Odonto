@@ -1,3 +1,20 @@
+:host::ng-deep {
+  .btnNew {
+    background: linear-gradient(to right, #2070b4, #24aae3);
+    border: none;
+  }
+}
+
+button.btnNew{
+
+  font-size: 0.9rem;
+  width: 120px;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border:none;
+  color: #FFF
+}
+
 .new{
   background: #FFFFFF;
   border-radius: 7px ;
@@ -10,6 +27,9 @@
   border-radius: 50px;
 }
 
+.azul{
+  color: #2070b4;
+}
 
 
 /* button{

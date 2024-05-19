@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, signal } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventApi, EventClickArg, EventInput } from '@fullcalendar/core';
-import { Consulta } from 'src/app/consulta/consulta';
+import { Consulta } from 'src/app/class/consulta';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { Dentista } from 'src/app/dentista/dentista';
+import { Dentista } from 'src/app/class/dentista';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
@@ -16,6 +16,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 export class CalendarioComponent implements OnInit{
 
   @Input() listaConsultas: Consulta[];
+  @Input() corDentista: string;
   @Input() dentistaInfo: boolean;
   @Input() filtroDentista: Dentista ;
   @Input() ocultarFimSemana: boolean;
@@ -89,9 +90,9 @@ export class CalendarioComponent implements OnInit{
     this.transformaConsultaEmEvento(this.listaConsultas);
     this.OcultarFimSemana();
     if(this.dentistaInfo == true){
-      this.cores.corFundo = this.listaConsultas[0].corDentista;
-      this.cores.corFundoHover = this.listaConsultas[0].corDentista + 'B3';
-      this.cores.corFundoHover2 = this.listaConsultas[0].corDentista + 'B2';
+      this.cores.corFundo = this.corDentista;
+      this.cores.corFundoHover = this.corDentista + 'B3';
+      this.cores.corFundoHover2 = this.corDentista + 'B2';
     }
 
   }

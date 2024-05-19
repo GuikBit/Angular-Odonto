@@ -47,7 +47,7 @@ export class SidebarComponent implements OnInit {
   }
 
   mostrarElementoNaRota(rotaEspecifica: string): boolean {
-    console.log(this.route.snapshot.routeConfig?.canActivate)
+  //  console.log(this.route.snapshot.routeConfig?.canActivate)
     return this.route.snapshot.routeConfig?.path === rotaEspecifica;
   }
 

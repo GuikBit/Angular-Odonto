@@ -21,18 +21,25 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { AdminDentistaComponent } from './admin-dentista/admin-dentista.component';
+import { StepperModule } from 'primeng/stepper';
+import { MenubarModule } from 'primeng/menubar';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
     AdminMenuComponent,
     AdminFinanceiroComponent,
     AdminConfiguracoesComponent,
-    AdminConsultaComponent
+    AdminConsultaComponent,
+    AdminDentistaComponent
   ],
   imports: [
     CommonModule,
     ConstasPagarModule,
     CalendarModule,
+    ImageModule,
+    MenubarModule,
     MenuModule,
     SidebarModule,
     BreadcrumbModule,
@@ -47,12 +54,14 @@ import { ConfirmationService } from 'primeng/api';
     DialogModule,
     InputTextareaModule,
     ConfirmDialogModule,
+    StepperModule
   ],
   exports:[
     AdminMenuComponent,
     AdminFinanceiroComponent,
     AdminConfiguracoesComponent,
-    AdminConsultaComponent
+    AdminConsultaComponent,
+    AdminDentistaComponent
   ],
   providers:[
     ConfirmationService

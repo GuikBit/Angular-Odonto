@@ -1,361 +1,487 @@
-<div class="box">
-  <p>admin-configuracoes works!</p>
+  <!--<div class="box">
+ <p>admin-configuracoes works!</p>
   <p>Configurar o nome do consultorio, cnpj, endereco, licencas, telefone de contato</p>
   <p>adicionar funcionarios, salarios, aluguel outras dispesas</p>
 
   Estudar sobre o TanStack Query para o angular, principalmente para pegar o loading e adicionar o SkeletonModule, em quanto faz o carregamento dos dados
   exemplo simples: https://tanstack.com/query/v5/docs/framework/angular/examples/simple
+</div>-->
+
+<!-- <div class="box px-8 mb-8" *ngIf="userLogado.role == 'Admin'">
+  <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="web"></button>
+</div> -->
+
+<div class="box p-3" >
+  <div class="bannerCliente">
+  <div class="md:12 lg:col-2">
+    <div class="lg:flex justify-content-center align-items-center mt-6">
+      <p-image src="../../../assets/img/odonto.png"
+      width="180"
+      alt="Foto de perfil do paciente"
+      [preview]="true"
+      class="web"
+      ></p-image>
+    </div>
+    <div class="flex justify-content-center align-items-center">
+      <span class="text-red-500 font-bold text-sm cursor-pointer hover:text-red-600 m-1 web" > <i class="pi pi-pencil text-sm"></i>&nbsp;&nbsp;Alterar foto</span>
+      <span class="text-red-500 font-bold mobile"><i class="pi pi-camera"></i></span>
+    </div>
+  </div>
+</div>
+<div class="card flex justify-content-end lg:m-3 mr-4">
+  <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar>
 </div>
 
-<div class="box px-8 mb-8">
 
-  <p-tabView styleClass="tabview-custom">
-    <p-tabPanel>
-        <ng-template pTemplate="header">
-            <i class="pi pi-building"></i>
-            <span>&nbsp;&nbsp;Empresa</span>
-        </ng-template>
-
-        <p-divider align="left" type="solid">
-          <i class="pi pi-building-columns" ></i>
-          <b>&nbsp;&nbsp;&nbsp;Imformacoes</b>
-        </p-divider>
+  <p-tabView class="md:p-auto" [(activeIndex)]="activeIndex">
+    <p-tabPanel header="Informações da Empresa" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-building"></i>
+        <span class="web">&nbsp;Informações</span>
+      </ng-template>
+      <div class="flex flex-column gap-2 mx-auto my-5" >
 
         <div class="row flex justify-content-center">
           <div class="field md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-map azul"></i>
-              <input pInputText id="nome" class="width" />
+              <input pInputText id="nome" [value]="org.nome" class="width" />
               <label for="nome" class="azul">Nome da empresa</label>
             </span>
           </div>
           <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-map azul"></i>
-              <input pInputText id="cnpj" class="width" />
+              <input pInputText id="cnpj" [value]="org.cnpj" class="width" />
               <label for="cnpj" class="azul">CNPJ</label>
             </span>
           </div>
           <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-map azul"></i>
-              <input pInputText id="tell1" class="width" />
+              <input pInputText id="tell1" [value]="org.telefone1" class="width" />
               <label for="tell1" class="azul">Telefone Fixo</label>
             </span>
           </div>
         </div>
+
         <div class="row flex justify-content-center">
           <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-map azul"></i>
-              <input pInputText id="whatsapp" class="width" />
+              <input pInputText id="whatsapp" [value]="org.whastapp" class="width" />
               <label for="whatsapp" class="azul">Whatsapp</label>
             </span>
           </div>
           <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-map azul"></i>
-              <input pInputText id="email" class="width" />
+              <input pInputText id="email" [value]="org.email" class="width" />
               <label for="email" class="azul">Email</label>
             </span>
           </div>
         </div>
-
-        <p-divider align="left" type="solid" >
-          <i class="pi pi-map-marker" ></i>
-          <b>&nbsp;&nbsp;&nbsp;Endereço</b>
-        </p-divider>
-
-        <div class="row lg:flex lg:justify-content-center my-3" >
-          <div class="field md:col-12 lg:col-3">
-            <span class="p-float-label p-input-icon-left p-input-icon-right width">
-              <i class="pi pi-map-marker azul"></i>
-              <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
-              <input pInputText id="cep" formControlName="cep" required (blur)="buscaCEP()" minlength="8" maxlength="11" class="width" />
-              <label for="cep" class="azul">CEP</label>
-            </span>
-
-          </div>
-
-          <div class="field md:col-12 lg:col-4">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-map-marker azul"></i>
-              <input pInputText id="cidade" formControlName="cidade" required class="width"  />
-              <label for="cidade" class="azul">Cidade</label>
-            </span>
-
-          </div>
-
-          <div class="field md:col-12 lg:col-4">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-map-marker azul"></i>
-              <input pInputText id="bairro" formControlName="bairro" required class="width"/>
-              <label for="bairro" class="azul">Bairro</label>
-            </span>
-
-          </div>
-        </div>
-
-        <div class="row lg:flex lg:justify-content-center my-3">
-          <div class="field md:col-12 lg:col-5">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-map azul"></i>
-              <input pInputText id="logradouro" formControlName="logradouro" required class="width" />
-              <label for="logradouro" class="azul">Logradouro</label>
-            </span>
-
-          </div>
-
-          <div class="field md:col-12 lg:col-2">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-map azul"></i>
-              <input pInputText id="numero" formControlName="numero" required class="width" />
-              <label for="numero" class="azul">Número</label>
-            </span>
-
-          </div>
-          <div class="field md:col-12 lg:col-4">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-map azul"></i>
-              <input pInputText id="complemento" formControlName="complemento" required class="width" />
-              <label for="complemento" class="azul">Complemento</label>
-            </span>
-
-          </div>
-
-        </div>
-
-        <div class="row lg:flex lg:justify-content-center my-3">
-
-          <div class="field md:col-12 lg:col-4">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-map azul"></i>
-              <input pInputText id="referencia" formControlName="referencia" class="width" />
-              <label for="referencia" class="azul">Referencia</label>
-            </span>
-          </div>
-        </div>
+      </div>
     </p-tabPanel>
-    <p-tabPanel header="Header II">
-        <ng-template pTemplate="header">
-            <i class="pi pi-building"></i>
-            <span>&nbsp;&nbsp;Bancario</span>
-        </ng-template>
-        <div class="row lg:flex lg:justify-content-center my-3">
 
-          <div class="field md:col-12 lg:col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-building-columns azul"></i>
-              <input pInputText id="banco" formControlName="banco" class="width" />
-              <label for="banco" class="azul">Banco</label>
-            </span>
-          </div>
-          <div class="field md:col-12 lg:col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-pencil azul"></i>
-              <input pInputText id="agencia" formControlName="agencia" class="width" />
-              <label for="agencia" class="azul">Agencia</label>
-            </span>
-          </div>
-          <div class="field md:col-12 lg:col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-pencil azul"></i>
-              <input pInputText id="conta" formControlName="conta" class="width" />
-              <label for="conta" class="azul">Conta Bancaria</label>
-            </span>
-          </div>
-        </div>
-    </p-tabPanel>
-    <p-tabPanel header="Header III">
-        <ng-template pTemplate="header">
-            <i class="pi pi-users"></i>
-            <span>&nbsp;&nbsp;Funcionarios</span>
-        </ng-template>
-        <p-table
-        [value]="[]"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        [rows]="8"
-        [paginator]="true"
-        [responsive]="true"
-        [globalFilterFields]="['idConsulta', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
-        [rowHover]="true"
-        [showCurrentPageReport]="true"
-        dataKey="id"
-        currentPageReportTemplate="{first} de {last} de {totalRecords}"
-        >
-        <ng-template pTemplate="header">
-            <tr>
-              <th pSortableColumn="idConsulta" >
-                <div class="flex row align-items-center">
-                  <div class="col-8 flex justify-content-start align-items-center azul">
-                     N° Consulta
-                  </div>
-                  <div class="col-4 flex justify-content-end align-items-center">
-                    <p-sortIcon
-                      field="idConsulta"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="idConsulta"
-                      display="menu"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="nomePaciente" >
-                <div class="flex row align-items-center">
-                  <div class="col-8 flex justify-content-start align-items-center azul">
-                     Paciente
-                  </div>
-                  <div class="col-4 flex justify-content-end align-items-center">
-                    <p-sortIcon
-                      field="nomePaciente"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="nomePaciente"
-                      display="menu"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="nomeDentista" >
-                <div class="flex row align-items-center">
-                  <div class="col-8 flex justify-content-start align-items-center azul">
-                      Dentista
-                  </div>
-                  <div class="col-4 flex justify-content-end align-items-center">
-                    <p-sortIcon
-                      field="nomeDentista"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="text"
-                      field="nomeDentista"
-                      display="menu"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="dataConsulta" >
-                <div class="flex row align-items-center">
-                  <div class="col-8 flex justify-content-start align-items-center azul">
-                     Data Consulta
-                  </div>
-                  <div class="col-4 flex justify-content-end align-items-center">
-                    <p-sortIcon
-                      field="dataConsulta"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="date"
-                      field="dataConsulta"
-                      display="menu"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th pSortableColumn="dataVencimento" >
-                <div class="flex row align-items-center">
-                  <div class="col-8 flex justify-content-start align-items-center azul">
-                     Data Vencimento
-                  </div>
-                  <div class="col-4 flex justify-content-end align-items-center">
-                    <p-sortIcon
-                      field="dataVencimento"
-                      pTooltip="Ordenar"
-                      tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                      type="date"
-                      field="dataVencimento"
-                      display="menu"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                    ></p-columnFilter>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="flex justify-content-around">
-                  <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
-                  <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
-                </div>
-              </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item>
-            <tr>
-                <td>{{ item.idConsulta }}</td>
-                <td>{{ item.nomePaciente }}</td>
-                <td>{{ item.nomeDentista }}</td>
-                <td>{{ item.dataConsulta | date: 'dd/MM/yyyy' }}</td>
-                <td class="text-red-600 font-semibold">{{ item.parcela.dataVencimento | date: 'dd/MM/yyyy' }}</td>
-                <td>
-                  <div class="flex justify-content-around">
-                    <p-button
-                    icon="pi pi-info-circle"
-                    [rounded]="true"
-                    [outlined]="true"
-                    [severity]="'info'"
-                    pTooltip="Detalhes"
-                    tooltipPosition="top"
-
-                  >
-                  </p-button>
-
-                  <p-button
-                    icon="pi pi-whatsapp"
-                    [rounded]="true"
-                    [outlined]="true"
-                    [severity]="'success'"
-                    pTooltip="Entrar em contato"
-                    tooltipPosition="top"
-                    size="small"
-                    >
-                  </p-button>
-
-                  </div>
-
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr >
-            <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
-          </tr>
-        </ng-template>
-        </p-table>
-    </p-tabPanel>
-    <p-tabPanel header="Header III">
-      <ng-template pTemplate="header">
-          <i class="pi pi-verified"></i>
-          <span>&nbsp;&nbsp;Licencas</span>
+    <p-tabPanel header="Endereço" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-map-marker"></i>
+        <span class="web">&nbsp;Endereço</span>
       </ng-template>
-      Em construcao...
+
+    <div class="flex flex-column mt-3">
+
+      <div class="row lg:flex lg:justify-content-center" >
+        <div class="field md:col-12 lg:col-3">
+          <span class="p-float-label p-input-icon-left p-input-icon-right width">
+            <i class="pi pi-map-marker azul"></i>
+            <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
+            <input pInputText id="cep"  required (blur)="buscaCEP()" minlength="8" maxlength="11" class="width" />
+            <label for="cep" class="azul">CEP</label>
+          </span>
+
+        </div>
+
+        <div class="field md:col-12 lg:col-4">
+          <span class="p-float-label p-input-icon-left width">
+            <i class="pi pi-map-marker azul"></i>
+            <input pInputText id="cidade"  required class="width"  />
+            <label for="cidade" class="azul">Cidade</label>
+          </span>
+
+        </div>
+
+        <div class="field md:col-12 lg:col-4">
+          <span class="p-float-label p-input-icon-left width">
+            <i class="pi pi-map-marker azul"></i>
+            <input pInputText id="bairro" required class="width"/>
+            <label for="bairro" class="azul">Bairro</label>
+          </span>
+
+        </div>
+      </div>
+
+      <div class="row lg:flex lg:justify-content-center">
+        <div class="field md:col-12 lg:col-5">
+          <span class="p-float-label p-input-icon-left width">
+            <i class="pi pi-map azul"></i>
+            <input pInputText id="logradouro"  required class="width" />
+            <label for="logradouro" class="azul">Logradouro</label>
+          </span>
+
+        </div>
+
+        <div class="field md:col-12 lg:col-2">
+          <span class="p-float-label p-input-icon-left width">
+            <i class="pi pi-map azul"></i>
+            <input pInputText id="numero"  required class="width" />
+            <label for="numero" class="azul">Número</label>
+          </span>
+
+        </div>
+        <div class="field md:col-12 lg:col-4">
+          <span class="p-float-label p-input-icon-left width">
+            <i class="pi pi-map azul"></i>
+            <input pInputText id="complemento"  required class="width" />
+            <label for="complemento" class="azul">Complemento</label>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="row lg:flex lg:justify-content-center">
+
+        <div class="field md:col-12 lg:col-4">
+          <span class="p-float-label p-input-icon-left width">
+            <i class="pi pi-map azul"></i>
+            <input pInputText id="referencia"   class="width" />
+            <label for="referencia" class="azul">Referencia</label>
+          </span>
+        </div>
+      </div>
+
+    </div>
     </p-tabPanel>
-    <p-tabPanel header="Header III">
-      <ng-template pTemplate="header">
-          <i class="pi pi-verified"></i>
-          <span>&nbsp;&nbsp;Outros</span>
+
+    <p-tabPanel header="Funcionarios" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-users"></i>
+        <span class="web">&nbsp;Funcionarios</span>
       </ng-template>
-      Em construcao...
+      Em contrução...
     </p-tabPanel>
+
+
+    <p-tabPanel header="Funcionarios" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-users"></i>
+        <span class="web">&nbsp;Dentistas</span>
+      </ng-template>
+      Em contrução...
+    </p-tabPanel>
+
+    <p-tabPanel header="Funcionarios" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-briefcase"></i>
+        <span class="web">&nbsp;Cargos</span>
+      </ng-template>
+      Em contrução...
+    </p-tabPanel>
+
+    <p-tabPanel header="Dados Bancarios" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-building-columns"></i>
+        <span class="web">&nbsp;Dados Bancarios</span>
+      </ng-template>
+      Em contrução...
+    </p-tabPanel>
+
+    <p-tabPanel header="Dados Bancarios" >
+      <ng-template pTemplate="header" >
+        <i class="pi pi-fw pi-cog"></i>
+        <span class="web">&nbsp;Outros</span>
+      </ng-template>
+      Em contrução...
+    </p-tabPanel>
+
   </p-tabView>
 
+
+
+
 </div>
+
+
+<p-dialog header='Cadastrando Empresa' [(visible)]="cadastroOrg" [style]="{ width: '70vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
+  <div class="new p-4">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <p-stepper [(activeStep)]="active">
+        <p-stepperPanel>
+
+          <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
+            <span
+              class="text-xl"
+              [ngClass]="{
+                'text-primary': index <= active,
+                'font-medium': index == active
+              }">
+              <i class="pi pi-building text-xl"  [ngClass]="{'font-medium': index == active}"></i>
+              Empresa
+            </span>
+          </ng-template>
+
+          <ng-template pTemplate="content" let-nextCallback="nextCallback">
+
+            <!-- main -->
+            <div class="flex flex-column gap-2 mx-auto mt-3" >
+
+              <div class="row flex justify-content-center">
+                <div class="field md:col-12 lg:col-4">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="nome" class="width" />
+                    <label for="nome" class="azul">Nome da empresa</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="cnpj" class="width" />
+                    <label for="cnpj" class="azul">CNPJ</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="tell1" class="width" />
+                    <label for="tell1" class="azul">Telefone Fixo</label>
+                  </span>
+                </div>
+              </div>
+
+              <div class="row flex justify-content-center">
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="whatsapp" class="width" />
+                    <label for="whatsapp" class="azul">Whatsapp</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <input pInputText id="email" class="width" />
+                    <label for="email" class="azul">Email</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex pt-4 justify-content-between">
+              <p-button
+              label="Cancelar"
+              icon="pi pi-times"
+              [rounded]="true"
+              severity="danger"
+              [outlined]="true"
+              (onClick)="cadastroOrg = !cadastroOrg"
+            />
+              <p-button
+                label="Próxima"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                [outlined]="true"
+                [rounded]="true"
+                severity="success"
+                (onClick)="nextCallback.emit()"
+              />
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+
+        <p-stepperPanel >
+
+          <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
+            <span
+              class="text-xl"
+              [ngClass]="{
+                'text-primary': index <= active,
+                'font-medium': index == active
+              }">
+              <i class="pi pi-map-marker text-xl"  [ngClass]="{'font-medium': index == active}"></i>
+              Endereço
+            </span>
+          </ng-template>
+
+
+          <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+
+              <!-- main -->
+              <div class="flex flex-column mt-3">
+
+                <div class="row lg:flex lg:justify-content-center" >
+                  <div class="field md:col-12 lg:col-3">
+                    <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                      <i class="pi pi-map-marker azul"></i>
+                      <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
+                      <input pInputText id="cep" formControlName="cep" required (blur)="buscaCEP()" minlength="8" maxlength="11" class="width" />
+                      <label for="cep" class="azul">CEP</label>
+                    </span>
+
+                  </div>
+
+                  <div class="field md:col-12 lg:col-4">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map-marker azul"></i>
+                      <input pInputText id="cidade" formControlName="cidade" required class="width"  />
+                      <label for="cidade" class="azul">Cidade</label>
+                    </span>
+
+                  </div>
+
+                  <div class="field md:col-12 lg:col-4">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map-marker azul"></i>
+                      <input pInputText id="bairro" formControlName="bairro" required class="width"/>
+                      <label for="bairro" class="azul">Bairro</label>
+                    </span>
+
+                  </div>
+                </div>
+
+                <div class="row lg:flex lg:justify-content-center">
+                  <div class="field md:col-12 lg:col-5">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="logradouro" formControlName="logradouro" required class="width" />
+                      <label for="logradouro" class="azul">Logradouro</label>
+                    </span>
+
+                  </div>
+
+                  <div class="field md:col-12 lg:col-2">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="numero" formControlName="numero" required class="width" />
+                      <label for="numero" class="azul">Número</label>
+                    </span>
+
+                  </div>
+                  <div class="field md:col-12 lg:col-4">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="complemento" formControlName="complemento" required class="width" />
+                      <label for="complemento" class="azul">Complemento</label>
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <div class="row lg:flex lg:justify-content-center">
+
+                  <div class="field md:col-12 lg:col-4">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-map azul"></i>
+                      <input pInputText id="referencia" formControlName="referencia" class="width" />
+                      <label for="referencia" class="azul">Referencia</label>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="flex pt-4 justify-content-between">
+                <p-button
+                  label="Voltar"
+                  icon="pi pi-arrow-left"
+                  [rounded]="true"
+                  severity="danger"
+                  [outlined]="true"
+                  (onClick)="prevCallback.emit()"
+                />
+                <p-button
+                  label="Próxima"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  [outlined]="true"
+                  [rounded]="true"
+                  severity="success"
+                  (onClick)="nextCallback.emit()"
+                />
+              </div>
+          </ng-template>
+        </p-stepperPanel>
+
+        <p-stepperPanel >
+          <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
+            <span
+              class="text-xl"
+              [ngClass]="{
+                'text-primary': index <= active,
+                'font-medium': index == active
+              }">
+              <i class="pi pi-building-columns text-xl"  [ngClass]="{'font-medium': index == active}"></i>
+              Bancário
+            </span>
+          </ng-template>
+
+          <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+
+            <!-- main -->
+              <div class="row lg:flex lg:justify-content-center mt-3" >
+
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-building-columns azul"></i>
+                    <input pInputText id="banco" formControlName="banco" class="width" />
+                    <label for="banco" class="azul">Banco</label>
+                  </span>
+                </div>
+
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-pencil azul"></i>
+                    <input pInputText id="agencia" formControlName="agencia" class="width" />
+                    <label for="agencia" class="azul">Agencia</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-pencil azul"></i>
+                    <input pInputText id="conta" formControlName="conta" class="width" />
+                    <label for="conta" class="azul">Conta Bancaria</label>
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex pt-4 justify-content-between">
+                  <p-button
+                    label="Voltar"
+                    icon="pi pi-arrow-left"
+                    [rounded]="true"
+                    severity="danger"
+                    [outlined]="true"
+                    (onClick)="prevCallback.emit()"
+                  />
+                  <p-button
+                    *ngIf="index == 2"
+                    label="Salvar"
+                    icon="pi pi-save"
+                    iconPos="right"
+                    [rounded]="true"
+                    severity="success"
+
+                  />
+
+
+              </div>
+          </ng-template>
+        </p-stepperPanel>
+      </p-stepper>
+    </form>
+  </div>
+</p-dialog>
 

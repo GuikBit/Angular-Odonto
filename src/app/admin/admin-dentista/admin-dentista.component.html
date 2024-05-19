@@ -1,1 +1,151 @@
-<p>admin-dentista works!</p>
+<div class="box p-3 mb-8">
+  <p-confirmDialog></p-confirmDialog>
+  <div class="flex justify-content-between m-3">
+    <div>
+      <h3>Especialidades</h3>
+    </div>
+    <div>
+      <button pButton type="button" label="Novo Procedimento" icon="pi pi-plus" (click)="showDialog()" class="btnNew"></button>
+    </div>
+
+  </div>
+  <p-table
+    [value]="listaEspec"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rows]="8"
+    [paginator]="true"
+    [responsive]="true"
+    [globalFilterFields]="['idConsulta', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
+    [rowHover]="true"
+    [showCurrentPageReport]="true"
+    dataKey="id"
+    currentPageReportTemplate="{first} de {last} de {totalRecords}"
+    dataKey="id"
+    editMode="row"
+    >
+    <ng-template pTemplate="header">
+        <tr >
+          <th pSortableColumn="tipo" [width]="450">
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center azul">
+                Nome
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="tipo"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="tipo"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="tipo" >
+            <div class="flex row align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center azul">
+                Descrição
+              </div>
+              <div class="col-4 flex justify-content-end align-items-center">
+                <p-sortIcon
+                  field="descricao"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                  type="text"
+                  field="descricao"
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="flex justify-content-around">
+              <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
+              <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
+            </div>
+          </th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="item">
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="item.tipo" >
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.tipo }}
+                </ng-template>
+              </p-cellEditor>
+
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="item.descricao" class="width">
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ item.descricao }}
+                </ng-template>
+              </p-cellEditor>
+
+            </td>
+            <td>
+              <div class="flex align-items-center justify-content-center gap-2">
+                  <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(item)" class="p-button-rounded p-button-text"></button>
+                  <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(item)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                  <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(item, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                  <button  pButton pRipple type="button"  icon="pi pi-trash" pDeletRow (click)="confirmaDeletar($event, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+              </div>
+          </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr >
+        <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog header="Nova Especialidade" [(visible)]="visivel" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="content">
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <div class="row new p-4">
+        <div class="lg:flex lg:justify-content-center " >
+          <div class="field md:col-12 lg:col-12 ">
+            <span class="p-float-label width">
+              <input pInputText inputId="tipo" formControlName="tipo"  class="width"/>
+              <label for="tipo" class="azul"><i class="pi pi-pencil azul"></i>&nbsp;&nbsp;Nome</label>
+            </span>
+          </div>
+        </div>
+
+        <div class="row lg:flex lg:justify-content-center mt-2">
+          <div class="row flex justify-content-center col-12">
+            <span class="p-float-label width">
+              <textarea rows="5" inputId="descricao" pInputTextarea formControlName="descricao" class="width"></textarea>
+              <label for="descricao" for="descricao" class="azul"><i class="pi pi-file-edit"></i>&nbsp;Descricao</label>
+            </span>
+          </div>
+        </div>
+        <div class="flex justify-content-around lg:justify-content-between align-content-center mt-6">
+          <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" size="small" (click)="fecharModal()"></p-button>
+          <p-button type="submit" label="Agendar" [rounded]="true" severity="success" icon="pi pi-save" class="mx-2" size="small"></p-button>
+          <!-- <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar mx-2"></button> -->
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>
+

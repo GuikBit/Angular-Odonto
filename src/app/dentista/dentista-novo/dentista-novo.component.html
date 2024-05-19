@@ -1,7 +1,7 @@
-<div class="row flex justify-content-center align-items-center new lg:px-8">
-  <div class="">
+<div class="row flex justify-content-center new ">
+  <div class="py-5 px-8">
     <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
-      <div class="card">
+      <div class="card ">
         <div class="row lg:flex lg:justify-content-around ">
 
           <div class="field md:col-12 lg:col-4">
@@ -41,7 +41,7 @@
 
         </div>
 
-        <div class=" row lg:flex lg:justify-content-center  mt-3 mb-3">
+        <div class=" row lg:flex lg:justify-content-center  my-3">
 
             <div class="field md:col-12 lg:col-5 ">
               <span class="p-float-label p-input-icon-left width"  >
@@ -70,7 +70,7 @@
               <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
             </div>
 
-            <div class="field md:col-12 lg:col-3 ">
+            <div class="field md:col-12 lg:col-3">
               <span class="p-float-label" [style]="{width: '100%'}">
                 <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
                 <p-dropdown [options]="especialidades" appendTo="body" [autoZIndex]="true" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
@@ -82,7 +82,7 @@
 
         </div>
 
-        <div class="row lg:flex lg:justify-content-center mt-3 mb-3">
+        <div class="row lg:flex lg:justify-content-center my-3">
 
           <div class="field md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
@@ -123,7 +123,7 @@
           <div class="lg:col-4 md:col-12 flex justify-content-center align-items-center " >
             <div class="flex justify-content-center align-items-center " [style]="{'background-color': getCorDentistaOpacidade(), 'border-color': getCorDentista(), 'border-width':'1px', 'border-radius': '8px', 'border-style':'solid', 'width':'10vw', 'height':'5vh'}">
               <p class="font-bold" [style]="{'color': getCorDentista()}">Texto para teste </p>
-              
+
             </div>
           </div>
           <div class="lg:col-4 md:col-12 flex justify-content-center">
@@ -195,13 +195,12 @@
             <button pButton type="button" label="Teste" icon="pi pi-check" [style]="{'background-color': getCorDentista()}"></button>
           </div>
         </div>
-
-
       </div>
 
       <div class="flex justify-content-around lg:justify-content-between align-content-center">
         <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="" (click)="fecharModal()"></p-button>
         <p-button type="submit"  label="Salvar" [rounded]="true" severity="success"  icon="pi pi-save" class=""></p-button>
+        <!-- <button pButton  type="submit" label="Agendar" icon="pi pi-save" class="btnSalvar mx-2" (click)="onSubmit()"></button> -->
       </div>
     </form>
   </div>

@@ -101,8 +101,9 @@
     <div *ngIf="!consultaSelecionadaPg.pagamento.fatFechado">
 
       <div class="row flex justify-content-start ml-8 mt-2 mb-3">
-      <i class="azul font-medium underline cursor-pointer" (click)="!addEntrada? criaEntrada() : false"><i class="pi pi-plus-circle text-sm"></i>&nbsp;Incluir Entrada</i>
+      <i class="azul font-medium underline cursor-pointer" *ngIf="!addEntrada" (click)="!addEntrada? criaEntrada() : false"><i class="pi pi-plus-circle text-sm"></i>&nbsp;Incluir Entrada</i>
     </div>
+
     <div class="row mx-8" *ngIf="addEntrada">
       <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
         <div class="col-1 flex justify-content-center font-bold"></div>
@@ -153,7 +154,7 @@
           </p-dropdown>
         </div>
         <div class="col-2 flex justify-content-center">
-          __/__/____
+
         </div>
         <div class="col-2 flex justify-content-center">
           <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>

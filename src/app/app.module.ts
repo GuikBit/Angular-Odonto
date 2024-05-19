@@ -16,7 +16,7 @@ import { HomeComponent } from './home/home.component'
 import { DentistaModule } from './dentista/dentista.module';
 import { ConsultaModule } from './consulta/consulta.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Cliente } from './cliente/cliente';
+import { Cliente } from './class/cliente';
 import { ClienteNovoComponent } from './cliente/cliente-novo/cliente-novo.component';
 import { ClienteListComponent } from './cliente/cliente-list/cliente-list.component';
 import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
@@ -131,6 +131,7 @@ import { ClienteInfoComponent } from './cliente/cliente-info/cliente-info.compon
 import { AdminModule } from './admin/admin.module';
 import { Location } from '@angular/common';
 import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
+import { GlobalService } from './global.service';
 
 
 @NgModule({
@@ -265,6 +266,7 @@ import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info
       multi: true
     },
     MessageService,
+    GlobalService
 
   ],
   bootstrap: [AppComponent],

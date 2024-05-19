@@ -5,12 +5,12 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TagModule } from 'primeng/tag';
-import { Consulta } from '../consulta';
+import { Consulta } from '../../class/consulta';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConsultaService } from 'src/app/consulta.service';
 import { FileUploadEvent } from 'primeng/fileupload';
-import { Parcela } from '../parcela';
+import { Parcela } from '../../class/parcela';
 
 
 interface UploadEvent {
@@ -109,8 +109,8 @@ export class PagamentoInfoComponent implements OnInit {
     const entrada = this.formulario?.get('entrada')?.value;
     const valorConsulta = this.consultaSelecionadaPg.consultaEspecialidade.valorBase + acrecimo;
 
-    console.log("Desconto: ", desconto)
-    console.log("Valor consulta: ", valorConsulta)
+    //console.log("Desconto: ", desconto)
+   // console.log("Valor consulta: ", valorConsulta)
 
     if(desconto > valorConsulta){
 
@@ -304,10 +304,15 @@ export class PagamentoInfoComponent implements OnInit {
   }
 
   async excluirEntrada(){
-     this.addEntrada = false;
-     this.entrada = null;
-     this.formulario.get('entrada')?.setValue('');
-     this.calculoValorConsulta();
+
+    const data = new Date(this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento);
+    data.setMonth(data.getMonth() - 1);
+    this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento = data;
+
+    this.addEntrada = false;
+    this.entrada = null;
+    this.formulario.get('entrada')?.setValue('');
+    this.calculoValorConsulta();
   }
 
   async salvarPagamentoParcela(id: any){
@@ -317,8 +322,8 @@ export class PagamentoInfoComponent implements OnInit {
   habilitaBotao(parcela: Parcela){
     const dataAtual = new Date();
     const dataConsulta = new Date(parcela.dataVencimento);
-    console.log("Data do vencimento da parcela: ", dataConsulta)
-    console.log(dataAtual.getMonth() + 1,dataConsulta.getMonth() + 1, dataAtual.getMonth() + 1 === dataConsulta.getMonth() + 1)
+   // console.log("Data do vencimento da parcela: ", dataConsulta)
+   // console.log(dataAtual.getMonth() + 1,dataConsulta.getMonth() + 1, dataAtual.getMonth() + 1 === dataConsulta.getMonth() + 1)
 
     if(dataAtual.getMonth() + 1 === dataConsulta.getMonth() + 1){
       return false;

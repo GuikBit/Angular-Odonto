@@ -1,12 +1,26 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Cliente } from 'src/app/cliente/cliente';
-import { Consulta } from '../consulta';
-import { Dentista } from 'src/app/dentista/dentista';
+import { Cliente } from 'src/app/class/cliente';
+import { Consulta } from '../../class/consulta';
+import { Dentista } from 'src/app/class/dentista';
 import { ClienteService } from 'src/app/cliente.service';
 import { DentistaService } from 'src/app/dentista.service';
 import { ConsultaService } from 'src/app/consulta.service';
 import { MessageService } from 'primeng/api';
+
+interface ConsultaDTO {
+  observacao: string;
+  procedimentos: string;
+  dataConsulta: Date;
+  horaConsulta: string;
+  tempoPrevisto: number;
+  pacienteId: number;
+  dentistaId: number;
+  pagamentoId: number;
+  consultaEspecialidadeId: number;
+  organizacaoId: number;
+}
+
 
 @Component({
   selector: 'app-consulta-nova',
@@ -31,9 +45,17 @@ export class ConsultaNovaComponent implements OnInit{
   listaDentista: any[];
   listaEspecConsulta: any[];
 
+  org: any;
+
+  newConsulta: ConsultaDTO;
+
   constructor(private formBuilder: FormBuilder, private servicePaciente: ClienteService, private serviceDentista: DentistaService,
     private serviceConsulta: ConsultaService, private messageService: MessageService){
+      const organizacaoJson = localStorage.getItem('organizacao');
 
+      if (organizacaoJson) {
+        this.org = JSON.parse(organizacaoJson);
+      }
     }
 
 
@@ -42,15 +64,16 @@ export class ConsultaNovaComponent implements OnInit{
 
       if(this.pacienteSelecionado != null && this.pacienteSelecionado !=  undefined){
         this.formulario.get('paciente')?.setValue(this.pacienteSelecionado)
-        this.serviceDentista.getDentistas().then((response)=>{
+        this.serviceDentista.getDentistas(this.org.id).then((response)=>{
           this.listaDentista = response
         }).catch((erro)=>{
           this.formulario.get('dentista')?.setErrors({erro: true})
         })
 
       }
+
       if(this.dentistaSelecionado != null && this.dentistaSelecionado != undefined){
-        this.serviceDentista.getDentistas().then((response) => {
+        this.serviceDentista.getDentistas(this.org.id).then((response) => {
           if(response != null){
             response.forEach((x: any) => {
               if (x.id === this.dentistaSelecionado) {
@@ -62,25 +85,26 @@ export class ConsultaNovaComponent implements OnInit{
           }
         })
 
-        this.servicePaciente.getPacientes().then((response) => {
+        this.servicePaciente.getPacientes(this.org.id).then((response) => {
           this.listaPaciente = response;
         }).catch((erro)=>{
           this.formulario.get('paciente')?.setErrors({erro: true})
         })
 
       }
+
       if(this.novaConsulta != null && this.novaConsulta != undefined){
-        console.log(this.novaConsulta);
+        //console.log(this.novaConsulta);
         this.formulario.get('dataConsulta')?.setValue(this.novaConsulta);
       }
 
       if(this.pacienteSelecionado == null && this.dentistaSelecionado == null){
-        this.serviceDentista.getDentistas().then((response) => {
+        this.serviceDentista.getDentistas(this.org.id).then((response) => {
           this.listaDentista = response
         }).catch((erro)=>{
           this.formulario.get('dentista')?.setErrors({erro: true})
         })
-        this.servicePaciente.getPacientes().then((response) => {
+        this.servicePaciente.getPacientes(this.org.id).then((response) => {
           this.listaPaciente = response;
         }).catch((erro)=>{
           this.formulario.get('paciente')?.setErrors({erro: true})
@@ -90,7 +114,7 @@ export class ConsultaNovaComponent implements OnInit{
       this.serviceConsulta.getEspecConsulta().then((response)=>{
         this.listaEspecConsulta = response;
       }).catch((erro)=>{
-        console.log("Erro", erro)
+       // console.log("Erro", erro)
       })
 
     }
@@ -103,39 +127,67 @@ export class ConsultaNovaComponent implements OnInit{
     }
     if(this.dentistaSelecionado){
       this.dentistaSelecionado.consultas = null;
-
     }
+
+    this.formulario.get('pacienteId')?.setValue(this.paciente?.id);
+    this.formulario.get('dentistaId')?.setValue(this.dentista?.id);
   }
 
   criaFormulario() {
     this.formulario = this.formBuilder.group({
+
+      dentista: ['', Validators.required],
+      paciente: ['', Validators.required],
       dataConsulta: ['', Validators.required],
       horaConsulta: ['', Validators.required],
       tempoPrevisto: ['', Validators.required],
-      dentista: ['', Validators.required],
-      paciente: ['', Validators.required],
       consultaEspecialidade: ['', Validators.required],
-      observacao: ['']
+      observacao: [''],
+      organizacaoId: [this.org.id, Validators.required],
+
     })
   }
   onSubmit(){
       this.limpaInformacoes();
+
+
+
       if(this.formulario.valid){
         if(this.dataConsulta() && this.horaConsulta() ){
-        this.serviceConsulta.postConsulta(this.formulario.value)
-        .then(response =>{
-          if(response?.status === 201 || response?.status === 200 ){
-            this.closeModal.emit(false)
-            this.limpaInformacoes();
-          }
-        }).catch(()=>{
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Aviso',
-            detail: 'Houve erro na requisição para salvar a consulta.'
+          const obj = this.formulario.get('paciente')?.value;
+          this.newConsulta = {
+
+            observacao: this.formulario.get('observacao')?.value,
+            procedimentos: this.formulario.get('procedimentos')?.value,
+            dataConsulta: this.formulario.get('dataConsulta')?.value,
+            horaConsulta: this.formulario.get('horaConsulta')?.value,
+            tempoPrevisto: this.formulario.get('tempoPrevisto')?.value,
+
+            pacienteId: obj.id,
+            dentistaId: this.formulario.get('dentista')?.value.id,
+            pagamentoId: this.formulario.get('pagamentoId')?.value,
+            consultaEspecialidadeId: this.formulario.get('consultaEspecialidade')?.value.id,
+            organizacaoId: this.formulario.get('organizacaoId')?.value
+
+          };
+
+          console.log(JSON.stringify(this.newConsulta))
+
+          this.serviceConsulta.postConsulta(this.newConsulta)
+          .then(response =>{
+            if(response?.status === 201 || response?.status === 200 ){
+              this.closeModal.emit(false)
+              this.limpaInformacoes();
+              this.formulario.reset();
+            }
+          }).catch(()=>{
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Aviso',
+              detail: 'Houve erro na requisição para salvar a consulta.'
+            })
           })
-        })
-        console.log(this.formulario.value)
+
         }
       }else{
         this.messageService.add({
@@ -145,7 +197,10 @@ export class ConsultaNovaComponent implements OnInit{
         })
       }
     }
-
+    ajustaEnvio(){
+      this.formulario.get('pacienteId')?.setValue(this.formulario.get('pacienteId')?.value.id);
+      this.formulario.get('dentistaId')?.setValue(this.formulario.get('dentistaId')?.value.id);
+    }
     // validaConsulta(){
     //   if (this.dataConsulta()) {
     //     return true;

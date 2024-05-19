@@ -3,8 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { Usuario } from './usuario';
+import { Usuario } from '../class/usuario';
 import { MessageService } from 'primeng/api';
+import { GlobalService } from '../global.service';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit{
     password: ['', Validators.required]
   })
 
-  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private messageService: MessageService) { }
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private messageService: MessageService,
+    private globalService: GlobalService ) { }
+
   ngOnInit(): void {
 
   }
@@ -37,8 +40,18 @@ export class LoginComponent implements OnInit{
 
           localStorage.setItem('access_token', JSON.stringify(response.data.result));
           localStorage.setItem('userLogado', JSON.stringify(response.data.usuario));
-          this.loginForm.reset()
+          localStorage.setItem('organizacao', JSON.stringify(response.data.usuario.idOrganizacao));
+        // console.log(response.data.usuario)
+          // this.globalService.setGlobalUser(response.data.usuario);
+          // this.globalService.setGlobalOrganizacao(response.data.usuario.idOrganizacao);
+          // this.globalService.setGlobalToken(response.data.result);
+
+        //  console.log(this.globalService.getGlobalOrgnizacao());
+
+          this.loginForm.reset();
+
           this.router.navigate(['/dashboard']);
+
           this.messageService.add({
             severity: 'success',
             summary: `Olá ${response.data.usuario.nome}`,

@@ -14,7 +14,7 @@
 
           <p-table
             #productsTable
-            [value]="dataSource.data"
+            [value]="lista"
             [rows]="10"
             [paginator]="true"
             [responsive]="true"
@@ -155,7 +155,7 @@
                     </p-columnFilter> -->
                     <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                       <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="applyFilter()" placeholder="Status">
+                        <p-dropdown [ngModel]="value" [options]="statuses" placeholder="Status">
                           <ng-template let-option pTemplate="item">
                             <p-tag
                               [severity]="getSeverity(option.label)"
@@ -232,7 +232,7 @@
                         severity="danger"
                         pTooltip="Inativar"
                         tooltipPosition="top"
-                        (click)="delet(paciente.id)"
+                        (click)="showSuccessMessage('Teste')"
                         [disabled]="!paciente.ativo"
                       ></p-button>
 
@@ -253,13 +253,13 @@
 
 <p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '80vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="false" class="web">
   <ng-template pTemplate="content">
-    <app-cliente-novo (msgReturn)="mostraMensagem($event)" (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
+    <app-cliente-novo (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
   </ng-template>
 </p-dialog>
 
 <p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '100vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="false" class="mobile">
   <ng-template pTemplate="content">
-    <app-cliente-novo (msgReturn)="mostraMensagem($event)" (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
+    <app-cliente-novo  (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
   </ng-template>
 </p-dialog>
 

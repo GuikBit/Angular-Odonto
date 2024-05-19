@@ -7,9 +7,9 @@
       <div class="px-3">
         <div class="flex justify-content-between m-3 ">
           <span class="p-float-label p-input-icon-left ">
-            <i class="pi pi-search" ></i>
-            <input pInputText id="search"  class="search" />
-            <label for="search" >Buscar pendencia...</label>
+            <i class="pi pi-search azul" ></i>
+            <input pInputText id="search"  class="search azul"  />
+            <label for="search" class="azul">Buscar pendencia...</label>
           </span>
           <!-- <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus"  class="web" ></button> -->
         </div>
@@ -132,6 +132,27 @@
                     </div>
                   </div>
                 </th>
+                <th pSortableColumn="valorParcela" >
+                  <div class="flex row align-items-center">
+                    <div class="col-8 flex justify-content-start align-items-center azul">
+                       Valor
+                    </div>
+                    <div class="col-4 flex justify-content-end align-items-center">
+                      <p-sortIcon
+                        field="valorParcela"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                        type="date"
+                        field="valorParcela"
+                        display="menu"
+                        pTooltip="Filtrar"
+                        tooltipPosition="top"
+                      ></p-columnFilter>
+                    </div>
+                  </div>
+                </th>
                 <th>
                   <div class="flex justify-content-around">
                     <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
@@ -147,6 +168,7 @@
                   <td>{{ item.nomeDentista }}</td>
                   <td>{{ item.dataConsulta | date: 'dd/MM/yyyy' }}</td>
                   <td class="text-red-600 font-semibold">{{ item.parcela.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+                  <td> {{ item.parcela.valorParcela  | currency: 'BRL'}} </td>
                   <td>
                     <div class="flex justify-content-around">
                       <p-button

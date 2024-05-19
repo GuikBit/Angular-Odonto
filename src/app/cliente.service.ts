@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Cliente } from './cliente/cliente';
+import { Cliente } from './class/cliente';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
@@ -30,8 +30,8 @@ export class ClienteService {
         return response;
 
       } catch (error) {
-        console.log("Deu erro na requisição")
-        console.error(error);
+        // console.log("Deu erro na requisição")
+        // console.error(error);
         return null
       }
     }
@@ -74,7 +74,7 @@ export class ClienteService {
         return null
       }
     }
-    async getPacientes(){
+    async getPacientes(idOrg:any){
 
       const instance = axios.create({
         baseURL: `${this.apiURL}`,
@@ -83,7 +83,7 @@ export class ClienteService {
       });
 
       try {
-        const response = await instance.get(`${this.apiURL}`);
+        const response = await instance.get(`${this.apiURL}?idOrg=${idOrg}`);
         return response.data;
 
       } catch (error) {
@@ -144,7 +144,7 @@ export class ClienteService {
           return false;
         }
       } catch (error) {
-        console.log(error)
+        //console.log(error)
         return false;
       }
     }
@@ -164,7 +164,7 @@ export class ClienteService {
           return false;
         }
       } catch (error) {
-        console.log(error)
+        //console.log(error)
         return false;
       }
     }

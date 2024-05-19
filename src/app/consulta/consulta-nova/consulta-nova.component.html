@@ -38,7 +38,7 @@
             <input pInputText id="nome" *ngIf="pacienteSelecionado" [value]="pacienteSelecionado.nome" required [disabled]="true" class="width" />
             <label for="paciente" class="azul">{{pacienteSelecionado? "Paciente":"Selecione o Paciente"}}</label>
           </span>
-          <small *ngIf="formulario.get('paciente')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+          <small *ngIf="formulario.get('paciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
       </div>
 
         <div class="field">

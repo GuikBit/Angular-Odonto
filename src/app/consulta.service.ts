@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 //import { ServicoPrestadoBusca } from './servico-prestado/servico-prestado-lista/servicoPrestadoBusca';
 import axios from 'axios';
-import { Consulta } from './consulta/consulta';
+import { Consulta } from './class/consulta';
 
 @Injectable({
   providedIn: 'root'

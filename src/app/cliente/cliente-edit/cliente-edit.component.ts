@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Cliente } from '../cliente';
+import { Cliente } from '../../class/cliente';
 import {FormBuilder, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 

@@ -684,9 +684,7 @@
       </div>
       <div class="col-9 z-0" *ngIf="ehCalendario">
         <div class=" box p-5">
-
-            <app-calendario [listaConsultas]="data.consultas" [dentistaInfo]="true" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
-
+          <app-calendario [listaConsultas]="data.consultas" [corDentista]="data.corDentista" [dentistaInfo]="true" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
         </div>
 
       </div>

@@ -1,6 +1,6 @@
 
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
-import { Consulta } from '../consulta';
+import { Consulta } from '../../class/consulta';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ConsultaService } from 'src/app/consulta.service';
@@ -48,7 +48,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    console.log("Cheguei aqui dentro do consulta info")
+   // console.log("Cheguei aqui dentro do consulta info")
     if (this.formularioEditar) {
       this.formularioEditar.reset(); // Limpe os valores dos controles do formulário
       this.formularioEditar.disable(); // Desative o formulário para evitar interações
@@ -215,18 +215,20 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
   async salvarEdicao() {
     if(this.dataConsulta !== this.formularioEditar.get("dataConsulta")?.value || this.horaConsulta !== this.formularioEditar.get("horaConsulta")?.value){
-      if(await this.validaReagendamento()){
-        this.service.putConsulta(this.consultaSelecionada.id, JSON.stringify(this.formularioEditar.value))
-        .then((response)=>{
+      if(this.validaReagendamento()){
+
+        const response = await this.service.putConsulta(this.consultaSelecionada.id, JSON.stringify(this.formularioEditar.value));
+
+        if( response?.status == 200 || response?.status == 201){
           this.loading.editar = false;
           this.reloading.emit(true);
-        }).catch((error)=>{
+        }else{
           this.messageService.add({
             severity: 'danger',
             summary: 'Aviso',
             detail: "Houve um erro ao reagendar a consulta."
           })
-        })
+        }
       }
 
     }else{
@@ -239,13 +241,13 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  async validaReagendamento(){
+   validaReagendamento(){
       const dataConsulta = new Date(this.dataConsulta);
       dataConsulta.setHours(0,0,0,0);
       const dataAtual = new Date();
       dataAtual.setHours(0, 0, 0, 0);
 
-      if(await this.dataValida(dataAtual) && await this.horaValida()){
+      if( this.dataValida(dataAtual) &&  this.horaValida()){
         return true;
       }
       else{
@@ -253,7 +255,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
       }
   }
 
-  async horaValida(){
+  horaValida(){
     const horaConsulta = this.formularioEditar.get('horaConsulta')?.value;
     const [hr, min] = horaConsulta.split(':');
     if((hr >= 0 && hr <= 23 && min >= 0 && min <= 59)){
@@ -269,9 +271,9 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  async dataValida(dataAtual: Date) {
+ dataValida(dataAtual: Date) {
     const novaData = new Date(this.formularioEditar.get("dataConsulta")?.value);
-    console.log(novaData)
+    //console.log(novaData)
     novaData.setDate(novaData.getDate())
     novaData.setHours(0,0,0,0);
 

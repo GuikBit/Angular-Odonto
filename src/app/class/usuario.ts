@@ -1,3 +1,5 @@
+import { Organizacao } from "./Organizacao";
+
 export class Usuario{
     username? : string;
     password?: string;
@@ -8,5 +10,8 @@ export class Usuario{
     cpf?: string;
     dataCadastro?: string;
     dataNascimento?: string;
-    telefone?: string; 
+    telefone?: string;
+
+    OrganizacaoId?: number;
+    IdOrganizacao?: Organizacao;
 }

@@ -1,17 +1,17 @@
 <div>
   <h3>Constas a pagar</h3>
     <div class="flex justify-content-between m-3 ">
-      <span class="p-float-label p-input-icon-left ">
-        <i class="pi pi-search" ></i>
-        <input pInputText id="search"  class="search" />
-        <label for="search" >Buscar pendencia...</label>
+      <span class="p-float-label p-input-icon-left azul">
+        <i class="pi pi-search azul" ></i>
+        <input pInputText id="search"  class="search azul" />
+        <label for="search" class="azul" >Buscar pendencia...</label>
       </span>
-      <button pButton type="button" label="Novo" styleClass="linear-gradient"  icon="pi pi-plus"  class="web" (click)="showDialog()"></button>
+      <button pButton type="button" label="Novo" styleClass="linear-gradient"  icon="pi pi-plus"  class="web btnNew" (click)="showDialog()"></button>
     </div>
 
 
   <p-table
-    [value]="products"
+    [value]="[]"
     [tableStyle]="{ 'min-width': '50rem' }"
     [rows]="8"
     [paginator]="true"
@@ -28,10 +28,10 @@
         <tr>
           <th style="width:10%" pSortableColumn="id" >
             <div class="flex row align-items-center">
-              <div class="col-8 flex justify-content-start align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center azul">
                 id
               </div>
-              <div class="col-4 flex justify-content-end align-items-center">
+              <div class="col-4 flex justify-content-end align-items-center ">
                 <p-sortIcon
                   field="id"
                   pTooltip="Ordenar"
@@ -49,7 +49,7 @@
           </th>
           <th pSortableColumn="categoria" >
             <div class="flex row align-items-center">
-              <div class="col-8 flex justify-content-start align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center azul">
                 Categoria
               </div>
               <div class="col-4 flex justify-content-end align-items-center">
@@ -70,8 +70,8 @@
           </th>
           <th pSortableColumn="valor" >
             <div class="flex row align-items-center">
-              <div class="col-8 flex justify-content-start align-items-center">
-                valor
+              <div class="col-8 flex justify-content-start align-items-center azul">
+                Valor
               </div>
               <div class="col-4 flex justify-content-end align-items-center">
                 <p-sortIcon
@@ -91,7 +91,7 @@
           </th>
           <th pSortableColumn="dataVencimento" >
             <div class="flex row align-items-center">
-              <div class="col-8 flex justify-content-start align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center azul">
                 Data Vencimento
               </div>
               <div class="col-4 flex justify-content-end align-items-center">
@@ -112,7 +112,7 @@
           </th>
           <th pSortableColumn="dataPagamento" >
             <div class="flex row align-items-center">
-              <div class="col-8 flex justify-content-start align-items-center">
+              <div class="col-8 flex justify-content-start align-items-center azul">
                 Data Pagamento
               </div>
               <div class="col-4 flex justify-content-end align-items-center">

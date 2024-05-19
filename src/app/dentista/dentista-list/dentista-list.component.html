@@ -5,7 +5,7 @@
         <div class="flex justify-content-between m-3">
           <span class="p-float-label p-input-icon-left ">
             <i class="pi pi-search azul" ></i>
-            <input pInputText id="search" (keyup)="applyFilter($event)" class="search"/>
+            <input pInputText id="search" class="search"/>
             <label for="search" class="azul">Buscar Dentista...</label>
           </span>
           <p-button icon="pi pi-plus" [rounded]="true"  (click)="showDialog()" class="mobile" [style]="{'background': '#2070b4'}"></p-button>
@@ -14,7 +14,7 @@
 
         <p-table
             #productsTable
-            [value]="dataSource.data"
+            [value]="dentistas"
             [rows]="10"
             [paginator]="true"
             [responsive]="true"
@@ -196,7 +196,7 @@
 </div>
 
 
-  <p-dialog header='Novo Dentista' [(visible)]="novo" [style]="{ width: '70vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false" class="">
+  <p-dialog header='Novo Dentista' [(visible)]="novo" [style]="{ width: '65vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false" class="">
     <ng-template pTemplate="content">
       <app-dentista-novo (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-dentista-novo>
     </ng-template>
