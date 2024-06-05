@@ -26,6 +26,7 @@ import { AdminPacienteComponent } from './admin/admin-paciente/admin-paciente.co
 import { AdminDentistaComponent } from './admin/admin-dentista/admin-dentista.component';
 import { AdminRelatorioComponent } from './admin/admin-relatorio/admin-relatorio.component';
 import { AdminConsultaComponent } from './admin/admin-consulta/admin-consulta.component';
+import { NovoOrcamentoComponent } from './MyComponents/orcamento/novo-orcamento/novo-orcamento.component';
 
 
 
@@ -47,6 +48,7 @@ const routes: Routes = [
     {path: 'dentistas', component: DentistaListComponent, canActivate: [AuthGuard]},
    // {path: 'dentistas/novo', component: DentistaNovoComponent, canActivate: [AuthGuard]},
     {path: 'dentistas/info/:id', component: DentistaInfoComponent, canActivate: [AuthGuard]},
+    {path: 'dentistas/novoOrcamento', component: NovoOrcamentoComponent, canActivate: [AuthGuard]},
     //{path: 'dentistas/edit/:id', component: DentistaEditComponent, canActivate: [AuthGuard]},
 
     //consulta

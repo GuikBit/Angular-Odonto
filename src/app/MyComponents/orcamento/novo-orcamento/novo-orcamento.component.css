@@ -1,0 +1,61 @@
+
+.new {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #c4ddf3;
+}
+.azul{
+  color: #2070B4
+}
+
+.width{
+  width: 100%;
+}
+
+.box{
+  background: #FFFFFF;
+  border-radius: 15px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+.card{
+  background: #FFFFFF;
+  border-radius: 15px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+
+
+.p-stepper {
+  flex-basis: auto ;
+}
+
+.search{
+  color: #2070b4;
+  border-color:  #2070b4;
+  width: 22.9vw;
+  height: 5vh;
+  border-radius: 50px;
+  font-size: large;
+  }
+  .patient-list {
+    list-style: none;
+    padding: 0;
+    align-items: center;
+    align-self: center;
+  }
+
+  .patient-list li {
+    padding: 10px;
+    cursor: pointer;
+    align-items: center;
+    align-self: center;
+    font-size: large;
+  }
+
+  .patient-list li.selected {
+    width: 100%;
+    border: 1px solid #54a2dc;
+    border-radius: 8px;
+    background-color: #e4eefa; /* Cor de seleção */
+  }

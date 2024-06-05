@@ -238,7 +238,7 @@ export class ConsultaService {
     });
     try{
       const response = await instance.post(`${this.apiURL}/procedimento`, consulta)
-      return response;
+      return response.status;
 
     }catch (error) {
       console.error(error);

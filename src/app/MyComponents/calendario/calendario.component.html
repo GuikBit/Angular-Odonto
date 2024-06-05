@@ -1,26 +1,35 @@
 <div class="z-0 capitalize">
   <full-calendar #calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos" [style.--cor-fundo]="cores.corFundo" [style.--cor-fundo-hover]="cores.corFundoHover" [style.--cor-fundo-hover-2]="cores.corFundoHover2" >
     <ng-template #eventContent let-arg>
-      <div class="flex-grow-1 custom-event p-component flex justify-content-between shadow-2 align-itens-center border-1 border-solid border-round-sm p-1 px-2 p-component cursor-pointer hover:bg-white"
-        [style]="{'background': arg.event.display + '25', 'border-color': arg.event.display, 'transition': 'background-color 0.2s'}">
-        <div class="overflow-hidden text-overflow-ellipsis" style="width:53%">
-          <span class="text-xs text-900 font-medium white-space-nowrap">
-            <i class="pi pi-user text-xs" [style]="{'color': arg.event.display}" ></i>
-            {{ arg.event.title }}
-          </span>
-        </div>
-        <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:34%">
-          <span class="text-xs text-900 font-medium white-space-nowrap">
-            <i class="pi pi-clock text-xs ml-1" [style]="{'color': arg.event.display}"></i>
-            {{arg.event.start | date: 'HH:mm'}}
-            -
-            {{arg.event.end | date: 'HH:mm'}}
-          </span>
-        </div>
-        <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:10%">
-          <i class="pi pi-circle-fill text-xs ml-1" [style.color]="arg.event.textColor"></i>
+      <div class="custom-event-container" >
+        <div class=" custom-event p-component flex justify-content-between shadow-2 align-itens-center border-1 border-solid border-round-sm p-1 px-2 p-component cursor-pointer hover:bg-white"
+          [style]="{'background': arg.event.display + '25', 'border-color': arg.event.display, 'transition': 'background-color 0.2s'}">
+          <div class="overflow-hidden text-overflow-ellipsis" style="width:53%">
+            <span class="text-xs text-900 font-medium white-space-nowrap">
+              <i class="pi pi-bolt text-xs azul mr-1" *ngIf="arg.event.durationEditable"></i>
+              <i class="pi pi-user text-xs" [style]="{'color': arg.event.display}" ></i>
+              {{ arg.event.title }}
+            </span>
+          </div>
+          <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:34%">
+            <span class="text-xs text-900 font-medium white-space-nowrap">
+              <i class="pi pi-clock text-xs ml-1" [style]="{'color': arg.event.display}"></i>
+              {{arg.event.start | date: 'HH:mm'}}
+              -
+              {{arg.event.end | date: 'HH:mm'}}
+            </span>
+          </div>
+          <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:10%">
+            <i class="pi pi-circle-fill text-xs ml-1" [style.color]="arg.event.textColor"></i>
+          </div>
         </div>
       </div>
     </ng-template>
   </full-calendar>
+
 </div>
+
+<!-- <div class="z-0 capitalize">
+  <full-calendar #calendar *ngIf='calendarVisible()' [options]='calendarOptions()' [events]="eventos"></full-calendar>
+</div> -->
+

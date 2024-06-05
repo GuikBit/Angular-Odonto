@@ -23,7 +23,7 @@ export class CalendarioComponent implements OnInit{
   @Output() abrirConsulta: EventEmitter<string> = new EventEmitter<string>();
   @Output() novaConsulta: EventEmitter<Date> = new EventEmitter<Date>();
 
-  eventos: EventInput[];
+  eventos: EventInput[] = [];
   corDinamica: string ;
 
   cores = {
@@ -80,8 +80,10 @@ export class CalendarioComponent implements OnInit{
     select: this.handleDateSelect.bind(this),
     eventClick: this.ClickNoEvento.bind(this),
     eventsSet: this.handleEvents.bind(this),
+    // eventContent: this.eventContent.bind(this), // Adicione isso
     eventBorderColor: '#FFF',
     eventBackgroundColor: '#FFF',
+    //eventDidMount: this.eventDidMount.bind(this), // Adicione isso
   });
 
   constructor() {  }
@@ -131,7 +133,7 @@ export class CalendarioComponent implements OnInit{
   converterConsultaParaEvento(consulta: Consulta) {
     return{
       id: consulta.id.toString(),
-      title: consulta.paciente.nome,
+      title: consulta.paciente == undefined || null? consulta.nomePaciente : consulta.paciente.nome,
       start: consulta.dataConsulta,
       end: consulta.dataConsultaReserva,
       textColor:this.retornaStatus(consulta),
@@ -141,7 +143,7 @@ export class CalendarioComponent implements OnInit{
       allDay: false,
       display: consulta.dentista != null ? consulta.dentista.corDentista : consulta.corDentista,
       startEditable: false,
-      durationEditable: false,
+      durationEditable: consulta.paciente == undefined || null? true: false,
       constraint: false,
       overlap: false,
       classNames: [],
@@ -170,5 +172,56 @@ export class CalendarioComponent implements OnInit{
   retornaCorDentista(consulta: Consulta){
     return consulta.dentista.corDentista;
   }
+
+  heightRetorno(item: any){
+    console.log(item)
+  }
+
+
+
+  formatTime(date: Date): string {
+    return new Intl.DateTimeFormat('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date);
+  }
+  eventDidMount(arg: any) {
+    const eventElement = arg.el;
+    const { event } = arg;
+
+    const customContent = document.createElement('div');
+    customContent.classList.add('custom-event', 'p-component', 'flex', 'justify-content-between', 'shadow-2', 'align-items-center', 'border-1', 'border-solid', 'border-round-sm', 'p-1', 'px-2', 'cursor-pointer', 'hover:bg-white');
+    customContent.style.background = `${event.extendedProps.display}25`; // Ajustando opacidade
+    customContent.style.borderColor = event.extendedProps.display;
+    customContent.style.transition = 'background-color 0.2s';
+    customContent.style.height = eventElement.clientHeight + 'px';
+    customContent.innerHTML = `
+      <div class="overflow-hidden text-overflow-ellipsis" style="width:53%">
+        <span class="text-xs text-900 font-medium white-space-nowrap">
+          <i class="pi pi-bolt text-xs azul mr-1" style="display: ${event.durationEditable ? 'inline' : 'none'};"></i>
+          <i class="pi pi-user text-xs" style="color: ${event.extendedProps.display}"></i>
+          ${event.title}
+        </span>
+      </div>
+      <div class="white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:34%">
+        <span class="text-xs text-900 font-medium white-space-nowrap">
+          <i class="pi pi-clock text-xs ml-1" style="color: ${event.extendedProps.display}"></i>
+          ${this.formatTime(event.start)} - ${this.formatTime(event.end)}
+        </span>
+      </div>
+      <div class="white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:10%">
+        <i class="pi pi-circle-fill text-xs ml-1" style="color: ${event.extendedProps.textColor}"></i>
+      </div>
+    `;
+
+    eventElement.innerHTML = '';
+    eventElement.appendChild(customContent);
+  }
+
+
+
+
+
+
 
 }

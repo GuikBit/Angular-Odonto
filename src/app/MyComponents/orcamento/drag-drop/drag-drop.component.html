@@ -1,0 +1,81 @@
+<div class="card flex flex-wrap gap-3">
+
+  <div class="border-1 surface-border border-round w-30rem h-20rem overflow-auto surface-overlay">
+    <div class="p-2 flex justify-content-center  border-none border-solid border-round border-blue-100 border-bottom-1  sticky top-0 bg-white">
+      <p-iconField iconPosition="left" >
+        <p-inputIcon>
+            <i class="pi pi-search azul"></i>
+        </p-inputIcon>
+        <input
+            pInputText
+            type="text"
+            placeholder="Buscar procedimento..."
+            class="search border-blue-100" />
+      </p-iconField>
+    </div>
+
+    <ul class="p-2 list-none flex flex-column gap-2 p-0 m-0">
+          <li
+              *ngFor="let item of listaEspecConsultas"
+              class="p-2 border-round shadow-1 border-solid border-round border-blue-100 border-1 font-medium"
+              pDraggable
+              (onDragStart)="dragStart(item)"
+              (onDragEnd)="dragEnd()">
+                 <div class="flex justify-content-between">
+                  <div>
+                    <i class="pi pi-briefcase azul"></i>
+                    &nbsp;&nbsp;{{item.tipo}}
+                  </div>
+                  <div>
+                    <i class="pi pi-tag azul"></i>
+                  </div>
+
+                 </div>
+                 <div class="mt-2">
+                  <div>
+                    <i class="pi pi-dollar text-green-600"></i>
+                    {{item.valorBase}}
+                  </div>
+
+                 </div>
+          </li>
+      </ul>
+  </div>
+
+  <div class="flex-row align-content-between  border-1 border-solid border-round border-blue-100 w-30rem h-20rem  overflow-auto surface-overlay" pDroppable (onDrop)="drop()">
+    <div class="border-none border-solid border-round border-blue-100 border-bottom-1 mb-3">
+      <p class="text-center font-medium text-2x1">Procedimentos a realizar</p>
+    </div>
+    <div >
+      <ul class="  list-none flex flex-column gap-2 p-0 m-0" *ngIf="selecionado" >
+        <li *ngFor="let item of selecionado" class=" mx-2 py-2 font-medium border-round shadow-1 flex justify-content-around border-solid border-round border-blue-100 border-1">
+
+            <div class="col-7">
+              <div class="text-center border-round-sm">
+                {{item.tipo}}
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="text-start  border-round-sm">
+                <i class="pi pi-dollar text-green-600"></i>&nbsp;{{item.valorBase}}
+              </div>
+             </div>
+            <div class="col-2">
+              <div class="text-center border-round-sm">
+                <i class="pi pi-trash text-red-500 cursor-pointer" (click)="onRemove(item.id)"></i>
+              </div>
+            </div>
+
+        </li>
+        <li *ngIf="selecionado.length > 0" class="sticky bottom-0 bg-white mt-2">
+          <div class="flex align-content-end border-none border-solid  border-blue-100 border-1 ">
+            <div class="col-7">
+              <span class=" text-center font-medium  text-2x1 ml-6">Total</span>
+            </div>
+            <div class="col-5 ">
+              <span class=" text-center font-medium text-2x1"> <i class="pi pi-dollar text-green-600"></i>&nbsp;{{somaTotalOrcamento()}}</span>
+            </div>
+          </div>
+        </li>
+    </ul>
+</div>

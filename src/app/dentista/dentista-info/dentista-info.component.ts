@@ -29,12 +29,16 @@ export class DentistaInfoComponent implements OnInit {
 
   inicioConsulta: any;
 
-  ehCalendario: boolean = true;
+  ehCalendario: boolean = false;
+  ehListagem: boolean = true;
+  ehOrcamento: boolean = false;
 
   visible: boolean;
   novaConsultaCalendar: Date | null;
 
   org: any;
+
+
 
   constructor(private route: ActivatedRoute, private service: DentistaService, private router: Router, public messageService: MessageService,
     private serviceConsulta: ConsultaService){
@@ -134,7 +138,35 @@ export class DentistaInfoComponent implements OnInit {
                 }
             }
         }
+  }
+  viewTable(index: any){
+    switch(index){
+      case 1 : {
+        this.ehCalendario = false;
+        this.ehListagem = false;
+        this.ehOrcamento = true;
+        break;
       }
+      case 2 : {
+        this.ehCalendario = true;
+        this.ehListagem = false;
+        this.ehOrcamento = false;
+        break;
+      }
+      case 3 : {
+        this.ehCalendario = false;
+        this.ehListagem = true;
+        this.ehOrcamento = false;
+        break;
+      }
+      default: {
+        this.ehCalendario = true;
+        this.ehListagem = false;
+        this.ehOrcamento = false;
+        break;
+      }
+    }
+  }
 
   calculaPorcentagem(mesAnterior: number, mesAtual: number) {
     if(mesAnterior === 0){
@@ -169,6 +201,12 @@ export class DentistaInfoComponent implements OnInit {
 
   newConsulta(){
     this.visible = true;
+  }
+
+  newOrcamentoByDentista(id: string){
+
+    sessionStorage.setItem('dentista', id);
+    this.router.navigate(['/dentistas/novoOrcamento'])
   }
 
   onlyClose(close: boolean) {

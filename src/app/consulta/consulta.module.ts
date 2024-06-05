@@ -160,6 +160,7 @@ import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
     CardModule,
     ButtonModule,
     TableModule,
+    ToggleButtonModule,
     InputMaskModule,
     InputSwitchModule,
     InputTextModule,

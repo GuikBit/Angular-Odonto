@@ -104,17 +104,21 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
       const procedimentos = JSON.stringify(this.formularioProcedimentos.get('procedimentos')?.value)
 
       if(procedimentos){
+
         this.consultaSelecionada.procedimentos = procedimentos;
-        this.service.postProcedimentoConsulta(this.consultaSelecionada).then((response)=>{
+        console.log(JSON.stringify(this.consultaSelecionada))
+        await this.service.postProcedimentoConsulta(this.consultaSelecionada).then((response)=>{
+          if(response == 200 || response == 201){
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Aviso',
+              detail: 'Procedimentos salvo e finalizada'
+            });
+            this.reloading.emit(true);
+          }
 
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Aviso',
-            detail: 'Procedimentos salvo e finalizada'
-          })
-          this.reloading.emit(true);
         }).catch((error)=>{
-
+          console.log(error)
         })
       }
 
@@ -123,8 +127,9 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   async buscarConsulta(id: any){
     if(id != null){
       await this.service.getConsultaById(id).then((response)=>{
-        this.consultaSelecionada = response;
 
+        this.consultaSelecionada = response;
+        console.log(this.consultaSelecionada)
        }).catch((error)=>{
          this.messageService.add({
            severity: 'error',

@@ -607,14 +607,14 @@
                         @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
                           <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                         }
-                      @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                        @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+                        <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
                         }
-                      @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+                        @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
                         {
                           <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                         }
-                      @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+                        @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
                         {
                           <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                         }
@@ -996,6 +996,98 @@
             </p-table>
           </div>
         </p-tabPanel>
+
+        <p-tabPanel header="Pagamentos">
+          <ng-template pTemplate="header">
+            <i class="pi pi-fw pi-sliders-h"></i>
+            <span class="web">&nbsp;Dentline</span>
+          </ng-template>
+
+          <div class="card">
+            <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+                <ng-template pTemplate="marker" let-event>
+                    <span
+                        class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-2"
+                        [style]="{ 'background-color': '#2070b4' }">
+                        <i class="pi pi-briefcase"></i>
+                        <!-- <span class="material-icons">dentistry</span> -->
+                    </span>
+                </ng-template>
+                <ng-template pTemplate="content" let-event>
+                    <p-card (click)="consultaSelecionadaInfo(event.idConsulta, 1)" class="cursor-pointer">
+                      <ng-template pTemplate="header">
+                        <div class="mx-4 flex justify-content-between ">
+                          <h2>
+                            <i class="pi pi-calendar azul text-2xl"></i>
+                            {{event.dataConsulta}}
+                          </h2>
+                          <div class="flex align-items-center">
+                            @if(event.consultaStatus === 1){
+                              <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                            }
+                            @else if (event.consultaStatus === 2) {
+                            <p-tag value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                            }
+                            @else if (event.consultaStatus === 3)
+                            {
+                              <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                            }
+                            @else if (event.consultaStatus === 4)
+                            {
+                              <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                            }
+                            @else{
+
+                            }
+                            <!-- <p-button
+                              icon="pi pi-pw pi-info-circle"
+                              [rounded]="true"
+                              [text]="true"
+                              severity="info"
+                              pTooltip="Informações"
+                              tooltipPosition="top"
+
+                              (click)="consultaSelecionadaInfo(event.idConsulta, 1)"
+                            ></p-button> -->
+                          </div>
+                        </div>
+
+
+                        <div class="mx-4 flex justify-content-start" *ngIf="(event.idItem % 2 == 0)">
+                          <span class="text-x1 font-medium">
+                            <i class="pi pi-pw pi-user azul"></i>
+                            &nbsp;{{event.dentista}}&nbsp;
+                          </span>
+                        </div>
+                        <div class="mx-4 flex justify-content-start" *ngIf="!(event.idItem % 2 == 0)">
+                          <span class="text-x1 font-medium">
+                            <i class="pi pi-pw pi-user azul"></i>
+                            &nbsp;{{event.dentista}}&nbsp;
+                          </span>
+                        </div>
+
+                      </ng-template>
+                      <label class="m-2 flex justify-content-start" *ngIf="(event.idItem % 2 == 0)"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos realizados na consulta&nbsp;&nbsp;</label>
+                      <label class="m-2 flex justify-content-start" *ngIf="!(event.idItem % 2 == 0)"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos realizados na consulta&nbsp;&nbsp;</label>
+                      <br>
+                      <p-chips id="procedimentos" placeholder="Aguardando o lançamento..." class="p-fluid"[(ngModel)]="event.procedimentos" [separator]="separatorExp" [disabled]="true" />
+                    </p-card>
+                </ng-template>
+            </p-timeline>
+        </div>
+
+        </p-tabPanel>
+        <p-tabPanel header="Orçamentos">
+          <ng-template pTemplate="header">
+            <i class="pi pi-fw pi-clipboard"></i>
+            <span class="web">&nbsp;Orçamentos</span>
+          </ng-template>
+          <div class="flex justify-content-end">
+            <button pButton type="button" label="Novo Orçamento" (click)="novoOrcamento()"  icon="pi pi-clipboard" class="web"></button>
+            <p-button icon="pi pi-plus" [rounded]="true" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
+          </div>
+
+        </p-tabPanel>
         <p-tabPanel header="Outros">
           <ng-template pTemplate="header">
             <i class="pi pi-fw pi-wrench"></i>
@@ -1013,17 +1105,17 @@
   </div>
 </div>
 
-<p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
+<p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '60vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
     <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModalInfo($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
   </ng-template>
 </p-dialog>
 
-<p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '90vw', height: 'auto' }" class="box mobile" [draggable]="false" [resizable]="false" [closable]="false">
+<!-- <p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '90vw', height: 'auto' }" class="box mobile" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
     <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModalInfo($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
   </ng-template>
-</p-dialog>
+</p-dialog> -->
 
 <p-dialog header='Detalhes da Consulta' [(visible)]="infoConsulta" [modal]="true" [style]="{ width: '70vw',  height: '84vh' }" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
@@ -1034,6 +1126,13 @@
 <p-dialog header="Pagamento" [(visible)]="pagamentoInfo" [modal]="true" [style]="{ width: '70vw',  height: 'auto' }" [draggable]="false" [resizable]="false">
   <ng-template pTemplate="content">
     <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Novo Orçamento" [(visible)]="orcamento" [modal]="true" [style]="{ width: '60vw',  height: 'auto' }" [draggable]="false" [resizable]="false" [closable]="true">
+  <ng-template pTemplate="content">
+    <!-- <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info> -->
+    <app-novo-orcamento></app-novo-orcamento>
   </ng-template>
 </p-dialog>
 

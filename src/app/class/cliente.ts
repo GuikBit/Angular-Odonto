@@ -13,8 +13,6 @@ export class Cliente extends User {
     anamnese: Anamnese;
     responsavel: Responsavel;
 
-    
-
     //outros
 
     // queixaPrincipal?: string;

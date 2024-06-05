@@ -132,6 +132,7 @@ import { AdminModule } from './admin/admin.module';
 import { Location } from '@angular/common';
 import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
 import { GlobalService } from './global.service';
+import { OrcamentoModule } from './MyComponents/orcamento/orcamento.module';
 
 
 @NgModule({
@@ -152,6 +153,7 @@ import { GlobalService } from './global.service';
     ClienteModule,
     DentistaModule,
     ConsultaModule,
+    OrcamentoModule,
     HttpClientModule,
     AppRoutingModule,
     TemplateModule,

@@ -3,11 +3,12 @@
   <div class="flex justify-content-between ">
 
       <div class="flex justify-content-start align-items-center">
+        <i class="pi pi-bolt text-xs azul mr-1" *ngIf="consultaSelecionada.nomePaciente"></i>
         @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento &&  !consultaSelecionada.ausente){
           <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
         }
         @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
-        <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+        <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
         }
         @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
         {
@@ -202,22 +203,23 @@
 
       <div class="flex mt-4">
         <div class="col-12">
-          <div class="row flex justify-content-around">
-            <div class="col-5 flex justify-content-start ">
+          <div [class]="consultaSelecionada.paciente? 'row flex justify-content-around': 'row flex justify-content-between' ">
+            <div class="col-5 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
               <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.paciente.nome}}
-              <!-- <div>
-                <h4 class="flex justify-content-center text-lg ">Paciente</h4>
-                <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.nome}}</span>
-              </div> -->
             </div>
-            <div class="col-3 flex justify-content-start ">
+            <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
+              <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.nomePaciente}}
+            </div>
+            <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
+              <span class="font-bold text-lg"><i class="pi pi-phone azul"></i>&nbsp;&nbsp;Telefone:&nbsp;</span> {{consultaSelecionada.telefone}}
+            </div>
+            <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
+              <span class="text-lg"><i class="pi pi-bolt azul"></i>&nbsp;&nbsp;Consulta Rápida&nbsp;</span>
+            </div>
+            <div class="col-3 flex justify-content-start " *ngIf="consultaSelecionada.paciente">
               <span class="font-bold text-lg"><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;Pasta:&nbsp;</span> {{consultaSelecionada.paciente.numPasta}}
-              <!-- <div>
-                <h4 class="flex justify-content-center text-lg ">Pasta</h4>
-                <span class="azul text-lg "><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;{{consultaSelecionada.paciente.numPasta}}</span>
-              </div> -->
             </div>
-            <div class="col-4 flex justify-content-start">
+            <div class="col-4 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
               <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Idade:&nbsp;</span> {{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}
               <!-- <div>
                 <h4 class="flex justify-content-center text-lg ">Idade</h4>
@@ -338,6 +340,7 @@
                 [separator]="separatorExp"
                 placeholder="Digite os procedimentos realizados na consulta"
                 class="azul"
+                formControlName="procedimentos"
                 [disabled]="true"
               ></p-chips>
             }
@@ -347,7 +350,7 @@
                 placeholder="Digite os procedimentos realizados na consulta"
                 class="azul"
                 formControlName="procedimentos"
-                [disabled]="true"
+                [disabled]="false"
                 readonly
               ></p-chips>
             }

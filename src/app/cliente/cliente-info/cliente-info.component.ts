@@ -1,4 +1,4 @@
-import { MessageService } from 'primeng/api';
+import { MessageService, MenuItem } from 'primeng/api';
 
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
@@ -8,11 +8,18 @@ import { ClienteService } from 'src/app/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { AssyncServiceService } from 'src/app/assync-service.service';
 import { Consulta } from 'src/app/class/consulta';
 import { ConsultaService } from 'src/app/consulta.service';
+
+interface EventItem {
+  procedimentos?: string;
+  dataConsulta?: string;
+  dentista?: string;
+
+}
 
 @Component({
   selector: 'app-cliente-info',
@@ -25,14 +32,12 @@ export class ClienteInfoComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   iniciarConsulta: any;
-
   paciente: any;
-
   disable: boolean = true;
 
   dataSource: MatTableDataSource<Cliente>;
   formulario: FormGroup;
-  activeIndex: number = 1;
+  activeIndex: number = 4;
 
   items: MenuItem[];
   idade: string;
@@ -51,14 +56,19 @@ export class ClienteInfoComponent implements OnInit {
 
   alterarFoto: boolean = false;
   imagemSelecionada: string | ArrayBuffer | null = '';
+  events: EventItem[] = [];
+  list: Consulta[];
+  separatorExp: RegExp = /,| /;
+
+  orcamento: boolean = true;
 
   constructor(private service: ClienteService, private route: ActivatedRoute, private router: Router,private serviceConsulta: ConsultaService,
     private messageService: MessageService, private formBuilder: FormBuilder, private assync: AssyncServiceService) {
-      this.paciente = new Cliente();
+
 
   }
 
-  ngOnInit(){
+ async ngOnInit(){
     this.loading = false;
     this.buscouCEP = null ;
     this.RespValidacaoCPF = null;
@@ -70,8 +80,9 @@ export class ClienteInfoComponent implements OnInit {
     })
 
     if(id !== ''){
-      this.service.getPacienteById(id).then((response)=>{
+      await this.service.getPacienteById(id).then((response)=>{
        this.paciente = response;
+       //console.log(this.paciente)
       }).catch(()=>{
        this.router.navigate(['/clientes']);
        this.messageService.add({
@@ -81,6 +92,7 @@ export class ClienteInfoComponent implements OnInit {
        })
       })
     }
+
     this.criaFormulario()
     this.items = [
       {
@@ -267,6 +279,7 @@ export class ClienteInfoComponent implements OnInit {
       },
 
     ];
+    this.montaTimeline();
   }
 
   abrirwhatsapp(){
@@ -615,6 +628,66 @@ export class ClienteInfoComponent implements OnInit {
         this.imagemSelecionada = reader.result;
       };
     }
+  }
+
+  montaTimeline(){
+    // this.list = [];
+    //  console.log(this.paciente)
+    if(this.paciente.consultas){
+      this.paciente.consultas.sort((a: any, b:any) => new Date(a.dataConsulta).getTime() - new Date(b.dataConsulta).getTime());
+      let i = 1;
+      this.paciente.consultas.forEach((item: any)=> {
+
+        var x ={
+          procedimentos: item.procedimentos ? JSON.parse(item.procedimentos) : [] ,
+          dataConsulta: this.formatarDataBR(item.dataConsulta),
+          dentista: item.dentista.nome,
+          idConsulta: item.id,
+          consultaStatus: this.retornaStatusConsulta(item),
+          idItem: i
+        }
+        i++;
+        this.events.push(x);
+      });
+      //console.log(this.events)
+    }
+  }
+  retornaStatusConsulta(consulta: Consulta){
+    console.log(consulta)
+    if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+      return 1;
+    }
+    else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+      return 2;
+    }
+    else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+    {
+      return 3;
+    }
+    else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+    {
+      return 4;
+    }
+    else{
+      return 5;
+    }
+  }
+  // procedimentos?: string;
+  // dataConsulta?: Date;
+  // dentista?: string;
+
+  formatarDataBR(dataISO: string): string {
+    const date = new Date(dataISO);
+    const dia = date.getDate().toString().padStart(2, '0');
+    const mes = (date.getMonth() + 1).toString().padStart(2, '0');
+    const ano = date.getFullYear();
+    const horas = date.getHours().toString().padStart(2, '0');
+    const minutos = date.getMinutes().toString().padStart(2, '0');
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  }
+
+  novoOrcamento(){
+    this.orcamento = true;
   }
 }
 

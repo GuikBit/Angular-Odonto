@@ -19,5 +19,6 @@ export class Consulta{
     procedimentos: string;
     ausente: boolean;
     corDentista: string;
-
+    nomePaciente: string;
+    telefone: string;
 }

@@ -79,7 +79,11 @@ li {
   border-radius: 8px;
   /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
 }
-
+ :host ::ng-deep .p-card{
+  border: 1px #c4ddf3;
+  border-style: solid;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+ }
 
 button{
   background: linear-gradient(to right, #2070b4, #24aae3);

@@ -1,7 +1,23 @@
+
+:host ::ng-deep .p-highlight.p-togglebutton,
+:host ::ng-deep .p-highlight.p-togglebutton:hover {
+    background: linear-gradient(to right, #2070b4, #24aae3);
+    border: none;
+    color: white;
+}
+
+:host ::ng-deep .p-togglebutton:focus {
+    box-shadow: 0 0 0 0.2rem #c4ddf3;
+}
+
+
+
 .azul{
   color: #2070B4;
 }
-
+.custom-class{
+  background-color:#2070B4;
+}
 button{
   background: linear-gradient(to right, #2070b4, #24aae3);
   font-size: 0.9rem;

@@ -19,6 +19,8 @@ interface ConsultaDTO {
   pagamentoId: number;
   consultaEspecialidadeId: number;
   organizacaoId: number;
+  nomePaciente: string | null;
+  telefone: string | null;
 }
 
 
@@ -48,6 +50,8 @@ export class ConsultaNovaComponent implements OnInit{
   org: any;
 
   newConsulta: ConsultaDTO;
+
+  consultaRapida: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private servicePaciente: ClienteService, private serviceDentista: DentistaService,
     private serviceConsulta: ConsultaService, private messageService: MessageService){
@@ -144,13 +148,16 @@ export class ConsultaNovaComponent implements OnInit{
       consultaEspecialidade: ['', Validators.required],
       observacao: [''],
       organizacaoId: [this.org.id, Validators.required],
-
+      nomePaciente: [],
+      telefone: []
     })
   }
   onSubmit(){
       this.limpaInformacoes();
-
-
+      if(this.consultaRapida){
+        this.formulario.get('paciente')?.setValue(new Cliente());
+      }
+      console.log(this.formulario)
 
       if(this.formulario.valid){
         if(this.dataConsulta() && this.horaConsulta() ){
@@ -163,7 +170,9 @@ export class ConsultaNovaComponent implements OnInit{
             horaConsulta: this.formulario.get('horaConsulta')?.value,
             tempoPrevisto: this.formulario.get('tempoPrevisto')?.value,
 
-            pacienteId: obj.id,
+            pacienteId: this.consultaRapida? null : obj.id,
+            nomePaciente: this.consultaRapida? this.formulario.get('nomePaciente')?.value : null,
+            telefone: this.consultaRapida? this.formulario.get('telefone')?.value : null,
             dentistaId: this.formulario.get('dentista')?.value.id,
             pagamentoId: this.formulario.get('pagamentoId')?.value,
             consultaEspecialidadeId: this.formulario.get('consultaEspecialidade')?.value.id,
@@ -201,6 +210,16 @@ export class ConsultaNovaComponent implements OnInit{
       this.formulario.get('pacienteId')?.setValue(this.formulario.get('pacienteId')?.value.id);
       this.formulario.get('dentistaId')?.setValue(this.formulario.get('dentistaId')?.value.id);
     }
+
+    replaceTelefone(): void {
+      const telefoneControl = this.formulario.get('telefone') ;
+      if (telefoneControl) {
+        let telefoneValue = telefoneControl.value.replace(/\D/g, '').substring(0, 11);
+        const formattedTelefone = telefoneValue.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        telefoneControl.setValue(formattedTelefone);
+      }
+    }
+
     // validaConsulta(){
     //   if (this.dataConsulta()) {
     //     return true;

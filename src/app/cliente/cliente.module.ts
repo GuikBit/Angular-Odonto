@@ -29,6 +29,10 @@ import { MenubarModule } from 'primeng/menubar';
 import {MatIconModule} from '@angular/material/icon';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TimelineModule } from 'primeng/timeline';
+import { ChipsModule } from 'primeng/chips';
+import { OrcamentoModule } from '../MyComponents/orcamento/orcamento.module';
+
 @NgModule({
   declarations: [
     // ClienteInfoComponent,
@@ -58,7 +62,9 @@ import { SkeletonModule } from 'primeng/skeleton';
     SpeedDialModule,
     MenubarModule,
     MatIconModule,
-    FileUploadModule
+    FileUploadModule,
+    TimelineModule,
+    ChipsModule
   ],
   exports: [
     // ClienteInfoComponent,

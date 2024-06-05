@@ -14,3 +14,14 @@
 
   }
 }
+.custom-event-container {
+  display: flex;
+  align-items: center;
+}
+
+.custom-event {
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+}
+

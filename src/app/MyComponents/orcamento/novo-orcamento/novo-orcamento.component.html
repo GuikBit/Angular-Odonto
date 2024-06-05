@@ -1,0 +1,343 @@
+<div class="container">
+  <div class="card box text-indigo-800 flex">
+    <!-- <div class="col-12 ">
+      <div class="col-12 flex align-items-center justify-content-center sticky top-0 pt-3 z-1">
+        <ul>
+          <li pTooltip="Orcamentos" tooltipPosition="top" >
+            <p-button icon="pi pi-user-plus" label="Incluir paciente"  [rounded]="true" [text]="true" [style]="{'color': '#2070B4'}" ></p-button>
+          </li>
+          <li pTooltip="Calendario" tooltipPosition="top"  >
+            <p-button icon="pi pi-calendar"  label="Incluir dentista" [rounded]="true" [text]="true" [style]="{'color': '#2070B4' }" ></p-button>
+          </li>
+          <li pTooltip="Listagem" tooltipPosition="top" >
+            <p-button icon="pi pi-list" size="large" [rounded]="true" [text]="true" [style]="{'color': '#2070B4' }" ></p-button>
+          </li>
+          <li pTooltip="Informações" tooltipPosition="top">
+            <p-button icon="pi pi-info-circle" size="large" [rounded]="true" [text]="true" [style]="{'color': '#2070B4' }"></p-button>
+          </li>
+          <li pTooltip="Editar" tooltipPosition="top">
+            <p-button icon="pi pi-user-edit" size="large" [rounded]="true" [text]="true" [style]="{'color': '#2070B4' }"></p-button>
+          </li>
+          <li pTooltip="Exportar" tooltipPosition="top">
+            <p-button icon="pi pi-download" size="large" [rounded]="true" [text]="true" [style]="{'color': '#2070B4' }"></p-button>
+          </li>
+          <li pTooltip="Deletar" tooltipPosition="top">
+            <p-button icon="pi pi-trash" size="large" [rounded]="true" severity="danger" [text]="false"></p-button>
+          </li>
+        </ul>
+      </div>
+
+        <div class="row lg:flex lg:justify-content-center my-3">
+          <div class="field  md:col-12 lg:col-5">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-pencil azul"></i>
+              <input pInputText id="nome" formControlName="nome" required class="width" />
+              <label for="nome" class="azul">Nome Completo</label>
+            </span>
+
+          </div>
+          <div class="field  md:col-12 lg:col-3">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-phone azul"></i>
+              <input pInputText id="telefone" formControlName="telefone" required class="width" />
+              <label for="telefone" class="azul">Telefone</label>
+            </span>
+
+          </div>
+          <div class="field  md:col-12 lg:col-3">
+            <span class="p-float-label p-input-icon-left width">
+              <i class="pi pi-calendar azul"></i>
+              <input pInputText id="dataNasc" formControlName="dataNasc" required class="width" />
+              <label for="dataNasc" class="azul">Data Nascimento</label>
+            </span>
+
+          </div>
+        </div>
+
+        <div class="row lg:flex lg:justify-content-center my-3">
+          <div class="field my-2">
+            <span class="p-float-label p-input-icon-right ">
+              <p-dropdown
+                [options]="listaDentista"
+                appendTo="body"
+                [autoZIndex]="true"
+                formControlName="dentista"
+                optionLabel="nome"
+                [filter]="true"
+                filterBy="nome"
+                [style]="{'width': '14vw', 'height':'46px'}"
+                scrollHeight="300px"
+                inputId="dentista"
+                class="web"
+
+              ></p-dropdown>
+              <label for="dentista" class="azul">Selecione o Dentista</label>
+            </span>
+
+
+           </div>
+        </div>
+
+        <div class="row lg:flex lg:justify-content-center ">
+          <app-drag-drop [listaEspecConsultas]="listEspecConsulta" (selecionados)="selecionados($event)"></app-drag-drop>
+        </div>
+    </div> -->
+
+    <div class="col-12 p-6">
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <p-stepper>
+          <p-stepperPanel header="Informações" >
+            <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+              <div class="flex flex-column h-30rem new px-5 pt-3">
+                  <p-divider align="left" type="solid" >
+                    <i class="pi pi-user" ></i>
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paciente</b>
+                  </p-divider>
+                  <div class="row lg:flex lg:justify-content-end my-2">
+                    <i
+                    class="pi pi-search text-blue-500 mr-4 hover:text-blue-800"
+                    style="font-size: 1.35rem; cursor: pointer; "
+                    pTooltip="Buscar paciente"
+                    tooltipPosition="bottom"
+                    (click)="buscarPaciente = !buscarPaciente"
+                  ></i>
+                  </div>
+                  <div class="row lg:flex lg:justify-content-center my-2">
+                    <div class="field  md:col-12 lg:col-4">
+                      <span class="p-float-label p-input-icon-left width">
+                        <i class="pi pi-pencil azul"></i>
+                        <input pInputText id="nomePaciente" formControlName="nomePaciente" required class="width" *ngIf="!paciente"/>
+                        <input pInputText id="nomePaciente" [value]="paciente.nome" required class="width" *ngIf="paciente">
+                        <label for="nomePaciente" class="azul">Nome Completo</label>
+                      </span>
+                    </div>
+                    <div class="field  md:col-12 lg:col-3">
+                      <span class="p-float-label p-input-icon-left width">
+                        <i class="pi pi-phone azul"></i>
+                        <input pInputText id="cpfPaciente" formControlName="cpfPaciente" required class="width" />
+                        <label for="cpfPaciente" class="azul">CPF</label>
+                      </span>
+                    </div>
+                    <div class="field  md:col-12 lg:col-3">
+                      <span class="p-float-label p-input-icon-left width">
+                        <i class="pi pi-phone azul"></i>
+                        <input pInputText id="telefonePaciente" formControlName="telefonePaciente" required class="width" />
+                        <label for="telefonePaciente" class="azul">Telefone</label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row lg:flex lg:justify-content-center my-2">
+                    <div class="field  md:col-12 lg:col-3">
+                      <span class="p-float-label p-input-icon-left width">
+                        <i class="pi pi-calendar azul"></i>
+                        <input pInputText id="dataNascPaciente" formControlName="dataNascPaciente" required class="width" />
+                        <label for="dataNascPaciente" class="azul">Data Nascimento</label>
+                      </span>
+                    </div>
+                    <div class="field  md:col-12 lg:col-2">
+                      <span class="p-float-label p-input-icon-left width">
+                        <i class="pi pi-calendar azul"></i>
+                        <input pInputText id="dataNascPaciente" formControlName="dataNascPaciente" required class="width" />
+                        <label for="dataNascPaciente" class="azul">Data Nascimento</label>
+                      </span>
+                    </div>
+                    <div class="field  md:col-12 lg:col-5">
+                      <span class="p-float-label p-input-icon-left width">
+                        <i class="pi pi-envelope azul"></i>
+                        <input pInputText id="emailPaciente" formControlName="emailPaciente" required class="width" />
+                        <label for="emailPaciente" class="azul">Email</label>
+                      </span>
+                    </div>
+                  </div>
+
+
+              </div>
+
+              <div class="flex pt-4 justify-content-end">
+                <p-button
+                  label="Próximo"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  [rounded]="true"
+                  severity="success"
+                  (onClick)="nextCallback.emit()"
+                />
+              </div>
+            </ng-template>
+          </p-stepperPanel>
+          <p-stepperPanel header="Procedimentos">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+              <div class="flex flex-column h-auto new px-5 pt-3">
+                <div class="row lg:flex lg:justify-content-center my-2">
+                  <div class="field  md:col-12 lg:col-4">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-pencil azul"></i>
+                      <input pInputText id="nomePaciente" formControlName="nomePaciente" required class="width" *ngIf="!paciente"/>
+                      <input pInputText id="nomePaciente" [value]="paciente.nome" required class="width" *ngIf="paciente">
+                      <label for="nomePaciente" class="azul">Orcado por</label>
+                    </span>
+                  </div>
+                  <div class="field my-2">
+                    <span class="p-float-label p-input-icon-right ">
+                      <p-dropdown
+                        [options]="listaDentista"
+                        appendTo="body"
+                        [autoZIndex]="true"
+                        formControlName="dentista"
+                        optionLabel="nome"
+                        [filter]="true"
+                        filterBy="nome"
+                        [style]="{'width': '23vw', 'height':'46px'}"
+                        scrollHeight="300px"
+                        inputId="dentista"
+                        class="web"
+                      ></p-dropdown>
+                      <label for="dentista" class="azul">Selecione o dentista</label>
+                    </span>
+                  </div>
+
+                  <div class="field  md:col-12 lg:col-2">
+                    <span class="p-float-label p-input-icon-left width">
+                      <i class="pi pi-calendar azul"></i>
+                      <input pInputText id="dataNascPaciente" formControlName="dataNascPaciente" required class="width" />
+                      <label for="dataNascPaciente" class="azul">Valido ate</label>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- <div class="mx-8">
+                  <p-divider align="left" type="solid" >
+                    <i class="pi pi-briefcase" ></i>
+                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Procedimentos</b>
+                  </p-divider>
+                </div> -->
+                <div class="row lg:flex lg:justify-content-center my-2">
+                  <app-drag-drop [listaEspecConsultas]="listEspecConsulta" (selecionados)="selecionados($event)"></app-drag-drop>
+                </div>
+
+
+              </div>
+              <div class="flex pt-4 justify-content-between">
+                <p-button
+                  label="Voltar"
+                  icon="pi pi-arrow-left"
+                  [outlined]="true"
+                  [rounded]="true"
+                  severity="secondary"
+                  (onClick)="prevCallback.emit()"
+                />
+                <p-button
+                  label="Próximo"
+                  [rounded]="true"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  severity="success"
+                  (onClick)="nextCallback.emit()"
+                />
+              </div>
+            </ng-template>
+          </p-stepperPanel>
+          <p-stepperPanel header="Pagamento">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+                <div class="flex flex-column h-12rem">
+                    <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                        Content II
+                    </div>
+                </div>
+                <div class="flex pt-4 justify-content-between">
+                  <p-button
+                    label="Voltar"
+                    [outlined]="true"
+                    [rounded]="true"
+                    icon="pi pi-arrow-left"
+                    severity="secondary"
+                    (onClick)="prevCallback.emit()"
+                  />
+                  <p-button
+                    label="Próximo"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    [rounded]="true"
+                    severity="success"
+                    (onClick)="nextCallback.emit()"
+                  />
+                </div>
+            </ng-template>
+        </p-stepperPanel>
+          <p-stepperPanel header="Confirmação">
+              <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+                  <div class="flex flex-column h-12rem">
+                      <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                          Content III
+                      </div>
+                  </div>
+                  <div class="flex pt-4 justify-content-between">
+                      <p-button
+                        label="Voltar"
+                        [outlined]="true"
+                        [rounded]="true"
+                        icon="pi pi-arrow-left"
+                        severity="secondary"
+                        (onClick)="prevCallback.emit()"
+                      />
+                      <p-button
+                        label="Finalizar"
+                        icon="pi pi-save"
+                        severity="success"
+                        [rounded]="true"
+
+                      />
+                  </div>
+              </ng-template>
+          </p-stepperPanel>
+        </p-stepper>
+      </form>
+    </div>
+
+
+  </div>
+</div>
+
+
+<p-sidebar [(visible)]="buscarPaciente" position="left" styleClass="w-30rem" >
+  <ng-template pTemplate="header" >
+    <div class="mt-3 shadow-3 border-round-3xl">
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-search azul text-lg"></i>
+        <input pInputText id="search" class="search" [(ngModel)]="searchQuery"/>
+        <label for="search" class="azul">Buscar paciente...</label>
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="body">
+    <div class="flex overflow-auto surface-overlay">
+      <ul class="patient-list ">
+        <li *ngFor="let item of filteredPacientes"
+            [class.selected]="item === selectedPaciente"
+            (click)="selectPaciente(item)"
+            class="my-3 flex-column "
+          >
+          <div class="text-overflow-ellipsis">
+            &nbsp;&nbsp;<i class="pi pi-user azul "></i>&nbsp;&nbsp;{{ item.nome }}
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-center ">
+      <p-button
+        label="Selecionar"
+        icon="pi pi-save"
+        severity="success"
+        [rounded]="true"
+        class="shadow-6 border-round-3xl"
+        (click)="confirmSelection()"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-sidebar>
+

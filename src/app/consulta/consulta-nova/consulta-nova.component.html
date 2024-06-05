@@ -3,10 +3,36 @@
 
   <div class="card p-component pt-4 new ">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-      <div class="row lg:flex lg:justify-content-around mt-2 lg:h-4rem">
-        <div class="field">
-          <span class="p-float-label p-input-icon-right ">
-            <p-dropdown
+      <div class="card flex justify-content-end" *ngIf="!pacienteSelecionado">
+        <p-toggleButton
+          [(ngModel)]="consultaRapida"
+          onIcon="pi pi-bolt"
+          offIcon="pi pi-briefcase"
+          styleClass="custom-class w-full text-xs sm:w-2rem sm:h-2rem mb-2"
+          ariaLabel="Do you confirm"
+          (click)="consultaRapida = !consultaRapida"
+        />
+      </div>
+
+      <div >
+        <div class="row lg:flex lg:justify-content-around mt-2 lg:h-4rem">
+          <div *ngIf="!consultaRapida">
+            <span class="p-float-label p-input-icon-right ">
+              <p-dropdown
+                *ngIf="!pacienteSelecionado"
+                [options]="listaPaciente"
+                appendTo="body"
+                [autoZIndex]="true"
+                formControlName="paciente"
+                [filter]="true"
+                filterBy="nome"
+                optionLabel="nome"
+                [style]="{'width': '14vw', 'height':'46px'}"
+                scrollHeight="300px"
+                inputId="paciente"
+                class="web"
+              ></p-dropdown>
+              <p-dropdown
               *ngIf="!pacienteSelecionado"
               [options]="listaPaciente"
               appendTo="body"
@@ -15,33 +41,36 @@
               [filter]="true"
               filterBy="nome"
               optionLabel="nome"
-              [style]="{'width': '14vw', 'height':'46px'}"
+              [style]="{'width': '74vw', 'height':'46px'}"
               scrollHeight="300px"
               inputId="paciente"
-              class="web"
-            ></p-dropdown>
-            <p-dropdown
-            *ngIf="!pacienteSelecionado"
-            [options]="listaPaciente"
-            appendTo="body"
-            [autoZIndex]="true"
-            formControlName="paciente"
-            [filter]="true"
-            filterBy="nome"
-            optionLabel="nome"
-            [style]="{'width': '74vw', 'height':'46px'}"
-            scrollHeight="300px"
-            inputId="paciente"
-            class="mobile"
-          ></p-dropdown>
-            <i class="pi pi-pw pi-angle-down text-xl" *ngIf="pacienteSelecionado"></i>
-            <input pInputText id="nome" *ngIf="pacienteSelecionado" [value]="pacienteSelecionado.nome" required [disabled]="true" class="width" />
-            <label for="paciente" class="azul">{{pacienteSelecionado? "Paciente":"Selecione o Paciente"}}</label>
-          </span>
-          <small *ngIf="formulario.get('paciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
-      </div>
+              class="mobile"
+              ></p-dropdown>
+              <i class="pi pi-pw pi-angle-down text-xl" *ngIf="pacienteSelecionado"></i>
+              <input pInputText id="nome" *ngIf="pacienteSelecionado" [value]="pacienteSelecionado.nome" required [disabled]="true" class="width" />
+              <label for="paciente" class="azul">{{pacienteSelecionado? "Paciente":"Selecione o Paciente"}}</label>
+            </span>
+            <small *ngIf="formulario.get('paciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
+          </div>
 
-        <div class="field">
+         <div *ngIf="consultaRapida">
+          <span class="p-float-label p-input-icon-left ">
+            <i class="pi pi-user azul"></i>
+            <input pInputText id="nome" formControlName="nomePaciente" required class="width" />
+            <label for="paciente" class="azul">Nome do paciente</label>
+          </span>
+          <small *ngIf="formulario.get('nomePaciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
+         </div>
+         <div *ngIf="consultaRapida">
+          <span class="p-float-label p-input-icon-left ">
+            <i class="pi pi-phone azul"></i>
+            <input pInputText id="nome" formControlName="telefone" required class="width" minlength="11" minlength="14"(input)="replaceTelefone()" />
+            <label for="paciente" class="azul">Telefone</label>
+          </span>
+          <small *ngIf="formulario.get('telefone')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
+         </div>
+
+         <div class="field" *ngIf="!consultaRapida">
           <span class="p-float-label  p-input-icon-right ">
             <p-dropdown
              *ngIf="!dentistaSelecionado"
@@ -77,128 +106,168 @@
 
           </span>
           <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+         </div>
+
         </div>
 
-      </div>
+        <div class="row lg:flex lg:justify-content-around lg:mt-6 lg:h-4rem">
 
-      <div class="row lg:flex lg:justify-content-around lg:mt-6 lg:h-4rem">
+              <div class="field">
+                <span class="p-float-label  p-input-icon-right">
+                  <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    inputId="dataConsulta"
+                    placeholder="dd/mm/yyyy"
+                    dateFormat="dd/mm/yy"
+                    [showButtonBar]="true"
+                    [style]="{'color':'#2070B4', 'width': '12vw'}"
+                    formControlName="dataConsulta"
+                    class="web"
+                    >
+                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                        <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                      </ng-template>
+                    </p-calendar>
 
-            <div class="field">
-              <span class="p-float-label  p-input-icon-right">
-                <p-calendar
-                  [iconDisplay]="'input'"
-                  [showIcon]="true"
-                  appendTo="body"
-                  [autoZIndex]="true"
-                  inputId="dataConsulta"
-                  placeholder="dd/mm/yyyy"
-                  dateFormat="dd/mm/yy"
-                  [showButtonBar]="true"
-                  [style]="{'color':'#2070B4', 'width': '12vw'}"
-                  formControlName="dataConsulta"
-                  class="web"
-                  >
+                    <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    inputId="dataConsulta"
+                    placeholder="dd/mm/yyyy"
+                    dateFormat="dd/mm/yy"
+                    [showButtonBar]="true"
+                    [style]="{'color':'#2070B4', 'width': '74vw'}"
+                    formControlName="dataConsulta"
+                    class="mobile"
+                    >
                     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                       <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
                     </ng-template>
                   </p-calendar>
+                  <label for="dataConsulta" class="azul">Data Consulta</label>
+                </span>
+                <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+              </div>
 
-                  <p-calendar
-                  [iconDisplay]="'input'"
-                  [showIcon]="true"
-                  appendTo="body"
-                  [autoZIndex]="true"
-                  inputId="dataConsulta"
-                  placeholder="dd/mm/yyyy"
-                  dateFormat="dd/mm/yy"
-                  [showButtonBar]="true"
-                  [style]="{'color':'#2070B4', 'width': '74vw'}"
-                  formControlName="dataConsulta"
-                  class="mobile"
-                  >
-                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                  </ng-template>
-                </p-calendar>
-                <label for="dataConsulta" class="azul">Data Consulta</label>
-              </span>
-              <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
-            </div>
+              <div class="field">
+                <span class="p-float-label p-input-icon-right">
+                  <i class="pi pi-clock azul"></i>
+                  <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '12vw'}" class="web"></p-inputMask>
+                  <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '74vw'}" class="mobile"></p-inputMask>
+                  <label for="horaConsulta" class="azul">Hora Consulta</label>
+                </span>
+                <small *ngIf="formulario.get('horaConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+              </div>
+        </div>
 
-            <div class="field">
-              <span class="p-float-label p-input-icon-right">
-                <i class="pi pi-clock azul"></i>
-                <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '12vw'}" class="web"></p-inputMask>
-                <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '74vw'}" class="mobile"></p-inputMask>
-                <label for="horaConsulta" class="azul">Hora Consulta</label>
-              </span>
-              <small *ngIf="formulario.get('horaConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
-            </div>
-      </div>
-
-      <div class="row lg:flex lg:justify-content-center lg:mt-6 lg:h-4rem ">
-          <div class="field">
-            <span class="p-float-label  p-input-icon-right">
+        <div class="row lg:flex lg:justify-content-around lg:mt-6 lg:h-4rem ">
+          <div class="field" *ngIf="consultaRapida">
+            <span class="p-float-label  p-input-icon-right ">
               <p-dropdown
-                [options]="listaEspecConsulta"
+               *ngIf="!dentistaSelecionado"
+                [options]="listaDentista"
                 appendTo="body"
                 [autoZIndex]="true"
-                formControlName="consultaEspecialidade"
-                optionLabel="tipo"
-                [style]="{'width': '16vw', 'height':'46px'}"
+                formControlName="dentista"
+                optionLabel="nome"
+                [filter]="true"
+                filterBy="nome"
+                [style]="{'width': '14vw', 'height':'46px'}"
                 scrollHeight="300px"
-                inputId="especConsulta"
+                inputId="dentista"
                 class="web"
                 ></p-dropdown>
                 <p-dropdown
-                [options]="listaEspecConsulta"
+                *ngIf="!dentistaSelecionado"
+                [options]="listaDentista"
                 appendTo="body"
                 [autoZIndex]="true"
-                formControlName="consultaEspecialidade"
-                optionLabel="tipo"
+                formControlName="dentista"
+                optionLabel="nome"
+                [filter]="true"
+                filterBy="nome"
                 [style]="{'width': '74vw', 'height':'46px'}"
                 scrollHeight="300px"
-                inputId="especConsulta"
+                inputId="dentista"
                 class="mobile"
                 ></p-dropdown>
-              <label for="consultaEspecialidade" class="azul">Procedimento da Consulta</label>
-              <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('erro')"class="p-error text-xs"><br>*Houve um erro ao buscar os tipos de consultas</small>
+                <i class="pi pi-pw pi-angle-down text-xl" *ngIf="dentistaSelecionado"></i>
+                <input pInputText id="nome" *ngIf="dentistaSelecionado" [value]="dentistaSelecionado.nome" required [disabled]="true" class="width" />
+                <label for="paciente" class="azul">{{dentistaSelecionado? "Dentista":"Selecione o Dentista"}}</label>
+
             </span>
-            <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+            <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
           </div>
-      </div>
-      <div class="row lg:h-6rem lg:mt-3">
-        <div class="flex justify-content-center">
-          <div>
-            <h4>Tempo Previsto</h4>
+
+          <div class="field">
+              <span class="p-float-label  p-input-icon-right">
+                <p-dropdown
+                  [options]="listaEspecConsulta"
+                  appendTo="body"
+                  [autoZIndex]="true"
+                  formControlName="consultaEspecialidade"
+                  optionLabel="tipo"
+                  [style]="{'width': '14vw', 'height':'46px'}"
+                  scrollHeight="300px"
+                  inputId="especConsulta"
+                  class="web"
+                  ></p-dropdown>
+                  <p-dropdown
+                  [options]="listaEspecConsulta"
+                  appendTo="body"
+                  [autoZIndex]="true"
+                  formControlName="consultaEspecialidade"
+                  optionLabel="tipo"
+                  [style]="{'width': '74vw', 'height':'46px'}"
+                  scrollHeight="300px"
+                  inputId="especConsulta"
+                  class="mobile"
+                  ></p-dropdown>
+                <label for="consultaEspecialidade" class="azul">Procedimento da Consulta</label>
+                <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('erro')"class="p-error text-xs"><br>*Houve um erro ao buscar os tipos de consultas</small>
+              </span>
+              <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+          </div>
+        </div>
+        <div class="row lg:h-6rem lg:mt-3">
+          <div class="flex justify-content-center">
+            <div>
+              <h4>Tempo Previsto</h4>
+            </div>
+          </div>
+
+          <div class="lg:flex lg:justify-content-center ">
+                <div class="flex align-items-center md:m-2 web m-2">
+                  <p-radioButton name="tempoPrevisto" value="1" class="azul" formControlName="tempoPrevisto" inputId="tempo1" label="15 Minutos"></p-radioButton>
+                </div>
+                <div class="flex align-items-center lg:ml-2 m-2 web">
+                  <p-radioButton name="tempoPrevisto" value="2" class="azul" formControlName="tempoPrevisto" inputId="tempo2" label="30 Minutos"></p-radioButton>
+                </div>
+                <div class="flex align-items-center m-2 web">
+                  <p-radioButton name="tempoPrevisto" value="3" class="azul" formControlName="tempoPrevisto" inputId="tempo3" label="45 Minutos"></p-radioButton>
+                </div>
+                <div class="flex align-items-center m-2 web">
+                  <p-radioButton name="tempoPrevisto" value="4" class="azul" formControlName="tempoPrevisto" inputId="tempo4" label="60 Minutos"></p-radioButton>
+                </div>
+          </div>
+          <div class="lg:flex lg:justify-content-center ">
+            <small *ngIf="formulario.get('tempoPrevisto')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
           </div>
         </div>
 
-        <div class="lg:flex lg:justify-content-center ">
-              <div class="flex align-items-center md:m-2 web m-2">
-                <p-radioButton name="tempoPrevisto" value="1" class="azul" formControlName="tempoPrevisto" inputId="tempo1" label="15 Minutos"></p-radioButton>
-              </div>
-              <div class="flex align-items-center lg:ml-2 m-2 web">
-                <p-radioButton name="tempoPrevisto" value="2" class="azul" formControlName="tempoPrevisto" inputId="tempo2" label="30 Minutos"></p-radioButton>
-              </div>
-              <div class="flex align-items-center m-2 web">
-                <p-radioButton name="tempoPrevisto" value="3" class="azul" formControlName="tempoPrevisto" inputId="tempo3" label="45 Minutos"></p-radioButton>
-              </div>
-              <div class="flex align-items-center m-2 web">
-                <p-radioButton name="tempoPrevisto" value="4" class="azul" formControlName="tempoPrevisto" inputId="tempo4" label="60 Minutos"></p-radioButton>
-              </div>
-        </div>
-        <div class="lg:flex lg:justify-content-center ">
-          <small *ngIf="formulario.get('tempoPrevisto')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+        <div class="row flex justify-content-center mt-7">
+          <span class="p-float-label width">
+            <textarea id="float-input" rows="3" class="width" formControlName="observacao" pInputTextarea></textarea>
+            <label for="float-input" class="azul">Observações</label>
+          </span>
         </div>
       </div>
 
-      <div class="row flex justify-content-center mt-7">
-        <span class="p-float-label width">
-          <textarea id="float-input" rows="3" class="width" formControlName="observacao" pInputTextarea></textarea>
-          <label for="float-input" class="azul">Observações</label>
-        </span>
-      </div>
       <div class="flex justify-content-around lg:justify-content-between align-content-center m-3">
         <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
         <p-button type="submit" label="Agendar" [rounded]="true" severity="success" icon="pi pi-save" class="mx-2" ></p-button>

@@ -308,7 +308,7 @@
                 </th> -->
                 <th [width]="250">
                   <div class="flex justify-content-end align-items-center web">
-                    <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success " pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+                    <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
                   </div>
                 </th>
             </ng-template>
@@ -332,7 +332,7 @@
                         <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                       }
                     @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                      <p-tag severity="primary" value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                      <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
                       }
                     @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
                       {
