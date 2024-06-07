@@ -14,6 +14,7 @@ import { Cliente } from 'src/app/class/cliente';
 })
 export class NovoOrcamentoComponent implements OnInit {
 
+
   listEspecConsulta: EspecConsulta[];
   listaDentista: Dentista[];
 
@@ -22,7 +23,9 @@ export class NovoOrcamentoComponent implements OnInit {
 
   dentista: Dentista;
   paciente: Cliente;
-
+  totalSomado: number;
+  parcelas: any[] ;
+  formaPagamento: any[];
 
   buscarPaciente: boolean = false;
 
@@ -57,7 +60,6 @@ export class NovoOrcamentoComponent implements OnInit {
     if (organizacaoJson) {
       this.org = JSON.parse(organizacaoJson);
     }
-
     if(sessionStorage.getItem('idDentista')){
       this.dentistaService.getByIdDentista(sessionStorage.getItem('idDentista'), this.org.id).then((response)=>{
         console.log(response)
@@ -66,9 +68,6 @@ export class NovoOrcamentoComponent implements OnInit {
         }
       })
     }
-    console.log(this.dentista)
-
-
 
     this.consultaService.getEspecConsulta().then((response) => {
       this.listEspecConsulta = response;
@@ -77,10 +76,22 @@ export class NovoOrcamentoComponent implements OnInit {
     this.dentistaService.getDentistas(this.org.id).then((response)=>{
       this.listaDentista = response;
     })
-
-
     this.criaFormulario();
 
+    this.formaPagamento = [
+      { label: 'Pix',      value: 1, icon: 'pi pi-arrow-right-arrow-left' },
+      { label: 'Dinheiro', value: 2, icon: 'pi pi-money-bill' },
+      { label: 'Cartão',   value: 3, icon: 'pi pi-credit-card' },
+      { label: 'Outro',    value: 4, icon: 'pi pi-book' }
+    ];
+    this.parcelas = [
+      { label: 'À vista',         value: 1, },
+      { label: 'Parcelado em 2x', value: 2, },
+      { label: 'Parcelado em 3x', value: 3, },
+      { label: 'Parcelado em 4x', value: 4, },
+      { label: 'Parcelado em 5x', value: 5, },
+      { label: 'Parcelado em 6x', value: 6, },
+    ];
 
   }
 
@@ -92,6 +103,10 @@ export class NovoOrcamentoComponent implements OnInit {
       telefonePaciente: [''],
       cpfPaciente: [''],
       paciente: [this.paciente],
+      desconto: [0],
+      acrecimo: [0],
+      formaPagamento: ['', Validators.required],
+      parcelas: ['',Validators.required],
       dentista: ['', Validators.required],
       data: ['', Validators.required],
       validadeOrcamento: ['', Validators.required],
@@ -100,14 +115,18 @@ export class NovoOrcamentoComponent implements OnInit {
       idOrganizacao: [this.org],
     })
   }
+  setDentista():void{
+    this.dentista = this.formulario.get('dentista')?.value
+  }
 
   onSubmit(){
 
   }
 
-  selecionados($event: Event) {
+  selecionados(total: any) {
+    console.log("total somado: ", total)
+  }
 
-    }
   get filteredPacientes() {
     return this.pacientes.filter(p => p.nome.toLowerCase().includes(this.searchQuery.toLowerCase()));
   }
@@ -120,6 +139,31 @@ export class NovoOrcamentoComponent implements OnInit {
     console.log('Paciente selecionado:', this.paciente);
     this.paciente = this.selectedPaciente;
     this.buscarPaciente = false;
+  }
+
+  async reloadingPagamento(reloading: boolean) {
+    if(reloading){
+      // const consulta = this.consultaSelecionadaPg.id;
+      // this.consultaSelecionadaInfo(consulta, 2);
+    }
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^\d]/g, ''); // Remove qualquer caractere não numérico
+
+    if (event.key >= '0' && event.key <= '9') {
+      value += event.key; // Adiciona o novo dígito no final
+    } else if (event.key === 'Backspace') {
+      value = value.slice(0, -1); // Remove o último dígito
+    } else {
+      event.preventDefault();
+      return;
+    }
+
+
+    this.formulario.get('valorBase')?.setValue((Number(value) / 100));
+    event.preventDefault();
   }
 }
 

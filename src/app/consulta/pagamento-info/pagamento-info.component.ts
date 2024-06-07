@@ -27,6 +27,7 @@ interface UploadEvent {
 export class PagamentoInfoComponent implements OnInit {
 
   @Input() consultaSelecionadaPg: Consulta;
+  @Input() totalSomado: number;
   @Output() reloading = new EventEmitter<boolean>();
 
   formaCalculo: any[] ;

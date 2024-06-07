@@ -92,6 +92,8 @@ onRowEditCancel(product: any, index: number) {
       tipo: ['', Validators.required],
       valorBase: [0, Validators.required],
       descricao: ['', Validators.required],
+      multiplicativo: [false],
+      orcamento: [false]
     })
   }
 
@@ -109,23 +111,24 @@ onRowEditCancel(product: any, index: number) {
   }
 
   onSubmit() {
-    if(this.formulario.valid){
-      this.serviceConsulta.postEspecConsulta(this.formulario.value).then((response)=>{
-        if(response == 200 || response == 201){
-          this.fecharModal();
-          this.buscaEspecialidade();
-          this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Especialidade adicionada com sucesso!' });
-        }else{
-          this.fecharModal();
-          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocurreu um erro ao salvar a especialidade.' });
-        }
-      }).catch((error)=>{
-        this.fecharModal();
-        this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocurreu um erro na requisicao para salvar a especialidade.' });
-      })
-    }else{
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'O formulario nao fui preenchido corretamente.' });
-    }
+    console.log(this.formulario.value)
+    // if(this.formulario.valid){
+    //   this.serviceConsulta.postEspecConsulta(this.formulario.value).then((response)=>{
+    //     if(response == 200 || response == 201){
+    //       this.fecharModal();
+    //       this.buscaEspecialidade();
+    //       this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Especialidade adicionada com sucesso!' });
+    //     }else{
+    //       this.fecharModal();
+    //       this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocurreu um erro ao salvar a especialidade.' });
+    //     }
+    //   }).catch((error)=>{
+    //     this.fecharModal();
+    //     this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocurreu um erro na requisicao para salvar a especialidade.' });
+    //   })
+    // }else{
+    //   this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'O formulario nao fui preenchido corretamente.' });
+    // }
   }
 
   onDelete(id: any){

@@ -1,6 +1,6 @@
 
 import { ButtonModule } from 'primeng/button';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NovoOrcamentoComponent } from './novo-orcamento/novo-orcamento.component';
 import { TagModule } from 'primeng/tag';
@@ -18,14 +18,19 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms'; // Importe o FormsModule
 import { EditorModule } from 'primeng/editor';
-
-
+import { PagamentoInfoComponent } from 'src/app/consulta/pagamento-info/pagamento-info.component';
+import { ConsultaModule } from 'src/app/consulta/consulta.module';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @NgModule({
   declarations: [
     NovoOrcamentoComponent,
-    DragDropComponent
+    DragDropComponent,
   ],
   imports: [
+    FloatLabelModule,
+    InputNumberModule,
+    ConsultaModule,
     CommonModule,
     DragDropModule,
     StepperModule,
@@ -45,6 +50,7 @@ import { EditorModule } from 'primeng/editor';
   ], exports:[
     NovoOrcamentoComponent,
     DragDropComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class OrcamentoModule { }

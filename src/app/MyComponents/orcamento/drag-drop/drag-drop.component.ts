@@ -11,6 +11,8 @@ export class DragDropComponent implements OnInit{
 
   @Input() listaEspecConsultas: EspecConsulta[];
   @Output() selecao: EventEmitter<EspecConsulta[]> = new EventEmitter<EspecConsulta[]>();
+  @Output() totalSomado: EventEmitter<number> = new EventEmitter<number>();
+
   selecionado: EspecConsulta[] = [];
   draggedProduct: EspecConsulta | null;
 
@@ -69,6 +71,7 @@ export class DragDropComponent implements OnInit{
         soma += item.valorBase;
       });
     }
+    this.totalSomado.emit(soma);
     return soma;
   }
 }

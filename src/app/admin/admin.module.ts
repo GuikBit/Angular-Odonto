@@ -25,6 +25,10 @@ import { AdminDentistaComponent } from './admin-dentista/admin-dentista.componen
 import { StepperModule } from 'primeng/stepper';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
+import { CheckboxModule } from 'primeng/checkbox';
+
+
+
 
 @NgModule({
   declarations: [
@@ -51,6 +55,7 @@ import { ImageModule } from 'primeng/image';
     FormsModule,
     InputNumberModule,
     ReactiveFormsModule,
+    CheckboxModule,
     DialogModule,
     InputTextareaModule,
     ConfirmDialogModule,

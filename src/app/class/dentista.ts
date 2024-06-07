@@ -5,7 +5,7 @@ export class Dentista extends User{
 
     cro?: string;
     corDentista: string;
-    especialidade?: {};
+    especialidade?: {tipo: string, descricao: string, id: string};
     consultas?: {}
 
 

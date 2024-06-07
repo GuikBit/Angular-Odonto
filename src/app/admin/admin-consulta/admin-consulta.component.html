@@ -28,7 +28,7 @@
           <th pSortableColumn="tipo" >
             <div class="flex row align-items-center">
               <div class="col-8 flex justify-content-start align-items-center azul">
-                Tipo
+                Título
               </div>
               <div class="col-4 flex justify-content-end align-items-center">
                 <p-sortIcon
@@ -49,7 +49,7 @@
           <th pSortableColumn="descricao" >
             <div class="flex row align-items-center">
               <div class="col-8 flex justify-content-start align-items-center azul">
-                Descricao
+                Descrição
               </div>
               <div class="col-4 flex justify-content-end align-items-center">
                 <p-sortIcon
@@ -181,7 +181,7 @@
           <div class="field md:col-12 lg:col-7 ">
             <span class="p-float-label width">
               <input pInputText inputId="tipo" formControlName="tipo"  class="width"/>
-              <label for="tipo" class="azul"><i class="pi pi-pencil azul"></i>&nbsp;&nbsp;Tipo</label>
+              <label for="tipo" class="azul"><i class="pi pi-pencil azul"></i>&nbsp;&nbsp;Título</label>
             </span>
           </div>
           <div class="field md:col-12 lg:col-5 ">
@@ -201,11 +201,6 @@
             </span>
           </div>
         </div>
-        <div class="lg:flex lg:justify-content-center " >
-
-
-
-        </div>
 
         <div class="row lg:flex lg:justify-content-center mt-2">
           <div class="row flex justify-content-center col-12">
@@ -214,6 +209,23 @@
               <label for="descricao" for="descricao" class="azul"><i class="pi pi-file-edit"></i>&nbsp;Descricao</label>
             </span>
           </div>
+        </div>
+
+        <div class=" row flex justify-content-evenly">
+          <p-checkbox
+            formControlName="multiplicativo"
+            label="Multiplicativo?"
+            name="multiplicativo"
+            value="true"
+
+          />
+          <p-checkbox
+            formControlName="orcamento"
+            label="Pertence ao orcamento?"
+            name="orcamento"
+            value="true"
+
+          />
         </div>
         <div class="flex justify-content-around lg:justify-content-between align-content-center mt-6">
           <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" size="small" (click)="fecharModal()"></p-button>
