@@ -37,7 +37,7 @@ export class ClienteInfoComponent implements OnInit {
 
   dataSource: MatTableDataSource<Cliente>;
   formulario: FormGroup;
-  activeIndex: number = 4;
+  activeIndex: number = 1;
 
   items: MenuItem[];
   idade: string;

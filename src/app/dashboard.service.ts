@@ -16,7 +16,7 @@ export class DashboardService {
     return (localStorage.getItem('access_token')?.replace(/"/g, '')) || ''
   }
 
-  async getDashBoard(){
+  async postDashBoard(filtro: any){
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
       timeout: 1000,
@@ -24,7 +24,7 @@ export class DashboardService {
     });
 
     try{
-      const response = await instance.get(`${this.apiURL}`)
+      const response = await instance.post(`${this.apiURL}`, filtro)
       return response;
 
     }catch (error) {

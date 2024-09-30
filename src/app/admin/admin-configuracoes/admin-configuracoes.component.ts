@@ -22,9 +22,10 @@ export class AdminConfiguracoesComponent implements OnInit {
   formulario: FormGroup;
 
   cadastroOrg: boolean = false;
+  novoFuncionario: boolean = false;
 
   items: MenuItem[];
-  activeIndex: number = 0;
+  activeIndex: number = 2;
 
   constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, private globalService: GlobalService){
 
@@ -260,6 +261,10 @@ export class AdminConfiguracoesComponent implements OnInit {
 
   onSubmit(){
     console.log(this.formulario.value)
+  }
+
+  cadastro(){
+    this.novoFuncionario = true;
   }
 
 }

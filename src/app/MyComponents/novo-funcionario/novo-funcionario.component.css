@@ -1,0 +1,94 @@
+:host::ng-deep {
+  .btnNew {
+    background: linear-gradient(to right, #2070b4, #24aae3);
+    border: none;
+  }
+
+}
+
+:host ::ng-deep .p-tabview{
+  padding-top: 30px;
+  padding-bottom: 0px;
+  padding-inline: 20px;
+  margin-bottom: 0px;
+  border: 1px solid #c4ddf3;
+  border-radius: 8px;
+
+}
+.tab{
+
+}
+button.btnNew{
+
+  font-size: 0.9rem;
+  width: 120px;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border:none;
+  color: #FFF
+}
+
+.new{
+  background: #FFFFFF;
+  border-radius: 7px ;
+  border: 1px solid #c4ddf3;
+}
+.search{
+  color: #2070b4;
+  border-color:  #2070b4;
+  width: 25vw;
+  border-radius: 50px;
+}
+
+.azul{
+  color: #2070b4;
+}
+.width{
+  width: 100%;
+}
+
+.custom-upload-body {
+  background-color: #f7f9fc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.custom-choose-btn {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.custom-upload-btn {
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.custom-cancel-btn {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.custom-choose-btn:hover,
+.custom-upload-btn:hover,
+.custom-cancel-btn:hover {
+  opacity: 0.9;
+}
+
+
+/* button{
+
+  font-size: 0.9rem;
+  width: 7vw;
+  border-radius: 50px;
+  border:none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+}
+
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+} */

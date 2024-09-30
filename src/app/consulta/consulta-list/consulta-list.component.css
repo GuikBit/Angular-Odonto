@@ -6,7 +6,7 @@
 :host::ng-deep {
   .p-button.p-highlight.selectButton {
     background: linear-gradient(to right, #2070b4, #24aae3);
-    border: none;
+    border: 2px solid #fff;
   }
   .p-button.p-highlight:hover {
     background: linear-gradient(to right, #194973, #0f82ba);
@@ -52,7 +52,7 @@ th{
 
 }
 .filtro{
-  background: #EFF3F8;
+  background: 'transparent';
 }
 
 .search{

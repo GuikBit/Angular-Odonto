@@ -1,15 +1,16 @@
 
 .bannerCliente{
     width: 98%;
+    height: 270px;
     position: relative;
-    top: -40px;
+    top: -20px;
     display: flex;
     /* background-image: url("src/assets/img/teste2.png"); */
     background-image: url("src/assets/img/banner.jpg");
     background-repeat:no-repeat;
     background-size:cover;
     background-position: center center;
-    border-radius: 8px ;
+
     border: 1px solid #c4ddf3;
     box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 }
@@ -72,16 +73,17 @@ li {
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 }
 :host ::ng-deep .p-tabview{
-  padding: 30px;
+  padding: 10px;
   margin-bottom: 15px;
-  border: 1px #c4ddf3;
-  border-style: solid;
-  border-radius: 8px;
+
+  border-radius: 1rem;
   /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
 }
  :host ::ng-deep .p-card{
   border: 1px #c4ddf3;
   border-style: solid;
+  border-radius: 1rem;
+  padding: 15px;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
  }
 

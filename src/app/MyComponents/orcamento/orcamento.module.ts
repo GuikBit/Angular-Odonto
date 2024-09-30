@@ -22,6 +22,11 @@ import { PagamentoInfoComponent } from 'src/app/consulta/pagamento-info/pagament
 import { ConsultaModule } from 'src/app/consulta/consulta.module';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { CalendarModule } from 'primeng/calendar';
+import { InputMaskModule } from 'primeng/inputmask';
+
+
+
 @NgModule({
   declarations: [
     NovoOrcamentoComponent,
@@ -46,7 +51,9 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     TooltipModule,
     SidebarModule,
     FormsModule,
-    EditorModule
+    EditorModule,
+    CalendarModule,
+    InputMaskModule
   ], exports:[
     NovoOrcamentoComponent,
     DragDropComponent

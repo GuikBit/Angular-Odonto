@@ -27,7 +27,7 @@
         </ul>
       </div> -->
       <div class="">
-        <h2 class="flex justify-content-center">Novo Orçamento</h2>
+        <h2 class="flex justify-content-center font-bold">Novo Orçamento</h2>
       </div>
       <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="new border-round-lg m-4 pt-4">
 
@@ -36,7 +36,7 @@
 
           <div class="col-5">
             <div class="lg:flex lg:justify-content-between mb-3 pb-2 mr-4 ml-5">
-              <span class="ml-2 font-bold text-x1">Paciente</span>
+              <span class="ml-2 font-semibold text-2xl">Paciente</span>
               <i
                 class="pi pi-search text-blue-500 mr-4 hover:text-blue-800 mt-1"
                 style="font-size: 1.35rem; cursor: pointer; "
@@ -107,7 +107,7 @@
 
           <div class="col-5">
             <div class="lg:flex lg:justify-content-start mb-3 pb-2 mr-4 ml-5">
-              <span class="ml-2 font-bold ">Dentista</span>
+              <span class="ml-2 font-semibold text-2xl ">Dentista</span>
             </div>
             <div class="row lg:flex lg:justify-content-center">
               <div class="field  md:col-12 lg:col-7">
@@ -132,7 +132,7 @@
               <div class="field  md:col-12 lg:col-4">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-id-card azul"></i>
-                  <input pInputText id="cro" [value]="dentista?.cro" class="width" />
+                  <input pInputText id="cro" [value]="dentista?.cro" class="width" [readOnly]="true"/>
                   <label for="cro" class="azul">CRO</label>
                 </span>
               </div>
@@ -141,14 +141,14 @@
               <div class="field  md:col-12 lg:col-5">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-phone azul"></i>
-                  <input pInputText id="espec" [value]="dentista?.telefone" class="width" />
+                  <input pInputText id="espec" [value]="dentista?.telefone" class="width" [readOnly]="true" />
                   <label for="espec" class="azul">Telefone</label>
                 </span>
               </div>
               <div class="field  md:col-12 lg:col-6">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-briefcase azul"></i>
-                  <input pInputText id="espec" [value]="dentista?.especialidade?.tipo" class="width" />
+                  <input pInputText id="espec" [value]="dentista?.especialidade?.tipo" class="width" [readOnly]="true" />
                   <label for="espec" class="azul">Especialidade</label>
                 </span>
               </div>
@@ -157,7 +157,7 @@
               <div class="field  md:col-12 lg:col-11">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-envelope azul"></i>
-                  <input pInputText id="dataNascPaciente" [value]="dentista?.email" required class="width" />
+                  <input pInputText id="dataNascPaciente" [value]="dentista?.email" required class="width" [readOnly]="true" />
                   <label for="dataNascPaciente" class="azul">Email</label>
                 </span>
               </div>
@@ -170,41 +170,32 @@
         </div>
 
         <div class="row lg:flex lg:justify-content-center col-12">
-          <app-drag-drop [listaEspecConsultas]="listEspecConsulta" (selecionados)="selecionados($event)"></app-drag-drop>
+          <app-drag-drop [listaEspecConsultas]="listEspecConsulta" (totalSomado)="totalEmProcedimentos($event)"  (selecao)="procedimentosSelecionados($event)"></app-drag-drop>
         </div>
 
         <div class="mx-8">
           <p-divider layout="horizontal" />
         </div>
 
-        <div class="lg:flex lg:justify-content-center">
-          <span class="font-bold text-x1">Pagamento</span>
-          <div class="col-6">
-            <!-- <app-pagamento-info  [totalSomado]="totalSomado" (reloading)="reloadingPagamento($event)"></app-pagamento-info> -->
+        <div class="lg:flex lg:justify-content-start mb-3 pb-2 mr-4 ml-8">
+          <span class="ml-2 font-semibold text-2xl ">Pagamento</span>
+        </div>
 
-            <div class="field md:col-12 lg:col-5">
-              <span class="p-float-label width">
-                <p-inputNumber
-                  mode="currency"
-                  inputId="desconto"
-                  currency="BRL"
-                  locale="pt-BR"
-                  formControlName="desconto"
-                  [style]="{'width': '100%'}"
-                />
-                <label for="desconto" class="azul"><i class="pi pi-dollar azul"></i>&nbsp;&nbsp;Desconto</label>
-              </span>
-            </div>
-            <div class="col-2 flex justify-content-center">
-              <p-floatLabel>
+        <div class="mx-8">
+          <div class="row flex justify-content-around ">
+            <div class="col-2">
+              <div class="flex justify-content-center ">
+                <span class="font-bold text-lg m-2"><i class="pi pi-dollar azul"></i>&nbsp;&nbsp;Forma de pagamento&nbsp;</span><br/>
+              </div>
+              <div class="">
                 <p-dropdown
                   [options]="formaPagamento"
                   appendTo="body"
                   [autoZIndex]="true"
-                  [style]="{'width': '15vw', 'height':'46px', 'padding': '0'}"
+                  [style]="{'width': '13vw', 'height':'46px', 'padding': '0'}"
                   formControlName="formaPagamento"
                   optionLabel="descricao"
-                  class="width"
+                  class="width flex justify-content-center"
                   inputId="formaPagamento"
                   >
                   <ng-template let-item pTemplate="selectedItem">
@@ -216,223 +207,314 @@
                       {{ item?.label }}
                   </ng-template>
                   </p-dropdown>
-                <label for="formaPagamento">Forma de pagamento</label>
-              </p-floatLabel>
+              </div>
+            </div>
+            <div class="col-2 flex justify-content-center">
+              <div>
+                <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-calculator azul"></i>&nbsp;&nbsp;Parcelas</span>
+
+                  <p-dropdown
+                    [options]="parcelas"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    [style]="{'width': '13vw', 'height':'46px'}"
+                    formControlName="parcelas"
+                    optionLabel="label"
+                    optionValue="value"
+                    (onChange)="ajustaParcelas()"
+                    >
+                      <ng-template let-item pTemplate="selectedItem">
+                          <i [class]="item?.icon"></i>
+                          {{ item?.label }}
+                      </ng-template>
+                      <ng-template let-item pTemplate="item">
+                          <i [class]="item?.icon"></i>
+                          {{ item?.label }}
+                      </ng-template>
+                  </p-dropdown>
+              </div>
+            </div>
+            <div class="col-2 flex justify-content-center">
+              <div>
+                <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+                  Desconto (R$)
+                </span>
+                <span class="p-float-label">
+                  <p-inputNumber
+                  mode="currency"
+                  inputId="desconto"
+                  currency="BRL"
+                  locale="pt-BR"
+                  formControlName="desconto"
+                  (keydown)="onKeydown($event, 1)"
+                  [value]="formulario.get('desconto')?.value"
+                  class="width"
+                  [style]="{ 'width': '13vw' }"
+                  />
+                  <!-- <label for="desconto" class="azul"><i class="pi pi-dollar azul"></i>&nbsp;&nbsp;Desconto</label> -->
+                </span>
+
+              </div>
+            </div>
+            <div class="col-2 flex justify-content-center">
+              <div>
+                <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-up azul"></i>&nbsp;&nbsp;
+                  Acréscimo (R$)
+                </span>
+                <span class="p-float-label width">
+                  <p-inputNumber
+                  mode="currency"
+                  inputId="acrecimo"
+                  currency="BRL"
+                  locale="pt-BR"
+                  formControlName="acrecimo"
+                  (keydown)="onKeydown($event, 2)"
+                  [value]="formulario.get('acrecimo')?.value"
+                  class="width"
+                  [style]="{ 'width': '13vw' }"
+                  />
+                  <!-- <label for="descoacrecimonto" class="azul"><i class="pi pi-dollar azul"></i>&nbsp;&nbsp;Acrecimo</label> -->
+                </span>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="flex justify-content-center ">
+                <span class="font-bold text-lg m-2"><i class="pi pi-tag azul"></i>&nbsp;&nbsp;Total calculado&nbsp;</span><br/>
+              </div>
+              <div class="flex justify-content-center mt-3">
+                <span class="text-lg">{{ calculaTotal() | currency: 'BRL'}}</span>
+              </div>
             </div>
           </div>
+
+          <div class="row flex justify-content-around mt-2 my-6" *ngIf="ehCartao()">
+            <div class="col-3">
+              <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+                Nome cartao
+              </span>
+              <span class="p-float-label">
+                <input type="text" pInputText formControlName="nomeCartao" class="w-full" />
+
+              </span>
+
+            </div>
+            <div class="col-2">
+              <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+                N Cartao
+              </span>
+              <span class="p-float-label">
+                <p-inputMask
+                  mask="0000 0000 0000 0000"
+                  formControlName="nCartao"
+                  placeholder="0000 0000 0000 0000" [style]="{'width': '100%'}" />
+
+
+              </span>
+            </div>
+            <div class="col-2">
+              <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+                Validade
+              </span>
+              <span class="p-float-label">
+                <input type="text" pInputText formControlName="validadeCartao" class="w-full" />
+
+              </span>
+
+            </div>
+            <div class="col-1">
+              <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+                CVC
+              </span>
+              <span class="p-float-label">
+                <input type="text" pInputText formControlName="cvcCartao" class="w-full" />
+
+              </span>
+
+            </div>
+            <div class="col-2">
+              <span class="font-bold text-lg flex justify-content-center m-2"><i class="pi pi-pw pi-arrow-circle-down azul"></i>&nbsp;&nbsp;
+               Tipo pagamento
+              </span>
+              <span class="p-float-label">
+                <p-dropdown
+                [options]="[
+                  { name: 'Credito', value: 1 },
+                  { name: 'Debito', value: 2 },
+                ]"
+                formControlName="tipoPagamento"
+                optionLabel="name"
+                [style]="{'width': '100%'}"
+                />
+
+              </span>
+
+            </div>
+          </div>
+
+          <div class="row flex justify-content-start mt-2 my-6">
+            <i class="azul font-medium underline cursor-pointer" *ngIf="!entrada" (click)="!entrada? criaEntrada() : false"><i class="pi pi-plus-circle text-sm"></i>&nbsp;Incluir Entrada</i>
+          </div>
+
+          <div class="row mx-8 mt-2 my-6" *ngIf="entrada">
+            <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
+              <div class="col-1 flex justify-content-center font-bold"></div>
+              <div class="col-2 flex justify-content-center font-bold">Valor</div>
+              <div class="col-3 flex justify-content-center font-bold">Forma de pagamento</div>
+              <div class="col-2 flex justify-content-center font-bold">Data Pagamento</div>
+              <div class="col-2 flex justify-content-center font-bold">Comprovante</div>
+              <div class="col-1 flex justify-content-center font-bold"></div>
+            </div>
+
+            <div class="flex justify-content-around align-items-center border-solid border-1 border-200 ">
+
+              <div class="col-1 flex justify-content-center">
+                <span>Entrada</span>
+              </div>
+              <div class="col-2 flex justify-content-center ">
+                <span class="p-float-label" >
+                  <p-inputNumber
+                  mode="currency"
+                  inputId="acrecimo"
+                  currency="BRL"
+                  locale="pt-BR"
+                  formControlName="entrada"
+                  (keydown)="onKeydown($event, 3)"
+                  [value]="formulario.get('entrada')?.value"
+                  />
+                </span>
+              </div>
+              <div class="col-3 flex justify-content-center">
+                <p-dropdown
+                [options]="formaPagamento"
+                appendTo="body"
+                [autoZIndex]="true"
+                [style]="{'width': '13vw', 'height':'46px', 'padding': '0'}"
+                formControlName="formaPagamento"
+                optionLabel="descricao"
+                class="width flex justify-content-center"
+                [disabled]="true"
+                >
+                <ng-template let-item pTemplate="selectedItem">
+                  <i [class]="item?.icon"></i>
+                  {{ item?.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+                </p-dropdown>
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                <div class="flex-auto">
+                  <span class="p-float-label  p-input-icon-right">
+                    <p-calendar
+                      [iconDisplay]="'input'"
+                      [showIcon]="true"
+                      appendTo="body"
+                      [autoZIndex]="true"
+                      inputId="dataEntrada"
+                      placeholder="dd/mm/yyyy"
+                      dateFormat="dd/mm/yy"
+                      [showButtonBar]="true"
+                      [style]="{'color':'#2070B4', 'width': '12vw'}"
+                      formControlName="dataEntrada"
+                      class="web"
+                      >
+                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                          <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                        </ng-template>
+                    </p-calendar>
+                    </span>
+                </div>
+              </div>
+              <div class="col-2 flex justify-content-center">
+                <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
+                <input type="file" id="file" name="image[]" multiple="multiple" (change)="onFileSelected($event)">
+              </div>
+              <div class="col-1 flex justify-content-center">
+                <p-button label="Excluir" [text]="true" severity="danger" (click)="excluirEntrada()" ></p-button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="my-6">
+
+            <div class="flex justify-content-around border-solid border-1 border-200 surface-50">
+              <div class="col-2 flex justify-content-center font-bold">Parcelas</div>
+              <div class="col-1 flex justify-content-center font-bold">Valor</div>
+              <div class="col-2 flex justify-content-center font-bold">Data Vencimento</div>
+              <div class="col-2 flex justify-content-center font-bold">Forma de pagamento</div>
+              <div class="col-2 flex justify-content-center font-bold">Data Pagamento</div>
+              <div class="col-2 flex justify-content-center font-bold">Comprovante</div>
+              <div class="col-1 flex justify-content-center font-bold">Acao</div>
+            </div>
+            <div class="flex justify-content-around align-items-center  border-1 border-solid border-200">
+
+              <div class="col-2 flex justify-content-center">
+                {{ buscarParcelas() }}
+              </div>
+
+              <div class="col-1 flex justify-content-center">
+                {{ valorCadaParcela() | currency: 'BRL'}}
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                Mes a mes
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                <!-- <p-dropdown
+                [options]="formaPagamento"
+                appendTo="body"
+                [autoZIndex]="true"
+                [style]="{'width': '9vw', 'height':'46px', 'padding': '0'}"
+                formControlName="formaPagamento"
+                optionLabel="descricao"
+                class="width"
+                [disabled]="true"
+                >
+                <ng-template let-item pTemplate="selectedItem">
+                  <i [class]="item?.icon"></i>
+                  {{ item?.label }}
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                    <i [class]="item?.icon"></i>
+                    {{ item?.label }}
+                </ng-template>
+                </p-dropdown> -->
+                A combinar
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                <!-- @if(item.dataPagamento){
+                  {{item.dataPagamento | date: 'dd/MM/yyyy'}}
+                }@else {
+
+                } -->
+                __/__/____
+              </div>
+
+              <div class="col-2 flex justify-content-center">
+                <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
+                <input type="file" id="file" name="image[]" multiple="multiple" (change)="onFileSelected($event)">
+              </div>
+
+              <div class="col-1 flex justify-content-center">
+                <!-- <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" ></p-button> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row flex justify-content-center m-4">
+          <p-button label="Salvar Orçamento" icon="pi pi-save" severity="success" [rounded]="true" />
         </div>
       </form>
     </div>
 
-    <!-- <div class="col-12 p-6">
-      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-        <p-stepper>
-          <p-stepperPanel header="Informações" >
-            <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
-              <div class="flex flex-column h-30rem new px-5 pt-3">
-                  <p-divider align="left" type="solid" >
-                    <i class="pi pi-user" ></i>
-                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paciente</b>
-                  </p-divider>
-                  <div class="row lg:flex lg:justify-content-end my-2">
-                    <i
-                    class="pi pi-search text-blue-500 mr-4 hover:text-blue-800"
-                    style="font-size: 1.35rem; cursor: pointer; "
-                    pTooltip="Buscar paciente"
-                    tooltipPosition="bottom"
-                    (click)="buscarPaciente = !buscarPaciente"
-                  ></i>
-                  </div>
-                  <div class="row lg:flex lg:justify-content-center my-2">
-                    <div class="field  md:col-12 lg:col-4">
-                      <span class="p-float-label p-input-icon-left width">
-                        <i class="pi pi-pencil azul"></i>
-                        <input pInputText id="nomePaciente" formControlName="nomePaciente" required class="width" *ngIf="!paciente"/>
-                        <input pInputText id="nomePaciente" [value]="paciente.nome" required class="width" *ngIf="paciente">
-                        <label for="nomePaciente" class="azul">Nome Completo</label>
-                      </span>
-                    </div>
-                    <div class="field  md:col-12 lg:col-3">
-                      <span class="p-float-label p-input-icon-left width">
-                        <i class="pi pi-phone azul"></i>
-                        <input pInputText id="cpfPaciente" formControlName="cpfPaciente" required class="width" />
-                        <label for="cpfPaciente" class="azul">CPF</label>
-                      </span>
-                    </div>
-                    <div class="field  md:col-12 lg:col-3">
-                      <span class="p-float-label p-input-icon-left width">
-                        <i class="pi pi-phone azul"></i>
-                        <input pInputText id="telefonePaciente" formControlName="telefonePaciente" required class="width" />
-                        <label for="telefonePaciente" class="azul">Telefone</label>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="row lg:flex lg:justify-content-center my-2">
-                    <div class="field  md:col-12 lg:col-3">
-                      <span class="p-float-label p-input-icon-left width">
-                        <i class="pi pi-calendar azul"></i>
-                        <input pInputText id="dataNascPaciente" formControlName="dataNascPaciente" required class="width" />
-                        <label for="dataNascPaciente" class="azul">Data Nascimento</label>
-                      </span>
-                    </div>
-                    <div class="field  md:col-12 lg:col-2">
-                      <span class="p-float-label p-input-icon-left width">
-                        <i class="pi pi-calendar azul"></i>
-                        <input pInputText id="dataNascPaciente" formControlName="dataNascPaciente" required class="width" />
-                        <label for="dataNascPaciente" class="azul">Data Nascimento</label>
-                      </span>
-                    </div>
-                    <div class="field  md:col-12 lg:col-5">
-                      <span class="p-float-label p-input-icon-left width">
-                        <i class="pi pi-envelope azul"></i>
-                        <input pInputText id="emailPaciente" formControlName="emailPaciente" required class="width" />
-                        <label for="emailPaciente" class="azul">Email</label>
-                      </span>
-                    </div>
-                  </div>
 
-
-              </div>
-
-              <div class="flex pt-4 justify-content-end">
-                <p-button
-                  label="Próximo"
-                  icon="pi pi-arrow-right"
-                  iconPos="right"
-                  [rounded]="true"
-                  severity="success"
-                  (onClick)="nextCallback.emit()"
-                />
-              </div>
-            </ng-template>
-          </p-stepperPanel>
-          <p-stepperPanel header="Procedimentos">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-              <div class="flex flex-column h-auto new px-5 pt-3">
-                <div class="row lg:flex lg:justify-content-center my-2">
-                  <div class="field  md:col-12 lg:col-4">
-                    <span class="p-float-label p-input-icon-left width">
-                      <i class="pi pi-pencil azul"></i>
-                      <input pInputText id="nomePaciente" formControlName="nomePaciente" required class="width" *ngIf="!paciente"/>
-                      <input pInputText id="nomePaciente" [value]="paciente.nome" required class="width" *ngIf="paciente">
-                      <label for="nomePaciente" class="azul">Orcado por</label>
-                    </span>
-                  </div>
-                  <div class="field my-2">
-                    <span class="p-float-label p-input-icon-right ">
-                      <p-dropdown
-                        [options]="listaDentista"
-                        appendTo="body"
-                        [autoZIndex]="true"
-                        formControlName="dentista"
-                        optionLabel="nome"
-                        [filter]="true"
-                        filterBy="nome"
-                        [style]="{'width': '23vw', 'height':'46px'}"
-                        scrollHeight="300px"
-                        inputId="dentista"
-                        class="web"
-                      ></p-dropdown>
-                      <label for="dentista" class="azul">Selecione o dentista</label>
-                    </span>
-                  </div>
-
-                  <div class="field  md:col-12 lg:col-2">
-                    <span class="p-float-label p-input-icon-left width">
-                      <i class="pi pi-calendar azul"></i>
-                      <input pInputText id="dataNascPaciente" formControlName="dataNascPaciente" required class="width" />
-                      <label for="dataNascPaciente" class="azul">Valido ate</label>
-                    </span>
-                  </div>
-                </div>
-
-
-                <div class="row lg:flex lg:justify-content-center my-2">
-                  <app-drag-drop [listaEspecConsultas]="listEspecConsulta" (selecionados)="selecionados($event)"></app-drag-drop>
-                </div>
-
-
-              </div>
-              <div class="flex pt-4 justify-content-between">
-                <p-button
-                  label="Voltar"
-                  icon="pi pi-arrow-left"
-                  [outlined]="true"
-                  [rounded]="true"
-                  severity="secondary"
-                  (onClick)="prevCallback.emit()"
-                />
-                <p-button
-                  label="Próximo"
-                  [rounded]="true"
-                  icon="pi pi-arrow-right"
-                  iconPos="right"
-                  severity="success"
-                  (onClick)="nextCallback.emit()"
-                />
-              </div>
-            </ng-template>
-          </p-stepperPanel>
-          <p-stepperPanel header="Pagamento">
-            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
-                <div class="flex flex-column h-12rem">
-                    <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                        Content II
-                    </div>
-                </div>
-                <div class="flex pt-4 justify-content-between">
-                  <p-button
-                    label="Voltar"
-                    [outlined]="true"
-                    [rounded]="true"
-                    icon="pi pi-arrow-left"
-                    severity="secondary"
-                    (onClick)="prevCallback.emit()"
-                  />
-                  <p-button
-                    label="Próximo"
-                    icon="pi pi-arrow-right"
-                    iconPos="right"
-                    [rounded]="true"
-                    severity="success"
-                    (onClick)="nextCallback.emit()"
-                  />
-                </div>
-            </ng-template>
-        </p-stepperPanel>
-          <p-stepperPanel header="Confirmação">
-              <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
-                  <div class="flex flex-column h-12rem">
-                      <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                          Content III
-                      </div>
-                  </div>
-                  <div class="flex pt-4 justify-content-between">
-                      <p-button
-                        label="Voltar"
-                        [outlined]="true"
-                        [rounded]="true"
-                        icon="pi pi-arrow-left"
-                        severity="secondary"
-                        (onClick)="prevCallback.emit()"
-                      />
-                      <p-button
-                        label="Finalizar"
-                        icon="pi pi-save"
-                        severity="success"
-                        [rounded]="true"
-
-                      />
-                  </div>
-              </ng-template>
-          </p-stepperPanel>
-        </p-stepper>
-      </form>
-    </div>
-
-
-  </div>
-</div> -->
 
 
 <p-sidebar [(visible)]="buscarPaciente" position="left" styleClass="w-30rem" >
@@ -447,29 +529,43 @@
   </ng-template>
 
   <ng-template pTemplate="body">
-    <div class="flex overflow-auto surface-overlay">
-      <ul class="patient-list ">
-        <li *ngFor="let item of filteredPacientes"
-            [class.selected]="item === selectedPaciente"
-            (click)="selectPaciente(item)"
-            class="my-3 flex-column "
-          >
-          <div class="text-overflow-ellipsis">
-            &nbsp;&nbsp;<i class="pi pi-user azul "></i>&nbsp;&nbsp;{{ item.nome }}
-          </div>
-
-        </li>
-      </ul>
-    </div>
+    <ul class="patient-list surface-overlay">
+      <li *ngFor="let item of filteredPacientes"
+        [class.selected]="item === selectedPaciente"
+        (click)="selectPaciente(item)"
+        class="my-2 cursor-pointer hover:bg-blue-50"
+      >
+      <div class="row flex">
+        <div class="col-1 flex justify-content-center align-items-center" >
+          <i class="pi pi-user azul"></i>
+        </div>
+        <div class="col-11">
+          <span class="text-overflow-ellipsis text-lg">
+            {{ item.nome }}
+          </span>
+        </div>
+      </div>
+      </li>
+    </ul>
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <div class="flex justify-content-center ">
+    <div class="flex justify-content-around ">
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        severity="danger"
+        [rounded]="true"
+        [outlined]="true"
+        class="shadow-6 border-round-3xl"
+        (click)="confirmSelection()"
+      ></p-button>
       <p-button
         label="Selecionar"
         icon="pi pi-save"
         severity="success"
         [rounded]="true"
+        [outlined]="true"
         class="shadow-6 border-round-3xl"
         (click)="confirmSelection()"
       ></p-button>

@@ -11,35 +11,41 @@
   <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="web"></button>
 </div> -->
 
-<div class="box p-3" >
+<div class="box p-3 mb-3" >
   <div class="bannerCliente">
-  <div class="md:12 lg:col-2">
-    <div class="lg:flex justify-content-center align-items-center mt-6">
-      <p-image src="../../../assets/img/odonto.png"
-      width="180"
-      alt="Foto de perfil do paciente"
-      [preview]="true"
-      class="web"
-      ></p-image>
-    </div>
-    <div class="flex justify-content-center align-items-center">
-      <span class="text-red-500 font-bold text-sm cursor-pointer hover:text-red-600 m-1 web" > <i class="pi pi-pencil text-sm"></i>&nbsp;&nbsp;Alterar foto</span>
-      <span class="text-red-500 font-bold mobile"><i class="pi pi-camera"></i></span>
+    <div class="md:12 lg:col-2">
+      <div class="lg:flex justify-content-center align-items-center mt-6">
+        <p-image src="../../../assets/img/odonto.png"
+        width="180"
+        alt="Foto de perfil do paciente"
+        [preview]="true"
+        class="web"
+        ></p-image>
+      </div>
+      <div class="flex justify-content-center align-items-center">
+        <span class="text-red-500 font-bold text-sm cursor-pointer hover:text-red-600 m-1 web" > <i class="pi pi-pencil text-sm"></i>&nbsp;&nbsp;Alterar foto</span>
+        <span class="text-red-500 font-bold mobile"><i class="pi pi-camera"></i></span>
+      </div>
     </div>
   </div>
-</div>
-<div class="card flex justify-content-end lg:m-3 mr-4">
-  <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar>
-</div>
+  <div class="card flex justify-content-end lg:m-3 mr-4 px-3">
+    <!-- <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar> -->
+  </div>
 
 
-  <p-tabView class="md:p-auto" [(activeIndex)]="activeIndex">
+  <p-tabView class="md:p-auto relative" [(activeIndex)]="activeIndex">
     <p-tabPanel header="Informações da Empresa" >
       <ng-template pTemplate="header" >
         <i class="pi pi-fw pi-building"></i>
         <span class="web">&nbsp;Informações</span>
       </ng-template>
-      <div class="flex flex-column gap-2 mx-auto my-5" >
+
+        <div class="flex flex-row-reverse flex-wrap">
+          <div>teste 1</div>
+          <div>teste 2</div>
+        </div>
+
+      <div class="flex flex-column gap-2 mx-auto my-5 " >
 
         <div class="row flex justify-content-center">
           <div class="field md:col-12 lg:col-4">
@@ -170,7 +176,15 @@
         <i class="pi pi-fw pi-users"></i>
         <span class="web">&nbsp;Funcionarios</span>
       </ng-template>
-      Em contrução...
+     <div class="">
+      <div class="flex flex-row-reverse flex-wrap">
+        <button pButton type="button" label="Novo Paciente" (click)="cadastro()" icon="pi pi-user-plus" class="web"></button>
+        <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastro()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
+      </div>
+      <div class="">
+
+      </div>
+     </div>
     </p-tabPanel>
 
 
@@ -485,3 +499,6 @@
   </div>
 </p-dialog>
 
+<p-dialog header='Novo funcionario' [(visible)]="novoFuncionario" [style]="{ width: '75vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
+  <app-novo-funcionario></app-novo-funcionario>
+</p-dialog>

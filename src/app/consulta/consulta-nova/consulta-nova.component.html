@@ -7,7 +7,7 @@
         <p-toggleButton
           [(ngModel)]="consultaRapida"
           onIcon="pi pi-bolt"
-          offIcon="pi pi-briefcase"
+          offIcon="pi pi-bolt"
           styleClass="custom-class w-full text-xs sm:w-2rem sm:h-2rem mb-2"
           ariaLabel="Do you confirm"
           (click)="consultaRapida = !consultaRapida"
@@ -130,7 +130,7 @@
                       <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                         <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
                       </ng-template>
-                    </p-calendar>
+                  </p-calendar>
 
                     <p-calendar
                     [iconDisplay]="'input'"

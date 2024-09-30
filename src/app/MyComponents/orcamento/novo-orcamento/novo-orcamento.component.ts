@@ -6,6 +6,7 @@ import { DentistaService } from 'src/app/dentista.service';
 import { Dentista } from 'src/app/class/dentista';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/class/cliente';
+import { ClienteService } from 'src/app/cliente.service';
 
 @Component({
   selector: 'app-novo-orcamento',
@@ -13,7 +14,6 @@ import { Cliente } from 'src/app/class/cliente';
   styleUrl: './novo-orcamento.component.css'
 })
 export class NovoOrcamentoComponent implements OnInit {
-
 
   listEspecConsulta: EspecConsulta[];
   listaDentista: Dentista[];
@@ -23,37 +23,23 @@ export class NovoOrcamentoComponent implements OnInit {
 
   dentista: Dentista;
   paciente: Cliente;
-  totalSomado: number;
+  totalSomado: number = 0;
   parcelas: any[] ;
   formaPagamento: any[];
+
+  entrada: boolean = false;
 
   buscarPaciente: boolean = false;
 
   searchQuery: string = '';
 
-  pacientes: any[] = [
-    { id: 1, nome: 'Guilherme Pinto de Oliveira' },
-    { id: 2, nome: 'Bianca Cristina Machado' },
-    { id: 3, nome: 'Elaini de Fatima Pinto Oliveira' },
-    { id: 1, nome: 'Guilherme Pinto de Oliveira' },
-    { id: 2, nome: 'Bianca Cristina Machado' },
-    { id: 3, nome: 'Elaini de Fatima Pinto Oliveira' },
-    { id: 1, nome: 'Guilherme Pinto de Oliveira' },
-    { id: 2, nome: 'Bianca Cristina Machado' },
-    { id: 3, nome: 'Elaini de Fatima Pinto Oliveira Perreira Gomes' },
-    { id: 1, nome: 'Guilherme Pinto de Oliveira' },
-    { id: 2, nome: 'Bianca Cristina Machado' },
-    { id: 3, nome: 'Elaini de Fatima Pinto Oliveira' },
-    { id: 1, nome: 'Guilherme Pinto de Oliveira' },
-    { id: 2, nome: 'Bianca Cristina Machado' },
-    { id: 3, nome: 'Elaini de Fatima Pinto Oliveira' },
-    { id: 1, nome: 'Guilherme Pinto de Oliveira' },
-    { id: 2, nome: 'Bianca Cristina Machado' },
-    { id: 3, nome: 'Elaini de Fatima Pinto Oliveira' },
-  ];
+  selectedFileName: string = 'Buscar';
+  dataAtual: Date;
+  parcelamento: any[];
+  pacientes: any[];
   selectedPaciente: any = null;
 
-  constructor(private consultaService: ConsultaService, private formBuilder: FormBuilder, private dentistaService: DentistaService, private router: Router, private activatedRoute : ActivatedRoute) {}
+  constructor(private consultaService: ConsultaService, private pacienteService: ClienteService, private formBuilder: FormBuilder, private dentistaService: DentistaService, private router: Router, private activatedRoute : ActivatedRoute) {}
 
   ngOnInit() {
     const organizacaoJson = localStorage.getItem('organizacao');
@@ -76,6 +62,11 @@ export class NovoOrcamentoComponent implements OnInit {
     this.dentistaService.getDentistas(this.org.id).then((response)=>{
       this.listaDentista = response;
     })
+
+    this.pacienteService.getPacientes(this.org.id).then((response)=>{
+      this.pacientes = response;
+    })
+
     this.criaFormulario();
 
     this.formaPagamento = [
@@ -91,6 +82,9 @@ export class NovoOrcamentoComponent implements OnInit {
       { label: 'Parcelado em 4x', value: 4, },
       { label: 'Parcelado em 5x', value: 5, },
       { label: 'Parcelado em 6x', value: 6, },
+      { label: 'Parcelado em 14x', value: 14, },
+      { label: 'Parcelado em 26x', value: 26, },
+      { label: 'Parcelado em 32x', value: 32, },
     ];
 
   }
@@ -105,7 +99,14 @@ export class NovoOrcamentoComponent implements OnInit {
       paciente: [this.paciente],
       desconto: [0],
       acrecimo: [0],
+      entrada: [0],
+      dataEntrada: [new Date()],
       formaPagamento: ['', Validators.required],
+      nomeCartao: [],
+      nCartao: [],
+      validadeCartao: [],
+      cvcCartao: [],
+      tipoPagamento: [],
       parcelas: ['',Validators.required],
       dentista: ['', Validators.required],
       data: ['', Validators.required],
@@ -123,8 +124,13 @@ export class NovoOrcamentoComponent implements OnInit {
 
   }
 
-  selecionados(total: any) {
-    console.log("total somado: ", total)
+  totalEmProcedimentos(total: number) {
+    console.log(total);
+    if(total > 0){
+      this.totalSomado = total;
+      this.ajustaParcelas();
+    }
+
   }
 
   get filteredPacientes() {
@@ -136,9 +142,10 @@ export class NovoOrcamentoComponent implements OnInit {
   }
 
   confirmSelection() {
-    console.log('Paciente selecionado:', this.paciente);
+
     this.paciente = this.selectedPaciente;
     this.buscarPaciente = false;
+    console.log('Paciente selecionado:', this.paciente);
   }
 
   async reloadingPagamento(reloading: boolean) {
@@ -148,7 +155,7 @@ export class NovoOrcamentoComponent implements OnInit {
     }
   }
 
-  onKeydown(event: KeyboardEvent) {
+  onKeydown(event: KeyboardEvent, campo: any) {
     const input = event.target as HTMLInputElement;
     let value = input.value.replace(/[^\d]/g, ''); // Remove qualquer caractere não numérico
 
@@ -161,9 +168,102 @@ export class NovoOrcamentoComponent implements OnInit {
       return;
     }
 
-
-    this.formulario.get('valorBase')?.setValue((Number(value) / 100));
+    if(campo === 1){
+      this.formulario.get('desconto')?.setValue((Number(value) / 100));
+    }else if( campo === 2 ){
+      this.formulario.get('acrecimo')?.setValue((Number(value) / 100));
+    }else if( campo === 3){
+      this.formulario.get('entrada')?.setValue((Number(value) / 100));
+    }
     event.preventDefault();
+
+    this.valorCadaParcela();
+  }
+
+  ajustaParcelas() {
+    const parcelas = this.formulario.get('parcelas')?.value;
+    const valorTotal = this.totalSomado;
+
+
+
+  }
+  procedimentosSelecionados(list: any){
+    if(list.length === 0 ){
+      this.totalSomado = 0;
+    }
+    console.log(list)
+  }
+
+  criaEntrada(){
+    this.entrada = true;
+    this.dataAtual = new Date();
+  }
+
+  calculaTotal(){
+    return this.totalSomado + this.formulario.get('acrecimo')?.value - this.formulario.get('desconto')?.value;
+  }
+
+  calculoValorConsulta(){
+
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedFileName = file ? this.formatFileName(file.name) : 'Buscar';
+  }
+
+  formatFileName(fileName: string): string {
+    if (fileName.length > 10) {
+      return fileName.substr(0, 4) + '...' + fileName.substr(fileName.length - 3)
+    }
+    return fileName;
+  }
+
+  async excluirEntrada(){
+
+    this.entrada = false;
+
+    this.formulario.get('entrada')?.setValue('');
+    this.valorCadaParcela();
+  }
+
+  buscarParcelas(){
+    switch(this.formulario.get('parcelas')?.value){
+      case 1 : return "1x";
+      case 2 : return "2x";
+      case 3 : return "3x";
+      case 4 : return "4x";
+      case 5 : return "5x";
+      case 6 : return "6x";
+      case 14 : return "14x";
+      case 26 : return "26x";
+      case 32 : return "32x";
+      default:
+          return "--";
+    }
+  }
+
+  valorCadaParcela(){
+    const parcelas = this.formulario.get('parcelas')?.value !== '' ? this.formulario.get('parcelas')?.value : 1 ;
+    const somatorio = this.calculaTotal() - this.formulario.get('entrada')?.value;
+    const total = somatorio / parcelas;
+
+    if(total && total > 0){
+      return total;
+    }
+    return 0;
+  }
+
+  ehCartao(){
+    console.log(this.formulario.get('formaPagamento')?.value.value === 3)
+    // if(list.length === 0 ){
+    //   this.totalSomado = 0;
+    // }
+    if(this.formulario.get('formaPagamento')?.value.value === 3){
+      return true;
+    }
+    return false;
+
   }
 }
 

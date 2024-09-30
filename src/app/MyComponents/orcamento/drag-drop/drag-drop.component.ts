@@ -72,6 +72,7 @@ export class DragDropComponent implements OnInit{
       });
     }
     this.totalSomado.emit(soma);
+    this.selecao.emit(this.selecionado);
     return soma;
   }
 }

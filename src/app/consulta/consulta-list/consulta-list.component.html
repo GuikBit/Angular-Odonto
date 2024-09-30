@@ -1,9 +1,10 @@
 <div class="container">
   <div class="grid">
     <div class="col-12 z-0">
-      <div class="flex align-items-around sticky top-0 z-2 filtro web">
+      <div class="flex align-items-around absolute top-0 left-5 z-1 w-11 filtro web">
         <div class="col-12 flex">
-          <div class="col-3">
+          <div class="col-1"></div>
+          <div class="col-4">
             <p-selectButton
               [options]="listaOuCalendar"
               [(ngModel)]="filtroListaCalendar"
@@ -15,7 +16,7 @@
             >
             </p-selectButton>
           </div>
-          <div class="col-2"></div>
+
 
           <div class="flex align-items-end justify-content-between col-7 " >
             <div class="field  md:col-12 lg:col-4 ">
@@ -46,7 +47,7 @@
                   </span>
                 </ng-template>
                 </p-dropdown>
-                <label for="filtroDentista" class="azul">Filtre por um dentista </label>
+                <label for="filtroDentista" class="azul">Filtrar por dentista </label>
               </span>
             </div>
 
@@ -70,7 +71,7 @@
                     <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
                   </ng-template>
                 </p-calendar>
-                <label for="filtroData" class="azul">Filtro de data</label>
+                <label for="filtroData" class="azul">Filtrar por data</label>
               </span>
             </div>
 
@@ -119,9 +120,10 @@
                   </div>
                 </ng-template>
                 </p-dropdown>
-                <label for="filtroDentista" class="azul">Filtre por status da consulta </label>
+                <label for="filtroDentista" class="azul">Filtrar por status </label>
               </span>
             </div>
+
           </div>
         </div>
       </div>

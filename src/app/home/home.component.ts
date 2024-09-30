@@ -5,13 +5,13 @@ import { Dentista } from '../class/dentista';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-// interface FiltroDash{
-//   dataInicio?: Date | null;
-//   dataFim?: Date | null;
-//   dentista?: Dentista | null;
-//   procedimentos: any;
-//   especialidade: any;
-// }
+interface FiltroDash{
+  DtInicio?: Date | null;
+  DtFim?: Date | null;
+  DentistaId: any;
+  ProcedimentosId: any;
+  EspecialidadeId: any;
+}
 
 @Component({
   selector: 'app-home',
@@ -32,11 +32,6 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class HomeComponent implements OnInit{
 
-
-  dentistas: any;
-  procedimentos: any;
-  especialidades: any;
-
   erro: boolean = false;
   data: any;
   dataDoughnut: any;
@@ -50,6 +45,14 @@ export class HomeComponent implements OnInit{
   basicOptionsDent: any;
   basicOptionsPie: any;
 
+  filtro: FiltroDash = {
+    DtInicio: null,
+    DtFim: null,
+    DentistaId: null,
+    ProcedimentosId: null,
+    EspecialidadeId: null
+  };
+
   sidebarState = 'in';
   sidebarVisible: boolean = true;
   constructor(private service: DashboardService, private messageService: MessageService, private formBuilder: FormBuilder) {
@@ -61,7 +64,7 @@ export class HomeComponent implements OnInit{
 
     this.criaFormulario();
 
-    await this.service.getDashBoard()
+    await this.service.postDashBoard(this.filtro)
     .then((response)=>{
       if((response?.status === 200 || response?.status === 201)){
 
@@ -392,18 +395,58 @@ export class HomeComponent implements OnInit{
   criaFormulario(){
     this.formulario = this.formBuilder.group({
 
-      dataInicio: ['', Validators.required],
-      dataFim: ['', Validators.required],
-      dentista: ['', Validators.required],
-      procedimento: ['', Validators.required],
-      especialidade: ['', Validators.required]
+      dtInicio: [null],
+      dtFim: [null],
+      dentista: [null],
+      procedimento: [null],
+      especialidade: [null]
 
     })
   }
 
-  async filtrarDashboard(){
-    console.log(this.formulario.value)
+  clearFiltro(){
+    this.formulario.get('dtInicio')?.setValue(null);
+    this.formulario.get('dtFim')?.setValue(null);
+    this.formulario.get('dentista')?.setValue(null);
+    this.formulario.get('procedimento')?.setValue(null);
+    this.formulario.get('especialidade')?.setValue(null);
   }
+
+  async filtrarDashboard(){
+    const inicio = new Date(this.formulario.get('dtInicio')?.value);
+    inicio.setHours(0,0,0,0);
+    const fim = new Date(this.formulario.get('dtFim')?.value);
+    fim.setHours(0,0,0,0);
+
+    this.filtro.DtInicio = inicio;
+    this.filtro.DtFim = fim;
+    this.filtro.DentistaId = this.formulario.get('dentista')?.value.id;
+    this.filtro.ProcedimentosId = this.formulario.get('procedimento')?.value.id;
+    this.filtro.EspecialidadeId = this.formulario.get('especialidade')?.value.id;
+
+
+    console.log(this.filtro);
+
+    await this.service.postDashBoard(this.filtro).then((response)=>{
+      if(response?.status === 200 || response?.status === 201){
+       this.data = response.data
+       this.erro = false;
+
+       console.log(this.data)
+      }else{
+        this.messageService.add({severity:'error', summary:'Erro', detail:'Houve um erro ao buscar as informações do dashboard. Entre em contato com o suporte.'});
+
+      }
+    }).catch(()=>{
+      this.messageService.add({severity:'error', summary:'Erro', detail:'Houve um erro ao buscar as informações do dashboard. Entre em contato com o suporte.'});
+
+    })
+  }
+
+
+  // async filtrarDashboard(){
+  //   console.log(this.formulario.value)
+  // }
 
   calculaPorcentagem(mesAnterior: number, mesAtual: number) {
     if(mesAnterior === 0){

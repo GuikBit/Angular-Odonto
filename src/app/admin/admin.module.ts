@@ -1,3 +1,5 @@
+
+
 import { AdminConfiguracoesComponent } from './admin-configuracoes/admin-configuracoes.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +12,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { ConstasPagarModule } from '../MyComponents/contas-pagar/constas-pagar.module';
 import { DividerModule } from 'primeng/divider';
 import { TabViewModule } from 'primeng/tabview';
 import { AdminConsultaComponent } from './admin-consulta/admin-consulta.component';
@@ -26,7 +27,8 @@ import { StepperModule } from 'primeng/stepper';
 import { MenubarModule } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { ConstasPagarModule } from '../MyComponents/contas-pagar/constas-pagar.module';
+import { NovoFuncionarioModule } from '../MyComponents/novo-funcionario/novo-funcionario.module';
 
 
 
@@ -41,6 +43,7 @@ import { CheckboxModule } from 'primeng/checkbox';
   imports: [
     CommonModule,
     ConstasPagarModule,
+    NovoFuncionarioModule,
     CalendarModule,
     ImageModule,
     MenubarModule,
@@ -59,8 +62,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     DialogModule,
     InputTextareaModule,
     ConfirmDialogModule,
-    StepperModule
-  ],
+    StepperModule,
+    ConstasPagarModule,
+    ConstasPagarModule
+],
   exports:[
     AdminMenuComponent,
     AdminFinanceiroComponent,

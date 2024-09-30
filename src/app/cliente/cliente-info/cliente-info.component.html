@@ -1,6 +1,6 @@
 
-<div class="card box lg:m-6 mt-8 lg:mb-8">
-  <div class="bannerCliente">
+<div class="lg:m-6 mt-10 lg:mb-8">
+  <div class="bannerCliente relative border-round-3xl ">
     <div class="md:12 lg:col-2">
       <div class="lg:flex justify-content-center align-items-center mt-6">
         <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
@@ -25,7 +25,7 @@
     <div class="col-10">
       <div class="grid">
         <div class="col-12">
-          <div class="mt-6 lg:flex">
+          <div class="mt-8 ml-6 lg:flex">
             <span class="text-5xl font-semibold p-component web">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
             <span class="text-2xl font-semibold p-component mobile">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
             <p-tag
@@ -43,54 +43,66 @@
           </div>
         </div>
       </div>
-      <div class="grid lg:mt-5 lg:flex web">
 
-        <div class=" col-1 flex justify-content-center ">
-          <p class="text-xl font-semibold flex align-items-end p-component">
-            <i class="pi pi-folder-open text-2xl"></i>
-            &nbsp;&nbsp;{{paciente.numPasta}}
-          </p>
-        </div>
-        <div class=" col-2 flex justify-content-center align-content-center">
-          <p class="text-xl font-semibold flex align-items-center p-component">
-            <i class="pi pi-calendar text-2xl"></i>
-            &nbsp;&nbsp;{{ calcularIdade(paciente.dataNascimento) }}
-          </p>
-        </div>
-        <div class=" flex justify-content-center align-content-center ">
-          <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
-            <i class="pi pi-whatsapp text-2xl text-green-700"></i>
-             &nbsp;&nbsp;{{paciente.telefone}}
-           </p>
-        </div>
-        <div class="col-2 mt-3 " *ngIf="paciente.responsavel?.telefone">
-          <span class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900 flex justify-content-center align-content-center " (click)="abrirwhatsapp()">
-            <i class="pi pi-whatsapp text-2xl text-green-700"></i>
-             &nbsp;&nbsp;{{paciente.responsavel?.telefone}}
-          </span>
-          <small class="flex justify-content-center ">Contato do responsável</small>
-        </div>
+    </div>
 
-        <div class="col-3 ">
-          <!-- <p-speedDial [model]="items" direction="down" [transitionDelay]="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial> -->
+    <div class="absolute w-12 h-8rem z-1 flex justify-content-center align-content-center " style="bottom: -5.5rem;">
+      <div class="flex justify-content-between align-items-center w-11 h-full border-round-2xl z-50 px-4" style="bottom: -4rem; background-color: rgba(250, 253, 255, 0.90);">
+        <div class="flex">
+
+
+          <div class="flex justify-content-center mx-4">
+            <p class="text-xl font-semibold flex align-items-end p-component">
+              <i class="pi pi-folder-open text-2xl"></i>
+              &nbsp;&nbsp;{{paciente.numPasta}}
+            </p>
+          </div>
+          <div class="flex justify-content-center align-content-center mx-4">
+            <p class="text-xl font-semibold flex align-items-center p-component">
+              <i class="pi pi-calendar text-2xl"></i>
+              &nbsp;&nbsp;{{ calcularIdade(paciente.dataNascimento) }}
+            </p>
+          </div>
+          <div class="flex justify-content-center align-content-center mx-4">
+            <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
+              <i class="pi pi-whatsapp text-2xl text-green-700"></i>
+                &nbsp;&nbsp;{{paciente.telefone}}
+              </p>
+          </div>
+          <div class="mx-4" *ngIf="paciente.responsavel?.telefone">
+            <span class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900 flex justify-content-center align-content-center " (click)="abrirwhatsapp()">
+              <i class="pi pi-whatsapp text-2xl text-green-700"></i>
+                &nbsp;&nbsp;{{paciente.responsavel?.telefone}}
+            </span>
+            <small class="flex justify-content-center ">Contato do responsável</small>
+          </div>
+          <div class="mobile">
+            <div class="md:12 lg:col-2 flex justify-content-start align-content-center ">
+              <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
+                <i class="pi pi-whatsapp text-2xl text-green-700"></i>
+                 &nbsp;&nbsp;{{paciente.telefone}}
+               </p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="mobile">
-        <div class="md:12 lg:col-2 flex justify-content-start align-content-center ">
-          <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
-            <i class="pi pi-whatsapp text-2xl text-green-700"></i>
-             &nbsp;&nbsp;{{paciente.telefone}}
-           </p>
+        <div class="flex">
+
+          <p-button label="Nova consulta"  size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2" (click)="novaConsultaPaciente()"/>
+          <p-button label="Novo pagamento" size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2"/>
+          <p-button label="Novo orçamento" size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2"/>
+          <p-button icon="pi pi-cog" [rounded]="true" size="small" [text]="true" [raised]="true" severity="info" class="mx-3" />
         </div>
       </div>
     </div>
+
   </div>
-  <div class="card flex justify-content-end lg:m-3 mr-4">
-    <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar>
+  <div class="card flex justify-content-end lg:m-3 mr-4 h-4rem">
+    <!-- <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar> -->
   </div>
-  <div class="lg:flex lg:m-3 ">
-    <div class="col-12">
-      <p-tabView class="md:p-auto" [(activeIndex)]="activeIndex">
+
+  <div class="lg:flex lg:m-3 mt-10 ">
+    <div class="col-12 bg-white border-round-2xl">
+      <p-tabView class="md:p-auto " [(activeIndex)]="activeIndex">
         <p-tabPanel header="Informacoes" >
           <ng-template pTemplate="header" >
             <i class="pi pi-fw pi-user"></i>
@@ -425,16 +437,16 @@
             <span class="web">&nbsp;Consultas</span>
           </ng-template>
           <div class="">
-            <div class="flex justify-content-between lg:m-5">
+            <!-- <div class="flex justify-content-between lg:m-5">
               <span class="p-float-label p-input-icon-left search">
                 <i class="pi pi-search azul" ></i>
                 <input pInputText id="search"  class="search"/>
                 <label for="search" class="azul">Buscar Consulta...</label>
               </span>
-              <!-- <button pButton type="button" label="Nova Consulta"  icon="pi pi-briefcase" (click)="novaConsultaPaciente()" ></button> -->
+
               <button pButton type="button" label="Novo Consulta"  icon="pi pi-briefcase" (click)="novaConsultaPaciente()" class="web"></button>
               <p-button icon="pi pi-plus" [rounded]="true"  (click)="novaConsultaPaciente()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
-            </div>
+            </div> -->
               <p-table
               #productsTable
               [value]="paciente.consultas"
@@ -745,7 +757,7 @@
             <span class="web">&nbsp;Pagamentos</span>
           </ng-template>
           <div class="">
-            <div class="flex justify-content-between lg:m-5">
+            <!-- <div class="flex justify-content-between lg:m-5">
               <span class="p-float-label p-input-icon-left search">
                 <i class="pi pi-search azul" ></i>
                 <input pInputText id="search"  class="search"/>
@@ -754,7 +766,7 @@
               <button pButton type="button" label="Novo Pagamento"  icon="pi pi-briefcase" (click)="novaConsultaPaciente()" class="web"></button>
               <p-button icon="pi pi-plus" [rounded]="true"  (click)="novaConsultaPaciente()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
 
-            </div>
+            </div> -->
               <p-table
               #productsTable
               [value]="paciente.consultas"
@@ -1052,13 +1064,13 @@
                           </div>
                         </div>
 
-
                         <div class="mx-4 flex justify-content-start" *ngIf="(event.idItem % 2 == 0)">
                           <span class="text-x1 font-medium">
                             <i class="pi pi-pw pi-user azul"></i>
                             &nbsp;{{event.dentista}}&nbsp;
                           </span>
                         </div>
+
                         <div class="mx-4 flex justify-content-start" *ngIf="!(event.idItem % 2 == 0)">
                           <span class="text-x1 font-medium">
                             <i class="pi pi-pw pi-user azul"></i>
@@ -1077,6 +1089,7 @@
         </div>
 
         </p-tabPanel>
+
         <p-tabPanel header="Orçamentos">
           <ng-template pTemplate="header">
             <i class="pi pi-fw pi-clipboard"></i>
@@ -1088,6 +1101,7 @@
           </div>
 
         </p-tabPanel>
+
         <p-tabPanel header="Outros">
           <ng-template pTemplate="header">
             <i class="pi pi-fw pi-wrench"></i>
@@ -1105,7 +1119,7 @@
   </div>
 </div>
 
-<p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '60vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
+<p-dialog header='Nova Consulta' [(visible)]="novaConsulta" [modal]="true" [style]="{ width: '40vw', height: 'auto' }"  class="box web" [draggable]="false" [resizable]="false" [closable]="false">
   <ng-template pTemplate="content">
     <app-consulta-nova *ngIf="novaConsulta" [pacienteSelecionado]="paciente" (closeModal)="closeModalInfo($event)" (onlyClose)="onlyClose($event)"></app-consulta-nova>
   </ng-template>
@@ -1129,12 +1143,12 @@
   </ng-template>
 </p-dialog>
 
-<p-dialog header="Novo Orçamento" [(visible)]="orcamento" [modal]="true" [style]="{ width: '60vw',  height: 'auto' }" [draggable]="false" [resizable]="false" [closable]="true">
+<!-- <p-dialog header="Novo Orçamento" [(visible)]="orcamento" [modal]="true" [style]="{ width: '60vw',  height: 'auto' }" [draggable]="false" [resizable]="false" [closable]="true">
   <ng-template pTemplate="content">
-    <!-- <app-pagamento-info *ngIf="consultaSelecionadaPg" [consultaSelecionadaPg]="consultaSelecionadaPg"></app-pagamento-info> -->
+
     <app-novo-orcamento></app-novo-orcamento>
   </ng-template>
-</p-dialog>
+</p-dialog> -->
 
 <p-dialog [(visible)]="alterarFoto" [modal]="true" [style]="{width: '50vw', heigth: 'auto'}"[draggable]="false" [resizable]="false" [closable]="false" >
   <div class="new p-3">
