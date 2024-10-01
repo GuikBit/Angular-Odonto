@@ -1,6 +1,6 @@
 
-<div class="lg:m-6 mt-10 lg:mb-8">
-  <div class="bannerCliente relative border-round-3xl ">
+<div class="lg:my-6 x1:m-6 lg:pt-2 lg:mb-8">
+  <div class="bannerCliente border-round-3xl ">
     <div class="md:12 lg:col-2">
       <div class="lg:flex justify-content-center align-items-center mt-6">
         <p-image src="https://img.freepik.com/fotos-gratis/mulher-jovem-feliz-cumprimentando-alguem-via-skype_259150-60475.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702425600&semt=sph"
@@ -28,15 +28,7 @@
           <div class="mt-8 ml-6 lg:flex">
             <span class="text-5xl font-semibold p-component web">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
             <span class="text-2xl font-semibold p-component mobile">{{paciente.nome}}&nbsp;&nbsp;&nbsp;</span>
-            <p-tag
-            [severity]="paciente.ativo? 'success' : 'danger'"
-            [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-            [rounded]="true"
-            [style]="{'font-size': '12px', 'font-weight': '400'}"
-            [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
-            class="flex align-items-center"
-            >
-            </p-tag>
+            
             <span clas="ml-3">
 
             </span>
@@ -46,7 +38,7 @@
 
     </div>
 
-    <div class="absolute w-12 h-8rem z-1 flex justify-content-center align-content-center " style="bottom: -5.5rem;">
+    <div class="absolute w-12 h-6rem  z-1 flex justify-content-center align-content-center " style="bottom: -4.5rem;">
       <div class="flex justify-content-between align-items-center w-11 h-full border-round-2xl z-50 px-4" style="bottom: -4rem; background-color: rgba(250, 253, 255, 0.90);">
         <div class="flex">
 
@@ -70,37 +62,58 @@
               </p>
           </div>
           <div class="mx-4" *ngIf="paciente.responsavel?.telefone">
-            <span class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900 flex justify-content-center align-content-center " (click)="abrirwhatsapp()">
-              <i class="pi pi-whatsapp text-2xl text-green-700"></i>
+            <span class="xl:text-xl lg:text-base font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900 flex justify-content-center align-content-center " (click)="abrirwhatsapp()">
+              <i class="pi pi-whatsapp lg:text-base xl:text-2xl text-green-700"></i>
                 &nbsp;&nbsp;{{paciente.responsavel?.telefone}}
             </span>
             <small class="flex justify-content-center ">Contato do responsável</small>
           </div>
           <div class="mobile">
             <div class="md:12 lg:col-2 flex justify-content-start align-content-center ">
-              <p class="text-xl font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
-                <i class="pi pi-whatsapp text-2xl text-green-700"></i>
+              <p class="lg:text-sm lg:text-base font-semibold flex align-items-center p-component cursor-pointer hover:text-green-900" (click)="abrirwhatsapp()">
+                <i class="pi pi-whatsapp  text-green-700"></i>
                  &nbsp;&nbsp;{{paciente.telefone}}
                </p>
             </div>
           </div>
         </div>
-        <div class="flex">
-
-          <p-button label="Nova consulta"  size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2" (click)="novaConsultaPaciente()"/>
-          <p-button label="Novo pagamento" size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2"/>
-          <p-button label="Novo orçamento" size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2"/>
-          <p-button icon="pi pi-cog" [rounded]="true" size="small" [text]="true" [raised]="true" severity="info" class="mx-3" />
+        <div class="card flex justify-content-center ">
+          <!-- <p-button icon="pi pi-plus" label="Consulta"  size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2 lg:text-sm xl:text-base" (click)="novaConsultaPaciente()"/>
+          <p-button icon="pi pi-plus" label="Pagamento" size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2 lg:text-sm xl:text-base"  />
+          <p-button icon="pi pi-plus" label="Orçamento" size="small" [rounded]="true" [text]="true" [raised]="true" severity="info" class="mx-3 mt-2 lg:text-sm xl:text-base"/> -->
+          <!-- <p-button icon="pi pi-cog" [rounded]="true" size="small" [text]="true" [raised]="true" severity="info" (onClick)="menu.toggle($event)" />
+          <p-menu #menu [model]="items" [popup]="true" /> -->
+          <!-- <p-selectButton 
+        [options]="stateOptions" 
+        [(ngModel)]="value" 
+        optionLabel="label" 
+        optionValue="value"
+        class="custom-select-button p-2"
+        /> -->
+        <p-tag
+            [severity]="paciente.ativo? 'success' : 'danger'"
+            [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+            [rounded]="true"
+            [style]="{'font-size': '12px', 'font-weight': '400'}"
+            [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
+            class="flex align-items-center"
+            >
+            </p-tag>
         </div>
+        
       </div>
+      
     </div>
 
-  </div>
-  <div class="card flex justify-content-end lg:m-3 mr-4 h-4rem">
-    <!-- <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar> -->
-  </div>
 
-  <div class="lg:flex lg:m-3 mt-10 ">
+
+  </div>
+  
+  <!-- <div class="card flex justify-content-end lg:m-3 mr-4 h-4rem">
+    <p-menubar [model]="items" styleClass="menuBar " class="web"></p-menubar>
+  </div> -->
+
+  <div class="lg:flex lg:m-3 lg:mt-6" >
     <div class="col-12 bg-white border-round-2xl">
       <p-tabView class="md:p-auto " [(activeIndex)]="activeIndex">
         <p-tabPanel header="Informacoes" >
@@ -109,10 +122,18 @@
             <span class="web">&nbsp;Informações</span>
           </ng-template>
             <form  [formGroup]="formulario" (ngSubmit)="onUpdate()" class="lg:pl-8 lg:pr-8 md:p-0">
-              <p-divider align="left" type="solid" >
-                <i class="pi pi-user" ></i>
-                <b>&nbsp;&nbsp;&nbsp;Informacoes Pessoais</b>
-              </p-divider>
+              <div class="flex flex-wrap column-gap-4 row-gap-6 justify-content-end ">
+              
+                <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" pTooltip="Editar" tooltipPosition="bottom" (click)="editarPaciente()" [disabled]="!disable" />
+                <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" pTooltip="Salvar" tooltipPosition="bottom" [disabled]="disable" (click)="this.disable = true;"  />
+                <p-button icon="pi pi-lock" [rounded]="true" *ngIf="paciente.ativo" severity="danger" [outlined]="true" pTooltip="Inativar" tooltipPosition="bottom" (click)="this.onInactivate();" />
+                <p-button icon="pi pi-lock-open" [rounded]="true" *ngIf="!paciente.ativo" severity="danger" [outlined]="true" pTooltip="Ativar" tooltipPosition="bottom" (click)="this.onReactivate();" />
+              </div>
+              
+            <p-divider align="left" type="solid" >
+              <i class="pi pi-user" ></i>
+              <b>&nbsp;&nbsp;&nbsp;Informacoes Pessoais</b>
+            </p-divider>
 
             <div class="row lg:flex lg:justify-content-center lg:m-5">
               <div class="field md:12 lg:col-5 my-4">
@@ -437,16 +458,16 @@
             <span class="web">&nbsp;Consultas</span>
           </ng-template>
           <div class="">
-            <!-- <div class="flex justify-content-between lg:m-5">
-              <span class="p-float-label p-input-icon-left search">
+            <div class="flex justify-content-between lg:m-5">
+              <!-- <span class="p-float-label p-input-icon-left search">
                 <i class="pi pi-search azul" ></i>
                 <input pInputText id="search"  class="search"/>
                 <label for="search" class="azul">Buscar Consulta...</label>
-              </span>
-
-              <button pButton type="button" label="Novo Consulta"  icon="pi pi-briefcase" (click)="novaConsultaPaciente()" class="web"></button>
+              </span> -->
+              
+              <button pButton type="button" label="Novo Consulta"  icon="pi pi-briefcase" (click)="novaConsultaPaciente()" class="web" ></button>
               <p-button icon="pi pi-plus" [rounded]="true"  (click)="novaConsultaPaciente()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
-            </div> -->
+            </div>
               <p-table
               #productsTable
               [value]="paciente.consultas"
@@ -757,16 +778,16 @@
             <span class="web">&nbsp;Pagamentos</span>
           </ng-template>
           <div class="">
-            <!-- <div class="flex justify-content-between lg:m-5">
-              <span class="p-float-label p-input-icon-left search">
+            <div class="flex justify-content-between lg:m-5">
+              <!-- <span class="p-float-label p-input-icon-left search">
                 <i class="pi pi-search azul" ></i>
                 <input pInputText id="search"  class="search"/>
                 <label for="search" class="azul">Buscar Pagamento...</label>
-              </span>
+              </span> -->
               <button pButton type="button" label="Novo Pagamento"  icon="pi pi-briefcase" (click)="novaConsultaPaciente()" class="web"></button>
               <p-button icon="pi pi-plus" [rounded]="true"  (click)="novaConsultaPaciente()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
 
-            </div> -->
+            </div>
               <p-table
               #productsTable
               [value]="paciente.consultas"

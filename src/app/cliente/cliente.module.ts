@@ -32,6 +32,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TimelineModule } from 'primeng/timeline';
 import { ChipsModule } from 'primeng/chips';
 import { OrcamentoModule } from '../MyComponents/orcamento/orcamento.module';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuModule } from 'primeng/menu';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { OrcamentoModule } from '../MyComponents/orcamento/orcamento.module';
     SkeletonModule,
     CardModule,
     ButtonModule,
+    TieredMenuModule,
+    MenuModule,
+    SelectButtonModule,
     TableModule,
     InputMaskModule,
     InputSwitchModule,

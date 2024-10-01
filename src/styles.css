@@ -11,7 +11,7 @@ body {
   background-color: #EFF3F8;}
 
 
-.SuccessSnackbar {
+  .SuccessSnackbar {
 
     --mdc-snackbar-container-color: #f1fcf2;
     --mat-mdc-snack-bar-button-color: #1e9131;

@@ -61,6 +61,9 @@ export class ClienteInfoComponent implements OnInit {
   separatorExp: RegExp = /,| /;
 
   orcamento: boolean = true;
+  // stateOptions: any[] = [{ label: 'Consulta', value: 'consulta' },{ label: 'Pagamento', value: 'pagamento' }, { label: 'Orçamento', value: 'orcamento' }];
+
+  // value: string = 'off';
 
   constructor(private service: ClienteService, private route: ActivatedRoute, private router: Router,private serviceConsulta: ConsultaService,
     private messageService: MessageService, private formBuilder: FormBuilder, private assync: AssyncServiceService) {
@@ -249,6 +252,30 @@ export class ClienteInfoComponent implements OnInit {
           ],
       },
       {
+        label:"Orçamentos",
+        icon: 'pi pi-fw pi-clipboard',
+        items:[
+          {
+            label: 'Consultar',
+            icon: 'pi pi-pw pi-list',
+            command: ()=>{
+              this.activeIndex = 4;
+            }
+          },
+          {
+            label: 'Novo',
+            icon:'pi pi-fw pi-plus',
+          },
+          {
+            separator: true
+          },
+          {
+            label: 'Export',
+            icon: 'pi pi-fw pi-external-link'
+          }
+        ],
+    },
+      {
         icon: 'pi pi-fw pi-file-export',
         label:"Relatorios",
         items: [
@@ -279,6 +306,7 @@ export class ClienteInfoComponent implements OnInit {
       },
 
     ];
+
     this.montaTimeline();
   }
 
@@ -688,6 +716,12 @@ export class ClienteInfoComponent implements OnInit {
 
   novoOrcamento(){
     this.orcamento = true;
+  }
+
+
+  editarPaciente(){
+    this.disable = false;
+    this.formulario.patchValue(this.paciente)
   }
 }
 

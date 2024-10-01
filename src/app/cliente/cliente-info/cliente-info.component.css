@@ -1,10 +1,10 @@
 
 .bannerCliente{
     width: 98%;
-    height: 270px;
-    position: relative;
-    top: -20px;
+    height: 230px;
     display: flex;
+    margin-top: 15px;
+
     /* background-image: url("src/assets/img/teste2.png"); */
     background-image: url("src/assets/img/banner.jpg");
     background-repeat:no-repeat;
@@ -64,6 +64,33 @@ li {
 
 }
 
+:host ::ng-deep {
+  .custom-select-button{
+    background: #F1F5F9;
+    border-radius: 8px;
+    color: #000;
+  }
+
+  .custom-select-button .p-button {
+    background-color: #F1F5F9;
+    font-size: 14px;
+    border: none;
+    padding: 10px;
+    margin-inline: 5px;
+    border-radius: 8px;
+  }
+  
+  .custom-select-button .p-button.p-highlight {
+    background-color: #fff; /* Cor quando o botão está selecionado */
+    color: #000;
+  }
+  
+  .custom-select-button .p-button:hover {
+    background-color: #fff; /* Cor ao passar o mouse */
+  }
+}
+
+
 :host ::ng-deep .p-menubar {
   border: 1px #c4ddf3;
   border-style: solid;
@@ -90,10 +117,10 @@ li {
 button{
   background: linear-gradient(to right, #2070b4, #24aae3);
   font-size: 0.9rem;
-  width: 10vw;
+  width: auto;
   border-radius: 50px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
-  border:none;
+  border: none;
 }
 
 button:hover{
@@ -163,6 +190,12 @@ input[type=file]::file-selector-button:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10), 0 6px 6px rgba(0, 0, 0, 0.10);
 }
 
+/* .tiered-menu-position {
+  position: absolute !important;
+  top: 100% !important; 
+  right: 0 !important; 
+  z-index: 1000 !important; 
+} */
 
 .mobile{
   display: none;

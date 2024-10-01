@@ -414,15 +414,16 @@ export class HomeComponent implements OnInit{
 
   async filtrarDashboard(){
     const inicio = new Date(this.formulario.get('dtInicio')?.value);
-    inicio.setHours(0,0,0,0);
     const fim = new Date(this.formulario.get('dtFim')?.value);
-    fim.setHours(0,0,0,0);
+    
+    const inicioUTC = new Date(Date.UTC(inicio.getFullYear(), inicio.getMonth(), inicio.getDate()));
+    const fimUTC = new Date(Date.UTC(fim.getFullYear(), fim.getMonth(), fim.getDate(), 23, 59, 59));
 
-    this.filtro.DtInicio = inicio;
-    this.filtro.DtFim = fim;
-    this.filtro.DentistaId = this.formulario.get('dentista')?.value.id;
-    this.filtro.ProcedimentosId = this.formulario.get('procedimento')?.value.id;
-    this.filtro.EspecialidadeId = this.formulario.get('especialidade')?.value.id;
+    this.filtro.DtInicio = inicioUTC;
+    this.filtro.DtFim = fimUTC;
+    this.filtro.DentistaId = this.formulario.get('dentista')?.value?.id || null;
+    this.filtro.ProcedimentosId = this.formulario.get('procedimento')?.value?.id || null;
+    this.filtro.EspecialidadeId = this.formulario.get('especialidade')?.value?.id || null;
 
 
     console.log(this.filtro);

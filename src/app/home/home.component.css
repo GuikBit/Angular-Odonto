@@ -14,7 +14,6 @@
 .bar{
 
   padding: 2rem;
-  margin: 0.5rem;
   background: #FFFFFF;
   border-radius: 15px ;
   border: 1px solid #c4ddf3;
@@ -22,7 +21,6 @@
 }
 .line{
   padding: 2rem;
-  margin: 0.5rem;
   background: #FFFFFF;
   border-radius: 15px ;
   border: 1px solid #c4ddf3;
@@ -32,7 +30,6 @@
   width: auto;
   height: auto;
   padding: 2rem;
-  margin: 0.5rem;
   background: #FFFFFF;
   border-radius: 15px ;
   border: 1px solid #c4ddf3;
@@ -43,23 +40,24 @@
 }
 .backGreen{
   display: flex;
-  width: 1.1vw;
-  height: 2.3vh;
+  width: 1.5vw;
+  height: 1.5vh;
   border-radius: 50%;
   background-color: rgba(34, 197, 94, 0.14);
   justify-content: center;
   align-items: center;
-  color: #324352
+  font-size: 10px;
 }
 
 .backRed{
   display: flex;
-  width: 1.1vw;
-  height: 2.3vh;
+  width: 1.5vw;
+  height: 1.5vw;
   border-radius: 50%;
   background-color: rgba(255, 61, 50, 0.14);
   justify-content: center;
   align-items: center;
+  font-size: 10px;
 }
 .cardTitulo{
   color:#303030;
@@ -123,7 +121,7 @@ button:hover{
 }
 
 .sidebar {
-  width: 270px;
+  width: 250px;
   display: none;
 }
 

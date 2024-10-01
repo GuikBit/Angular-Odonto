@@ -76,12 +76,26 @@
 .box:hover{
   background: #f2f7fc;
 }
+@media (max-width: 576px) {
+  button {
+    font-size: 0rem; /* Ajustei o tamanho do botão para dispositivos menores */
+    width: 10vw; /* Ajustei a largura do botão para dispositivos menores */
+    height: 3vh;
+    box-shadow: none;
+  }
+  .menus {
+    position: fixed;
+    bottom: 20px;
+    width: 90vw;
+    height: 6vh;
+  }
+}
 
 @media (max-width: 768px) {
 
   button {
       font-size: 0rem; /* Ajustei o tamanho do botão para dispositivos menores */
-      width: 13vw; /* Ajustei a largura do botão para dispositivos menores */
+      width: 10vw; /* Ajustei a largura do botão para dispositivos menores */
       height: 3vh;
       box-shadow: none;
     }
@@ -94,3 +108,21 @@
       height: 6vh;
     }
 }
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 1280px) {
+
+}
+
+@media (max-width: 1440px) {
+  button {
+    font-size: 0.9rem; 
+    width: 10vw; 
+    height: 6vh;
+    box-shadow: none;
+  }
+}
+
