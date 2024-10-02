@@ -55,7 +55,7 @@
         <div class="field flex justify-content-center ml-3">
           <span class="p-float-label p-input-icon-right">
             <i class="pi pi-user"></i>
-            <p-dropdown [options]="data.dentistasList" class="text-sm" formControlName="dentista" appendTo="body" [autoZIndex]="true" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}" ></p-dropdown>
+            <p-dropdown [options]="data.dentistasList" class="text-sm" formControlName="dentista" [showClear]="true" appendTo="body" (onChange)="preencheuDentista()" [autoZIndex]="true" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}" ></p-dropdown>
             <label for="float-label" class="azul text-sm">Dentista</label>
           </span>
         </div>
@@ -71,7 +71,7 @@
         <div class="field flex justify-content-center ml-3">
           <span class="p-float-label p-input-icon-right">
             <i class="pi pi-user"></i>
-            <p-dropdown [options]="data.especialidades" formControlName="especialidade" appendTo="body" [autoZIndex]="true" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}"></p-dropdown>
+            <p-dropdown [options]="data.especialidades" formControlName="especialidade" [showClear]="true" appendTo="body" [autoZIndex]="true" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}"></p-dropdown>
             <label for="float-label" class="azul text-sm">Especialidade</label>
           </span>
         </div>
@@ -246,16 +246,16 @@
               <i class="pi pi-user-plus text-8xl text-100"></i>
             </div>
             <div class="pt-2">
-              <p-chart type="line"
+              <!-- <p-chart type="line"
                 height="80"
                 width="160"
                 [responsive]="true"
                 [data]="{
-                  labels: [ '', '', '', '','',''],
+                  labels: this.data?.meses,
                   datasets: [
                     {
                       fill: false,
-                      data: [this.data.qtdPacienteMes[5],this.data.qtdPacienteMes[4], this.data.qtdPacienteMes[3], this.data.qtdPacienteMes[2], this.data.qtdPacienteMes[1], this.data.qtdPacienteMes[0] ],
+                      data: this.data.qtdPacienteMes,
                       borderColor: this.data.qtdMes[0] < this.data.qtdMes[1]? '#FF6259':'#4CD07D',
                       tension: 0.4
                     }
@@ -308,7 +308,16 @@
                   }
                 }"
   
-              ></p-chart>
+              ></p-chart> -->
+            
+              <p-chart
+                height="80"
+                width="160"
+                type="bar"
+                [data]="dataBarNew"
+                [options]="basicOptionsBarNew"
+              />
+            
             </div>
   
           </div>
@@ -342,7 +351,7 @@
             <i class="pi pi-clock text-8xl text-100"></i>
           </div>
           <div class="pt-2">
-            <p-chart type="line"
+            <!-- <p-chart type="line"
             height="80"
             width="180"
             [responsive]="true"
@@ -406,7 +415,15 @@
               }
             }"
 
-            ></p-chart>
+            ></p-chart> -->
+          
+            <p-chart 
+              type="line" 
+              height="80"
+              width="160"
+              [data]="dataBarAtraso" 
+              [options]="basicOptionsBarAtraso" 
+            />
           </div>
 
         </div>
@@ -623,7 +640,6 @@
           <div class="bar lg:mt-4">
             <span class="cardTitulo mb-2">Consultas por Dentista</span>
             <p-chart
-
               type="line"
               [data]="dataLineDent"
               [options]="basicOptionsDent"

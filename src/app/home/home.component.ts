@@ -38,12 +38,16 @@ export class HomeComponent implements OnInit{
   dataLine: any;
   dataLineDent: any;
   dataPie: any;
+  dataBarNew: any;
+  dataBarAtraso: any;
 
   formulario: FormGroup;
 
   basicOptions: any;
   basicOptionsDent: any;
   basicOptionsPie: any;
+  basicOptionsBarNew: any;
+  basicOptionsBarAtraso: any;
 
   filtro: FiltroDash = {
     DtInicio: null,
@@ -55,6 +59,8 @@ export class HomeComponent implements OnInit{
 
   sidebarState = 'in';
   sidebarVisible: boolean = true;
+
+
   constructor(private service: DashboardService, private messageService: MessageService, private formBuilder: FormBuilder) {
 
    }
@@ -82,8 +88,6 @@ export class HomeComponent implements OnInit{
     })
 
     await this.configuraGrafico();
-
-
 
   }
 
@@ -257,19 +261,107 @@ export class HomeComponent implements OnInit{
 
     const meses = this.data?.meses ?? [];
     const dentistasList = this.data?.dentistasList ?? [];
+    const dentistasFiltrados = this.data?.dentistasFiltrados ?? [];
     const qtdConsultasDentistaMes = this.data?.qtdConsultasDentistaMes ?? [];
     const qtdProcedimentos = this.data?.qtdProcedimentos ?? [];
     const qtdEspecialidade = this.data?.qtdEspecialidade ?? [];
     const especialidades = this.data?.especialidades ?? [];
+    const qtdPacienteMes = this.data?.qtdPacienteMes ?? [];
+    
+    const totalMeses = this.data.qtdAtrasoMes.length;
+    const somaAtrasos = this.data.qtdAtrasoMes.reduce((a: any, b: any) => a + b, 0);
+    const mediaGeral = somaAtrasos / totalMeses;
+    const mediaGeralArray = Array(totalMeses).fill(mediaGeral);
+
+    this.basicOptionsBarAtraso = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          display: false,
+        
+        },
+        y: {
+          display: false,
+          
+        }
+      }, elements: {
+        point: {
+            radius:0
+        },
+
+      }
+    }
+
+    this.dataBarAtraso = {
+      labels: meses,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Média Geral',
+          borderColor: 'rgb(75, 192, 192)',
+          borderWidth: 0.7,
+          fill: false,
+          tension: 0.4,
+          data: mediaGeralArray
+      },
+      {
+        type: 'bar',
+        label: 'Média Mês',
+        backgroundColor: 'rgba(75, 192, 192, 0.25)',
+        borderColor:  'rgb(75, 192, 192)',
+        data: this.data.qtdAtrasoMes,
+        borderWidth: 0.8,
+      },
+      ]
+    }
+
+
+    this.dataBarNew = {
+      labels: meses,
+      datasets: [
+          {
+            label: 'Novos',
+            data: qtdPacienteMes,
+            backgroundColor: 'rgba(75, 192, 192, 0.25)',
+            borderColor:  'rgb(75, 192, 192)',
+            borderWidth: 0.8,
+            borderRadius: 1
+          }
+      ]
+    }
+
+    this.basicOptionsBarNew = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        x: {
+          display: false,
+        
+        },
+        y: {
+          display: false,
+          
+        }
+      }
+    }
 
     this.dataLineDent = {
-      labels: meses, // Inverte a ordem dos meses
-      datasets: dentistasList.map((dentista: any, index: any) => ({
+      labels: meses, 
+      datasets: dentistasFiltrados.map((dentista: any, index: any) => ({
         label: dentista.nome,
         data: qtdConsultasDentistaMes.map((mes: any )=> mes[index]),
         fill: false,
         tension: 0.4,
-        borderColor: dentista.corDentista, // Você pode definir diferentes cores para cada dentista
+        borderColor: dentista.corDentista,
         backgroundColor: 'transparent'
       }))
     };
@@ -291,7 +383,7 @@ export class HomeComponent implements OnInit{
           data: this.data.qtdMes,
           fill: true,
           borderColor: '#2070B4',
-          tension: 0.4,
+          tension: 0.3,
           backgroundColor: 'rgba(32, 112, 180, 0.2)'
         }
       ]
@@ -413,11 +505,11 @@ export class HomeComponent implements OnInit{
   }
 
   async filtrarDashboard(){
-    const inicio = new Date(this.formulario.get('dtInicio')?.value || null);
-    const fim = new Date(this.formulario.get('dtFim')?.value || null);
+    const inicio = this.formulario.get('dtInicio')?.value ? new Date(this.formulario.get('dtInicio')?.value)  : null;
+    const fim = this.formulario.get('dtFim')?.value ? new Date(this.formulario.get('dtFim')?.value ) : null;
 
-    const inicioUTC = new Date(Date.UTC(inicio.getFullYear(), inicio.getMonth(), inicio.getDate()));
-    const fimUTC = new Date(Date.UTC(fim.getFullYear(), fim.getMonth(), fim.getDate(), 23, 59, 59));
+    const inicioUTC = inicio ? new Date(Date.UTC(inicio?.getFullYear(), inicio.getMonth(), inicio.getDate())) : null;
+    const fimUTC = fim ? new Date(Date.UTC(fim.getFullYear(), fim.getMonth(), fim.getDate(), 23, 59, 59)) : null;
 
     this.filtro.DtInicio = inicioUTC;
     this.filtro.DtFim = fimUTC;
@@ -467,6 +559,15 @@ export class HomeComponent implements OnInit{
   toggleSidebar() {
     this.sidebarState = this.sidebarState === 'in' ? 'out' : 'in';
     this.sidebarVisible = !this.sidebarVisible;
+  }
+
+
+  preencheuDentista(){
+    if(this.formulario.get('dentista')?.value){
+      this.formulario.get('especialidade')?.setValue(this.formulario.get('dentista')?.value.especialidade)
+    }else{
+      this.formulario.get('especialidade')?.setValue(null);
+    }
   }
 
 
