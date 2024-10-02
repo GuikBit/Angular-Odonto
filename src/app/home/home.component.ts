@@ -263,7 +263,7 @@ export class HomeComponent implements OnInit{
     const especialidades = this.data?.especialidades ?? [];
 
     this.dataLineDent = {
-      labels: meses.reverse(), // Inverte a ordem dos meses
+      labels: meses, // Inverte a ordem dos meses
       datasets: dentistasList.map((dentista: any, index: any) => ({
         label: dentista.nome,
         data: qtdConsultasDentistaMes.map((mes: any )=> mes[index]),
@@ -413,9 +413,9 @@ export class HomeComponent implements OnInit{
   }
 
   async filtrarDashboard(){
-    const inicio = new Date(this.formulario.get('dtInicio')?.value);
-    const fim = new Date(this.formulario.get('dtFim')?.value);
-    
+    const inicio = new Date(this.formulario.get('dtInicio')?.value || null);
+    const fim = new Date(this.formulario.get('dtFim')?.value || null);
+
     const inicioUTC = new Date(Date.UTC(inicio.getFullYear(), inicio.getMonth(), inicio.getDate()));
     const fimUTC = new Date(Date.UTC(fim.getFullYear(), fim.getMonth(), fim.getDate(), 23, 59, 59));
 
@@ -426,13 +426,13 @@ export class HomeComponent implements OnInit{
     this.filtro.EspecialidadeId = this.formulario.get('especialidade')?.value?.id || null;
 
 
-    console.log(this.filtro);
+    console.log(this.filtro, inicioUTC);
 
     await this.service.postDashBoard(this.filtro).then((response)=>{
       if(response?.status === 200 || response?.status === 201){
        this.data = response.data
        this.erro = false;
-
+       this.configuraGrafico();
        console.log(this.data)
       }else{
         this.messageService.add({severity:'error', summary:'Erro', detail:'Houve um erro ao buscar as informações do dashboard. Entre em contato com o suporte.'});
