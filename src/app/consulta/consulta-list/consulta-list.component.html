@@ -1,473 +1,484 @@
-<div class="container">
-  <div class="grid">
-    <div class="col-12 z-0">
-      <div class="flex align-items-around absolute top-0 left-5 z-1 w-11 filtro web">
-        <div class="col-12 flex">
-          <div class="col-1"></div>
-          <div class="col-4">
-            <p-selectButton
-              [options]="listaOuCalendar"
-              [(ngModel)]="filtroListaCalendar"
-              [multiple]="false"
-              optionLabel="name"
-              optionValue="value"
-              class="selectButton"
-              (onChange)="trocaFiltroCalendario($event)"
+<div class="m-3">
+  <div class="w-full boxFilter flex align-items-center justify-content-center">
+    <div class="col-2 flex align-items-center justify-content-center">
+
+      <div>
+        <p-selectButton
+        [options]="listaOuCalendar"
+        [(ngModel)]="filtroListaCalendar"
+        [multiple]="false"
+        optionLabel="name"        
+        optionValue="value"
+        class="selectButton"
+        (onChange)="trocaFiltroCalendario($event)"
+      >
+        <ng-template let-item pTemplate>
+          <i [class]="item.icon"></i>
+        </ng-template>
+      </p-selectButton>
+      </div>
+
+    </div>
+    <div class="col-3"></div>
+    <div class="col-7 flex align-items-center justify-content-center " >          
+     
+      <div class="field  md:col-12 lg:col-4">
+        <span class="p-float-label">
+          <p-dropdown
+          [options]="dentistas"
+          [(ngModel)]="filtroDentista"
+          optionLabel="nome"
+          [showClear]="true"
+          (onChange)="redirecionarDentista(filtroDentista.id)"
+          inputId="filtroDentista"
+          [style]="{'width': '100%', 'height': '40px'}"
+          class="inputFiltro"
+        >
+        <ng-template pTemplate="selectedItem">
+          <div class="flex align-items-center gap-2" *ngIf="filtroDentista">
+            <span [style]="{'color': filtroDentista.corDentista}">
+              <i class="pi pi-user  ml-1" [style]="{'color': filtroDentista.corDentista}"></i>
+              {{filtroDentista.nome}}
+              <span class="border-circle w-1rem h-1rem" [style]="{'background': filtroDentista.corDentista}"></span>
+            </span>
+          </div>
+        </ng-template>
+          <ng-template let-item pTemplate="item">
+            <span [style]="{'color': item.corDentista}">
+              <i class="pi pi-user  ml-1" [style]="{'color': item.corDentista}"></i>
+              {{item.nome}}
+              <span class="border-circle w-1rem h-1rem" [style]="{'background': item.corDentista}"></span>
+            </span>
+          </ng-template>
+          </p-dropdown>
+          <label for="filtroDentista" class="azul">Filtrar por dentista </label>
+        </span>
+      </div>
+    
+      <div class="field  md:col-12 lg:col-4">
+        <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
+          <p-calendar
+            inputId="filtroData"
+            appendTo="body"
+            [autoZIndex]="true"
+            [(ngModel)]="rangeDates"
+            [iconDisplay]="'input'"
+            [showIcon]="true"
+            [showTime]="false"
+            [showButtonBar]="true"
+            selectionMode="range"
+            dateFormat="dd/mm/yy"
+            class="inputFiltro"
+            [style]="{'width': '100%', 'height': '40px'}"
             >
-            </p-selectButton>
+            <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+              <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+            </ng-template>
+          </p-calendar>
+          <label for="filtroData" class="azul">Filtrar por data</label>
+        </span>
+      </div>
+
+      <div class="field  md:col-12 lg:col-4">
+        <span class="p-float-label" >
+          <p-dropdown
+          [options]="[
+            {
+              label:  'Agendado',
+              cor: '#F97316'
+            },
+            {
+              label:  'Em atendimento',
+              cor: '#3B82F6'
+            },
+            {
+              label:  'Atendido',
+              cor: '#22C55E'
+            },
+            {
+              label:  'Ausente',
+              cor: '#FF3D32'
+            }
+
+          ]"
+          [(ngModel)]="status"
+          optionLabel="label"
+          [showClear]="true"
+          inputId="status"
+          class="inputFiltro"
+          [style]="{'width': '100%', 'height': '40px'}"
+        >
+        <ng-template pTemplate="selectedItem">
+          <div class="flex align-items-center gap-2" *ngIf="status">
+            <span>
+              <i class="pi pi-circle-fill mr-2" [style]="{'color': status.cor}"></i>
+              {{status.label}}
+            </span>
           </div>
-
-
-          <div class="flex align-items-end justify-content-between col-7 " >
-            <div class="field  md:col-12 lg:col-4 ">
-              <span class="p-float-label">
-                <p-dropdown
-                [options]="dentistas"
-                [(ngModel)]="filtroDentista"
-                optionLabel="nome"
-                [showClear]="true"
-                (onChange)="redirecionarDentista(filtroDentista.id)"
-                inputId="filtroDentista"
-                [style]="{'width': '100%', 'height': '46px'}"
-              >
-              <ng-template pTemplate="selectedItem">
-                <div class="flex align-items-center gap-2" *ngIf="filtroDentista">
-                  <span [style]="{'color': filtroDentista.corDentista}">
-                    <i class="pi pi-user  ml-1" [style]="{'color': filtroDentista.corDentista}"></i>
-                    {{filtroDentista.nome}}
-                    <span class="border-circle w-1rem h-1rem" [style]="{'background': filtroDentista.corDentista}"></span>
-                  </span>
-                </div>
-              </ng-template>
-                <ng-template let-item pTemplate="item">
-                  <span [style]="{'color': item.corDentista}">
-                    <i class="pi pi-user  ml-1" [style]="{'color': item.corDentista}"></i>
-                    {{item.nome}}
-                    <span class="border-circle w-1rem h-1rem" [style]="{'background': item.corDentista}"></span>
-                  </span>
-                </ng-template>
-                </p-dropdown>
-                <label for="filtroDentista" class="azul">Filtrar por dentista </label>
+        </ng-template>
+          <ng-template let-item pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              <span >
+                <i class="pi pi-circle-fill  mr-2" [style]="{'color': item.cor}"></i>
+                {{item.label}}
               </span>
             </div>
-
-            <div class="field  md:col-12 lg:col-4 ">
-              <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
-                <p-calendar
-                  inputId="filtroData"
-                  appendTo="body"
-                  [autoZIndex]="true"
-                  [(ngModel)]="rangeDates"
-                  [iconDisplay]="'input'"
-                  [showIcon]="true"
-                  [showTime]="false"
-                  [showButtonBar]="true"
-                  selectionMode="range"
-                  dateFormat="dd/mm/yy"
-                  class="inputFiltro meu-calendario"
-                  [style]="{'width': '100%'}"
-                  >
-                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                  </ng-template>
-                </p-calendar>
-                <label for="filtroData" class="azul">Filtrar por data</label>
-              </span>
-            </div>
-
-            <div class="field  md:col-12 lg:col-4">
-              <span class="p-float-label" >
-                <p-dropdown
-                [options]="[
-                  {
-                    label:  'Agendado',
-                    cor: '#F97316'
-                  },
-                  {
-                    label:  'Em atendimento',
-                    cor: '#3B82F6'
-                  },
-                  {
-                    label:  'Atendido',
-                    cor: '#22C55E'
-                  },
-                  {
-                    label:  'Ausente',
-                    cor: '#FF3D32'
-                  }
-
-                ]"
-                [(ngModel)]="status"
-                optionLabel="label"
-                [showClear]="true"
-                inputId="status"
-                [style]="{'width': '100%', 'height': '46px'}"
-              >
-              <ng-template pTemplate="selectedItem">
-                <div class="flex align-items-center gap-2" *ngIf="status">
-                  <span>
-                    <i class="pi pi-circle-fill mr-2" [style]="{'color': status.cor}"></i>
-                    {{status.label}}
-                  </span>
-                </div>
-              </ng-template>
-                <ng-template let-item pTemplate="item">
-                  <div class="flex align-items-center gap-2">
-                    <span >
-                      <i class="pi pi-circle-fill  mr-2" [style]="{'color': item.cor}"></i>
-                      {{item.label}}
-                    </span>
-                  </div>
-                </ng-template>
-                </p-dropdown>
-                <label for="filtroDentista" class="azul">Filtrar por status </label>
-              </span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <!-- Lista -->
-      <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
-        <div class="flex justify-content-between m-3"  >
-          <div class="flex align-items-center">
-            <p-selectButton
-              [options]="filtroDiaSemanaMes"
-              [(ngModel)]="filtro"
-              [multiple]="false"
-              optionLabel="name"
-              optionValue="value"
-              class="selectButton"
-              onOptionClick="filtarTabela(value)"
-              (onChange)="filtrarTabela($event)"
-            >
-            </p-selectButton>
-          </div>
-            <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastro()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
-
-            <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-plus" class="web"></button>
-        </div>
-          <p-table
-            #productsTable
-            [value]="listaFiltro"
-            [rows]="10"
-            [paginator]="true"
-            [responsive]="true"
-            [globalFilterFields]="['nomePaciente', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
-            [tableStyle]="{ 'min-width': '75rem' }"
-            [rowHover]="true"
-            [showCurrentPageReport]="true"
-            dataKey="id"
-            currentPageReportTemplate="{first} de {last} de {totalRecords}"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th pSortableColumn="paciente.nome" [width]="380">
-                  <div class="flex justify-content-between align-items-center">
-                    <div class="flex justify-content-center align-items-center">
-                      Paciente
-                    </div>
-                    <div class="flex justify-content-center align-items-center">
-                      <p-sortIcon
-                        field="paciente.nome"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                      ></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="paciente.nome"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-                <th pSortableColumn="dentista.nome" [width]="380" >
-                  <div class="flex justify-content-between align-items-center">
-                    <div class="flex justify-content-between align-items-center">
-                      Dentista
-                    </div>
-                    <div class="flex justify-content-between align-items-center">
-                      <p-sortIcon
-                        field="dentista.nome"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                        ></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="dentista.nome"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-
-                <th pSortableColumn="dataConsulta" [width]="230">
-                  <div class="flex justify-content-between align-items-center">
-                    <div class="flex justify-content-between align-items-center">
-                      Data Consulta
-                    </div>
-                    <div class="flex justify-content-between align-items-center">
-                      <p-sortIcon
-                        field="dataConsulta"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                        ></p-sortIcon>
-                      <p-columnFilter
-                      type="date"
-                      field="dataConsulta"
-                      dateFormt='yyyy-mm-dd'
-                      display="menu"
-                      pTooltip="Filtrar"
-                      tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-                <th pSortableColumn="horaConsulta" [width]="230">
-                  <div class="flex justify-content-between align-items-center">
-                    <div class="flex justify-content-between align-items-center">
-                      Hora Consulta
-                    </div>
-                    <div class="flex justify-content-between align-items-center">
-                      <p-sortIcon
-                        field="horaConsulta"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                        ></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="horaConsulta"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-                <th pSortableColumn="status" [width]="180">
-                  <div class="flex justify-content-between align-items-center">
-                    <div class="flex justify-content-between align-items-center">
-                      Status
-                    </div>
-                    <div class="flex justify-content-between align-items-center">
-                      <p-sortIcon
-                        field="status"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="status"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-                <!-- <th pSortableColumn="status" [width]="180">
-                  <div class="flex justify-content-between align-items-center">
-                    <div class="flex justify-content-between align-items-center">
-                      Pagamento
-                    </div>
-                    <div class="flex justify-content-between align-items-center">
-                      <p-sortIcon
-                        field="status"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="status"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th> -->
-                <th [width]="250">
-                  <div class="flex justify-content-end align-items-center web">
-                    <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
-                  </div>
-                </th>
-            </ng-template>
-
-            <ng-template pTemplate="body" let-consulta>
-              <tr>
-                <td>{{ consulta?.paciente.nome }}</td>
-                <td>{{ consulta?.dentista.nome }}</td>
-                <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}}</td>
-                <td>{{  consulta?.dataConsulta | date: 'HH:mm' }}</td>
-                <td>
-                  <!-- <p-tag
-                    [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
-                    [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-                    [rounded]="true"
-                    [style]="{'font-size': '12px', 'font-weight': '400'}"
-                    [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
-                  >
-                  </p-tag>-->
-                    @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
-                        <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                      }
-                    @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                      <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
-                      }
-                    @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
-                      {
-                        <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                      }
-                    @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
-                      {
-                        <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                      }
-                </td>
-                <td [width]="230">
-                        <div class="flex justify-content-around">
-                          <!-- <p-button
-                            icon="pi pi-pw pi-play"
-                            [rounded]="true"
-                            [outlined]="true"
-                            [severity]="'warning'"
-                            [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                            pTooltip="Iniciar Consulta"
-                            tooltipPosition="top"
-                            (click)="iniciarConsulta(consulta)"
-                            >
-                          </p-button> -->
-                          <p-button
-                            icon="pi pi-pw pi-play"
-                            [rounded]="true"
-                            [text]="true"
-                            severity="warning"
-                            [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                            pTooltip="Iniciar Consulta"
-                            tooltipPosition="top"
-                            (click)="iniciarConsulta(consulta)"
-                          ></p-button>
-
-                          <!-- <p-button
-                            icon="pi pi-pw pi-info-circle"
-                            [rounded]="true"
-                            [outlined]="true"
-                            severity="info"
-                            pTooltip="Informações"
-                            tooltipPosition="top"
-                            (click)="consultaSelecionadaInfo(consulta?.id, 1)"
-                          >
-                          </p-button> -->
-                          <p-button
-                            icon="pi pi-pw pi-info-circle"
-                            [rounded]="true"
-                            [text]="true"
-                            severity="info"
-                            pTooltip="Informações"
-                            tooltipPosition="top"
-                            (click)="consultaSelecionadaInfo(consulta?.id, 1)"
-                          ></p-button>
-
-
-
-                          @if(consulta.pagamento.fatFechado && !consulta.pagamento.pago){
-                            <!-- <p-button icon="pi pi-pw pi-dollar"
-                            [rounded]="true"
-                            [outlined]="true"
-                            severity="danger"
-                            pTooltip="Financeiro pendente"
-                            tooltipPosition="top"
-                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                          >
-                          </p-button> -->
-                          <p-button
-                            icon="pi pi-pw pi-dollar"
-                            [rounded]="true"
-                            [text]="true"
-                            severity="danger"
-                            pTooltip="Financeiro pendente"
-                            tooltipPosition="top"
-                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                          ></p-button>
-                          }
-                          @else if(consulta.pagamento.fatFechado && consulta.pagamento.pago){
-                            <!-- <p-button icon="pi pi-pw pi-dollar"
-                            [rounded]="true"
-                            [outlined]="true"
-                            severity="success"
-                            pTooltip="Financeiro fechado"
-                            tooltipPosition="top"
-                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                          >
-                          </p-button> -->
-                          <p-button
-                            icon="pi pi-pw pi-dollar"
-                            [rounded]="true"
-                            [text]="true"
-                            severity="success"
-                            pTooltip="Financeiro fechado"
-                            tooltipPosition="top"
-                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                          ></p-button>
-                          }@else {
-                            <!-- <p-button icon="pi pi-pw pi-dollar"
-                            [rounded]="true"
-                            [outlined]="true"
-                            severity="secondary"
-                            pTooltip="Financeiro aberto"
-                            tooltipPosition="top"
-                            (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                          >
-                          </p-button> -->
-                          <p-button
-                          icon="pi pi-pw pi-dollar"
-                          [rounded]="true"
-                          [text]="true"
-                          severity="secondary"
-                          pTooltip="Financeiro aberto"
-                          tooltipPosition="top"
-                          (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                          ></p-button>
-                          }
-
-                        </div>
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr >
-                <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
-              </tr>
-            </ng-template>
-          </p-table>
-      </div>
-      <!-- Calendar -->
-      <div class="card box lg:p-6 text-indigo-800" *ngIf="!ehCalendario">
-        <app-calendario [listaConsultas]="lista" [filtroDentista]="filtraListaDentista()" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
-      </div>
+          </ng-template>
+          </p-dropdown>
+          <label for="filtroDentista" class="azul">Filtrar por status </label>
+        </span>
+      </div> 
+      
     </div>
   </div>
+  <div class="boxFilter flex">
+           
+  </div>
+
+  <!-- Lista -->
+  <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
+    <div class="flex justify-content-between m-3"  >
+      <div class="flex align-items-center">
+        
+        <p-selectButton
+          [options]="filtroDiaSemanaMes"
+          [(ngModel)]="filtro"
+          [multiple]="false"
+          optionLabel="name"
+          optionValue="value"
+          class="selectButton"
+          onOptionClick="filtarTabela(value)"
+          (onChange)="filtrarTabela($event)"
+        >
+        </p-selectButton>
+
+
+      </div>
+        <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastro()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
+
+        <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient" (click)="cadastro()" icon="pi pi-plus" class="web"></button>
+    </div>
+      <p-table
+        #productsTable
+        [value]="listaFiltro"
+        [rows]="10"
+        [paginator]="true"
+        [responsive]="true"
+        [globalFilterFields]="['nomePaciente', 'nomeDentista','dataConsulta', 'horaConsulta', 'status']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [rowHover]="true"
+        [showCurrentPageReport]="true"
+        dataKey="id"
+        currentPageReportTemplate="{first} de {last} de {totalRecords}"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="paciente.nome" [width]="380">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-center align-items-center">
+                  Paciente
+                </div>
+                <div class="flex justify-content-center align-items-center">
+                  <p-sortIcon
+                    field="paciente.nome"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                  ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="paciente.nome"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="dentista.nome" [width]="380" >
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Dentista
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="dentista.nome"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                    ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="dentista.nome"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+            <th pSortableColumn="dataConsulta" [width]="230">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Data Consulta
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="dataConsulta"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                    ></p-sortIcon>
+                  <p-columnFilter
+                  type="date"
+                  field="dataConsulta"
+                  dateFormt='yyyy-mm-dd'
+                  display="menu"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="horaConsulta" [width]="230">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Hora Consulta
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="horaConsulta"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                    ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="horaConsulta"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="status" [width]="180">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Status
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="status"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="status"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <!-- <th pSortableColumn="status" [width]="180">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Pagamento
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="status"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="status"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th> -->
+            <th [width]="250">
+              <div class="flex justify-content-end align-items-center web">
+                <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+              </div>
+            </th>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-consulta>
+          <tr>
+            <td>{{ consulta?.paciente.nome }}</td>
+            <td>{{ consulta?.dentista.nome }}</td>
+            <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}}</td>
+            <td>{{  consulta?.dataConsulta | date: 'HH:mm' }}</td>
+            <td>
+              <!-- <p-tag
+                [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
+                [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+                [rounded]="true"
+                [style]="{'font-size': '12px', 'font-weight': '400'}"
+                [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
+              >
+              </p-tag>-->
+                @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                    <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                  }
+                @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+                  <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                  }
+                @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+                  {
+                    <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                  }
+                @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+                  {
+                    <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                  }
+            </td>
+            <td [width]="230">
+                    <div class="flex justify-content-around">
+                      <!-- <p-button
+                        icon="pi pi-pw pi-play"
+                        [rounded]="true"
+                        [outlined]="true"
+                        [severity]="'warning'"
+                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                        pTooltip="Iniciar Consulta"
+                        tooltipPosition="top"
+                        (click)="iniciarConsulta(consulta)"
+                        >
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-play"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="warning"
+                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                        pTooltip="Iniciar Consulta"
+                        tooltipPosition="top"
+                        (click)="iniciarConsulta(consulta)"
+                      ></p-button>
+
+                      <!-- <p-button
+                        icon="pi pi-pw pi-info-circle"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="info"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                      >
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-info-circle"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="info"
+                        pTooltip="Informações"
+                        tooltipPosition="top"
+                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                      ></p-button>
+
+
+
+                      @if(consulta.pagamento.fatFechado && !consulta.pagamento.pago){
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="danger"
+                        pTooltip="Financeiro pendente"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      >
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="danger"
+                        pTooltip="Financeiro pendente"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      ></p-button>
+                      }
+                      @else if(consulta.pagamento.fatFechado && consulta.pagamento.pago){
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="success"
+                        pTooltip="Financeiro fechado"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      >
+                      </p-button> -->
+                      <p-button
+                        icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [text]="true"
+                        severity="success"
+                        pTooltip="Financeiro fechado"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      ></p-button>
+                      }@else {
+                        <!-- <p-button icon="pi pi-pw pi-dollar"
+                        [rounded]="true"
+                        [outlined]="true"
+                        severity="secondary"
+                        pTooltip="Financeiro aberto"
+                        tooltipPosition="top"
+                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      >
+                      </p-button> -->
+                      <p-button
+                      icon="pi pi-pw pi-dollar"
+                      [rounded]="true"
+                      [text]="true"
+                      severity="secondary"
+                      pTooltip="Financeiro aberto"
+                      tooltipPosition="top"
+                      (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      ></p-button>
+                      }
+
+                    </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr >
+            <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+          </tr>
+        </ng-template>
+      </p-table>
+  </div>
+  <!-- Calendar -->
+  <div class="card box lg:p-6 text-indigo-800" *ngIf="!ehCalendario">
+    <app-calendario [listaConsultas]="lista" [filtroDentista]="filtraListaDentista()" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
+  </div>
+    
+  
 </div>
 
 <p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">
