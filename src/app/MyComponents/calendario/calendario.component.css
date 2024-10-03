@@ -2,18 +2,20 @@
 
 :host::ng-deep {
   .fc-button {
-    /* background: linear-gradient(to right, #206EAF, #206EAF); Cor do botão primário */
     background: linear-gradient(to right, var(--cor-fundo), var(--cor-fundo));
     border:none;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12); */
   }
   .fc-button:hover {
     background: linear-gradient(to right, var(--cor-fundo-hover), var(--cor-fundo-hover-2));
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+    /* box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16); */
 
   }
 }
+
+
+
 .custom-event-container {
   display: flex;
   align-items: center;
@@ -25,3 +27,24 @@
   height: auto;
 }
 
+:host::ng-deep {
+  .p-selectbutton .p-button.p-highlight {
+    background: #EDEDF2; 
+    border: none;
+    color: #2070b4;       
+  }
+
+  .p-selectbutton .p-button.p-highlight:hover {
+    background: #DCE8ED;
+  }
+
+  .p-selectbutton .p-button {
+    background: #EDEDF2;
+    border: none;
+    color: #4face1;
+  }
+
+  .p-selectbutton .p-button:hover {
+    background: #DCE8ED; 
+  }
+}

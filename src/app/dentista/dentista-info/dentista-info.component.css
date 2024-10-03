@@ -36,11 +36,22 @@ li {
   border-radius: 50px;
 }
 
-.box{
+.bannerDentista{
   background: #FFFFFF;
   border-radius: 15px ;
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+  height: 160px;
+  background-image: url("src/assets/img/bannerDentista.jpg");
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position: center center;
+}
+.box{
+  background: #FFFFFF;
+  border-radius: 15px ;
+  border: 1px solid #c4ddf3;
+  /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
 
 }
 .cardTitulo{
@@ -65,19 +76,30 @@ li {
   font-size: medium;
 }
 
-button{
-
-  font-size: 0.9rem;
-  width: 10vw;
+button {
+  /* background: linear-gradient(to right, #2070b4, #24aae3); */
+  font-size: .9rem;
+  
+  color: #fff;
+  width: auto;
+  padding: 12px 24px;
   border-radius: 50px;
-  border:none;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
+  border: none;
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12); 
 }
 
-button:hover{
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+button:hover {
+  /* background: linear-gradient(to right,#226199, #1E9CC9);  */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.15); 
+  transform: translateY(-2px); 
 }
 
+button:active {
+  transform: translateY(0); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12); 
+}
 .backGreen{
   display: flex;
   width: 1.1vw;
@@ -103,12 +125,21 @@ button:hover{
   height: auto; /* Ajustar a altura automaticamente com base na largura */
 }
 
+.width{
+  width: 100%;
+}
+
 .mobile{
   display: none;
 }
 
 .web{
   display: block;
+}
+
+.btnAtivo {
+  border-radius: 50%;
+  background:var(--cor-dentista) ;
 }
 
 

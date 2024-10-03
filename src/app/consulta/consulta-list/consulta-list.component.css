@@ -3,56 +3,29 @@
 @import "primeng/resources/primeng.css";
 
 :host::ng-deep {
+ 
   .p-selectbutton .p-button.p-highlight {
     background: #EDEDF2; 
     border: none;
-    color: #2070b4;       
+    color: #2070b4;  /* Cor do texto em destaque */
   }
 
   .p-selectbutton .p-button.p-highlight:hover {
-    /* background: linear-gradient(to right, #194973, #0f82ba);    */
-    background: #e9eff5;
+    background: #DCE8ED;
+    color: #2070b4;  /* Cor do texto ao passar o mouse */
   }
 
+  /* Botão normal */
   .p-selectbutton .p-button {
     background: #EDEDF2;
     border: none;
-    color: #4face1;
+    color: #4face1;  /* Cor do texto normal */
   }
 
   .p-selectbutton .p-button:hover {
-    background: #e9eff5; 
+    background: #DCE8ED;
+    color: #2070b4;  /* Cor do texto ao passar o mouse em botão normal */
   }
-}
-:host::ng-deep {
-  /* .p-button.p-highlight.selectButton {
-     background: linear-gradient(to right, #2070b4, #24aae3); 
-    background: #F1F5F9;
-    border: none;
-    color: #2070b4;
-  }
-  .p-button.p-highlight:hover {
-    background: linear-gradient(to right, #194973, #0f82ba);
-  } */
-
-  /* .p-dropdown {
-    width:'100%';
-    height: 46px;
-    border-color: #c4ddf3;
-    box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
-  }
-  .p-dropdown:hover {
-    border-color: #63aff1;
-  }
-  .p-calendar {
-    width:'100%';
-    height: 46px;
-    border-color: #c4ddf3;
-    box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
-  }
-  .p-calendar:hover{
-    border-color: #63aff1;
-  } */
 }
 
 .selectButton.p-button{
@@ -60,10 +33,10 @@
    border: none;
 }
 
-button{
+/* button{
   background: linear-gradient(to right, #2070b4, #24aae3);
   font-size: 0.9rem;
-  width: 10vw;
+  width: 12vw;
   border-radius: 50px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
   border:none;
@@ -71,6 +44,30 @@ button{
 
 button:hover{
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+} */
+
+button {
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: .9rem;
+  color: #fff;
+  width: auto;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12); 
+}
+
+button:hover {
+  background: linear-gradient(to right,#226199, #1E9CC9); 
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.15); 
+  transform: translateY(-2px); 
+}
+
+button:active {
+  transform: translateY(0); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12); 
 }
 
 th{

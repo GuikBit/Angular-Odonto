@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dentista } from '../../class/dentista';
 import { DentistaService } from 'src/app/dentista.service';
@@ -10,7 +10,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './dentista-edit.component.html',
   styleUrls: ['./dentista-edit.component.css']
 })
-export class DentistaEditComponent {
+export class DentistaEditComponent implements OnInit {
 
   especialidades: any[]|undefined;
   dentista: Dentista;
@@ -36,6 +36,10 @@ export class DentistaEditComponent {
       { tipo: 'Periodontia' },
 
   ];
+  }
+  
+  ngOnInit(): void {
+    
   }
 
   criaFormulario(dentista: Dentista) {

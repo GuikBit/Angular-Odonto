@@ -41,7 +41,7 @@
 .backGreen{
   display: flex;
   width: 1.5vw;
-  height: 1.5vh;
+  height: 1.5vw;
   border-radius: 50%;
   background-color: rgba(34, 197, 94, 0.14);
   justify-content: center;
@@ -75,32 +75,8 @@
   font-weight: 500;
   font-size: medium;
 }
-button{
-  background: linear-gradient(to right, #2070b4, #24aae3);
-  font-size: 0.9rem;
-  width: 6vw;
-  height: 3.5vh;
-  border-radius: 50px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
-  border:none;
-}
 
-button:hover{
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
-}
-.limpar{
-  background: white;
-  color:#2070b4;
-  font-size: 0.9rem;
-  width: 6vw;
-  height: 3.5vh;
-  border-radius: 50px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.12);
-  border: 0.5px solid #2070b4;
-}
-.limpar:hover{
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
-}
+
 
 .top-2 {
   top: 2%;

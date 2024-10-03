@@ -1,5 +1,5 @@
 <div class="m-3">
-  <div class="w-full boxFilter flex align-items-center justify-content-center">
+  <!-- <div class="w-full boxFilter flex align-items-center justify-content-center">
     <div class="col-2 flex align-items-center justify-content-center">
 
       <div>
@@ -130,11 +130,146 @@
       </div> 
       
     </div>
-  </div>
-  <div class="boxFilter flex">
-           
-  </div>
+  </div> -->
 
+  <div class="w-full mb-3">
+    <div class=" h-4rem boxFilter flex justify-content-center align-items-center ">
+      <!-- <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()" class=""> -->
+      
+        <div class="col-2 flex align-items-center justify-content-center">
+
+          <div>
+            <p-selectButton
+            [options]="listaOuCalendar"
+            [(ngModel)]="filtroListaCalendar"
+            [multiple]="false"
+            optionLabel="name"        
+            optionValue="value"
+            class="selectButton"
+            (onChange)="trocaFiltroCalendario($event)"
+          >
+            <ng-template let-item pTemplate>
+              <i [class]="item.icon"></i>
+            </ng-template>
+          </p-selectButton>
+          </div>
+    
+        </div>
+
+        <div class="col-3 flex align-items-center justify-content-center"> </div>
+
+        <div class="col-7 flex ">
+          <div class="field  md:col-12 lg:col-4 m-0">
+            <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
+              <p-calendar
+                inputId="filtroData"
+                appendTo="body"
+                [autoZIndex]="true"
+                [(ngModel)]="rangeDates"
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+                [showTime]="false"
+                [showButtonBar]="true"
+                selectionMode="range"
+                dateFormat="dd/mm/yy"
+                class="inputFiltro"
+                [style]="{'width': '100%', 'height': '40px'}"
+                >
+                <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                  <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                </ng-template>
+              </p-calendar>
+              <label for="filtroData" class="azul">Filtrar por data</label>
+            </span>
+          </div>
+
+          <div class="field  md:col-12 lg:col-4 m-0">
+            <span class="p-float-label">
+              <p-dropdown
+              [options]="dentistas"
+              [(ngModel)]="filtroDentista"
+              optionLabel="nome"
+              [showClear]="true"
+              (onChange)="redirecionarDentista(filtroDentista.id)"
+              inputId="filtroDentista"
+              [style]="{'width': '100%', 'height': '40px'}"
+              class="inputFiltro"
+            >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="filtroDentista">
+                <span [style]="{'color': filtroDentista.corDentista}">
+                  <i class="pi pi-user  ml-1" [style]="{'color': filtroDentista.corDentista}"></i>
+                  {{filtroDentista.nome}}
+                  <span class="border-circle w-1rem h-1rem" [style]="{'background': filtroDentista.corDentista}"></span>
+                </span>
+              </div>
+            </ng-template>
+              <ng-template let-item pTemplate="item">
+                <span [style]="{'color': item.corDentista}">
+                  <i class="pi pi-user  ml-1" [style]="{'color': item.corDentista}"></i>
+                  {{item.nome}}
+                  <span class="border-circle w-1rem h-1rem" [style]="{'background': item.corDentista}"></span>
+                </span>
+              </ng-template>
+              </p-dropdown>
+              <label for="filtroDentista" class="azul">Filtrar por dentista </label>
+            </span>
+          </div>
+    
+          <div class="field  md:col-12 lg:col-4 m-0">
+            <span class="p-float-label" >
+              <p-dropdown
+              [options]="[
+                {
+                  label:  'Agendado',
+                  cor: '#F97316'
+                },
+                {
+                  label:  'Em atendimento',
+                  cor: '#3B82F6'
+                },
+                {
+                  label:  'Atendido',
+                  cor: '#22C55E'
+                },
+                {
+                  label:  'Ausente',
+                  cor: '#FF3D32'
+                }
+    
+              ]"
+              [(ngModel)]="status"
+              optionLabel="label"
+              [showClear]="true"
+              inputId="status"
+              class="inputFiltro"
+              [style]="{'width': '100%', 'height': '40px'}"
+            >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="status">
+                <span>
+                  <i class="pi pi-circle-fill mr-2" [style]="{'color': status.cor}"></i>
+                  {{status.label}}
+                </span>
+              </div>
+            </ng-template>
+              <ng-template let-item pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <span >
+                    <i class="pi pi-circle-fill  mr-2" [style]="{'color': item.cor}"></i>
+                    {{item.label}}
+                  </span>
+                </div>
+              </ng-template>
+              </p-dropdown>
+              <label for="filtroDentista" class="azul">Filtrar por status </label>
+            </span>
+          </div> 
+        </div>
+  
+      <!-- </form> -->
+    </div>
+  </div>
   <!-- Lista -->
   <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
     <div class="flex justify-content-between m-3"  >
@@ -150,6 +285,9 @@
           onOptionClick="filtarTabela(value)"
           (onChange)="filtrarTabela($event)"
         >
+        <ng-template let-item pTemplate>
+          <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>          
+        </ng-template>
         </p-selectButton>
 
 

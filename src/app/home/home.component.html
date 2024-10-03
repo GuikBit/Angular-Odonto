@@ -221,24 +221,38 @@
     <div class="grid">
       <div class=" col-3 px-2">
         <div class="card flex" >
-          <div class="col-6 py-4 " >
-            <div class="row flex justify-content-start align-items-center ml-2">
-              <span class="font-bold text-600 md:text-xl xl:text-3x1" >{{this.data.qtdPacienteMes[0]}} novos</span>
-            </div>
-            <div class="row flex">
-              <span class="lg:text-sm xl:text-lg text-600 xl:font-medium mx-2">Pacientes</span>
-              <div class="flex align-items-center">
+          <div class="col-6 py-2 flex justify-content-start align-items-center" >
+            <div>
+              <div class="row flex justify-content-start align-items-center ml-2 ">
+                <span class="font-bold text-600 md:text-xl xl:text-3x1" [ngPlural]="this.data.qtdPacienteMes[0]" >{{this.data.qtdPacienteMes[0]}} 
+                  <ng-template ngPluralCase="=0">novos</ng-template>
+                  <ng-template ngPluralCase="=1">novo</ng-template>
+                  <ng-template ngPluralCase="other">novos</ng-template>
+                </span>
+              </div>
+              <div class="row flex align-items-center">
+                
+                  <span class="lg:text-sm xl:text-base text-600 mx-2" [ngPlural]="this.data.qtdPacienteMes[0]">
+                    <ng-template ngPluralCase="=0">Paciente</ng-template>
+                    <ng-template ngPluralCase="=1">Paciente</ng-template>
+                    <ng-template ngPluralCase="other">Pacientes</ng-template>
+                  </span>
+                    
                   <span [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]? 'backGreen':'backRed'">
                     <i [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]?
                     'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
                     ></i>
                   </span>
-                  <!-- <span [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]?
-                  'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                  >{{ calculaPorcentagem(this.data.qtdPacienteMes[0], this.data.qtdPacienteMes[1]) | percent: '1.1' }} </span>
-                  -->
+      
+                  <span [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]?
+                    ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
+                    >{{ calculaPorcentagem(this.data.qtdPacienteMes[0], this.data.qtdPacienteMes[1]) | percent: '1.1' }} </span>
+                
+                   
+                
               </div>
             </div>
+
           </div>
           <div class="col-6 flex justify-content-end align-items-center">
             <div class="absolute z-0 px-3">
@@ -329,20 +343,19 @@
           <div class="row flex justify-content-start align-items-center ml-2">
             <span class="font-bold text-600 md:text-xl xl:text-3x1">{{this.data.qtdAtrasoMes[0] | number: '1.0-0'}} min</span>
           </div>
-          <div class="row flex">
-              <span class="text-lg text-600 font-medium mx-2 ">Atraso</span>
-               <div class="flex align-items-center">
-                <span [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]? 'backGreen':'backRed'">
-                  <i [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]?
-                    'pi pi-arrow-down-right text-xs font-bold text-green-500' : 'pi pi-arrow-up-right text-xs font-bold text-red-400'"
-                  ></i>
-                </span>
-                <!-- <span [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]?
-                  'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                  >{{ calculaPorcentagem(this.data.qtdAtrasoMes[0], this.data.qtdAtrasoMes[1]) | percent: '1.1' }}
-                </span>  -->
+          <div class="row flex align-items-center">
+              <span class="lg:text-sm xl:text-base text-600 mx-2">Atraso</span>
 
-              </div>
+              <span [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]? 'backGreen':'backRed'">
+                <i [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]?
+                  'pi pi-arrow-down-right text-xs font-bold text-green-500' : 'pi pi-arrow-up-right text-xs font-bold text-red-400'"
+                ></i>
+              </span>
+
+              <span [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]?
+                ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
+                >{{ calculaPorcentagem(this.data.qtdAtrasoMes[0], this.data.qtdAtrasoMes[1]) | percent: '1.1' }}
+              </span> 
           </div>
         </div>
         <div class="col-6 flex justify-content-end align-items-center">
@@ -433,22 +446,22 @@
         <div class="card flex" >
           <div class="col-6 py-4 " >
             <div class="row flex justify-content-start align-items-center ml-2">
-              <span class="font-bold text-600 md:text-xl xl:text-3x1">45</span>
+              <span class="font-bold text-600 md:text-xl xl:text-3x1">45 Não sei</span>
             </div>
-            <div class="row flex">
-              <span class="text-lg text-600 font-medium mx-2 ">Não</span>
-              <div class="flex align-items-center">
-                <span [class]="this.data.qtdMes[1] > this.data.qtdMes[1]? 'backGreen':'backRed'">
-                  <i [class]="this.data.qtdMes[1] > this.data.qtdMes[1]?
-                    'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
-                  ></i>
-                </span>
-                <!-- <span [class]="this.data.qtdMes[1] > this.data.qtdMes[1]?
-                  'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                  >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
-                </span> -->
+            <div class="row flex align-items-center">
+              <span class="lg:text-sm xl:text-base text-600 mx-2">Atraso</span>
+              
+              <span [class]="this.data.qtdMes[1] > this.data.qtdMes[1]? 'backGreen':'backRed'">
+                <i [class]="this.data.qtdMes[1] > this.data.qtdMes[1]?
+                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                ></i>
+              </span>
 
-              </div>
+              <span [class]="this.data.qtdMes[1] > this.data.qtdMes[1]?
+                ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
+                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+              </span>
+
             </div>
           </div>
 
@@ -459,7 +472,7 @@
             <div class="pt-2">
               <p-chart type="line"
               height="80"
-              width="180"
+              width="160"
               [responsive]="true"
               [data]="{
                 labels: [ '', '', '', '','',''],
@@ -533,17 +546,17 @@
   
             </div>
             <div class="row flex">
-              <span class="text-lg text-600 font-medium mx-2 ">Faturado</span>
+              <span class="lg:text-sm xl:text-base text-600 mx-2">Faturado</span>
               <div class="flex align-items-center">
                 <span [class]="this.data.qtdFaturamentoMes[0] > this.data.qtdFaturamentoMes[1]? 'backGreen':'backRed'">
                   <i [class]="this.data.qtdFaturamentoMes[0] > this.data.qtdFaturamentoMes[1]?
                     'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
                   ></i>
                 </span>
-                <!-- <span [class]="this.data.qtdFaturamentoMes[0] > this.data.qtdFaturamentoMes[1]?
-                  'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                <span [class]="this.data.qtdFaturamentoMes[0] > this.data.qtdFaturamentoMes[1]?
+                  ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
                   >{{ calculaPorcentagem(this.data.qtdFaturamentoMes[0], this.data.qtdFaturamentoMes[1]) | percent: '1.1' }}
-                </span> -->
+                </span>
   
               </div>
             </div>
@@ -556,7 +569,7 @@
             <div class="pt-2">
               <p-chart type="line"
               height="80"
-              width="148"
+              width="160"
               [responsive]="true"
               [data]="{
                 labels: [ '', '', '', '','',''],

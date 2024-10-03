@@ -26,7 +26,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { TagModule } from 'primeng/tag';
 import { CalendarModule } from 'primeng/calendar';
 import { ColorPickerModule } from 'primeng/colorpicker';
-
+import { TabViewModule } from 'primeng/tabview';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
@@ -52,6 +52,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CalendarioModule,
     CardModule,
     ColorPickerModule,
+    TabViewModule,
     ButtonModule,
     TableModule,
     InputMaskModule,

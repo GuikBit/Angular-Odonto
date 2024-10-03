@@ -1,5 +1,5 @@
 <div class="card lg:m-3 lg:mb-8">
-  <div class="row lg:flex ">
+  <div class="row bannerDentista lg:flex relative border-round-3xl">
     <div class="md:col-12 lg:col-2 flex align-items-center justify-content-center ">
       <!-- <p-avatar image="https://sorrisologia.com.br/documents/37259750/37287069/15627-mais-do-que-tratar-do-seu-sorriso-o-den-slider_medias-2.jpg/186392e9-1639-b3ba-2d73-c1cd82a4608a?t=1622581613231" size="xlarge" shape="circle"></p-avatar> -->
       <p-image src="https://sorrisologia.com.br/documents/37259750/37287069/15627-mais-do-que-tratar-do-seu-sorriso-o-den-slider_medias-2.jpg/186392e9-1639-b3ba-2d73-c1cd82a4608a?t=1622581613231"
@@ -27,420 +27,436 @@
       </div>
 
     </div>
-    <div class="md:col-12 lg:col-4  flex align-items-center justify-content-center sticky top-0 pt-3 z-1">
-      <ul>
-        <li pTooltip="Orcamentos" tooltipPosition="top" >
-          <p-button icon="pi pi-clipboard" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(1)"></p-button>
-        </li>
-        <li pTooltip="Calendario" tooltipPosition="top" *ngIf="!ehListagem" >
-          <p-button icon="pi pi-calendar" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(3)"></p-button>
-        </li>
-        <li pTooltip="Listagem" tooltipPosition="top" *ngIf="ehListagem">
-          <p-button icon="pi pi-list" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(2)"></p-button>
-        </li>
-        <li pTooltip="Informações" tooltipPosition="top">
-          <p-button icon="pi pi-info-circle" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}"></p-button>
-        </li>
-        <li pTooltip="Editar" tooltipPosition="top">
-          <p-button icon="pi pi-user-edit" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista }"></p-button>
-        </li>
-        <li pTooltip="Exportar" tooltipPosition="top">
-          <p-button icon="pi pi-download" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista }"></p-button>
-        </li>
-        <li pTooltip="Deletar" tooltipPosition="top">
-          <p-button icon="pi pi-trash" size="large" [rounded]="true" severity="danger" [text]="false"></p-button>
-        </li>
-      </ul>
-    </div>
 
-  </div>
-  <div class="row lg:flex lg:justify-content-center ">
-
-    <div class="md:col-11 lg:col-3 ">
-      <div class="card box flex" >
-        <div class="col-6 py-4 " >
-          <div class="row flex justify-content-start align-items-center ml-2">
-            <span class="font-bold text-600 text-3xl">45</span>
+    <div class="absolute w-12 h-5rem  z-1 flex justify-content-center align-content-center " style="bottom: -4.5rem;">
+      <div class="flex justify-content-between align-items-center w-11 h-full border-round-2xl z-50 px-4" style="bottom: -4rem; background-color: rgba(250, 253, 255, 0.90); box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;">
+        
+          <div class="md:col-12 lg:col-12  flex align-items-center justify-content-end sticky top-0 pt-3 z-1" [style.--cor-dentista]="data.corDentista + '30'">
+            <ul>
+              <li pTooltip="Orcamentos" tooltipPosition="top" [class]="ehOrcamento? 'btnAtivo': null">
+                <p-button icon="pi pi-clipboard" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(1)"></p-button>
+              </li>
+              <li pTooltip="Calendario" tooltipPosition="top" [class]="ehCalendario? 'btnAtivo': null">
+                <p-button icon="pi pi-calendar" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(2)"></p-button>
+              </li>
+              <li pTooltip="Listagem" tooltipPosition="top" [class]="ehListagem? 'btnAtivo': null">
+                <p-button icon="pi pi-list" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(3)"></p-button>
+              </li>
+              
+              <li pTooltip="Indicadores" tooltipPosition="top" [class]="ehIndicadores? 'btnAtivo': null">
+                <p-button icon="pi pi-chart-bar" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(4)"></p-button>
+              </li>
+              <li pTooltip="Informações" tooltipPosition="top" [class]="ehInfo? 'btnAtivo': null" >
+                <p-button icon="pi pi-info-circle" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(5)"></p-button>
+              </li>
+              <!-- <li pTooltip="Editar" tooltipPosition="top">
+                <p-button icon="pi pi-user-edit" size="large" [rounded]="true" [text]="true" [style]="{'color': data.corDentista }"></p-button>
+              </li> -->
+              <li pTooltip="Exportar" tooltipPosition="top">
+                <p-button icon="pi pi-download" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}"></p-button>
+              </li>
+              <li pTooltip="Deletar" tooltipPosition="top">
+                <p-button icon="pi pi-trash" size="large"  [rounded]="true" severity="danger" [text]="false"></p-button>
+              </li>
+            </ul>
           </div>
-          <div class="row flex">
-            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
-            <div class="flex align-items-center">
-              <span [class]="1 > 0? 'backGreen':'backRed'">
-                <i [class]="1 > 0?
-                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
-                ></i>
-              </span>
-              <span [class]="1 > 0?
-                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
-              </span>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6 flex justify-content-end align-items-center">
-          <div class="absolute z-0 px-3">
-            <i class="pi pi-shopping-cart text-8xl text-100"></i>
-          </div>
-          <div class="pt-2">
-            <p-chart type="line"
-            height="80"
-            width="180"
-            [responsive]="true"
-            [data]="{
-              labels: [ '', '', '', '','',''],
-              datasets: [
-                {
-                  fill: false,
-                  data: [35, 41, 37, 33, 39, 35],
-                  borderColor: '#FF6259',
-                  tension: 0.4
-                }
-              ],
-            }"
-            [options]="{
-              maintainAspectRatio: false,
-              aspectRatio: 3,
-              name: false,
-              plugins: {
-                legend: {
-                  display: false
-                }
-              },
-              scales: {
-                  x: {
-                    display: false,
-                    ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                        drawBorder: false
-                      }
-                  },
-                  y: {
-                    display: false,
-                      ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                          drawBorder: false
-                      }
-                  }
-              },
-              elements: {
-                point: {
-                    radius:0
-                },
-
-              },
-              layout: {
-                padding: {
-                left: 0,
-                right: 0,
-                top: 5,
-                bottom: 5
-              }
-              }
-            }"
-
-            ></p-chart>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="md:col-11 lg:col-3 ">
-      <div class="card box flex" >
-        <div class="col-6 py-4 " >
-          <div class="row flex justify-content-start align-items-center ml-2">
-            <span class="font-bold text-600 text-3xl">45</span>
-          </div>
-          <div class="row flex">
-            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
-            <div class="flex align-items-center">
-              <span [class]="1 > 0? 'backGreen':'backRed'">
-                <i [class]="1 > 0?
-                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
-                ></i>
-              </span>
-              <span [class]="1 > 0?
-                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
-              </span>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6 flex justify-content-end align-items-center">
-          <div class="absolute z-0 px-3">
-            <i class="pi pi-shopping-cart text-8xl text-100"></i>
-          </div>
-          <div class="pt-2">
-            <p-chart type="line"
-            height="80"
-            width="180"
-            [responsive]="true"
-            [data]="{
-              labels: [ '', '', '', '','',''],
-              datasets: [
-                {
-                  fill: false,
-                  data: [35, 41, 37, 33, 39, 35],
-                  borderColor: '#FF6259',
-                  tension: 0.4
-                }
-              ],
-            }"
-            [options]="{
-              maintainAspectRatio: false,
-              aspectRatio: 3,
-              name: false,
-              plugins: {
-                legend: {
-                  display: false
-                }
-              },
-              scales: {
-                  x: {
-                    display: false,
-                    ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                        drawBorder: false
-                      }
-                  },
-                  y: {
-                    display: false,
-                      ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                          drawBorder: false
-                      }
-                  }
-              },
-              elements: {
-                point: {
-                    radius:0
-                },
-
-              },
-              layout: {
-                padding: {
-                left: 0,
-                right: 0,
-                top: 5,
-                bottom: 5
-              }
-              }
-            }"
-
-            ></p-chart>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="md:col-11 lg:col-3 ">
-      <div class="card box flex" >
-        <div class="col-6 py-4 " >
-          <div class="row flex justify-content-start align-items-center ml-2">
-            <span class="font-bold text-600 text-3xl">45</span>
-          </div>
-          <div class="row flex">
-            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
-            <div class="flex align-items-center">
-              <span [class]="1 > 0? 'backGreen':'backRed'">
-                <i [class]="1 > 0?
-                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
-                ></i>
-              </span>
-              <span [class]="1 > 0?
-                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
-              </span>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6 flex justify-content-end align-items-center">
-          <div class="absolute z-0 px-3">
-            <i class="pi pi-shopping-cart text-8xl text-100"></i>
-          </div>
-          <div class="pt-2">
-            <p-chart type="line"
-            height="80"
-            width="180"
-            [responsive]="true"
-            [data]="{
-              labels: [ '', '', '', '','',''],
-              datasets: [
-                {
-                  fill: false,
-                  data: [35, 41, 37, 33, 39, 35],
-                  borderColor: '#FF6259',
-                  tension: 0.4
-                }
-              ],
-            }"
-            [options]="{
-              maintainAspectRatio: false,
-              aspectRatio: 3,
-              name: false,
-              plugins: {
-                legend: {
-                  display: false
-                }
-              },
-              scales: {
-                  x: {
-                    display: false,
-                    ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                        drawBorder: false
-                      }
-                  },
-                  y: {
-                    display: false,
-                      ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                          drawBorder: false
-                      }
-                  }
-              },
-              elements: {
-                point: {
-                    radius:0
-                },
-
-              },
-              layout: {
-                padding: {
-                left: 0,
-                right: 0,
-                top: 5,
-                bottom: 5
-              }
-              }
-            }"
-
-            ></p-chart>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="md:col-11 lg:col-3 ">
-      <div class="card box flex" >
-        <div class="col-6 py-4 " >
-          <div class="row flex justify-content-start align-items-center ml-2">
-            <span class="font-bold text-600 text-3xl">45</span>
-          </div>
-          <div class="row flex">
-            <span class="text-lg text-600 font-medium ml-2 mr-3 ">Não sei</span>
-            <div class="flex align-items-center">
-              <span [class]="1 > 0? 'backGreen':'backRed'">
-                <i [class]="1 > 0?
-                  'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
-                ></i>
-              </span>
-              <span [class]="1 > 0?
-                'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
-                >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
-              </span>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-6 flex justify-content-end align-items-center">
-          <div class="absolute z-0 px-3">
-            <i class="pi pi-shopping-cart text-8xl text-100"></i>
-          </div>
-          <div class="pt-2">
-            <p-chart type="line"
-            height="80"
-            width="180"
-            [responsive]="true"
-            [data]="{
-              labels: [ '', '', '', '','',''],
-              datasets: [
-                {
-                  fill: false,
-                  data: [35, 41, 37, 33, 39, 35],
-                  borderColor: '#FF6259',
-                  tension: 0.4
-                }
-              ],
-            }"
-            [options]="{
-              maintainAspectRatio: false,
-              aspectRatio: 3,
-              name: false,
-              plugins: {
-                legend: {
-                  display: false
-                }
-              },
-              scales: {
-                  x: {
-                    display: false,
-                    ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                        drawBorder: false
-                      }
-                  },
-                  y: {
-                    display: false,
-                      ticks: {
-                        color: 'transparent',
-                      },
-                      grid: {
-                        color: 'transparent',
-                          drawBorder: false
-                      }
-                  }
-              },
-              elements: {
-                point: {
-                    radius:0
-                },
-
-              },
-              layout: {
-                padding: {
-                left: 0,
-                right: 0,
-                top: 5,
-                bottom: 5
-              }
-              }
-            }"
-
-            ></p-chart>
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>
 
-  <div class="row lg:flex">
-      <div class="md:col-12 lg:col-3 web">
-        <div class="card box p-3 mb-3" >
+  
+
+
+  
+
+  <div class="row lg:flex mt-8">
+    <div class="md:col-12 lg:col-12" *ngIf="ehIndicadores">
+      <div class="row lg:flex lg:justify-content-center">
+
+        <div class="md:col-11 lg:col-3 ">
+          <div class="card box flex" >
+            <div class="col-6 py-4 " >
+              <div class="row flex justify-content-start align-items-center ml-2">
+                <span class="font-bold text-600 text-3xl">45</span>
+              </div>
+              <div class="row flex">
+                <span class="text-lg text-600 font-medium ml-2 mr-3 ">consultas</span>
+                <div class="flex align-items-center">
+                  <span [class]="1 > 0? 'backGreen':'backRed'">
+                    <i [class]="1 > 0?
+                      'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                    ></i>
+                  </span>
+                  <span [class]="1 > 0?
+                    'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                    >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+                  </span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 flex justify-content-end align-items-center">
+              <div class="absolute z-0 px-3">
+                <i class="pi pi-shopping-cart text-8xl text-100"></i>
+              </div>
+              <div class="pt-2">
+                <p-chart type="line"
+                height="80"
+                width="180"
+                [responsive]="true"
+                [data]="{
+                  labels: [ '', '', '', '','',''],
+                  datasets: [
+                    {
+                      fill: false,
+                      data: [35, 41, 37, 33, 39, 35],
+                      borderColor: '#FF6259',
+                      tension: 0.4
+                    }
+                  ],
+                }"
+                [options]="{
+                  maintainAspectRatio: false,
+                  aspectRatio: 3,
+                  name: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  scales: {
+                      x: {
+                        display: false,
+                        ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                            drawBorder: false
+                          }
+                      },
+                      y: {
+                        display: false,
+                          ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                              drawBorder: false
+                          }
+                      }
+                  },
+                  elements: {
+                    point: {
+                        radius:0
+                    },
+
+                  },
+                  layout: {
+                    padding: {
+                    left: 0,
+                    right: 0,
+                    top: 5,
+                    bottom: 5
+                  }
+                  }
+                }"
+
+                ></p-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-11 lg:col-3 ">
+          <div class="card box flex" >
+            <div class="col-6 py-4 " >
+              <div class="row flex justify-content-start align-items-center ml-2">
+                <span class="font-bold text-600 text-3xl">45</span>
+              </div>
+              <div class="row flex">
+                <span class="text-lg text-600 font-medium ml-2 mr-3 ">Atraso</span>
+                <div class="flex align-items-center">
+                  <span [class]="1 > 0? 'backGreen':'backRed'">
+                    <i [class]="1 > 0?
+                      'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                    ></i>
+                  </span>
+                  <span [class]="1 > 0?
+                    'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                    >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+                  </span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 flex justify-content-end align-items-center">
+              <div class="absolute z-0 px-3">
+                <i class="pi pi-shopping-cart text-8xl text-100"></i>
+              </div>
+              <div class="pt-2">
+                <p-chart type="line"
+                height="80"
+                width="180"
+                [responsive]="true"
+                [data]="{
+                  labels: [ '', '', '', '','',''],
+                  datasets: [
+                    {
+                      fill: false,
+                      data: [35, 41, 37, 33, 39, 35],
+                      borderColor: '#FF6259',
+                      tension: 0.4
+                    }
+                  ],
+                }"
+                [options]="{
+                  maintainAspectRatio: false,
+                  aspectRatio: 3,
+                  name: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  scales: {
+                      x: {
+                        display: false,
+                        ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                            drawBorder: false
+                          }
+                      },
+                      y: {
+                        display: false,
+                          ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                              drawBorder: false
+                          }
+                      }
+                  },
+                  elements: {
+                    point: {
+                        radius:0
+                    },
+
+                  },
+                  layout: {
+                    padding: {
+                    left: 0,
+                    right: 0,
+                    top: 5,
+                    bottom: 5
+                  }
+                  }
+                }"
+
+                ></p-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-11 lg:col-3 ">
+          <div class="card box flex" >
+            <div class="col-6 py-4 " >
+              <div class="row flex justify-content-start align-items-center ml-2">
+                <span class="font-bold text-600 text-3xl">45</span>
+              </div>
+              <div class="row flex">
+                <span class="text-lg text-600 font-medium ml-2 mr-3 ">Faturado</span>
+                <div class="flex align-items-center">
+                  <span [class]="1 > 0? 'backGreen':'backRed'">
+                    <i [class]="1 > 0?
+                      'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                    ></i>
+                  </span>
+                  <span [class]="1 > 0?
+                    'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                    >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+                  </span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 flex justify-content-end align-items-center">
+              <div class="absolute z-0 px-3">
+                <i class="pi pi-shopping-cart text-8xl text-100"></i>
+              </div>
+              <div class="pt-2">
+                <p-chart type="line"
+                height="80"
+                width="180"
+                [responsive]="true"
+                [data]="{
+                  labels: [ '', '', '', '','',''],
+                  datasets: [
+                    {
+                      fill: false,
+                      data: [35, 41, 37, 33, 39, 35],
+                      borderColor: '#FF6259',
+                      tension: 0.4
+                    }
+                  ],
+                }"
+                [options]="{
+                  maintainAspectRatio: false,
+                  aspectRatio: 3,
+                  name: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  scales: {
+                      x: {
+                        display: false,
+                        ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                            drawBorder: false
+                          }
+                      },
+                      y: {
+                        display: false,
+                          ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                              drawBorder: false
+                          }
+                      }
+                  },
+                  elements: {
+                    point: {
+                        radius:0
+                    },
+
+                  },
+                  layout: {
+                    padding: {
+                    left: 0,
+                    right: 0,
+                    top: 5,
+                    bottom: 5
+                  }
+                  }
+                }"
+
+                ></p-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-11 lg:col-3 ">
+          <div class="card box flex" >
+            <div class="col-6 py-4 " >
+              <div class="row flex justify-content-start align-items-center ml-2">
+                <span class="font-bold text-600 text-3xl">45</span>
+              </div>
+              <div class="row flex">
+                <span class="text-lg text-600 font-medium ml-2 mr-3 ">A receber</span>
+                <div class="flex align-items-center">
+                  <span [class]="1 > 0? 'backGreen':'backRed'">
+                    <i [class]="1 > 0?
+                      'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
+                    ></i>
+                  </span>
+                  <span [class]="1 > 0?
+                    'font-medium text-sm text-green-500 ml-1' : 'font-medium text-sm text-red-400 ml-1'"
+                    >{{ calculaPorcentagem(200, 203) | percent: '1.1' }}
+                  </span>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 flex justify-content-end align-items-center">
+              <div class="absolute z-0 px-3">
+                <i class="pi pi-shopping-cart text-8xl text-100"></i>
+              </div>
+              <div class="pt-2">
+                <p-chart type="line"
+                height="80"
+                width="180"
+                [responsive]="true"
+                [data]="{
+                  labels: [ '', '', '', '','',''],
+                  datasets: [
+                    {
+                      fill: false,
+                      data: [35, 41, 37, 33, 39, 35],
+                      borderColor: '#FF6259',
+                      tension: 0.4
+                    }
+                  ],
+                }"
+                [options]="{
+                  maintainAspectRatio: false,
+                  aspectRatio: 3,
+                  name: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  scales: {
+                      x: {
+                        display: false,
+                        ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                            drawBorder: false
+                          }
+                      },
+                      y: {
+                        display: false,
+                          ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                              drawBorder: false
+                          }
+                      }
+                  },
+                  elements: {
+                    point: {
+                        radius:0
+                    },
+
+                  },
+                  layout: {
+                    padding: {
+                    left: 0,
+                    right: 0,
+                    top: 5,
+                    bottom: 5
+                  }
+                  }
+                }"
+
+                ></p-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card box p-3 mb-3" >
         <p-chart
             type="line"
             [data]="
@@ -462,361 +478,422 @@
 
           height="330"
         ></p-chart>
-        </div>
-        <div class="card box p-3 mb-3" >
-          <p-chart
-            type="line"
-            [data]="
+      </div>
+      <div class="card box p-3 mb-3" >
+        <p-chart
+          type="line"
+          [data]="
+            {
+            labels: ['Ago','Set', 'Out', 'Nov', 'Dez'],
+            datasets: [
+            {
+                label: 'Third Dataset',
+                data: [50, 33, 42, 62, 45],
+                fill: true,
+                borderColor: data.corDentista,
+                backgroundColor: data.corDentista + '26',
+                tension: 0.4,
+            }
+            ]
+            }
+            "
+          [options]="options2"
+          height="330"
+        ></p-chart>
+      </div>
+      <div class="card box p-3 lg:flex justify-content-center align-items-center" >
+        <p-chart
+          type="doughnut"
+          [data]="
+            {
+            labels: ['A', 'B', 'C'],
+            datasets: [
               {
-              labels: ['Ago','Set', 'Out', 'Nov', 'Dez'],
-              datasets: [
-              {
-                  label: 'Third Dataset',
-                  data: [50, 33, 42, 62, 45],
-                  fill: true,
-                  borderColor: data.corDentista,
-                  backgroundColor: data.corDentista + '26',
-                  tension: 0.4,
-              }
+                data: [300, 50, 100],
+                backgroundColor: [data.corDentista + 'B3', data.corDentista + '80', data.corDentista + '4D'],
+                borderColor: data.corDentista,
+                hoverBackgroundColor: [data.corDentista + '25', data.corDentista + '25', data.corDentista + '25']
+                }
               ]
-              }
-              "
-            [options]="options2"
-            height="330"
-            ></p-chart>
-        </div>
-        <div class="card box p-3 lg:flex justify-content-center align-items-center" >
-          <p-chart
-            type="doughnut"
-            [data]="
-              {
-              labels: ['A', 'B', 'C'],
-              datasets: [
-                {
-                  data: [300, 50, 100],
-                  backgroundColor: [data.corDentista + 'B3', data.corDentista + '80', data.corDentista + '4D'],
-                  borderColor: data.corDentista,
-                  hoverBackgroundColor: [data.corDentista + '25', data.corDentista + '25', data.corDentista + '25']
-                  }
-                ]
-              }"
-            [options]="options1"
+            }"
+          [options]="options1"
 
-            height="315"
-            ></p-chart>
-        </div>
+          height="315"
+        ></p-chart>
       </div>
+    </div>
 
+    <div class="md:col-12 lg:col-12 " *ngIf="ehListagem">
+      <div class="card box p-3 " >
+        <div >
+          <div class="flex justify-content-between m-3 ">
+          <span class="p-float-label p-input-icon-left ">
+            <i class="pi pi-search" [style]="{'color': data.corDentista}"></i>
+            <input pInputText id="search"  class="search" [style]="{'border-color': data.corDentista}"/>
+            <label for="search" [style]="{'color': data.corDentista}">Buscar Consulta...</label>
+          </span>
+          <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newConsulta()" class="web" [style]="{'background': data.corDentista} "></button>
+          <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': data.corDentista}" (click)="newConsulta()"></p-button>
 
-      <div class="md:col-12 lg:col-9 "*ngIf="ehCalendario">
-        <div class="card box p-3 " >
-          <div >
-            <div class="flex justify-content-between m-3 ">
-            <span class="p-float-label p-input-icon-left ">
-              <i class="pi pi-search" [style]="{'color': data.corDentista}"></i>
-              <input pInputText id="search"  class="search" [style]="{'border-color': data.corDentista}"/>
-              <label for="search" [style]="{'color': data.corDentista}">Buscar Consulta...</label>
-            </span>
-            <button pButton type="button" label="Nova Consulta" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newConsulta()" class="web" [style]="{'background': data.corDentista} "></button>
-            <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': data.corDentista}" (click)="newConsulta()"></p-button>
-
-            </div>
-            <p-table
-            #productsTable
-            [value]="data.consultas"
-            [rows]="10"
-            [paginator]="true"
-            [responsive]="true"
-            [globalFilterFields]="['nome', 'dataConsulta']"
-            [tableStyle]="{ 'min-width': '70rem' }"
-            [rowHover]="true"
-            [showCurrentPageReport]="true"
-            dataKey="id"
-            currentPageReportTemplate="{first} de {last} de {totalRecords}"
-          >
-            <ng-template pTemplate="header" >
-              <tr [style]="{'color': data.corDentista + '26'}">
-                <th pSortableColumn="nome" [width]="420">
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
-                      Paciente
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center">
-                      <p-sortIcon
-                        field="nome"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                      ></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="nome"
-                        display="menu"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
+          </div>
+          <p-table
+          #productsTable
+          [value]="data.consultas"
+          [rows]="10"
+          [paginator]="true"
+          [responsive]="true"
+          [globalFilterFields]="['nome', 'dataConsulta']"
+          [tableStyle]="{ 'min-width': '70rem' }"
+          [rowHover]="true"
+          [showCurrentPageReport]="true"
+          dataKey="id"
+          currentPageReportTemplate="{first} de {last} de {totalRecords}"
+        >
+          <ng-template pTemplate="header" >
+            <tr [style]="{'color': data.corDentista + '26'}">
+              <th pSortableColumn="nome" [width]="420">
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
+                    Paciente
                   </div>
-                </th>
-                <th pSortableColumn="dataConsulta" [width]="250">
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
-                      Data
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center">
-                      <p-sortIcon
-                        field="dataConsulta"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                      ></p-sortIcon>
-                      <p-columnFilter
-                      type="date"
+                  <div class="col-4 flex justify-content-end align-items-center">
+                    <p-sortIcon
+                      field="nome"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                    ></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="nome"
+                      display="menu"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+              <th pSortableColumn="dataConsulta" [width]="250">
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
+                    Data
+                  </div>
+                  <div class="col-4 flex justify-content-end align-items-center">
+                    <p-sortIcon
                       field="dataConsulta"
-                      dateFormat="dd/mm/yyyy"
-                      display="menu"
-                      pTooltip="Filtrar"
+                      pTooltip="Ordenar"
                       tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
+                    ></p-sortIcon>
+                    <p-columnFilter
+                    type="date"
+                    field="dataConsulta"
+                    dateFormat="dd/mm/yyyy"
+                    display="menu"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                    ></p-columnFilter>
                   </div>
-                </th>
-                <th pSortableColumn="horaConsulta" [width]="200">
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center " [style]="{'color': data.corDentista}">
-                      Hora
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center ">
-                      <p-sortIcon
-                        field="horaConsulta"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                        ></p-sortIcon>
-
-                      <p-columnFilter
-                      type="date"
+                </div>
+              </th>
+              <th pSortableColumn="horaConsulta" [width]="200">
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center " [style]="{'color': data.corDentista}">
+                    Hora
+                  </div>
+                  <div class="col-4 flex justify-content-end align-items-center ">
+                    <p-sortIcon
                       field="horaConsulta"
-                      timeFormat="HH:mm"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                      ></p-sortIcon>
+
+                    <p-columnFilter
+                    type="date"
+                    field="horaConsulta"
+                    timeFormat="HH:mm"
+                    display="menu"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+
+              <th pSortableColumn="pagamento" [width]="200">
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center " [style]="{'color': data.corDentista}">
+                    Status
+                  </div>
+                  <div class="col-4 flex justify-content-end align-items-center ">
+                    <p-columnFilter
+                      type="text"
+                      field="pagamento"
+                      display="menu"
+                      matchMode="contains"
+                      [showMatchModes]="false"
+                      [showOperator]="false"
+                      [showAddButton]="false"
+                      pTooltip="Filtrar"
+                      tooltipPosition="top"
+                    ></p-columnFilter>
+                  </div>
+                </div>
+              </th>
+              <th >
+                <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+              </th>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-consulta>
+            <tr >
+              <td>{{ consulta?.paciente.nome }}</td>
+              <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ consulta?.dataConsulta | date: 'HH:mm' }}</td>
+              <td>
+                @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
+                  <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                }
+              @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+                <p-tag value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                }
+              @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+                {
+                  <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                }
+              @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+                {
+                  <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                }
+              </td>
+              <td [width]="230">
+                <div class="flex justify-content-around">
+                  <p-button
+                    icon="pi pi-pw pi-play"
+                    [rounded]="true"
+                    [text]="true"
+                    [severity]="'warning'"
+                    [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                    pTooltip="Iniciar Consulta"
+                    tooltipPosition="top"
+                    (click)="inicioConsulta(consulta)"
+                    >
+                  </p-button>
+                  <p-button
+                    icon="pi pi-pw pi-info-circle"
+                    [rounded]="true"
+                    [text]="true"
+                    [style]="{'color': data.corDentista}"
+                    pTooltip="Informações"
+                    tooltipPosition="top"
+                    (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                    >
+                  </p-button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr >
+                <td colspan="5">Não foram encontrado dados</td>
+            </tr>
+          </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-12 z-0" *ngIf="ehCalendario">
+      <div class=" box p-5">
+        <app-calendario [listaConsultas]="data.consultas" [corDentista]="data.corDentista" [dentistaInfo]="true" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
+      </div>
+
+    </div>
+
+    <div class="md:col-12 lg:col-12 "*ngIf="ehOrcamento">
+      <div class="card box p-3 " >
+        <div >
+          <div class="flex justify-content-between m-3 ">
+          <span class="p-float-label p-input-icon-left ">
+            <i class="pi pi-search" [style]="{'color': data.corDentista}"></i>
+            <input pInputText id="search"  class="search" [style]="{'border-color': data.corDentista}"/>
+            <label for="search" [style]="{'color': data.corDentista}">Buscar Orcamento...</label>
+          </span>
+          <button pButton type="button" label="Novo Orcamento" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newOrcamentoByDentista(data.id)" class="web" [style]="{'background': data.corDentista} "></button>
+          <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': data.corDentista}" (click)="newConsulta()"></p-button>
+
+          </div>
+          <p-table
+          #productsTable
+          [value]="data.consultas"
+          [rows]="10"
+          [paginator]="true"
+          [responsive]="true"
+          [globalFilterFields]="['nome', 'dataConsulta']"
+          [tableStyle]="{ 'min-width': '70rem' }"
+          [rowHover]="true"
+          [showCurrentPageReport]="true"
+          dataKey="id"
+          currentPageReportTemplate="{first} de {last} de {totalRecords}"
+        >
+          <ng-template pTemplate="header" >
+            <tr [style]="{'color': data.corDentista + '26'}">
+              <th pSortableColumn="id" class="col-2">
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
+                    N orcamento
+                  </div>
+                  <div class="col-4 flex justify-content-end align-items-center">
+                    <p-sortIcon
+                      field="id"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                    ></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="id"
                       display="menu"
                       pTooltip="Filtrar"
                       tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
+                    ></p-columnFilter>
                   </div>
-                </th>
-
-                <th pSortableColumn="pagamento" [width]="200">
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center " [style]="{'color': data.corDentista}">
-                      Status
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center ">
-                      <p-columnFilter
-                        type="text"
-                        field="pagamento"
-                        display="menu"
-                        matchMode="contains"
-                        [showMatchModes]="false"
-                        [showOperator]="false"
-                        [showAddButton]="false"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
+                </div>
+              </th>
+              <th pSortableColumn="nome" >
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
+                    Paciente
                   </div>
-                </th>
-                <th >
-                  <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
-                </th>
-            </ng-template>
-
-            <ng-template pTemplate="body" let-consulta>
-              <tr >
-                <td>{{ consulta?.paciente.nome }}</td>
-                <td>{{ consulta?.dataConsulta | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ consulta?.dataConsulta | date: 'HH:mm' }}</td>
-                <td>
-                  @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
-                    <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                  }
-                @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                  <p-tag value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
-                  }
-                @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
-                  {
-                    <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                  }
-                @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
-                  {
-                    <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                  }
-                </td>
-                <td [width]="230">
-                  <div class="flex justify-content-around">
-                    <p-button
-                      icon="pi pi-pw pi-play"
-                      [rounded]="true"
-                      [text]="true"
-                      [severity]="'warning'"
-                      [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                      pTooltip="Iniciar Consulta"
+                  <div class="col-4 flex justify-content-end align-items-center">
+                    <p-sortIcon
+                      field="nome"
+                      pTooltip="Ordenar"
                       tooltipPosition="top"
-                      (click)="inicioConsulta(consulta)"
-                      >
-                    </p-button>
-                    <p-button
-                      icon="pi pi-pw pi-info-circle"
-                      [rounded]="true"
-                      [text]="true"
-                      [style]="{'color': data.corDentista}"
-                      pTooltip="Informações"
+                    ></p-sortIcon>
+                    <p-columnFilter
+                      type="text"
+                      field="nome"
+                      display="menu"
+                      pTooltip="Filtrar"
                       tooltipPosition="top"
-                      (click)="consultaSelecionadaInfo(consulta?.id, 1)"
-                      >
-                    </p-button>
+                    ></p-columnFilter>
                   </div>
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr >
-                  <td colspan="5">Não foram encontrado dados</td>
-              </tr>
-            </ng-template>
-            </p-table>
-          </div>
-        </div>
-      </div>
-      <div class="col-9 z-0" *ngIf="ehListagem">
-        <div class=" box p-5">
-          <app-calendario [listaConsultas]="data.consultas" [corDentista]="data.corDentista" [dentistaInfo]="true" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
-        </div>
-
-      </div>
-      <div class="md:col-12 lg:col-9 "*ngIf="ehOrcamento">
-        <div class="card box p-3 " >
-          <div >
-            <div class="flex justify-content-between m-3 ">
-            <span class="p-float-label p-input-icon-left ">
-              <i class="pi pi-search" [style]="{'color': data.corDentista}"></i>
-              <input pInputText id="search"  class="search" [style]="{'border-color': data.corDentista}"/>
-              <label for="search" [style]="{'color': data.corDentista}">Buscar Orcamento...</label>
-            </span>
-            <button pButton type="button" label="Novo Orcamento" styleClass="linear-gradient"  icon="pi pi-plus" (click)="newOrcamentoByDentista(data.id)" class="web" [style]="{'background': data.corDentista} "></button>
-            <p-button icon="pi pi-plus" [rounded]="true"   class="mobile" [style]="{'background': data.corDentista}" (click)="newConsulta()"></p-button>
-
-            </div>
-            <p-table
-            #productsTable
-            [value]="data.consultas"
-            [rows]="10"
-            [paginator]="true"
-            [responsive]="true"
-            [globalFilterFields]="['nome', 'dataConsulta']"
-            [tableStyle]="{ 'min-width': '70rem' }"
-            [rowHover]="true"
-            [showCurrentPageReport]="true"
-            dataKey="id"
-            currentPageReportTemplate="{first} de {last} de {totalRecords}"
-          >
-            <ng-template pTemplate="header" >
-              <tr [style]="{'color': data.corDentista + '26'}">
-                <th pSortableColumn="id" class="col-2">
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
-                      N orcamento
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center">
-                      <p-sortIcon
-                        field="id"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                      ></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="id"
-                        display="menu"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
+                </div>
+              </th>
+              <th pSortableColumn="dataOrcamento" class="col-3" >
+                <div class="flex row align-items-center">
+                  <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
+                    Data Orcamento
                   </div>
-                </th>
-                <th pSortableColumn="nome" >
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
-                      Paciente
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center">
-                      <p-sortIcon
-                        field="nome"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                      ></p-sortIcon>
-                      <p-columnFilter
-                        type="text"
-                        field="nome"
-                        display="menu"
-                        pTooltip="Filtrar"
-                        tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
-                  </div>
-                </th>
-                <th pSortableColumn="dataOrcamento" class="col-3" >
-                  <div class="flex row align-items-center">
-                    <div class="col-8 flex justify-content-start align-items-center" [style]="{'color': data.corDentista}">
-                      Data Orcamento
-                    </div>
-                    <div class="col-4 flex justify-content-end align-items-center">
-                      <p-sortIcon
-                        field="dataOrcamento"
-                        pTooltip="Ordenar"
-                        tooltipPosition="top"
-                      ></p-sortIcon>
-                      <p-columnFilter
-                      type="date"
+                  <div class="col-4 flex justify-content-end align-items-center">
+                    <p-sortIcon
                       field="dataOrcamento"
-                      dateFormat="dd/mm/yyyy"
-                      display="menu"
-                      pTooltip="Filtrar"
+                      pTooltip="Ordenar"
                       tooltipPosition="top"
-                      ></p-columnFilter>
-                    </div>
+                    ></p-sortIcon>
+                    <p-columnFilter
+                    type="date"
+                    field="dataOrcamento"
+                    dateFormat="dd/mm/yyyy"
+                    display="menu"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                    ></p-columnFilter>
                   </div>
-                </th>
-                <th class="col-1">
-                  <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
-                </th>
-            </ng-template>
+                </div>
+              </th>
+              <th class="col-1">
+                <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
+              </th>
+          </ng-template>
 
-            <ng-template pTemplate="body" let-orcamento>
-              <tr >
-                <td>{{ orcamento.id }}</td>
-                <td>{{ orcamento?.nomePaciente | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ orcamento?.dataConsulta | date: 'HH:mm' }}</td>
-                <td >
-                    <p-button
-                      icon="pi pi-pw pi-info-circle"
-                      [rounded]="true"
-                      [text]="true"
-                      [style]="{'color': data.corDentista}"
-                      pTooltip="Informações"
-                      tooltipPosition="top"
-                      (click)="consultaSelecionadaInfo(orcamento?.id, 1)"
-                      >
-                    </p-button>
+          <ng-template pTemplate="body" let-orcamento>
+            <tr >
+              <td>{{ orcamento.id }}</td>
+              <td>{{ orcamento?.nomePaciente | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ orcamento?.dataConsulta | date: 'HH:mm' }}</td>
+              <td >
+                  <p-button
+                    icon="pi pi-pw pi-info-circle"
+                    [rounded]="true"
+                    [text]="true"
+                    [style]="{'color': data.corDentista}"
+                    pTooltip="Informações"
+                    tooltipPosition="top"
+                    (click)="consultaSelecionadaInfo(orcamento?.id, 1)"
+                    >
+                  </p-button>
 
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr >
-                  <td colspan="5">Não foram encontrado dados</td>
-              </tr>
-            </ng-template>
-            </p-table>
-          </div>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr >
+                <td colspan="5">Não foram encontrado dados</td>
+            </tr>
+          </ng-template>
+          </p-table>
         </div>
       </div>
+    </div>
+
+    <div class="md:col-12 lg:col-12" *ngIf="ehInfo">
+      <div class="card box p-3 " >
+        <p-tabView class="" >
+          <p-tabPanel header="Informacoes" >
+            <ng-template pTemplate="header" >
+              <i class="pi pi-fw pi-user"></i>
+              <span class="web">&nbsp;Informações</span>
+            </ng-template>
+
+            <div class="flex flex-wrap column-gap-4 row-gap-6 justify-content-end ">
+              
+              <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" pTooltip="Editar" tooltipPosition="bottom" (click)="editarDentista()" [disabled]="!editavel" />
+              <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" pTooltip="Salvar" tooltipPosition="bottom" [disabled]="editavel" (click)="this.editavel = true;"  />
+              <p-button icon="pi pi-lock" [rounded]="true" *ngIf="data.ativo" severity="danger" [outlined]="true" pTooltip="Inativar" tooltipPosition="bottom" (click)="this.onInactivate();" />
+              <p-button icon="pi pi-lock-open" [rounded]="true" *ngIf="!data.ativo" severity="danger" [outlined]="true" pTooltip="Ativar" tooltipPosition="bottom" (click)="this.onReactivate();" />
+            </div>
+
+            <div class="row flex">
+              <div class="field md:col-12 lg:col-4 my-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-pencil azul"></i>
+                  <input pInputText id="nome" [value]="data?.nome" required class="width" [readOnly]="editavel" />
+                  <label for="nome" class="azul">Nome Completo</label>
+                </span>
+              </div>
+    
+              <div class="md:col-12 lg:col-3 my-4">
+                <div class="field ">
+                  <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                    <i class="pi pi-id-card azul"></i>
+                    <input pInputText id="cpf"  [value]="data?.cpf" maxlength="14" minlength="11" required class="width" [disabled]="true"/>
+                    <label for="cpf" class="azul">CPF</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </p-tabPanel>
+
+          <p-tabPanel header="Informacoes" >
+            <ng-template pTemplate="header" >
+              <i class="pi pi-fw pi-user"></i>
+              <span class="web">&nbsp;Endereço</span>
+            </ng-template>
+
+
+
+          </p-tabPanel>
+
+          <p-tabPanel header="Informacoes" >
+            <ng-template pTemplate="header" >
+              <i class="pi pi-fw pi-user"></i>
+              <span class="web">&nbsp;Contrato</span>
+            </ng-template>
+          </p-tabPanel>
+
+        </p-tabView>
+      </div>
+    </div>
   </div>
 </div>
 

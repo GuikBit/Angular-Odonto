@@ -30,8 +30,12 @@ export class DentistaInfoComponent implements OnInit {
   inicioConsulta: any;
 
   ehCalendario: boolean = false;
-  ehListagem: boolean = true;
+  ehListagem: boolean = false;
   ehOrcamento: boolean = false;
+  ehIndicadores: boolean = false;
+  ehInfo: boolean = true;
+
+  editavel: boolean = true;
 
   visible: boolean;
   novaConsultaCalendar: Date | null;
@@ -47,7 +51,7 @@ export class DentistaInfoComponent implements OnInit {
       if (organizacaoJson) {
         this.org = JSON.parse(organizacaoJson);
       }
-    }
+  }
 
 
   ngOnInit(){
@@ -139,30 +143,54 @@ export class DentistaInfoComponent implements OnInit {
             }
         }
   }
+
   viewTable(index: any){
     switch(index){
       case 1 : {
         this.ehCalendario = false;
         this.ehListagem = false;
         this.ehOrcamento = true;
+        this.ehIndicadores = false;
+        this.ehInfo = false;
         break;
       }
       case 2 : {
         this.ehCalendario = true;
         this.ehListagem = false;
         this.ehOrcamento = false;
+        this.ehIndicadores = false;
+        this.ehInfo = false;
         break;
       }
       case 3 : {
         this.ehCalendario = false;
         this.ehListagem = true;
         this.ehOrcamento = false;
+        this.ehIndicadores = false;
+        this.ehInfo = false;
+        break;
+      }
+      case 4 : {
+        this.ehCalendario = false;
+        this.ehListagem = false;
+        this.ehOrcamento = false;
+        this.ehIndicadores = true;
+        this.ehInfo = false;
+        break;
+      }
+      case 5 : {
+        this.ehCalendario = false;
+        this.ehListagem = false;
+        this.ehOrcamento = false;
+        this.ehIndicadores = false;
+        this.ehInfo = true;
         break;
       }
       default: {
         this.ehCalendario = true;
         this.ehListagem = false;
         this.ehOrcamento = false;
+        this.ehIndicadores = false;
         break;
       }
     }
@@ -263,5 +291,18 @@ export class DentistaInfoComponent implements OnInit {
 
   dentistaInfoCor(){
     return true;
+  }
+
+
+  editarDentista(){
+    this.editavel = false;
+  }
+
+  onReactivate(){
+
+  }
+  
+  onInactivate(){
+
   }
 }
