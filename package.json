@@ -28,7 +28,7 @@
     "@fullcalendar/list": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
     "axios": "^1.7.2",
-    "chart.js": "^4.4.3",
+    "chart.js": "^4.4.4",
     "font-awesome": "^4.7.0",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",

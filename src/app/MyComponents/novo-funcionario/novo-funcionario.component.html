@@ -10,10 +10,8 @@
                   'border-blue-100 bg-blue-50 opacity-40': active < 0,
                   'border-blue-500 bg-blue-50': active == 0 
                 }"
-              >
-                
-                <i [ngClass]="active > 0? 'pi pi-fw pi-check text-green-600 font-semibold':'pi pi-fw pi-user text-blue-600 font-semibold'"></i>
-                
+              > 
+                <i [ngClass]="active > 0? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-user flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
               </span>
             </div>
             <div class="flex justify-content-center align-items-center mt-1">
@@ -210,7 +208,7 @@
                 'border-blue-500 bg-blue-50': active == 1 
               }"
             >
-              <i [ngClass]="active > 1? 'pi pi-fw pi-check text-green-600 font-semibold':'pi pi-fw pi-map-marker text-blue-600 font-semibold'"></i>
+              <i [ngClass]="active > 1? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-map-marker flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
             </span>
           </div>
           <div class="flex justify-content-center align-items-center mt-1">
@@ -316,7 +314,7 @@
                 'border-blue-500 bg-blue-50': active == 2 
               }"
             >
-              <i [ngClass]="active > 2? 'pi pi-fw pi-check text-green-600 font-semibold':'pi pi-fw pi-book text-blue-600 font-semibold'"></i>
+              <i [ngClass]="active > 2? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-book flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>  
             </span>
           </div>
           <div class="flex justify-content-center align-items-center mt-1">
@@ -472,7 +470,7 @@
                 'border-blue-500 bg-blue-50': active == 3 
               }"
             >
-              <i [ngClass]="active > 3? 'pi pi-fw pi-check text-green-600 font-semibold':'pi pi-fw pi-cog text-blue-600 font-semibold'"></i>
+              <i [ngClass]="active > 3? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-cog flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>  
             </span>
           </div>
           <div class="flex justify-content-center align-items-center mt-1">
@@ -524,7 +522,7 @@
                   'border-blue-500 bg-blue-50': active == 4 
                 }"
               >
-                <i [ngClass]="active > 4? 'pi pi-fw pi-check text-green-600 font-semibold':'pi pi-fw pi-file text-blue-600 font-semibold'"></i>
+              <i [ngClass]="active > 4? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-file flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>  
               </span>
             </div>
             <div class="flex justify-content-center align-items-center mt-1">
