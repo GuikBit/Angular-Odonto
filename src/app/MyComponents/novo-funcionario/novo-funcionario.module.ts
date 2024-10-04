@@ -17,6 +17,9 @@ import { ImageModule } from 'primeng/image';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FileUploadModule } from 'primeng/fileupload';
+import { StepperModule } from 'primeng/stepper';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import { FileUploadModule } from 'primeng/fileupload';
     CalendarModule,
     MenuModule,
     ImageModule,
+    StepperModule,
+    InputIconModule,
+    IconFieldModule,
     InputSwitchModule,
     TabViewModule,
     SidebarModule,

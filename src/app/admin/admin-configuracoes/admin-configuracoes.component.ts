@@ -22,7 +22,7 @@ export class AdminConfiguracoesComponent implements OnInit {
   formulario: FormGroup;
 
   cadastroOrg: boolean = false;
-  novoFuncionario: boolean = false;
+  novoFuncionario: boolean = true;
 
   items: MenuItem[];
   activeIndex: number = 2;

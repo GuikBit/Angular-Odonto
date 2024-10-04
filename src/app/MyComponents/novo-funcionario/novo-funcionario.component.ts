@@ -33,6 +33,9 @@ export class NovoFuncionarioComponent  implements OnInit{
   existeCPF: boolean | null = null;
   loading: boolean = false;
   uploadedFiles: any[] = [];
+
+  active: number = 0;
+
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService){}
 
   ngOnInit(){
@@ -168,5 +171,9 @@ export class NovoFuncionarioComponent  implements OnInit{
         this.uploadedFiles.push(file);
     }
     this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+  }
+
+  salvarFuncionario(){
+
   }
 }
