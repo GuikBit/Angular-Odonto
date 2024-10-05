@@ -30,7 +30,7 @@
 
     <div class="absolute w-12 h-5rem  z-1 flex justify-content-center align-content-center " style="bottom: -4.5rem;">
       <div class="flex justify-content-between align-items-center w-11 h-full border-round-2xl z-50 px-4" style="bottom: -4rem; background-color: rgba(250, 253, 255, 0.90); box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;">
-        
+
           <div class="md:col-12 lg:col-12  flex align-items-center justify-content-end sticky top-0 pt-3 z-1" [style.--cor-dentista]="data.corDentista + '30'">
             <ul>
               <li pTooltip="Orcamentos" tooltipPosition="top" [class]="ehOrcamento? 'btnAtivo': null">
@@ -42,7 +42,7 @@
               <li pTooltip="Listagem" tooltipPosition="top" [class]="ehListagem? 'btnAtivo': null">
                 <p-button icon="pi pi-list" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(3)"></p-button>
               </li>
-              
+
               <li pTooltip="Indicadores" tooltipPosition="top" [class]="ehIndicadores? 'btnAtivo': null">
                 <p-button icon="pi pi-chart-bar" size="large"  [rounded]="true" [text]="true" [style]="{'color': data.corDentista}" (onClick)="viewTable(4)"></p-button>
               </li>
@@ -60,15 +60,15 @@
               </li>
             </ul>
           </div>
-       
+
       </div>
     </div>
   </div>
 
-  
 
 
-  
+
+
 
   <div class="row lg:flex mt-8">
     <div class="md:col-12 lg:col-12" *ngIf="ehIndicadores">
@@ -455,7 +455,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="card box p-3 mb-3" >
         <p-chart
             type="line"
@@ -700,7 +700,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="col-12 z-0" *ngIf="ehCalendario">
       <div class=" box p-5">
         <app-calendario [listaConsultas]="data.consultas" [corDentista]="data.corDentista" [dentistaInfo]="true" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
@@ -845,7 +845,7 @@
             </ng-template>
 
             <div class="flex flex-wrap column-gap-4 row-gap-6 justify-content-end ">
-              
+
               <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" pTooltip="Editar" tooltipPosition="bottom" (click)="editarDentista()" [disabled]="!editavel" />
               <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" pTooltip="Salvar" tooltipPosition="bottom" [disabled]="editavel" (click)="this.editavel = true;"  />
               <p-button icon="pi pi-lock" [rounded]="true" *ngIf="data.ativo" severity="danger" [outlined]="true" pTooltip="Inativar" tooltipPosition="bottom" (click)="this.onInactivate();" />
@@ -860,7 +860,7 @@
                   <label for="nome" class="azul">Nome Completo</label>
                 </span>
               </div>
-    
+
               <div class="md:col-12 lg:col-3 my-4">
                 <div class="field ">
                   <span class="p-float-label p-input-icon-left p-input-icon-right width">
@@ -869,6 +869,46 @@
                     <label for="cpf" class="azul">CPF</label>
                   </span>
                 </div>
+              </div>
+
+              <div class="field md:col-12 xl:col-3 lg:col-4 my-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-pencil azul"></i>
+                  <input pInputText id="email" [value]="data?.email" required class="width" [readOnly]="editavel" />
+                  <label for="email" class="azul">E-mail</label>
+                </span>
+              </div>
+
+            </div>
+
+            <div class="row flex">
+
+              <div class="field md:col-12 lg:col-2 ">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-phone azul"></i>
+                  <input pInputText id="telefone" [value]="data?.telefone" required class="width" [readOnly]="editavel" />
+                  <label for="telefone" class="azul">Telefone</label>
+                </span>
+              </div>
+
+              <!-- <div class="field md:col-12 lg:col-2 ">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-calendar azul"></i>
+                  <input pInputText id="dataNascimento" [value]="data?.dataNascimento" required class="width" [readOnly]="editavel" />
+                  <label for="dataNascimento" class="azul">Data Nascimento</label>
+                </span>
+              </div> -->
+
+              <div class="field col-4 ">
+                <span class="p-float-label p-input-icon-right width ">
+                  <p-calendar inputId="dataNascimento" appendTo="body" [autoZIndex]="true" [(ngModel)]="data.dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width">
+                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                      <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                    </ng-template>
+                  </p-calendar>
+                  <label for="dataNascimento" class="azul">Data Nascimento</label>
+                </span>
+
               </div>
             </div>
 

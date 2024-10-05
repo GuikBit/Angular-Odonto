@@ -22,7 +22,7 @@ export class AdminConfiguracoesComponent implements OnInit {
   formulario: FormGroup;
 
   cadastroOrg: boolean = false;
-  novoFuncionario: boolean = true;
+  novoFuncionario: boolean = false;
 
   items: MenuItem[];
   activeIndex: number = 2;
@@ -247,7 +247,6 @@ export class AdminConfiguracoesComponent implements OnInit {
         banco: ['', Validators.required],
         agencia: ['', Validators.required],
         conta: ['', Validators.required],
-
     });
   }
 

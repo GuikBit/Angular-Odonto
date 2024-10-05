@@ -4,9 +4,9 @@
 <div class="w-full p-3 ">
   <div class="card h-6rem flex justify-content-center align-items-center pt-3">
     <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()" class="">
-    
+
       <div class="flex justify-content-center">
-        
+
         <div class="field flex justify-content-center">
           <span class="p-float-label  p-input-icon-right">
             <p-calendar
@@ -19,7 +19,7 @@
               [showButtonBar]="true"
               [style]="{'color':'#2070B4', 'width': '15vw'}"
               formControlName="dtInicio"
-    
+
               >
               <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                 <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
@@ -27,9 +27,9 @@
             </p-calendar>
             <label for="dataConsulta" class="azul text-sm">De</label>
           </span>
-    
+
         </div>
-    
+
         <div class="field flex justify-content-center ml-3">
           <span class="p-float-label  p-input-icon-right">
             <p-calendar
@@ -42,7 +42,7 @@
               [showButtonBar]="true"
               [style]="{'color':'#2070B4', 'width': '15vw'}"
               formControlName="dtFim"
-    
+
               >
               <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                 <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
@@ -224,32 +224,32 @@
           <div class="col-6 py-2 flex justify-content-start align-items-center" >
             <div>
               <div class="row flex justify-content-start align-items-center ml-2 ">
-                <span class="font-bold text-600 md:text-xl xl:text-3x1" [ngPlural]="this.data.qtdPacienteMes[0]" >{{this.data.qtdPacienteMes[0]}} 
-                  <ng-template ngPluralCase="=0">novos</ng-template>
+                <span class="font-bold text-600 md:text-xl xl:text-3x1" [ngPlural]="this.data.qtdPacienteMes[0]" >{{this.data.qtdPacienteMes[0]}}
+                  <ng-template ngPluralCase="=0">novo</ng-template>
                   <ng-template ngPluralCase="=1">novo</ng-template>
                   <ng-template ngPluralCase="other">novos</ng-template>
                 </span>
               </div>
               <div class="row flex align-items-center">
-                
+
                   <span class="lg:text-sm xl:text-base text-600 mx-2" [ngPlural]="this.data.qtdPacienteMes[0]">
                     <ng-template ngPluralCase="=0">Paciente</ng-template>
                     <ng-template ngPluralCase="=1">Paciente</ng-template>
                     <ng-template ngPluralCase="other">Pacientes</ng-template>
                   </span>
-                    
+
                   <span [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]? 'backGreen':'backRed'">
                     <i [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]?
                     'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
                     ></i>
                   </span>
-      
+
                   <span [class]="this.data.qtdPacienteMes[0] > this.data.qtdPacienteMes[1]?
                     ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
                     >{{ calculaPorcentagem(this.data.qtdPacienteMes[0], this.data.qtdPacienteMes[1]) | percent: '1.1' }} </span>
-                
-                   
-                
+
+
+
               </div>
             </div>
 
@@ -309,7 +309,7 @@
                     point: {
                         radius:0
                     },
-  
+
                   },
                   layout: {
                     padding: {
@@ -320,9 +320,9 @@
                   }
                   }
                 }"
-  
+
               ></p-chart> -->
-            
+
               <p-chart
                 height="80"
                 width="160"
@@ -330,13 +330,13 @@
                 [data]="dataBarNew"
                 [options]="basicOptionsBarNew"
               />
-            
+
             </div>
-  
+
           </div>
-        </div>  
+        </div>
       </div>
-      
+
       <div class="col-3 px-2">
         <div class="card flex " >
         <div class="col-6 py-4 " >
@@ -355,7 +355,7 @@
               <span [class]="this.data.qtdAtrasoMes[0] < this.data.qtdAtrasoMes[1]?
                 ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
                 >{{ calculaPorcentagem(this.data.qtdAtrasoMes[0], this.data.qtdAtrasoMes[1]) | percent: '1.1' }}
-              </span> 
+              </span>
           </div>
         </div>
         <div class="col-6 flex justify-content-end align-items-center">
@@ -428,20 +428,20 @@
             }"
 
             ></p-chart> -->
-          
-            <p-chart 
-              type="line" 
+
+            <p-chart
+              type="line"
               height="80"
               width="160"
-              [data]="dataBarAtraso" 
-              [options]="basicOptionsBarAtraso" 
+              [data]="dataBarAtraso"
+              [options]="basicOptionsBarAtraso"
             />
           </div>
 
         </div>
         </div>
       </div>
-     
+
       <div class="col-3 px-2">
         <div class="card flex" >
           <div class="col-6 py-4 " >
@@ -450,7 +450,7 @@
             </div>
             <div class="row flex align-items-center">
               <span class="lg:text-sm xl:text-base text-600 mx-2">Atraso</span>
-              
+
               <span [class]="this.data.qtdMes[1] > this.data.qtdMes[1]? 'backGreen':'backRed'">
                 <i [class]="this.data.qtdMes[1] > this.data.qtdMes[1]?
                   'pi pi-arrow-up-right text-xs font-bold text-green-500' : 'pi pi-arrow-down-right text-xs font-bold text-red-400'"
@@ -537,13 +537,13 @@
           </div>
         </div>
       </div>
-      
+
       <div class="col-3 px-2">
         <div class="card flex" >
           <div class="col-7 py-4 " >
             <div class="row flex justify-content-start align-items-center ">
               <span class="font-bold text-600 md:text-xl xl:text-3x1 ml-2">{{this.data.qtdFaturamentoMes[0] | currency:'BRL':true:'1.2-2'}}</span>
-  
+
             </div>
             <div class="row flex">
               <span class="lg:text-sm xl:text-base text-600 mx-2">Faturado</span>
@@ -557,11 +557,11 @@
                   ' text-xs text-green-500 ml-1' : 'text-xs text-red-400 ml-1'"
                   >{{ calculaPorcentagem(this.data.qtdFaturamentoMes[0], this.data.qtdFaturamentoMes[1]) | percent: '1.1' }}
                 </span>
-  
+
               </div>
             </div>
           </div>
-  
+
           <div class="col-5 flex justify-content-end align-items-center">
             <div class="absolute z-0">
               <i class="pi pi-dollar text-8xl text-100"></i>
@@ -617,7 +617,7 @@
                   point: {
                       radius:0
                   },
-  
+
                 },
                 layout: {
                   padding: {
@@ -628,7 +628,7 @@
                 }
                 }
               }"
-  
+
               ></p-chart>
             </div>
           </div>

@@ -29,6 +29,7 @@ import { ImageModule } from 'primeng/image';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConstasPagarModule } from '../MyComponents/contas-pagar/constas-pagar.module';
 import { NovoFuncionarioModule } from '../MyComponents/novo-funcionario/novo-funcionario.module';
+import { DentistaModule } from "../dentista/dentista.module";
 
 
 
@@ -64,7 +65,8 @@ import { NovoFuncionarioModule } from '../MyComponents/novo-funcionario/novo-fun
     ConfirmDialogModule,
     StepperModule,
     ConstasPagarModule,
-    ConstasPagarModule
+    ConstasPagarModule,
+    DentistaModule
 ],
   exports:[
     AdminMenuComponent,

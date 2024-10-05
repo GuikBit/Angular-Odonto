@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { AssyncServiceService } from 'src/app/assync-service.service';
 import { ClienteService } from 'src/app/cliente.service';
 import { Formatters } from 'src/app/utils/formatters';
 
@@ -20,6 +21,7 @@ interface UploadEvent {
 export class NovoFuncionarioComponent  implements OnInit{
 
   @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('numeroInput') numeroInput!: ElementRef;
 
   formInform: FormGroup;
   formEndereco: FormGroup;
@@ -36,7 +38,7 @@ export class NovoFuncionarioComponent  implements OnInit{
 
   active: number = 0;
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService){}
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService, private assync: AssyncServiceService){}
 
   ngOnInit(){
     this.criaFormulario();
@@ -51,34 +53,47 @@ export class NovoFuncionarioComponent  implements OnInit{
 
   criaFormulario() {
     this.formInform = this.formBuilder.group({
-      numPasta: ['', Validators.required],
-      login: ['', Validators.required],
-      senha: ['', Validators.required],
-      email: ['', Validators.required],
-      nome: ['', Validators.required],
-      cpf: ['', Validators.required],
-      rg: ['', Validators.required],
-      uf: ['', Validators.required],
-      ctpsUF: ['', Validators.required],
-      ctpsS: ['', Validators.required],
-      ctpsN: ['', Validators.required],
-      pisPasep: ['', Validators.required],
-      orgEmissor: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
-      telefone: ['', Validators.required],
+
+      nome: ['Guilherme',[Validators.required]],
+      dataNascimento: ['05/10/2024', Validators.required],
+      telefone: ['(32) 99822-0082', Validators.required],
+      email: ['guilhermeoliveira1998@gmail.com', Validators.required],
+      cpf: ['12098133600', Validators.required],
+      rg: ['MG17979660', Validators.required],
+      uf: ['MG', Validators.required],
+
+      orgEmissor: ['SSP', Validators.required],
+      pisPasep: ['Sei la', Validators.required],
+      ctpsN: ['tbm nao sei', Validators.required],
+      ctpsS: ['Nao sei', Validators.required],
+      ctpsUF: ['MG', Validators.required],
+
       fotoPerfil: [],
-      // organizacaoId: [this.org.id, Validators.required],
-      // idOrganizacao: [this.org],
+
     })
 
     this.formEndereco = this.formBuilder.group({
-      cidade: ['', Validators.required],
-      bairro: ['', Validators.required],
-      logradouro: ['', Validators.required],
-      numero: ['', Validators.required],
-      cep: ['', Validators.required],
-      complemento: ['', Validators.required],
+      cidade: ['Juiz de Fora', Validators.required],
+      bairro: ['Grama', Validators.required],
+      logradouro: ['Diomar Monteiro', Validators.required],
+      numero: ['1509', Validators.required],
+      cep: ['36048-310', Validators.required],
+      complemento: ['Casa', Validators.required],
       referencia: [],
+    })
+
+    this.formContrato = this.formBuilder.group({
+      empreasa: ['', Validators.required],
+      cargo: ['', Validators.required],
+      dataAdmissao: ['', Validators.required],
+      registroN: ['', Validators.required],
+      remuneracao: ['', Validators.required],
+      jornadaTrabalho: ['', Validators.required],
+      valeTrans: [false],
+      valeAR: [false],
+      planoSaude: [false],
+      premiacao: [false],
+      GymPass: [false],
     })
 
     this.formConfig = this.formBuilder.group({
@@ -148,20 +163,36 @@ export class NovoFuncionarioComponent  implements OnInit{
   }
 
   buscaCEP(): void {
-    this.loading = true;
     let cep = this.formEndereco.get('cep');
     if (cep) {
       const cepValue = cep.value.replace(/\D/g, '').substring(0, 8);
       this.formEndereco.get('cep')?.setValue(this.formatCEP(cepValue));
 
-      // setTimeout(() => {
-      //   this.assync.buscaCEP(cepValue).subscribe(
-      //     response => this.setEndereco(response),
-      //     () => this.handleCepError()
-      //   );
-      // }, 1000);
+      if (cepValue.length === 8) {
+        this.loading = true;
+
+        setTimeout(() => {
+          this.assync.buscaCEP2(cepValue).then((response) => {
+            if (response?.status === 200) {
+              this.formEndereco.get('bairro')?.setValue(response.data.bairro);
+              this.formEndereco.get('complemento')?.setValue(response.data.complemento);
+              this.formEndereco.get('cidade')?.setValue(response.data.localidade);
+              this.formEndereco.get('logradouro')?.setValue(response.data.logradouro);
+
+              this.numeroInput.nativeElement.focus();
+            }
+
+            console.log(response);
+          }).catch((error) => {
+            console.error('Erro ao buscar o CEP:', error);
+          }).finally(() => {
+            this.loading = false;
+          });
+        }, 1000);
+      }
     }
   }
+
   formatCEP(cep: string): string {
     return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
   }
@@ -176,4 +207,25 @@ export class NovoFuncionarioComponent  implements OnInit{
   salvarFuncionario(){
 
   }
+
+  validaFormulario(form: any){
+
+    if(form === 1){
+      if(this.formInform.valid){
+        this.active ++;
+      }else{
+        this.messageService.add({severity: 'error', summary: 'Houve um erro', detail: 'Verifique os campos obrigatórios do formulário.'});
+      }
+    }else if( form === 2 ){
+      if(this.formEndereco.valid){
+        this.active ++;
+      }else{
+        this.messageService.add({severity: 'error', summary: 'Houve um erro', detail: 'Verifique os campos obrigatórios do formulário.'});
+      }
+    }
+   else{
+
+    }
+  }
+
 }
