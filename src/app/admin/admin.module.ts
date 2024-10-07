@@ -30,6 +30,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ConstasPagarModule } from '../MyComponents/contas-pagar/constas-pagar.module';
 import { NovoFuncionarioModule } from '../MyComponents/novo-funcionario/novo-funcionario.module';
 import { DentistaModule } from "../dentista/dentista.module";
+import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
 
 
 
@@ -66,7 +67,8 @@ import { DentistaModule } from "../dentista/dentista.module";
     StepperModule,
     ConstasPagarModule,
     ConstasPagarModule,
-    DentistaModule
+    DentistaModule,
+    NovoCargoModule
 ],
   exports:[
     AdminMenuComponent,

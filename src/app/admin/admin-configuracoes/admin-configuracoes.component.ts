@@ -23,9 +23,10 @@ export class AdminConfiguracoesComponent implements OnInit {
 
   cadastroOrg: boolean = false;
   novoFuncionario: boolean = false;
+  novoCargo: boolean = false;
 
   items: MenuItem[];
-  activeIndex: number = 2;
+  activeIndex: number = 4;
 
   constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, private globalService: GlobalService){
 
@@ -264,6 +265,10 @@ export class AdminConfiguracoesComponent implements OnInit {
 
   cadastro(){
     this.novoFuncionario = true;
+  }
+
+  cadastroCargo(){
+    this.novoCargo = true;
   }
 
 }

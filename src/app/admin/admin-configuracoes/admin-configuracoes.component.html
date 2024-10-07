@@ -188,7 +188,7 @@
     </p-tabPanel>
 
 
-    <p-tabPanel header="Funcionarios" >
+    <p-tabPanel header="Dentistas" >
       <ng-template pTemplate="header" >
         <i class="pi pi-fw pi-users"></i>
         <span class="web">&nbsp;Dentistas</span>
@@ -196,11 +196,15 @@
       <app-dentista-list></app-dentista-list>
     </p-tabPanel>
 
-    <p-tabPanel header="Funcionarios" >
+    <p-tabPanel header="Cargos" >
       <ng-template pTemplate="header" >
         <i class="pi pi-fw pi-briefcase"></i>
         <span class="web">&nbsp;Cargos</span>
       </ng-template>
+      <div class="flex flex-row-reverse flex-wrap">
+        <button pButton type="button" label="Novo Cargo" (click)="cadastroCargo()" icon="pi pi-user-plus" class="web"></button>
+        <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastroCargo()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
+      </div>
       Em contrução...
     </p-tabPanel>
 
@@ -502,3 +506,8 @@
 <p-dialog header='Novo funcionario' [(visible)]="novoFuncionario" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
   <app-novo-funcionario></app-novo-funcionario>
 </p-dialog>
+
+<p-dialog header='Novo cargo' [(visible)]="novoCargo" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
+  <app-novo-cargo></app-novo-cargo>
+</p-dialog>
+

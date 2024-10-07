@@ -1,0 +1,171 @@
+<div class="new p-3">
+    <form [formGroup]="formCargo" [autofocus]="false">
+        <div class="row lg:flex lg:justify-content-center mt-2">
+            <div class="field col-4">
+            <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-pencil azul"></i>
+                <input pInputText id="cargo" formControlName="nome" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['cargo'].invalid && formCargo.controls['cargo'].touched}" />
+                <label for="cargo" class="azul">Cargo <span class="p-error ">*</span></label>
+            </span>
+            </div>
+
+            <div class="field col-4">
+                <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-pencil azul"></i>
+                <input pInputText id="departamento" formControlName="departamento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['departamento'].invalid && formCargo.controls['departamento'].touched}" />
+                <label for="departamento" class="azul">Departamento <span class="p-error ">*</span></label>
+                </span>
+            </div>
+
+            <div class="field col-3">
+                <span class="p-float-label width">
+                <p-dropdown 
+                inputId="nivelHierarquico"
+                formControlName="nivelHierarquico"
+                [options]="[
+                    { name: 'Aprendiz', value: 'aprendiz' },
+                    { name: 'Júnior', value: 'junior' },
+                    { name: 'Pleno', value: 'pleno' },
+                    { name: 'Senior', value: 'senior' },
+                    { name: 'Especialista', value: 'espec' },
+                    { name: 'Gestor', value: 'gestor' },
+                    { name: 'Coordenador', value: 'coordenador' },
+                    { name: 'Diretor', value: 'diretor' },
+                ]"
+                optionLabel="name"
+                appendTo="body" [autoZIndex]="true"
+                [style]="{width: '100%'}"
+                [showClear]="true"
+                [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['nivelHierarquico'].invalid && formCargo.controls['nivelHierarquico'].touched}"
+                />
+                <label for="nivelHierarquico" class="azul">Senioridade <span class="p-error ">*</span></label>
+                </span>
+            </div>
+        </div>
+
+        <div class="row lg:flex lg:justify-content-center mt-2">
+            <div class="field col-4">
+                <span class="p-float-label width">
+                <p-dropdown 
+                    inputId="requisitos"
+                    formControlName="requisitos"
+                    [options]="[
+                        { name: 'Ensino fundamental incompleto', value: '1' },
+                        { name: 'Ensino fundamental completo', value: '2' },
+                        { name: 'Ensino médio incompleto', value: '3' },
+                        { name: 'Ensino médio completo', value: '4' },
+                        { name: 'Ensino superior incompleto', value: '5' },
+                        { name: 'Ensino superior completo', value: '6' },
+                        { name: 'Especialização', value: '7' },
+                        { name: 'Mestrado', value: '8' },
+                        { name: 'Douturado', value: '9' },
+                    ]"
+                    optionLabel="name"
+                    appendTo="body" [autoZIndex]="true"
+                    [style]="{width: '100%'}"
+                    [showClear]="true"
+                    [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['requisitos'].invalid && formCargo.controls['requisitos'].touched}"
+                />
+                <label for="requisitos" class="azul">Requisitos/Qualificações <span class="p-error ">*</span></label>
+                </span>
+            </div>
+            <div class="field col-3">
+                <span class="p-float-label width">
+                <p-dropdown 
+                    inputId="cargaHoraria"
+                    formControlName="cargaHoraria"
+                    [options]="[
+                        { name: '12h/36h', value: '1' },
+                        { name: '40h', value: '2' },
+                        { name: '44h', value: '3' },
+                        { name: 'Plantão', value: '4' },
+                    ]"
+                    optionLabel="name"
+                    appendTo="body" [autoZIndex]="true"
+                    [style]="{width: '100%'}"
+                    [showClear]="true"
+                    [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['cargaHoraria'].invalid && formCargo.controls['cargaHoraria'].touched}"
+                />
+                <label for="cargaHoraria" class="azul">Carga Horaria <span class="p-error ">*</span></label>
+                </span>
+            </div>
+
+
+            <div class="field col-4">
+                <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-dollar azul"></i>
+                <input pInputText id="salarioBase" formControlName="salarioBase" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['salarioBase'].invalid && formCargo.controls['salarioBase'].touched}" />
+                <label for="salarioBase" class="azul">Salário Base <span class="p-error ">*</span></label>
+                </span>
+            </div>
+
+            
+        </div>
+
+        
+        <div class="row lg:flex lg:justify-content-center mt-3">
+            <div class="field col-11">
+                <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-pencil azul"></i>
+                <!-- <input pInputText id="departamento" formControlName="departamento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['departamento'].invalid && formCargo.controls['departamento'].touched}" /> -->
+                <textarea rows="5" pInputTextarea formControlName="descricao" class="width"></textarea>
+                <label for="departamento" class="azul">Descrição das atribuições</label>
+                </span>
+            </div>
+            
+        </div>
+        <div class="row" >
+            <div class="row lg:flex lg:justify-content-center">
+                <span class="azul">
+                    <i class="pi pi-user"></i>
+                    Beneficios
+                </span>
+            </div>
+            <div class="row lg:flex lg:justify-content-center">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
+                    <span class=" flex justify-content-start align-items-center my-3">
+                    <p-inputSwitch id="valeTrans" formControlName="valeTrans"></p-inputSwitch>
+                    <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
+                    </span>
+        
+                </div>
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
+                    <span class="flex justify-content-start align-items-center  my-3">
+                    <p-inputSwitch id="valeAR" formControlName="valeAR"></p-inputSwitch>
+                    <label for="valeAR" class="azul">&nbsp;&nbsp;VA/VR</label>
+                    </span>
+                </div>
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
+                    <span class=" flex justify-content-start align-items-center  my-3">
+                    <p-inputSwitch id="planoSaude"formControlName="planoSaude" ></p-inputSwitch>
+                    <label for="planoSaude" class="azul">&nbsp;&nbsp;Plano Saúde</label>
+                    </span>
+                </div>
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
+                    <span class=" flex justify-content-start align-items-center  my-3">
+                    <p-inputSwitch id="plr" formControlName="plr"></p-inputSwitch>
+                    <label for="plr" class="azul" >&nbsp;&nbsp;PLR</label>
+                    </span>
+                </div>
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
+                    <span class=" flex justify-content-start align-items-center  my-3">
+                    <p-inputSwitch id="premiacao" formControlName="premiacao"></p-inputSwitch>
+                    <label for="premiacao" class="azul" >&nbsp;&nbsp;Premiação</label>
+                    </span>
+                </div>
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
+                    <span class=" flex justify-content-start align-items-center  my-3">
+                    <p-inputSwitch id="gymPass" formControlName="gymPass" class="p-input-sm"></p-inputSwitch>
+                    <label for="gymPass" class="azul">&nbsp;&nbsp;GymPass</label>
+                    </span>
+                </div>
+                </div>
+        </div>
+        <div class="row flex justify-content-center mt-4">
+            <p-button type="ngSubmit" [rounded]="true" label="Salvar" severity="success" icon="pi pi-save" iconPos="right" />
+        </div>
+    </form>
+    <div >
+        <span class="p-error text-xs">* Campos obrigatórios</span>
+    </div>
+</div>
