@@ -2,7 +2,7 @@
     <form [formGroup]="formCargo" (ngSubmit)="onSubmit()">
 
         <div class="row lg:flex lg:justify-content-center mt-2">
-            <div class="field col-4">
+            <div class="field col-4 m-0">
             <span class="p-float-label p-input-icon-left width">
                 <i class="pi pi-pencil azul"></i>
                 <input pInputText id="cargo" formControlName="nome" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['nome'].invalid && formCargo.controls['nome'].touched}" />
@@ -10,7 +10,7 @@
             </span>
             </div>
 
-            <div class="field col-4">
+            <div class="field col-4 m-0">
                 <span class="p-float-label p-input-icon-left width">
                 <i class="pi pi-pencil azul"></i>
                 <input pInputText id="departamento" formControlName="departamento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['departamento'].invalid && formCargo.controls['departamento'].touched}" />
@@ -18,7 +18,7 @@
                 </span>
             </div>
 
-            <div class="field col-3">
+            <div class="field col-3 m-0">
                 <span class="p-float-label width">
                 <p-dropdown
                 inputId="nivelHierarquico"
@@ -45,7 +45,7 @@
         </div>
 
         <div class="row lg:flex lg:justify-content-center mt-2">
-            <div class="field col-4">
+            <div class="field col-4 m-0">
                 <span class="p-float-label width">
                 <p-dropdown
                     inputId="requisitos"
@@ -70,7 +70,7 @@
                 <label for="requisitos" class="azul">Requisitos/Qualificações <span class="p-error ">*</span></label>
                 </span>
             </div>
-            <div class="field col-3">
+            <div class="field col-3 m-0">
                 <span class="p-float-label width">
                 <p-dropdown
                     inputId="cargaHoraria"
@@ -91,71 +91,70 @@
                 </span>
             </div>
 
-
-            <div class="field col-4">
+            <div class="field col-4 m-0">
                 <span class="p-float-label p-input-icon-left width">
                 <i class="pi pi-dollar azul"></i>
-                <input pInputText id="salarioBase" formControlName="salarioBase" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['salarioBase'].invalid && formCargo.controls['salarioBase'].touched}" />
+                <input pInputText id="salarioBase" formControlName="salarioBase" required class="width p-input-sm" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['salarioBase'].invalid && formCargo.controls['salarioBase'].touched}" />
                 <label for="salarioBase" class="azul">Salário Base <span class="p-error ">*</span></label>
                 </span>
             </div>
+        </div>            
 
-
-        </div>
-
-
-        <div class="row lg:flex lg:justify-content-center mt-3">
-            <div class="field col-11">
+        <div class="row lg:flex lg:justify-content-center mt-2">
+            <div class="field col-11 m-0">
                 <span class="p-float-label p-input-icon-left width">
                 <i class="pi pi-pencil azul"></i>
                 <!-- <input pInputText id="departamento" formControlName="departamento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['departamento'].invalid && formCargo.controls['departamento'].touched}" /> -->
-                <textarea rows="5" pInputTextarea formControlName="descricao" class="width"></textarea>
+                <textarea rows="4" pInputTextarea formControlName="descricao" class="width"></textarea>
                 <label for="departamento" class="azul">Descrição das atribuições</label>
                 </span>
             </div>
 
         </div>
         <div class="row" >
+            <div class="flex justify-content-end" >
+                <span class="p-error text-xs ml-3">* Campos obrigatórios</span>
+            </div>
             <div class="row lg:flex lg:justify-content-center">
                 <span class="azul">
                     <i class="pi pi-user"></i>
-                    Beneficios
+                    Benefícios
                 </span>
             </div>
-            <div class="row lg:flex lg:justify-content-center">
-                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-                    <span class=" flex justify-content-start align-items-center my-3">
+            <div class="row lg:flex lg:justify-content-center ">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                    <span class=" flex justify-content-start align-items-center mt-2">
                     <p-inputSwitch id="valeTrans" formControlName="valeTrans"></p-inputSwitch>
                     <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
                     </span>
 
                 </div>
-                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-                    <span class="flex justify-content-start align-items-center  my-3">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                    <span class="flex justify-content-start align-items-center  my-2">
                     <p-inputSwitch id="valeAR" formControlName="valeAR"></p-inputSwitch>
                     <label for="valeAR" class="azul">&nbsp;&nbsp;VA/VR</label>
                     </span>
                 </div>
-                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-                    <span class=" flex justify-content-start align-items-center  my-3">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                    <span class=" flex justify-content-start align-items-center  my-2">
                     <p-inputSwitch id="planoSaude"formControlName="planoSaude" ></p-inputSwitch>
                     <label for="planoSaude" class="azul">&nbsp;&nbsp;Plano Saúde</label>
                     </span>
                 </div>
-                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-                    <span class=" flex justify-content-start align-items-center  my-3">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                    <span class=" flex justify-content-start align-items-center  my-2">
                     <p-inputSwitch id="plr" formControlName="plr"></p-inputSwitch>
                     <label for="plr" class="azul" >&nbsp;&nbsp;PLR</label>
                     </span>
                 </div>
-                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-                    <span class=" flex justify-content-start align-items-center  my-3">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                    <span class=" flex justify-content-start align-items-center  my-2">
                     <p-inputSwitch id="premiacao" formControlName="premiacao"></p-inputSwitch>
                     <label for="premiacao" class="azul" >&nbsp;&nbsp;Premiação</label>
                     </span>
                 </div>
-                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-                    <span class=" flex justify-content-start align-items-center  my-3">
+                <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                    <span class=" flex justify-content-start align-items-center  my-2">
                     <p-inputSwitch id="gymPass" formControlName="gymPass" class="p-input-sm"></p-inputSwitch>
                     <label for="gymPass" class="azul">&nbsp;&nbsp;GymPass</label>
                     </span>
@@ -166,7 +165,5 @@
             <p-button type="ngSubmit" [rounded]="true" label="Salvar" severity="success" icon="pi pi-save" iconPos="right" />
         </div>
     </form>
-    <div >
-        <span class="p-error text-xs">* Campos obrigatórios</span>
-    </div>
+
 </div>

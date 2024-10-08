@@ -60,6 +60,7 @@ const routes: Routes = [
     //{path: 'pagamento', component: PagamentoInfoComponent, canActivate: [AuthGuard]},
     {
       path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard],  children: [
+        { path: '', redirectTo: 'configuracoes', pathMatch: 'full'},
         { path: 'configuracoes', component: AdminConfiguracoesComponent, canActivate: [AuthGuard]},
         { path: 'paciente', component: AdminPacienteComponent, canActivate: [AuthGuard]},
         { path: 'dentista', component: AdminDentistaComponent, canActivate: [AuthGuard]},
