@@ -7,10 +7,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
+import { ListCargoComponent } from '../list-cargo/list-cargo.component';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+
+
 
 @NgModule({
   declarations: [
-    NovoCargoComponent
+    NovoCargoComponent,
+    ListCargoComponent
   ],
   imports: [
     CommonModule,
@@ -20,10 +26,13 @@ import { ButtonModule } from 'primeng/button';
     InputTextModule,
     InputSwitchModule,
     InputTextareaModule,
-    ButtonModule
+    ButtonModule,
+    TableModule,
+    TagModule
   ],
   exports: [
-    NovoCargoComponent
+    NovoCargoComponent,
+    ListCargoComponent
   ]
 })
 export class NovoCargoModule { }

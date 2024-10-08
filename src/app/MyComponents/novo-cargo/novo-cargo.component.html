@@ -1,10 +1,11 @@
 <div class="new p-3">
-    <form [formGroup]="formCargo" [autofocus]="false">
+    <form [formGroup]="formCargo" (ngSubmit)="onSubmit()">
+
         <div class="row lg:flex lg:justify-content-center mt-2">
             <div class="field col-4">
             <span class="p-float-label p-input-icon-left width">
                 <i class="pi pi-pencil azul"></i>
-                <input pInputText id="cargo" formControlName="nome" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['cargo'].invalid && formCargo.controls['cargo'].touched}" />
+                <input pInputText id="cargo" formControlName="nome" required class="width" [ngClass]="{'ng-invalid ng-dirty': formCargo.controls['nome'].invalid && formCargo.controls['nome'].touched}" />
                 <label for="cargo" class="azul">Cargo <span class="p-error ">*</span></label>
             </span>
             </div>
@@ -19,18 +20,18 @@
 
             <div class="field col-3">
                 <span class="p-float-label width">
-                <p-dropdown 
+                <p-dropdown
                 inputId="nivelHierarquico"
                 formControlName="nivelHierarquico"
                 [options]="[
-                    { name: 'Aprendiz', value: 'aprendiz' },
-                    { name: 'Júnior', value: 'junior' },
-                    { name: 'Pleno', value: 'pleno' },
-                    { name: 'Senior', value: 'senior' },
-                    { name: 'Especialista', value: 'espec' },
-                    { name: 'Gestor', value: 'gestor' },
-                    { name: 'Coordenador', value: 'coordenador' },
-                    { name: 'Diretor', value: 'diretor' },
+                    { name: 'Aprendiz'},
+                    { name: 'Júnior'},
+                    { name: 'Pleno'},
+                    { name: 'Senior' },
+                    { name: 'Especialista' },
+                    { name: 'Gestor' },
+                    { name: 'Coordenador'},
+                    { name: 'Diretor' },
                 ]"
                 optionLabel="name"
                 appendTo="body" [autoZIndex]="true"
@@ -46,7 +47,7 @@
         <div class="row lg:flex lg:justify-content-center mt-2">
             <div class="field col-4">
                 <span class="p-float-label width">
-                <p-dropdown 
+                <p-dropdown
                     inputId="requisitos"
                     formControlName="requisitos"
                     [options]="[
@@ -71,7 +72,7 @@
             </div>
             <div class="field col-3">
                 <span class="p-float-label width">
-                <p-dropdown 
+                <p-dropdown
                     inputId="cargaHoraria"
                     formControlName="cargaHoraria"
                     [options]="[
@@ -99,10 +100,10 @@
                 </span>
             </div>
 
-            
+
         </div>
 
-        
+
         <div class="row lg:flex lg:justify-content-center mt-3">
             <div class="field col-11">
                 <span class="p-float-label p-input-icon-left width">
@@ -112,7 +113,7 @@
                 <label for="departamento" class="azul">Descrição das atribuições</label>
                 </span>
             </div>
-            
+
         </div>
         <div class="row" >
             <div class="row lg:flex lg:justify-content-center">
@@ -127,7 +128,7 @@
                     <p-inputSwitch id="valeTrans" formControlName="valeTrans"></p-inputSwitch>
                     <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
                     </span>
-        
+
                 </div>
                 <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
                     <span class="flex justify-content-start align-items-center  my-3">

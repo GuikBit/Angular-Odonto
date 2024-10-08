@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { CargoService } from 'src/app/cargo.service';
 import { ClienteService } from 'src/app/cliente.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class NovoCargoComponent implements OnInit{
 
   formCargo: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService){}
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: CargoService){}
 
   ngOnInit(): void {
     this.criaFormulario();
@@ -28,12 +29,12 @@ export class NovoCargoComponent implements OnInit{
       nivelHierarquico: [null, Validators.required],
       salarioBase: ['', Validators.required],
       requisitos: [null, Validators.required],
-      dataCadastro: ['', Validators.required],
-      dataUpdate: ['', Validators.required],
-      userAlteracao: ['', Validators.required],
+      dataCadastro: [new Date(), Validators.required],
+      dataUpdate: [],
+      userAlteracao: [],
       cargaHoraria: [null, Validators.required],
-      status: ['', Validators.required],
-      orgId: ['', Validators.required],
+      status: [0, Validators.required],
+      organizacaoId: [1, Validators.required],
       valeTrans: [false],
       valeAR: [false],
       planoSaude: [false],
@@ -42,6 +43,23 @@ export class NovoCargoComponent implements OnInit{
       plr: [false]
 
     })
+  }
+
+  onSubmit(){
+    console.log(this.formCargo.valid)
+    console.log(this.formCargo)
+    console.log(JSON.stringify(this.formCargo.value))
+    if(this.formCargo.valid){
+      this.service.postCargo(1,this.formCargo.value).then((response)=>{
+        if(response?.status === 200 || response?.status === 201){
+
+        }else{
+
+        }
+      }).catch((error)=>{
+
+      })
+    }
   }
 
 }

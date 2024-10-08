@@ -1,0 +1,237 @@
+<div class="card box lg:py-5 text-indigo-800">
+  <p-table
+  #productsTable
+  [value]="listaCargo"
+  [rows]="10"
+  [paginator]="true"
+  [responsive]="true"
+  [globalFilterFields]="['nome', 'numPasta', 'cpf']"
+  [tableStyle]="{ 'min-width': '75rem' }"
+  [rowHover]="true"
+  [showCurrentPageReport]="true"
+  dataKey="id"
+  currentPageReportTemplate="{first} de {last} de {totalRecords}"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="numPasta">
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex justify-content-center align-items-center">
+            N Pasta
+          </div>
+          <div class="flex justify-content-center align-items-center">
+            <p-sortIcon
+              field="numPasta"
+              pTooltip="Ordenar"
+              tooltipPosition="top"
+            ></p-sortIcon>
+            <p-columnFilter
+            type="text"
+            field="numPasta"
+            display="menu"
+            pTooltip="Filtrar"
+            tooltipPosition="top"
+            ></p-columnFilter>
+          </div>
+        </div>
+      </th>
+      <th pSortableColumn="nome">
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex justify-content-between align-items-center">
+            Nome
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <p-sortIcon
+              field="nome"
+              pTooltip="Ordenar"
+              tooltipPosition="top"
+            ></p-sortIcon>
+            <p-columnFilter
+            type="text"
+            field="nome"
+            display="menu"
+            pTooltip="Filtrar"
+            tooltipPosition="top"
+            ></p-columnFilter>
+          </div>
+        </div>
+      </th>
+
+      <th pSortableColumn="cpf">
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex justify-content-between align-items-center">
+            CPF
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <p-sortIcon
+              field="cpf"
+              pTooltip="Ordenar"
+              tooltipPosition="top"
+            ></p-sortIcon>
+            <p-columnFilter
+            type="text"
+            field="cpf"
+            display="menu"
+            pTooltip="Filtrar"
+            tooltipPosition="top"
+            ></p-columnFilter>
+          </div>
+        </div>
+      </th>
+
+      <th pSortableColumn="dataNascimento">
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex justify-content-between align-items-center">
+            Data Cadastro
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <p-sortIcon
+              field="dataNascimento"
+              pTooltip="Ordenar"
+              tooltipPosition="top"
+            ></p-sortIcon>
+            <p-columnFilter
+            type="date"
+            field="dataNascimento"
+            dateFormat="dd/MM/yyyy"
+            display="menu"
+            pTooltip="Filtrar"
+            tooltipPosition="top"
+            ></p-columnFilter>
+          </div>
+        </div>
+      </th>
+      <th pSortableColumn="ativo" [width]="180">
+        <div class="flex justify-content-between align-items-center">
+          <div class="flex justify-content-between align-items-center">
+            Status
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <p-sortIcon
+              field="ativo"
+              pTooltip="Ordenar"
+              tooltipPosition="top"
+            ></p-sortIcon>
+            <!-- <p-columnFilter
+              type="text"
+              field="ativo"
+              display="menu"
+              matchMode="contains"
+              [showMatchModes]="false"
+              [showOperator]="false"
+              [showAddButton]="false"
+              pTooltip="Filtrar"
+              tooltipPosition="top"
+            ></p-columnFilter> -->
+            <!-- <p-columnFilter field="ativo" matchMode="equals" display="menu">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown
+                    [ngModel]="value"
+                    [options]="[
+                      { label: 'Ativo', value: 'Ativo', bool: 1 },
+                      { label: 'Inativo', value: 'Inativo', bool: 0 },
+                      ]"
+                    (change)="applyFilter()"
+                    placeholder="Any"
+                  >
+                    <ng-template let-option pTemplate="item">
+                        <p-tag [icon]="option.bool? 'pi pi-check' : 'pi pi-times'" [value]="option.value" [severity]="getSeverity(option.bool)" [rounded]="true"></p-tag>
+                    </ng-template>
+                  </p-dropdown>
+              </ng-template>
+          </p-columnFilter> -->
+          <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" placeholder="Status">
+                <ng-template let-option pTemplate="item">
+                  <p-tag
+                    [severity]="getSeverity(option.label)"
+                    [value]="option.value"
+                    [rounded]="true">
+                    <i class="material-icons" *ngIf="option.value == 'Ativo'">task_alt</i>
+                    <i class="material-icons" *ngIf="!(option.value == 'Ativo')">block</i>
+                  </p-tag>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+          </div>
+        </div>
+      </th>
+      <th [width]="200"></th>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-paciente>
+    <tr>
+      <td [width]="180" >{{ paciente?.numPasta }}</td>
+      <td>{{ paciente?.nome }}</td>
+      <td>{{ paciente?.cpf }}</td>
+      <td [width]="300">{{ paciente?.dataCadastro | date: "dd/MM/yyyy"}}</td>
+      <td>
+        <p-tag
+          [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
+          [value]="paciente?.ativo? ' Ativo ':' Inativo '"
+          [rounded]="true"
+          [style]="{'font-size': '12px', 'font-weight': '400'}"
+          [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
+        >
+        </p-tag>
+
+      </td>
+      <td>
+        <div
+          class="flex justify-content-around">
+            <p-button
+              icon="pi pi-pw pi-info-circle"
+              [rounded]="true"
+              [text]="true"
+              severity="info"
+              pTooltip="Informações"
+              tooltipPosition="top"
+              (click)="info()"
+
+            ></p-button>
+            <!-- <p-button
+              icon="pi pi-pw pi-info-circle"
+              [rounded]="true"
+              severity="info"
+              [outlined]="true"
+              pTooltip="Informações"
+              tooltipPosition="top"
+              (click)="info(paciente.id)"
+            >
+            </p-button> -->
+            <!-- <p-button
+              icon="pi pi-pw pi-ban"
+              [rounded]="true"
+              severity="danger"
+              [outlined]="true"
+              pTooltip="Deletar"
+              tooltipPosition="top"
+              (click)="delet(paciente.id)"
+            >
+            </p-button> -->
+            <p-button
+              icon="pi pi-pw pi-trash"
+              [rounded]="true"
+              [text]="true"
+              severity="danger"
+              pTooltip="Inativar"
+              tooltipPosition="top"
+              (click)="info()"
+              [disabled]="!paciente.ativo"
+            ></p-button>
+
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr >
+      <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+    </tr>
+  </ng-template>
+</p-table>
+
+</div>
