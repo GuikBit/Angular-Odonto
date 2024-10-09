@@ -10,10 +10,13 @@ import { Cargo } from 'src/app/class/Cargo';
 })
 export class ListCargoComponent implements OnInit{
 
+  novoCargo: boolean = false;
+  selectedStatus: any;
+  
   listaCargo: Cargo[];
-  statuses: { label: string, value: string }[] = [
-    { label: 'ativo', value: 'Ativo' },
-    { label: 'inativo', value: 'Inativo' }
+  statuses: { label: string, value: string, status: boolean }[] = [
+    { label: 'ativo', value: 'Ativo', status: true },
+    { label: 'inativo', value: 'Inativo', status: false }
   ];
 
 
@@ -29,7 +32,26 @@ export class ListCargoComponent implements OnInit{
     })
 
   }
+  
+  info(id: any){
 
+  }
+
+
+  cadastroCargo(){
+    this.novoCargo = true;
+  }
+
+
+  closeModal(close: boolean) {
+    this.novoCargo = close;
+    this.ngOnInit();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Novo cargo salvo com sucesso!'
+    })
+  }
 
   getSeverity(status: string): 'danger' | 'success' | undefined {
     if (status === 'ativo') {
@@ -40,10 +62,4 @@ export class ListCargoComponent implements OnInit{
     }
     return undefined;
   }
-
-
-  info(){
-
-  }
-
 }

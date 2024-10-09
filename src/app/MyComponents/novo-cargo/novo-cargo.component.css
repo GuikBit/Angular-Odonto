@@ -7,3 +7,13 @@
     border-radius: 7px ;
     border: 1px solid #c4ddf3;
   }
+
+  .custom-switch .p-inputswitch {
+    width: 30px; /* Define a largura desejada */
+    height: 15px; /* Define a altura desejada */
+  }
+  
+  .custom-switch .p-inputswitch-slider {
+    width: 15px; /* Ajusta o tamanho do slider */
+    height: 15px;
+  }

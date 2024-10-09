@@ -92,8 +92,9 @@ export class NovoFuncionarioComponent  implements OnInit{
       valeTrans: [false],
       valeAR: [false],
       planoSaude: [false],
+      plr: [false],
       premiacao: [false],
-      GymPass: [false],
+      gymPass: [false],
     })
 
     this.formConfig = this.formBuilder.group({

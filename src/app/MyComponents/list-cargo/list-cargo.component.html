@@ -1,237 +1,271 @@
-<div class="card box lg:py-5 text-indigo-800">
-  <p-table
-  #productsTable
-  [value]="listaCargo"
-  [rows]="10"
-  [paginator]="true"
-  [responsive]="true"
-  [globalFilterFields]="['nome', 'numPasta', 'cpf']"
-  [tableStyle]="{ 'min-width': '75rem' }"
-  [rowHover]="true"
-  [showCurrentPageReport]="true"
-  dataKey="id"
-  currentPageReportTemplate="{first} de {last} de {totalRecords}"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th pSortableColumn="numPasta">
-        <div class="flex justify-content-between align-items-center">
-          <div class="flex justify-content-center align-items-center">
-            N Pasta
-          </div>
-          <div class="flex justify-content-center align-items-center">
-            <p-sortIcon
-              field="numPasta"
-              pTooltip="Ordenar"
-              tooltipPosition="top"
-            ></p-sortIcon>
-            <p-columnFilter
-            type="text"
-            field="numPasta"
-            display="menu"
-            pTooltip="Filtrar"
-            tooltipPosition="top"
-            ></p-columnFilter>
-          </div>
-        </div>
-      </th>
-      <th pSortableColumn="nome">
-        <div class="flex justify-content-between align-items-center">
-          <div class="flex justify-content-between align-items-center">
-            Nome
-          </div>
-          <div class="flex justify-content-between align-items-center">
-            <p-sortIcon
-              field="nome"
-              pTooltip="Ordenar"
-              tooltipPosition="top"
-            ></p-sortIcon>
-            <p-columnFilter
-            type="text"
-            field="nome"
-            display="menu"
-            pTooltip="Filtrar"
-            tooltipPosition="top"
-            ></p-columnFilter>
-          </div>
-        </div>
-      </th>
+<div class="lg:py-5 text-indigo-800">
+  <div class="flex flex-row-reverse flex-wrap mb-3">
+    <button pButton type="button" label="Novo Cargo" (click)="cadastroCargo()" icon="pi pi-user-plus" class="web"></button>
+    <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastroCargo()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
+  </div>
+  <div>
+    <p-table
+      #productsTable
+      [value]="listaCargo"
+      [rows]="10"
+      [paginator]="true"
+      [responsive]="true"
+      [globalFilterFields]="['nome', 'departamento', 'nivelHierarquico', 'dataCadastro', 'status']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      [showCurrentPageReport]="true"
+      dataKey="id"
+      currentPageReportTemplate="{first} de {last} de {totalRecords}"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nome">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-between align-items-center">
+                Nome
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <p-sortIcon
+                  field="nome"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                type="text"
+                field="nome"
+                display="menu"
+                pTooltip="Filtrar"
+                tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="departamento">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-center align-items-center">
+                Departamento
+              </div>
+              <div class="flex justify-content-center align-items-center">
+                <p-sortIcon
+                  field="departamento"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                type="text"
+                field="departamento"
+                display="menu"
+                pTooltip="Filtrar"
+                tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="nivelHierarquico">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-between align-items-center">
+                Senioridade
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <p-sortIcon
+                  field="nivelHierarquico"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                type="text"
+                field="nivelHierarquico"
+                display="menu"
+                pTooltip="Filtrar"
+                tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
 
-      <th pSortableColumn="cpf">
-        <div class="flex justify-content-between align-items-center">
-          <div class="flex justify-content-between align-items-center">
-            CPF
-          </div>
-          <div class="flex justify-content-between align-items-center">
-            <p-sortIcon
-              field="cpf"
-              pTooltip="Ordenar"
-              tooltipPosition="top"
-            ></p-sortIcon>
-            <p-columnFilter
-            type="text"
-            field="cpf"
-            display="menu"
-            pTooltip="Filtrar"
-            tooltipPosition="top"
-            ></p-columnFilter>
-          </div>
-        </div>
-      </th>
-
-      <th pSortableColumn="dataNascimento">
-        <div class="flex justify-content-between align-items-center">
-          <div class="flex justify-content-between align-items-center">
-            Data Cadastro
-          </div>
-          <div class="flex justify-content-between align-items-center">
-            <p-sortIcon
-              field="dataNascimento"
-              pTooltip="Ordenar"
-              tooltipPosition="top"
-            ></p-sortIcon>
-            <p-columnFilter
-            type="date"
-            field="dataNascimento"
-            dateFormat="dd/MM/yyyy"
-            display="menu"
-            pTooltip="Filtrar"
-            tooltipPosition="top"
-            ></p-columnFilter>
-          </div>
-        </div>
-      </th>
-      <th pSortableColumn="ativo" [width]="180">
-        <div class="flex justify-content-between align-items-center">
-          <div class="flex justify-content-between align-items-center">
-            Status
-          </div>
-          <div class="flex justify-content-between align-items-center">
-            <p-sortIcon
-              field="ativo"
-              pTooltip="Ordenar"
-              tooltipPosition="top"
-            ></p-sortIcon>
-            <!-- <p-columnFilter
-              type="text"
-              field="ativo"
-              display="menu"
-              matchMode="contains"
-              [showMatchModes]="false"
-              [showOperator]="false"
-              [showAddButton]="false"
-              pTooltip="Filtrar"
-              tooltipPosition="top"
-            ></p-columnFilter> -->
-            <!-- <p-columnFilter field="ativo" matchMode="equals" display="menu">
-              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                  <p-dropdown
-                    [ngModel]="value"
-                    [options]="[
-                      { label: 'Ativo', value: 'Ativo', bool: 1 },
-                      { label: 'Inativo', value: 'Inativo', bool: 0 },
-                      ]"
-                    (change)="applyFilter()"
-                    placeholder="Any"
-                  >
+          <th pSortableColumn="dataCadastro">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-between align-items-center">
+                Data Cadastro
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <p-sortIcon
+                  field="dataCadastro"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <p-columnFilter
+                type="date"
+                field="dataCadastro"
+                dateFormat="dd/MM/yyyy"
+                display="menu"
+                pTooltip="Filtrar"
+                tooltipPosition="top"
+                ></p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th pSortableColumn="ativo" [width]="180">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex justify-content-between align-items-center">
+                Status
+                <div class="flex align-items-center gap-2" *ngIf="selectedStatus">
+                  <p-tag
+                  [severity]="selectedStatus?.status ? 'success' : 'danger'"
+                  
+                  [rounded]="true"
+                  [style]="{'font-size': '12px', 'font-weight': '400', 'padding-left': '10px'}"
+                  [icon]="selectedStatus.status ? 'pi pi-verified' : 'pi pi-ban'"
+                >
+                </p-tag>
+                </div>
+              </div>
+              <div class="flex justify-content-between align-items-center">
+                <p-sortIcon
+                  field="ativo"
+                  pTooltip="Ordenar"
+                  tooltipPosition="top"
+                ></p-sortIcon>
+                <!-- <p-columnFilter
+                  type="text"
+                  field="ativo"
+                  display="menu"
+                  matchMode="contains"
+                  [showMatchModes]="false"
+                  [showOperator]="false"
+                  [showAddButton]="false"
+                  pTooltip="Filtrar"
+                  tooltipPosition="top"
+                ></p-columnFilter> -->
+                <!-- <p-columnFilter field="ativo" matchMode="equals" display="menu">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown
+                        [ngModel]="value"
+                        [options]="[
+                          { label: 'Ativo', value: 'Ativo', bool: 1 },
+                          { label: 'Inativo', value: 'Inativo', bool: 0 },
+                          ]"
+                        (change)="applyFilter()"
+                        placeholder="Any"
+                      >
+                        <ng-template let-option pTemplate="item">
+                            <p-tag [icon]="option.bool? 'pi pi-check' : 'pi pi-times'" [value]="option.value" [severity]="getSeverity(option.bool)" [rounded]="true"></p-tag>
+                        </ng-template>
+                      </p-dropdown>
+                  </ng-template>
+              </p-columnFilter> -->
+              <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-dropdown [(ngModel)]="selectedStatus" [options]="statuses" placeholder="Status">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="flex align-items-center gap-2" *ngIf="selectedStatus">
+                        <p-tag
+                        [severity]="selectedStatus?.status ? 'success' : 'danger'"
+                        [value]="selectedStatus?.status ? ' Ativo ' : ' Inativo '"
+                        [rounded]="true"
+                        [style]="{'font-size': '12px', 'font-weight': '400'}"
+                        [icon]="selectedStatus.status ? 'pi pi-verified' : 'pi pi-ban'"
+                      >
+                      </p-tag>
+                      </div>
+                    </ng-template>
                     <ng-template let-option pTemplate="item">
-                        <p-tag [icon]="option.bool? 'pi pi-check' : 'pi pi-times'" [value]="option.value" [severity]="getSeverity(option.bool)" [rounded]="true"></p-tag>
+                      <p-tag
+                        [severity]="option?.status ? 'success' : 'danger'"
+                        [value]="option?.status ? ' Ativo ' : ' Inativo '"
+                        [rounded]="true"
+                        [style]="{'font-size': '12px', 'font-weight': '400'}"
+                        [icon]="option.status ? 'pi pi-verified' : 'pi pi-ban'"
+                      >
+                      </p-tag>
                     </ng-template>
                   </p-dropdown>
-              </ng-template>
-          </p-columnFilter> -->
-          <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-              <p-dropdown [ngModel]="value" [options]="statuses" placeholder="Status">
-                <ng-template let-option pTemplate="item">
-                  <p-tag
-                    [severity]="getSeverity(option.label)"
-                    [value]="option.value"
-                    [rounded]="true">
-                    <i class="material-icons" *ngIf="option.value == 'Ativo'">task_alt</i>
-                    <i class="material-icons" *ngIf="!(option.value == 'Ativo')">block</i>
-                  </p-tag>
                 </ng-template>
-              </p-dropdown>
-            </ng-template>
-          </p-columnFilter>
-          </div>
-        </div>
-      </th>
-      <th [width]="200"></th>
+              </p-columnFilter>
+              </div>
+            </div>
+          </th>
+          <th ></th>
 
-  </ng-template>
+      </ng-template>
 
-  <ng-template pTemplate="body" let-paciente>
-    <tr>
-      <td [width]="180" >{{ paciente?.numPasta }}</td>
-      <td>{{ paciente?.nome }}</td>
-      <td>{{ paciente?.cpf }}</td>
-      <td [width]="300">{{ paciente?.dataCadastro | date: "dd/MM/yyyy"}}</td>
-      <td>
-        <p-tag
-          [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
-          [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-          [rounded]="true"
-          [style]="{'font-size': '12px', 'font-weight': '400'}"
-          [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
-        >
-        </p-tag>
-
-      </td>
-      <td>
-        <div
-          class="flex justify-content-around">
-            <p-button
-              icon="pi pi-pw pi-info-circle"
+      <ng-template pTemplate="body" let-cargo>
+        <tr>
+          <td >{{ cargo?.nome }}</td>
+          <td>{{ cargo?.departamento }}</td>
+          <td>{{ cargo?.nivelHierarquico }}</td>
+          <td >{{ cargo?.dataCadastro | date: "dd/MM/yyyy"}}</td>
+          <td>
+            <p-tag
+              [severity]="cargo?.status? 'success':'danger'"
+              [value]="cargo?.status? ' Ativo ':' Inativo '"
               [rounded]="true"
-              [text]="true"
-              severity="info"
-              pTooltip="Informações"
-              tooltipPosition="top"
-              (click)="info()"
-
-            ></p-button>
-            <!-- <p-button
-              icon="pi pi-pw pi-info-circle"
-              [rounded]="true"
-              severity="info"
-              [outlined]="true"
-              pTooltip="Informações"
-              tooltipPosition="top"
-              (click)="info(paciente.id)"
+              [style]="{'font-size': '12px', 'font-weight': '400'}"
+              [icon]="cargo.status? 'pi pi-verified' : 'pi pi-ban'"
             >
-            </p-button> -->
-            <!-- <p-button
-              icon="pi pi-pw pi-ban"
-              [rounded]="true"
-              severity="danger"
-              [outlined]="true"
-              pTooltip="Deletar"
-              tooltipPosition="top"
-              (click)="delet(paciente.id)"
-            >
-            </p-button> -->
-            <p-button
-              icon="pi pi-pw pi-trash"
-              [rounded]="true"
-              [text]="true"
-              severity="danger"
-              pTooltip="Inativar"
-              tooltipPosition="top"
-              (click)="info()"
-              [disabled]="!paciente.ativo"
-            ></p-button>
+            </p-tag>
 
-        </div>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="emptymessage">
-    <tr >
-      <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
-    </tr>
-  </ng-template>
-</p-table>
+          </td>
+          <td>
+            <div
+              class="flex justify-content-around">
+                <p-button
+                  icon="pi pi-pw pi-info-circle"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="info"
+                  pTooltip="Informações"
+                  tooltipPosition="top"
+                  (click)="info(cargo.id)"
+
+                ></p-button>
+                <!-- <p-button
+                  icon="pi pi-pw pi-info-circle"
+                  [rounded]="true"
+                  severity="info"
+                  [outlined]="true"
+                  pTooltip="Informações"
+                  tooltipPosition="top"
+                  (click)="info(paciente.id)"
+                >
+                </p-button> -->
+                <!-- <p-button
+                  icon="pi pi-pw pi-ban"
+                  [rounded]="true"
+                  severity="danger"
+                  [outlined]="true"
+                  pTooltip="Deletar"
+                  tooltipPosition="top"
+                  (click)="delet(paciente.id)"
+                >
+                </p-button> -->
+                <p-button
+                  icon="pi pi-pw pi-trash"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="danger"
+                  pTooltip="Inativar"
+                  tooltipPosition="top"
+                  (click)="info(cargo.id)"
+                  [disabled]="!cargo.status"
+                ></p-button>
+
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr >
+          <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 
 </div>
+
+<p-dialog header='Novo cargo' [(visible)]="novoCargo" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
+  <ng-template pTemplate="content">
+    <app-novo-cargo (closeModal)="closeModal($event)"></app-novo-cargo>
+  </ng-template>
+</p-dialog>

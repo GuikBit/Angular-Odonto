@@ -31,21 +31,21 @@
 
               <div class="row mt-2">
                 <div class="grid nested-grid">
-                  <div class="col-3" >
+                  <div class="col-2 bg-blue-200" >
 
-                    <div class="w-full h-10rem flex justify-items-center align-items-center pl-4">
+                    <div class="flex justify-content-center align-items-center ">
                       <p-image
                         src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
                         alt="Image"
-                        width="220"
-                        class="w-full ml-6"
+                        width="180"
+                        class="w-full"
                         [preview]="true"
                         [style]="{'border-radius': '50%'}"
                       />
                     </div>
                     <div class="flex justify-content-center align-items-center">
-                      <span class="text-red-500 font-bold text-sm cursor-pointer hover:text-red-600 mb-1 web" (click)="abrirExplorerFoto()">
-                          <i class="pi pi-camera text-sm"></i>&nbsp;&nbsp;Adicionar foto
+                      <span class="text-red-500 font-bold text-xs cursor-pointer hover:text-red-600 web" (click)="abrirExplorerFoto()">
+                          <i class="pi pi-camera text-sm"></i>
                       </span>
                       <input type="file" #fileInput style="display: none;" />
                     </div>
@@ -325,129 +325,140 @@
         </div>
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <div class="row lg:flex lg:justify-content-center" >
-          <div class="field col-5">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Empresa</label>
-            </span>
+        
+        <form [formGroup]="formContrato"> 
 
-          </div>
-          <div class="field col-4">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">CNPJ</label>
-            </span>
+          <div class="row lg:flex lg:justify-content-center" >
+            <div class="field col-5">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Empresa</label>
+              </span>
 
-          </div>
-          <div class="field col-2">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">UF</label>
-            </span>
+            </div>
+            <div class="field col-4">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">CNPJ</label>
+              </span>
 
-          </div>
-        </div>
+            </div>
+            <div class="field col-2">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">UF</label>
+              </span>
 
-        <div class="row lg:flex lg:justify-content-center" >
-          <div class="field col-5">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Endereço</label>
-            </span>
-
-          </div>
-          <div class="field col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">CEP</label>
-            </span>
-
-          </div>
-          <div class="field col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Cidade</label>
-            </span>
-
-          </div>
-        </div>
-
-        <div class="row lg:flex lg:justify-content-center" >
-          <div class="field col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Cargo</label>
-            </span>
-
-          </div>
-          <div class="field col-2">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Data Admissão</label>
-            </span>
-
-          </div>
-          <div class="field col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Registro n</label>
-            </span>
-
-          </div>
-          <div class="field col-3">
-            <span class="p-float-label p-input-icon-left width">
-              <i class="pi pi-id-card azul"></i>
-              <input pInputText id="pasta" required class="width" />
-              <label for="pasta" class="azul">Remuneração</label>
-            </span>
-
+            </div>
           </div>
 
-        </div>
-        <div class="row lg:flex lg:justify-content-center" >
-          <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-            <span class=" flex justify-content-start align-items-center my-3">
-              <p-inputSwitch id="traumatismoFace" ></p-inputSwitch>
-              <label for="traumatismoFace" class="azul">&nbsp;&nbsp;Vale Transporte</label>
-            </span>
+          <div class="row lg:flex lg:justify-content-center" >
+            <div class="field col-5">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Endereço</label>
+              </span>
+
+            </div>
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">CEP</label>
+              </span>
+
+            </div>
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Cidade</label>
+              </span>
+
+            </div>
+          </div>
+
+          <div class="row lg:flex lg:justify-content-center" >
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Cargo</label>
+              </span>
+
+            </div>
+            <div class="field col-2">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Data Admissão</label>
+              </span>
+
+            </div>
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Registro n</label>
+              </span>
+
+            </div>
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="pasta" required class="width" />
+                <label for="pasta" class="azul">Remuneração</label>
+              </span>
+
+            </div>
 
           </div>
-          <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-            <span class="flex justify-content-start align-items-center  my-3">
-              <p-inputSwitch id="sangramentoExcessivo" ></p-inputSwitch>
-              <label for="sangramentoExcessivo" class="azul">&nbsp;&nbsp;VA/VR</label>
-            </span>
-          </div>
-          <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-            <span class=" flex justify-content-start align-items-center  my-3">
-              <p-inputSwitch id="sangramentoExcessivo" ></p-inputSwitch>
-              <label for="sangramentoExcessivo" class="azul">&nbsp;&nbsp;Plano Saude</label>
-            </span>
-          </div>
-          <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-            <span class=" flex justify-content-start align-items-center  my-3">
-              <p-inputSwitch id="sangramentoExcessivo" ></p-inputSwitch>
-              <label for="sangramentoExcessivo" class="azul">&nbsp;&nbsp;Premiacao</label>
-            </span>
-          </div>
-          <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center">
-            <span class=" flex justify-content-start align-items-center  my-3">
-              <p-inputSwitch id="sangramentoExcessivo" ></p-inputSwitch>
-              <label for="sangramentoExcessivo" class="azul">&nbsp;&nbsp;GymPass</label>
-            </span>
-          </div>
-        </div>
 
+          <div class="row lg:flex lg:justify-content-center ">
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center mt-2">
+                <p-inputSwitch id="valeTrans" formControlName="valeTrans" class="custom-switch"></p-inputSwitch>
+                <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
+                </span>
+
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class="flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="valeAR" formControlName="valeAR" class="custom-switch"></p-inputSwitch>
+                <label for="valeAR" class="azul">&nbsp;&nbsp;VA/VR</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="planoSaude"formControlName="planoSaude" class="custom-switch"></p-inputSwitch>
+                <label for="planoSaude" class="azul">&nbsp;&nbsp;Plano Saúde</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="plr" formControlName="plr" class="custom-switch"></p-inputSwitch>
+                <label for="plr" class="azul" >&nbsp;&nbsp;PLR</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="premiacao" formControlName="premiacao"  class="custom-switch"></p-inputSwitch>
+                <label for="premiacao" class="azul" >&nbsp;&nbsp;Premiação</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="gymPass" formControlName="gymPass" class="custom-switch"></p-inputSwitch>
+                <label for="gymPass" class="azul">&nbsp;&nbsp;GymPass</label>
+                </span>
+            </div>
+          </div>
+
+        </form>
           <div class="flex pt-4 justify-content-between">
               <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
               <p-button (onClick)="nextCallback.emit();" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />

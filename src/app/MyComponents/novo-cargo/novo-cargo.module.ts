@@ -10,7 +10,12 @@ import { ButtonModule } from 'primeng/button';
 import { ListCargoComponent } from '../list-cargo/list-cargo.component';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-
+import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputMaskModule } from 'primeng/inputmask';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -28,7 +33,13 @@ import { TagModule } from 'primeng/tag';
     InputTextareaModule,
     ButtonModule,
     TableModule,
-    TagModule
+    TagModule,
+    DialogModule,
+    TooltipModule,
+    InputMaskModule,
+    IconFieldModule,
+    InputIconModule,
+    InputNumberModule
   ],
   exports: [
     NovoCargoComponent,

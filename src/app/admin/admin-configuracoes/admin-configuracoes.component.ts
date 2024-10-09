@@ -26,7 +26,7 @@ export class AdminConfiguracoesComponent implements OnInit {
   novoCargo: boolean = false;
 
   items: MenuItem[];
-  activeIndex: number = 4;
+  activeIndex: number = 2;
 
   constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, private globalService: GlobalService){
 
@@ -270,5 +270,16 @@ export class AdminConfiguracoesComponent implements OnInit {
   cadastroCargo(){
     this.novoCargo = true;
   }
+
+  closeModal(close: boolean) {
+    this.novoCargo = close;
+    //this.criaTabelaDentista();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Aviso',
+      detail: 'Dentista salvo com sucesso!'
+    })
+  }
+
 
 }
