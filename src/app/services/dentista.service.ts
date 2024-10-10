@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Dentista } from './class/dentista';
+import { Dentista } from '../class/dentista';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';

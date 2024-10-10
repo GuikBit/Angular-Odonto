@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  MessageService, ConfirmEventType, SelectItem, ConfirmationService } from 'primeng/api';
 import { isEmpty } from 'rxjs';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 
 @Component({
   selector: 'app-admin-consulta',

@@ -20,7 +20,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { StepperModule } from 'primeng/stepper';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { InputIconModule } from 'primeng/inputicon';
     InputSwitchModule,
     TabViewModule,
     SidebarModule,
+    InputNumberModule,
     BreadcrumbModule,
     RouterModule,
     FloatLabelModule,

@@ -1,13 +1,13 @@
 
 import {  Component, ChangeDetectorRef, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import { Consulta } from '../../class/consulta';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectButtonChangeEvent } from 'primeng/selectbutton';
 import { Dentista } from 'src/app/class/dentista';
-import { DentistaService } from 'src/app/dentista.service';
+import { DentistaService } from 'src/app/services/dentista.service';
 
 export interface Status{
   label: string,

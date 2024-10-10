@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FinanceiroService } from 'src/app/financeiro.service';
+import { FinanceiroService } from 'src/app/services/financeiro.service';
 import { ConstaPagar, ConstaReceber } from '../classes';
 import { MessageService } from 'primeng/api';
 

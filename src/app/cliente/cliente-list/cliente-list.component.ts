@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MessageService } from 'primeng/api';
-import { ClienteService } from 'src/app/cliente.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { Cliente } from '../../class/cliente';
 import { Message } from '../cliente-novo/cliente-novo.component';
 

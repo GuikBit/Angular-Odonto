@@ -1,12 +1,12 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { EspecConsulta } from 'src/app/class/EspecConsulta';
-import { ConsultaService } from 'src/app/consulta.service';
-import { DentistaService } from 'src/app/dentista.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
+import { DentistaService } from 'src/app/services/dentista.service';
 import { Dentista } from 'src/app/class/dentista';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/class/cliente';
-import { ClienteService } from 'src/app/cliente.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-novo-orcamento',

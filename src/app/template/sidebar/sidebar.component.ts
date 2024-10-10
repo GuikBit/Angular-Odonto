@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import {FormControl} from '@angular/forms';
 import {MatDrawerMode} from '@angular/material/sidenav';
 import { Sidebar } from 'primeng/sidebar';

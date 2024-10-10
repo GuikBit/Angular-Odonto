@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../dashboard.service';
+import { DashboardService } from '../services/dashboard.service';
 import { MessageService } from 'primeng/api';
 import { Dentista } from '../class/dentista';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

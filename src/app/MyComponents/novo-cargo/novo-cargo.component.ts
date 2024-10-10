@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { CargoService } from 'src/app/cargo.service';
-import { ClienteService } from 'src/app/cliente.service';
+import { CargoService } from 'src/app/services/cargo.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 
 @Component({
@@ -14,13 +14,29 @@ export class NovoCargoComponent implements OnInit{
 
   @Output() closeModal = new EventEmitter<boolean>() ;
 
+  userLogado: any;
+  org: any;
+
+
   formCargo: FormGroup;
 
   senioridade: any = null;
   qualificacao: any = null;
   horario: any = null;
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: CargoService){}
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: CargoService){
+
+    if ((this.userLogado === undefined || this.userLogado === null) && (this.org === null || this.org === undefined)) {
+
+      const userStorage = localStorage.getItem('userLogado');
+      const orgStorage = localStorage.getItem('organizacao');
+
+      if (userStorage && orgStorage) {
+        this.userLogado = JSON.parse(userStorage);
+        this.org = JSON.parse(orgStorage);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.criaFormulario();
@@ -39,10 +55,10 @@ export class NovoCargoComponent implements OnInit{
       dataCadastro: [new Date(), Validators.required],
       dataUpdate: [],
       IdUserUpdade: [],
-      idUsercriacao: [1, Validators.required],
+      idUsercriacao: [this.userLogado.id, Validators.required],
       cargaHoraria: [null, Validators.required],
       status: [true, Validators.required],
-      organizacaoId: [1, Validators.required],
+      organizacaoId: [this.org.id, Validators.required],
       valeTrans: [false],
       valeAR: [false],
       planoSaude: [false],

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EspecConsulta } from 'src/app/class/EspecConsulta';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 
 @Component({
   selector: 'app-drag-drop',

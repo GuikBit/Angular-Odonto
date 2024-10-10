@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { DentistaService } from 'src/app/dentista.service';
+import { DentistaService } from 'src/app/services/dentista.service';
 
 @Component({
   selector: 'app-dentista-list',

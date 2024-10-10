@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { CargoService } from 'src/app/cargo.service';
+import { CargoService } from 'src/app/services/cargo.service';
 import { Cargo } from 'src/app/class/Cargo';
 
 @Component({

@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, View
 import { Consulta } from '../../class/consulta';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {  DialogService } from 'primeng/dynamicdialog';
 

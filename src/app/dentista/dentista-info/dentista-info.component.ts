@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Dentista } from '../../class/dentista';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DentistaService } from 'src/app/dentista.service';
+import { DentistaService } from 'src/app/services/dentista.service';
 import { MessageService } from 'primeng/api';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import { Consulta } from 'src/app/class/consulta';
 import { PlatformLocation } from '@angular/common';
 import { timeout } from 'rxjs';

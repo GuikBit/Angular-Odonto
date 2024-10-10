@@ -15,6 +15,10 @@
   border-radius: 8px;
 
 }
+
+::ng-deep .custom-width input{
+  width: 14vw !important;
+}
 .tab{
 
 }

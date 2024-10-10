@@ -2,7 +2,7 @@ import { Dentista } from '../../class/dentista';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DentistaService } from 'src/app/dentista.service';
+import { DentistaService } from 'src/app/services/dentista.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { isEmpty } from 'rxjs';

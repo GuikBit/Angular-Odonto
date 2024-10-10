@@ -31,4 +31,21 @@ export class OrganizacaoService {
       return null;
     }
   }
+
+  async getOrganizacao(){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+
+    try{
+      const response = await instance.get(`${this.apiURL}`);
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return null
+    }
+  }
 }

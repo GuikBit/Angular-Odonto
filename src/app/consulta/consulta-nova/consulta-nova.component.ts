@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/class/cliente';
 import { Consulta } from '../../class/consulta';
 import { Dentista } from 'src/app/class/dentista';
-import { ClienteService } from 'src/app/cliente.service';
-import { DentistaService } from 'src/app/dentista.service';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { DentistaService } from 'src/app/services/dentista.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import { MessageService } from 'primeng/api';
 
 interface ConsultaDTO {

@@ -4,15 +4,15 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@
 import {MatTableDataSource} from '@angular/material/table';
 import {Cliente} from '../../class/cliente';
 
-import { ClienteService } from 'src/app/cliente.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PrimeIcons } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-import { AssyncServiceService } from 'src/app/assync-service.service';
+import { AssyncServiceService } from 'src/app/services/assync-service.service';
 import { Consulta } from 'src/app/class/consulta';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 
 interface EventItem {
   procedimentos?: string;

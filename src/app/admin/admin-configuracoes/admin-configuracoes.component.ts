@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { GlobalService } from 'src/app/global.service';
-import { OrganizacaoService } from 'src/app/organizacao.service';
+import { OrganizacaoService } from 'src/app/services/organizacao.service';
 import { User } from '../user';
 
 @Component({

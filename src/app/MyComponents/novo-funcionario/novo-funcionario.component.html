@@ -26,28 +26,29 @@
           </div>
       </ng-template>
       <ng-template pTemplate="content" let-nextCallback="nextCallback">
-          <div class="" >
-            <form [formGroup]="formInform" >
+          <div class="new py-4" >
+            <form [formGroup]="formInform" autocomplete="off" >
+              <div class="row flex">
+                
+                  <div class="col-3 flex justify-content-end" >
 
-              <div class="row mt-2">
-                <div class="grid nested-grid">
-                  <div class="col-2 bg-blue-200" >
-
-                    <div class="flex justify-content-center align-items-center ">
-                      <p-image
-                        src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-                        alt="Image"
-                        width="180"
-                        class="w-full"
-                        [preview]="true"
-                        [style]="{'border-radius': '50%'}"
-                      />
-                    </div>
-                    <div class="flex justify-content-center align-items-center">
-                      <span class="text-red-500 font-bold text-xs cursor-pointer hover:text-red-600 web" (click)="abrirExplorerFoto()">
-                          <i class="pi pi-camera text-sm"></i>
-                      </span>
-                      <input type="file" #fileInput style="display: none;" />
+                    <div>
+                      <div class="flex justify-content-center align-items-center ">
+                        <p-image
+                          src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                          alt="Image"
+                          width="180"
+                          class="w-full"
+                          [preview]="true"
+                          [style]="{'border-radius': '50%'}"
+                        />
+                      </div>
+                      <div class="flex justify-content-center align-items-center">
+                        <span class="text-red-500 font-bold text-xs cursor-pointer hover:text-red-600 web" (click)="abrirExplorerFoto()">
+                            <i class="pi pi-camera text-sm"></i>
+                        </span>
+                        <input type="file" #fileInput style="display: none;" />
+                      </div>
                     </div>
 
                   </div>
@@ -99,7 +100,7 @@
                     </div>
 
                   </div>
-                </div>
+                
               </div>
               <div class="row">
                 <div class="row lg:flex lg:justify-content-center">
@@ -220,82 +221,85 @@
         </div>
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <form [formGroup]="formEndereco" >
+        <div class="new py-4" >
+          <form [formGroup]="formEndereco" autocomplete="off">
 
-          <div class="row lg:flex lg:justify-content-center mt-2" >
-            <div class="field md:col-12 lg:col-3">
-              <span class="p-float-label p-input-icon-left p-input-icon-right width">
-                <i class="pi pi-map-marker azul"></i>
-                <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
-                <input pInputText id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cep'].invalid && formEndereco.controls['cep'].touched}" />
-                <label for="cep" class="azul">CEP <span class="p-error ">*</span></label>
-              </span>
-              <!-- <small *ngIf="formEndereco.get('endereco.cep')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+            <div class="row lg:flex lg:justify-content-center mt-2" >
+              <div class="field md:col-12 lg:col-3">
+                <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                  <i class="pi pi-map-marker azul"></i>
+                  <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
+                  <input pInputText id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cep'].invalid && formEndereco.controls['cep'].touched}" />
+                  <label for="cep" class="azul">CEP <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.cep')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map-marker azul"></i>
+                  <input pInputText id="cidade" formControlName="cidade" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cidade'].invalid && formEndereco.controls['cidade'].touched}" />
+                  <label for="cidade" class="azul">Cidade <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.cidade')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map-marker azul"></i>
+                  <input pInputText id="bairro" formControlName="bairro" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['bairro'].invalid && formEndereco.controls['bairro'].touched}"/>
+                  <label for="bairro" class="azul">Bairro <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.bairro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
             </div>
 
-            <div class="field md:col-12 lg:col-4">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-map-marker azul"></i>
-                <input pInputText id="cidade" formControlName="cidade" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cidade'].invalid && formEndereco.controls['cidade'].touched}" />
-                <label for="cidade" class="azul">Cidade <span class="p-error ">*</span></label>
-              </span>
-              <!-- <small *ngIf="formEndereco.get('endereco.cidade')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+            <div class="row lg:flex lg:justify-content-center">
+              <div class="field md:col-12 lg:col-5">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText id="logradouro" formControlName="logradouro" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['logradouro'].invalid && formEndereco.controls['logradouro'].touched}"/>
+                  <label for="logradouro" class="azul">Logradouro <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.logradouro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+              <div class="field md:col-12 lg:col-2">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText #numeroInput  id="numero" formControlName="numero" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['numero'].invalid && formEndereco.controls['numero'].touched}"/>
+                  <label for="numero" class="azul">Número <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.numero')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText id="complemento" formControlName="complemento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['complemento'].invalid && formEndereco.controls['complemento'].touched}"/>
+                  <label for="complemento" class="azul">Complemento <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.complemento')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
             </div>
 
-            <div class="field md:col-12 lg:col-4">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-map-marker azul"></i>
-                <input pInputText id="bairro" formControlName="bairro" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['bairro'].invalid && formEndereco.controls['bairro'].touched}"/>
-                <label for="bairro" class="azul">Bairro <span class="p-error ">*</span></label>
-              </span>
-              <!-- <small *ngIf="formEndereco.get('endereco.bairro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
-            </div>
-          </div>
+            <div class="row lg:flex lg:justify-content-center">
 
-          <div class="row lg:flex lg:justify-content-center">
-            <div class="field md:col-12 lg:col-5">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-map azul"></i>
-                <input pInputText id="logradouro" formControlName="logradouro" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['logradouro'].invalid && formEndereco.controls['logradouro'].touched}"/>
-                <label for="logradouro" class="azul">Logradouro <span class="p-error ">*</span></label>
-              </span>
-              <!-- <small *ngIf="formEndereco.get('endereco.logradouro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText id="referencia" formControlName="referencia" class="width" />
+                  <label for="referencia" class="azul">Referencia</label>
+                </span>
+              </div>
             </div>
-
-            <div class="field md:col-12 lg:col-2">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-map azul"></i>
-                <input pInputText #numeroInput  id="numero" formControlName="numero" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['numero'].invalid && formEndereco.controls['numero'].touched}"/>
-                <label for="numero" class="azul">Número <span class="p-error ">*</span></label>
-              </span>
-              <!-- <small *ngIf="formEndereco.get('endereco.numero')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
-            </div>
-            <div class="field md:col-12 lg:col-4">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-map azul"></i>
-                <input pInputText id="complemento" formControlName="complemento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['complemento'].invalid && formEndereco.controls['complemento'].touched}"/>
-                <label for="complemento" class="azul">Complemento <span class="p-error ">*</span></label>
-              </span>
-              <!-- <small *ngIf="formEndereco.get('endereco.complemento')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small> -->
-            </div>
-
-          </div>
-
-          <div class="row lg:flex lg:justify-content-center">
-
-            <div class="field md:col-12 lg:col-4">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-map azul"></i>
-                <input pInputText id="referencia" formControlName="referencia" class="width" />
-                <label for="referencia" class="azul">Referencia</label>
-              </span>
-            </div>
-          </div>
-        </form>
-          <div class="flex pt-4 justify-content-between">
-              <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
-              <p-button (onClick)="validaFormulario(2);" [disabled]="!formEndereco.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
-          </div>
+          </form>
+        </div>
+        <div class="flex pt-4 justify-content-between">
+          <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
+          <p-button (onClick)="validaFormulario(2);" [disabled]="!formEndereco.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
+        </div>
+      
       </ng-template>
     </p-stepperPanel>
     <p-stepperPanel>
@@ -325,144 +329,180 @@
         </div>
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        
-        <form [formGroup]="formContrato"> 
+        <div class="new pb-2 pt-5" >
+          <form [formGroup]="formContrato" autocomplete="off"> 
 
-          <div class="row lg:flex lg:justify-content-center" >
-            <div class="field col-5">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Empresa</label>
-              </span>
-
-            </div>
-            <div class="field col-4">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">CNPJ</label>
-              </span>
-
-            </div>
-            <div class="field col-2">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">UF</label>
-              </span>
-
-            </div>
-          </div>
-
-          <div class="row lg:flex lg:justify-content-center" >
-            <div class="field col-5">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Endereço</label>
-              </span>
-
-            </div>
-            <div class="field col-3">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">CEP</label>
-              </span>
-
-            </div>
-            <div class="field col-3">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Cidade</label>
-              </span>
-
-            </div>
-          </div>
-
-          <div class="row lg:flex lg:justify-content-center" >
-            <div class="field col-3">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Cargo</label>
-              </span>
-
-            </div>
-            <div class="field col-2">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Data Admissão</label>
-              </span>
-
-            </div>
-            <div class="field col-3">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Registro n</label>
-              </span>
-
-            </div>
-            <div class="field col-3">
-              <span class="p-float-label p-input-icon-left width">
-                <i class="pi pi-id-card azul"></i>
-                <input pInputText id="pasta" required class="width" />
-                <label for="pasta" class="azul">Remuneração</label>
-              </span>
-
-            </div>
-
-          </div>
-
-          <div class="row lg:flex lg:justify-content-center ">
-            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
-                <span class=" flex justify-content-start align-items-center mt-2">
-                <p-inputSwitch id="valeTrans" formControlName="valeTrans" class="custom-switch"></p-inputSwitch>
-                <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
+            <div class="row lg:flex lg:justify-content-center" >
+              <div class="field col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-id-card azul"></i>
+                  <input pInputText id="empresa" required class="width" formControlName="empresa" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['empresa'].invalid && formContrato.controls['empresa'].touched}" />
+                  <label for="empresa" class="azul">Empresa <span class="p-error ">*</span></label>
                 </span>
 
-            </div>
-            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
-                <span class="flex justify-content-start align-items-center  my-2">
-                <p-inputSwitch id="valeAR" formControlName="valeAR" class="custom-switch"></p-inputSwitch>
-                <label for="valeAR" class="azul">&nbsp;&nbsp;VA/VR</label>
+              </div>
+              <div class="field col-3">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-id-card azul"></i>
+                  <input pInputText id="empresaCNPJ" required class="width" formControlName="empresaCNPJ" [readonly]="true" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['empresaCNPJ'].invalid && formContrato.controls['empresaCNPJ'].touched}"/>
+                  <label for="empresaCNPJ" class="azul">CNPJ <span class="p-error ">*</span></label>
                 </span>
-            </div>
-            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
-                <span class=" flex justify-content-start align-items-center  my-2">
-                <p-inputSwitch id="planoSaude"formControlName="planoSaude" class="custom-switch"></p-inputSwitch>
-                <label for="planoSaude" class="azul">&nbsp;&nbsp;Plano Saúde</label>
-                </span>
-            </div>
-            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
-                <span class=" flex justify-content-start align-items-center  my-2">
-                <p-inputSwitch id="plr" formControlName="plr" class="custom-switch"></p-inputSwitch>
-                <label for="plr" class="azul" >&nbsp;&nbsp;PLR</label>
-                </span>
-            </div>
-            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
-                <span class=" flex justify-content-start align-items-center  my-2">
-                <p-inputSwitch id="premiacao" formControlName="premiacao"  class="custom-switch"></p-inputSwitch>
-                <label for="premiacao" class="azul" >&nbsp;&nbsp;Premiação</label>
-                </span>
-            </div>
-            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
-                <span class=" flex justify-content-start align-items-center  my-2">
-                <p-inputSwitch id="gymPass" formControlName="gymPass" class="custom-switch"></p-inputSwitch>
-                <label for="gymPass" class="azul">&nbsp;&nbsp;GymPass</label>
-                </span>
-            </div>
-          </div>
 
-        </form>
-          <div class="flex pt-4 justify-content-between">
-              <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
-              <p-button (onClick)="nextCallback.emit();" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
-          </div>
+              </div>
+
+              <div class="field col-4">
+                <span class="p-float-label p-input-icon-right width">                  
+                  <p-dropdown [options]="cargosList" formControlName="cargo" [showClear]="true" appendTo="body" (onChange)="preencheuCargo()" [autoZIndex]="true" optionLabel="nome" inputId="cargo" [style]="{'color':'#2070B4', 'width': '100%'}" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['cargo'].invalid && formContrato.controls['cargo'].touched}"></p-dropdown>
+                  <label for="cargo" class="azul">Selecione o cargo <span class="p-error ">*</span></label>
+                </span>
+              </div>
+              
+            </div>
+
+            <!-- <div class="row lg:flex lg:justify-content-center" >
+              <div class="field col-5">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-id-card azul"></i>
+                  <input pInputText id="pasta" required class="width" />
+                  <label for="pasta" class="azul">Endereço</label>
+                </span>
+
+              </div>
+              <div class="field col-3">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-id-card azul"></i>
+                  <input pInputText id="pasta" required class="width" />
+                  <label for="pasta" class="azul">CEP</label>
+                </span>
+
+              </div>
+              <div class="field col-3">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-id-card azul"></i>
+                  <input pInputText id="pasta" required class="width" />
+                  <label for="pasta" class="azul">Cidade</label>
+                </span>
+
+              </div>
+            </div> -->
+
+            <div class="row lg:flex lg:justify-content-center" >
+
+              <div class="field col-3">
+                <span class="p-float-label  p-input-icon-right">
+                  <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    inputId="dataAdmissao"
+                    dateFormat="dd/mm/yy"
+                    [showTime]="true" 
+                    [showButtonBar]="true"
+                    [style]="{'color':'#2070B4', 'width': '100%'}"
+                    formControlName="dataAdmissao"   
+                    [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['dataAdmissao'].invalid && formContrato.controls['dataAdmissao'].touched}"   
+                    >
+                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                      <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                    </ng-template>
+                  </p-calendar>
+                  <label for="dataAdmissao" class="azul">Data admissão <span class="p-error ">*</span></label>
+                </span>
+              </div>
+
+              <div class="field col-3">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-id-card azul"></i>
+                  <input pInputText id="registroN" required class="width" formControlName="registroN" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['registroN'].invalid && formContrato.controls['registroN'].touched}"/>
+                  <label for="registroN" class="azul">Registro n° <span class="p-error " >*</span></label>
+                </span>
+              </div>
+
+              <div class="field pt-2 ml-2 ">
+                
+                  <span class="p-float-label p-input-icon-left ">
+                    <i class="pi pi-dollar" *ngIf="formContrato.get('remuneracao')?.value == null"></i>
+                    <!-- <input pInputText id="pasta" required class="width" formControlName="remuneracao"/> -->
+                    <p-inputNumber 
+                          formControlName="remuneracao" 
+                          id="remuneracao" 
+                          mode="currency" 
+                          currency="BRL"
+                          locale="pt-BR" 
+                          required  
+                          class="custom-width"
+                          [readonly]="true"
+                      />    
+                    <label for="remuneracao" class="azul" >Remuneração <span class="p-error ">*</span></label>
+                  </span>
+              </div>
+              <div class="field pt-2 ml-3" *ngIf="formContrato.get('cargo')?.value?.premiacao">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-dollar" *ngIf="formContrato.get('valorPremiacao')?.value == null"></i>
+                  <p-inputNumber 
+                        formControlName="valorPremiacao" 
+                        id="valorPremiacao" 
+                        mode="currency" 
+                        currency="BRL"
+                        locale="pt-BR" 
+                        required 
+                        class="custom-width"
+                    />    
+                  <label for="valorPremiacao" class="azul" >Valor premiação <span class="p-error ">*</span></label>
+                </span>
+              </div>
+
+              
+            </div>
+            
+
+            <div class="row lg:flex lg:justify-content-center ">
+              <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                  <span class=" flex justify-content-start align-items-center mt-2">
+                  <p-inputSwitch id="valeTrans" formControlName="valeTrans" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                  <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
+                  </span>
+
+              </div>
+              <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                  <span class="flex justify-content-start align-items-center  my-2">
+                  <p-inputSwitch id="valeAR" formControlName="valeAR" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                  <label for="valeAR" class="azul">&nbsp;&nbsp;VA/VR</label>
+                  </span>
+              </div>
+              <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                  <span class=" flex justify-content-start align-items-center  my-2">
+                  <p-inputSwitch id="planoSaude"formControlName="planoSaude" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                  <label for="planoSaude" class="azul">&nbsp;&nbsp;Plano Saúde</label>
+                  </span>
+              </div>
+              <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                  <span class=" flex justify-content-start align-items-center  my-2">
+                  <p-inputSwitch id="plr" formControlName="plr" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                  <label for="plr" class="azul" >&nbsp;&nbsp;PLR</label>
+                  </span>
+              </div>
+              <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                  <span class=" flex justify-content-start align-items-center  my-2">
+                  <p-inputSwitch id="premiacao" formControlName="premiacao"  class="custom-switch" [readonly]="true"></p-inputSwitch>
+                  <label for="premiacao" class="azul" >&nbsp;&nbsp;Premiação</label>
+                  </span>
+              </div>
+              <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                  <span class=" flex justify-content-start align-items-center  my-2">
+                  <p-inputSwitch id="gymPass" formControlName="gymPass" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                  <label for="gymPass" class="azul">&nbsp;&nbsp;GymPass</label>
+                  </span>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="flex pt-4 justify-content-between">
+          <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
+          <p-button (onClick)="validaFormulario(3);" [disabled]="!formContrato.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
+        </div>
       </ng-template>
     </p-stepperPanel>
     <p-stepperPanel>
@@ -493,28 +533,31 @@
 
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <form [formGroup]="formConfig">
-          <div class="row lg:flex lg:justify-content-center " >
-            <div class="field col-3 width">
-              <p-floatLabel>
-                <p-dropdown
-                    [options]="[{label: 'ADM', value:1},{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}]"
-                    formControlName="nivelAcesso"
-                    optionLabel="label"
-                    inputId="float-label"
-                    appendTo="body"
-                    [autoZIndex]="true"
-                    [style]="{width: '100%'}"
-                  />
-                  <label for="float-label">Acesso</label>
-              </p-floatLabel>
+        <div class="new py-4" >
+          <form [formGroup]="formConfig">
+            <div class="row lg:flex lg:justify-content-center " >
+              <div class="field col-3 width">
+                <p-floatLabel>
+                  <p-dropdown
+                      [options]="[{label: 'ADM', value:1},{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}]"
+                      formControlName="nivelAcesso"
+                      optionLabel="label"
+                      inputId="float-label"
+                      appendTo="body"
+                      [autoZIndex]="true"
+                      [style]="{width: '100%'}"
+                    />
+                    <label for="float-label">Perfil de acesso</label>
+                </p-floatLabel>
+              </div>
+              
             </div>
-          </div>
-        </form>
-          <div class="flex pt-4 justify-content-between">
-              <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
-              <p-button (onClick)="nextCallback.emit();"[rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
-          </div>
+          </form>
+        </div> 
+        <div class="flex pt-4 justify-content-between">
+          <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
+          <p-button (onClick)="nextCallback.emit();"[rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
+        </div>
       </ng-template>
     </p-stepperPanel>
     <p-stepperPanel>

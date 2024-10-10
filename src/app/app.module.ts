@@ -26,7 +26,7 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout/layout.component';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { TokenInterceptor } from './token-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClienteModule } from './cliente/cliente.module';

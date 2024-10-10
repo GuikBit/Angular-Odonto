@@ -1,10 +1,10 @@
 import { GlobalService } from 'src/app/global.service';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, Injectable, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClienteService } from 'src/app/cliente.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { Cliente } from '../../class/cliente';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { AssyncServiceService } from 'src/app/assync-service.service';
+import { AssyncServiceService } from 'src/app/services/assync-service.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Formatters } from '../../utils/formatters';
 import { Organizacao } from 'src/app/class/Organizacao';

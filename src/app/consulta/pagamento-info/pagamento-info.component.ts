@@ -8,7 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { Consulta } from '../../class/consulta';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { ConsultaService } from 'src/app/consulta.service';
+import { ConsultaService } from 'src/app/services/consulta.service';
 import { FileUploadEvent } from 'primeng/fileupload';
 import { Parcela } from '../../class/parcela';
 
