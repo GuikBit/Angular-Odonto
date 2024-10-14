@@ -21,6 +21,10 @@ import { StepperModule } from 'primeng/stepper';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DividerModule } from 'primeng/divider';
+
+
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ImageModule,
     StepperModule,
     InputIconModule,
+    CheckboxModule,
     IconFieldModule,
     InputSwitchModule,
     TabViewModule,
@@ -41,6 +46,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     BreadcrumbModule,
     RouterModule,
     FloatLabelModule,
+    DividerModule,
     TableModule,
     InputTextModule,
     DialogModule,

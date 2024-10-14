@@ -539,7 +539,7 @@
               <div class="field col-3 width">
                 <p-floatLabel>
                   <p-dropdown
-                      [options]="[{label: 'ADM', value:1},{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}]"
+                      [options]="[{ label: 'ADM', value:1 },{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}, {label: 'Somente Registro', value:6}]"
                       formControlName="nivelAcesso"
                       optionLabel="label"
                       inputId="float-label"
@@ -551,6 +551,287 @@
                 </p-floatLabel>
               </div>
               
+            </div>
+
+            <div class="row flex justify-content-center">
+              <div class="col">
+                <div class="">
+                  <div class="flex justify-content-center align-items-center ">
+                    <span>Paciente</span>
+                  </div>
+                  <div>
+                    <div class="flex align-items-center ml-4 my-2">
+                      <p-checkbox 
+                        [(ngModel)]="cdtPaciente"
+                        label="Criar" 
+                        name="acesso" 
+                        value="Criar" 
+                      />
+                    </div>
+                    <div class="flex align-items-center ml-4 my-2">
+                      <p-checkbox 
+                        [(ngModel)]="cdtPaciente"
+                        label="Ver" 
+                        name="acesso" 
+                        value="Ver" 
+                      />
+                    </div>
+                    <div class="flex align-items-center ml-4 my-2">
+                      <p-checkbox 
+                        [(ngModel)]="cdtPaciente"
+                        label="Editar" 
+                        name="acesso" 
+                        value="Editar" 
+                      />
+                    </div>
+                    <div class="flex align-items-center ml-4 my-2">
+                      <p-checkbox 
+                        [(ngModel)]="cdtPaciente"
+                        label="Excluir" 
+                        name="acesso" 
+                        value="Excluir" 
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p-divider layout="vertical" />
+              <div class="col">
+                <div class="flex justify-content-center align-items-center ">
+                  <span>Dentista</span>
+                </div>
+                <div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Criar" 
+                      name="acesso" 
+                      value="Criar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Ver" 
+                      name="acesso" 
+                      value="Ver" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Editar" 
+                      name="acesso" 
+                      value="Editar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Excluir" 
+                      name="acesso" 
+                      value="Excluir" 
+                    />
+                  </div>
+                </div>
+              </div>
+              <p-divider layout="vertical" />
+              <div class="col">
+                <div class="flex justify-content-center align-items-center ">
+                  <span>Consulta</span>
+                </div>
+                <div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Criar" 
+                      name="acesso" 
+                      value="Criar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Ver" 
+                      name="acesso" 
+                      value="Ver" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Editar" 
+                      name="acesso" 
+                      value="Editar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Excluir" 
+                      name="acesso" 
+                      value="Excluir" 
+                    />
+                  </div>
+                </div>
+              </div>
+              <p-divider layout="vertical" />
+              <div class="col">
+                <div class="flex justify-content-center align-items-center ">
+                  <span>Financeiro</span>
+                </div>
+                <div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Criar" 
+                      name="acesso" 
+                      value="Criar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Ver" 
+                      name="acesso" 
+                      value="Ver" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Editar" 
+                      name="acesso" 
+                      value="Editar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Excluir" 
+                      name="acesso" 
+                      value="Excluir" 
+                    />
+                  </div>
+                </div>
+              </div>
+              <p-divider layout="vertical" />
+              <div class="col">
+                <div class="flex justify-content-center align-items-center ">
+                  <span>Ponto</span>
+                </div>
+                <div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Criar" 
+                      name="acesso" 
+                      value="Criar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Ver" 
+                      name="acesso" 
+                      value="Ver" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Editar" 
+                      name="acesso" 
+                      value="Editar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Excluir" 
+                      name="acesso" 
+                      value="Excluir" 
+                    />
+                  </div>
+                </div>
+              </div>
+              <p-divider layout="vertical" />
+              <div class="col">
+                <div class="flex justify-content-center align-items-center ">
+                  <span>Estoque</span>
+                </div>
+                <div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Criar" 
+                      name="acesso" 
+                      value="Criar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Ver" 
+                      name="acesso" 
+                      value="Ver" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Editar" 
+                      name="acesso" 
+                      value="Editar" 
+                    />
+                  </div>
+                  <div class="flex align-items-center ml-4 my-2">
+                    <p-checkbox 
+                      [(ngModel)]="cdtPaciente"
+                      label="Excluir" 
+                      name="acesso" 
+                      value="Excluir" 
+                    />
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- <div class="flex align-items-center">
+                <p-checkbox 
+                    [(ngModel)]="cdtPaciente"
+                    label="Cadastro Paciente" 
+                    name="acesso" 
+                    value="Cheese" />
+              </div>
+              <div class="flex align-items-center">
+                  <p-checkbox 
+                      [(ngModel)]="cdtDentista"
+                      label="Cadastro Dentista"
+                      name="pizza" 
+                      value="Mushroom" />
+              </div>
+              <div class="flex align-items-center">
+                  <p-checkbox 
+                      [(ngModel)]="cdtConsulta"
+                      label="Cadastro Consulta" 
+                      name="pizza" 
+                      value="Pepper" />
+              </div>
+              <div class="flex align-items-center">
+                  <p-checkbox 
+                      [(ngModel)]="cdtEstoque"
+                      label="Gerenciamento Estoque" 
+                      name="pizza" 
+                      value="Onion" />
+              </div>
+              <div class="flex align-items-center">
+                <p-checkbox 
+                    [(ngModel)]="cdtConfig"
+                    label="Configurações do sistema" 
+                    name="pizza" 
+                    value="Onion" />
+              </div> -->
             </div>
           </form>
         </div> 

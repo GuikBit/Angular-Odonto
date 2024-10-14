@@ -27,6 +27,7 @@ import { AdminDentistaComponent } from './admin/admin-dentista/admin-dentista.co
 import { AdminRelatorioComponent } from './admin/admin-relatorio/admin-relatorio.component';
 import { AdminConsultaComponent } from './admin/admin-consulta/admin-consulta.component';
 import { NovoOrcamentoComponent } from './MyComponents/orcamento/novo-orcamento/novo-orcamento.component';
+import { AdminPontoComponent } from './admin/admin-ponto/admin-ponto.component';
 
 
 
@@ -62,6 +63,7 @@ const routes: Routes = [
       path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard],  children: [
         { path: '', redirectTo: 'configuracoes', pathMatch: 'full'},
         { path: 'configuracoes', component: AdminConfiguracoesComponent, canActivate: [AuthGuard]},
+        { path: 'pontoEletronico', component: AdminPontoComponent, canActivate: [AuthGuard]},
         { path: 'paciente', component: AdminPacienteComponent, canActivate: [AuthGuard]},
         { path: 'dentista', component: AdminDentistaComponent, canActivate: [AuthGuard]},
         { path: 'consulta', component: AdminConsultaComponent, canActivate: [AuthGuard]},

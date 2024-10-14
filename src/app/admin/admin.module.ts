@@ -31,6 +31,7 @@ import { ConstasPagarModule } from '../MyComponents/contas-pagar/constas-pagar.m
 import { NovoFuncionarioModule } from '../MyComponents/novo-funcionario/novo-funcionario.module';
 import { DentistaModule } from "../dentista/dentista.module";
 import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
+import { AdminPontoComponent } from './admin-ponto/admin-ponto.component';
 
 
 
@@ -40,7 +41,8 @@ import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
     AdminFinanceiroComponent,
     AdminConfiguracoesComponent,
     AdminConsultaComponent,
-    AdminDentistaComponent
+    AdminDentistaComponent,
+    AdminPontoComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +77,8 @@ import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
     AdminFinanceiroComponent,
     AdminConfiguracoesComponent,
     AdminConsultaComponent,
-    AdminDentistaComponent
+    AdminDentistaComponent,
+    AdminPontoComponent
   ],
   providers:[
     ConfirmationService

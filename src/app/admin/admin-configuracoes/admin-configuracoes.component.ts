@@ -4,6 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { GlobalService } from 'src/app/global.service';
 import { OrganizacaoService } from 'src/app/services/organizacao.service';
 import { User } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-configuracoes',
@@ -28,7 +29,8 @@ export class AdminConfiguracoesComponent implements OnInit {
   items: MenuItem[];
   activeIndex: number = 2;
 
-  constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, private globalService: GlobalService){
+  constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, 
+    private globalService: GlobalService, private router: Router){
 
     if ((this.userLogado === undefined || this.userLogado === null) && (this.org === null || this.org === undefined)) {
 
@@ -279,6 +281,15 @@ export class AdminConfiguracoesComponent implements OnInit {
       summary: 'Aviso',
       detail: 'Dentista salvo com sucesso!'
     })
+  }
+
+  navegacaoRotas(rota: string){
+    if(rota == ''){
+      this.router.navigate(['/admin'])
+    }else{
+      this.router.navigate(['/admin/' + rota])
+    }
+
   }
 
 

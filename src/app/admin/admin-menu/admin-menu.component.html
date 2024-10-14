@@ -1,7 +1,7 @@
 
 <div class="row flex ">
   <div class="sticky top-0 pt-3 z-2 flex " [ngClass]="sidebarVisible?'col-2':'col-0'" [class.sidebar-visible]="sidebarVisible" >
-    <div class="sidebar ">
+    <div class="sidebar">
 
         <div class="header my-2 flex justify-content-center align-items-center" >
           <div class=" py-2" (click)="navegacaoRotas('')">
@@ -19,6 +19,7 @@
             </div>
           </div>
         </div>
+
         <div class="box my-2 pl-1" >
           <div class="flex justify-content-center py-2" (click)="navegacaoRotas('paciente')">
             <div class="col-3 flex justify-content-center align-items-center">
@@ -50,15 +51,16 @@
           </div>
         </div>
         <div class="box my-2 pl-1" >
-          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('relatorio')">
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('pontoEletronico')">
             <div class="col-3 flex justify-content-center align-items-center">
-              <i class="pi pi-file iconMenu"></i>
+              <i class="pi pi-calendar-clock iconMenu"></i>
             </div>
             <div class="col-9 text-600">
-              Relatórios
+              Ponto Eletrônico
             </div>
           </div>
         </div>
+
         <div class="box my-2 pl-1" >
           <div class="flex justify-content-center py-2" (click)="navegacaoRotas('financeiro')">
             <div class="col-3 flex justify-content-center align-items-center">
@@ -76,6 +78,17 @@
             </div>
             <div class="col-9 text-600">
               Estoque
+            </div>
+          </div>
+        </div>
+
+        <div class="box my-2 pl-1" >
+          <div class="flex justify-content-center py-2" (click)="navegacaoRotas('relatorio')">
+            <div class="col-3 flex justify-content-center align-items-center">
+              <i class="pi pi-file iconMenu"></i>
+            </div>
+            <div class="col-9 text-600">
+              Relatórios
             </div>
           </div>
         </div>

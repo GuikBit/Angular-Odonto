@@ -45,6 +45,12 @@ export class NovoFuncionarioComponent  implements OnInit{
 
   active: number = 2;
 
+  cdtPaciente: boolean = false;
+  cdtDentista: boolean = false;
+  cdtConsulta: boolean = false;
+  cdtEstoque: boolean = false;
+  cdtConfig: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService, 
     private assync: AssyncServiceService, private orgService: OrganizacaoService, private cargoService: CargoService){
 
@@ -96,29 +102,29 @@ export class NovoFuncionarioComponent  implements OnInit{
       ctpsS: ['Nao sei', Validators.required],
       ctpsUF: ['MG', Validators.required],
 
-      cidade: ['Juiz de Fora', Validators.required],
-      bairro: ['Grama', Validators.required],
-      logradouro: ['Diomar Monteiro', Validators.required],
-      numero: ['1509', Validators.required],
-      cep: ['36048-310', Validators.required],
-      complemento: ['Casa', Validators.required],
-      referencia: [],
+      // cidade: ['Juiz de Fora', Validators.required],
+      // bairro: ['Grama', Validators.required],
+      // logradouro: ['Diomar Monteiro', Validators.required],
+      // numero: ['1509', Validators.required],
+      // cep: ['36048-310', Validators.required],
+      // complemento: ['Casa', Validators.required],
+      // referencia: [],
 
-      empresa: [this.org.nome, Validators.required],
-      empresaCNPJ: [this.org.cnpj, Validators.required],
-      cargo: [null, Validators.required],
-      dataAdmissao: [new Date(), Validators.required],
-      registroN: ['325478-96', Validators.required],
-      remuneracao: [null, Validators.required],
-      valorPremiacao: [null],
-      valeTrans: [false],
-      valeAR: [false],
-      planoSaude: [false],
-      plr: [false],
-      premiacao: [false],
-      gymPass: [false],
+      // empresa: [this.org.nome, Validators.required],
+      // empresaCNPJ: [this.org.cnpj, Validators.required],
+      // cargo: [null, Validators.required],
+      // dataAdmissao: [new Date(), Validators.required],
+      // registroN: ['325478-96', Validators.required],
+      // remuneracao: [null, Validators.required],
+      // valorPremiacao: [null],
+      // valeTrans: [false],
+      // valeAR: [false],
+      // planoSaude: [false],
+      // plr: [false],
+      // premiacao: [false],
+      // gymPass: [false],
 
-      nivelAcesso: ['',Validators.required]
+      // nivelAcesso: ['',Validators.required]
 
     })
 

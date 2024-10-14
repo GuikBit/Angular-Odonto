@@ -120,6 +120,23 @@ border-radius: 50px;
 .web{
   display: block;
 }
+
+
+.menuCog{
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+.menuCog:hover{
+  background: #f2f7fc;
+}
+
+.menuCogAtivo{
+  background: #f2f7fc;
+}
+
+
+
 @media only screen and (max-width: 767px) {
 
   .web{

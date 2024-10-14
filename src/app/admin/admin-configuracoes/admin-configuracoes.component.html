@@ -11,7 +11,7 @@
   <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="web"></button>
 </div> -->
 
-<div class="box p-3 mb-3" >
+<div class="box p-3 mb-3 " >
   <div class="bannerCliente">
     <div class="md:12 lg:col-2">
       <div class="lg:flex justify-content-center align-items-center mt-6">
@@ -33,7 +33,7 @@
   </div>
 
 
-  <p-tabView class="md:p-auto relative" [(activeIndex)]="activeIndex">
+  <p-tabView class="md:p-auto" [(activeIndex)]="activeIndex">
     <p-tabPanel header="Informações da Empresa" >
       <ng-template pTemplate="header" >
         <i class="pi pi-fw pi-building"></i>
@@ -215,9 +215,37 @@
     <p-tabPanel header="Dados Bancarios" >
       <ng-template pTemplate="header" >
         <i class="pi pi-fw pi-cog"></i>
-        <span class="web">&nbsp;Outros</span>
+        <span class="web">&nbsp;Configurações</span>
       </ng-template>
-      Em contrução...
+      
+        <div class="flex col-2 pt-3" >
+          <div class="sidebar">
+              <div class="menuCog my-1 " routerLinkActive="menuCogAtivo">
+                <div class="flex justify-content-center py-1 px-2" (click)="navegacaoRotas('configuracoes')">
+                  <div class="col-3 flex justify-content-center align-items-center">
+                    <i class="pi pi pi-fw pi-briefcase iconMenu"></i>
+                  </div>
+                  <div class="col-9 text-600">
+                    Cargo
+                  </div>
+                </div>
+              </div>
+              <div class="menuCog my-1 px-2" routerLinkActive="menuCogAtivo">
+                <div class="flex justify-content-center py-2" (click)="navegacaoRotas('configuracoes')">
+                  <div class="col-3 flex justify-content-center align-items-center">
+                    <i class="pi pi pi-fw pi-shield iconMenu"></i>
+                  </div>
+                  <div class="col-9 text-600">
+                    Acesso
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="p-component py-3 col-10">
+          <router-outlet></router-outlet>      
+        </div>
+      
     </p-tabPanel>
 
   </p-tabView>
