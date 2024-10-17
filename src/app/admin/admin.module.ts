@@ -32,7 +32,7 @@ import { NovoFuncionarioModule } from '../MyComponents/novo-funcionario/novo-fun
 import { DentistaModule } from "../dentista/dentista.module";
 import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
 import { AdminPontoComponent } from './admin-ponto/admin-ponto.component';
-
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 
 @NgModule({
@@ -53,6 +53,7 @@ import { AdminPontoComponent } from './admin-ponto/admin-ponto.component';
     MenubarModule,
     MenuModule,
     SidebarModule,
+    SelectButtonModule,
     BreadcrumbModule,
     RouterModule,
     TableModule,

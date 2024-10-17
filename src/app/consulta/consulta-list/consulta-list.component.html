@@ -143,6 +143,7 @@
             [options]="listaOuCalendar"
             [(ngModel)]="filtroListaCalendar"
             [multiple]="false"
+            [allowEmpty]="false"
             optionLabel="name"        
             optionValue="value"
             class="selectButton"
@@ -279,10 +280,10 @@
           [options]="filtroDiaSemanaMes"
           [(ngModel)]="filtro"
           [multiple]="false"
+          [allowEmpty]="false"
           optionLabel="name"
           optionValue="value"
           class="selectButton"
-          onOptionClick="filtarTabela(value)"
           (onChange)="filtrarTabela($event)"
         >
         <ng-template let-item pTemplate>

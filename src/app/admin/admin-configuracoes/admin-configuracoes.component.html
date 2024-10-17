@@ -201,7 +201,7 @@
         <i class="pi pi-fw pi-briefcase"></i>
         <span class="web">&nbsp;Cargos</span>
       </ng-template>
-      <app-list-cargo></app-list-cargo>
+      
     </p-tabPanel>
 
     <p-tabPanel header="Dados Bancarios" >
@@ -218,32 +218,68 @@
         <span class="web">&nbsp;Configurações</span>
       </ng-template>
       
-        <div class="flex col-2 pt-3" >
-          <div class="sidebar">
-              <div class="menuCog my-1 " routerLinkActive="menuCogAtivo">
-                <div class="flex justify-content-center py-1 px-2" (click)="navegacaoRotas('configuracoes')">
-                  <div class="col-3 flex justify-content-center align-items-center">
-                    <i class="pi pi pi-fw pi-briefcase iconMenu"></i>
-                  </div>
-                  <div class="col-9 text-600">
-                    Cargo
-                  </div>
-                </div>
-              </div>
-              <div class="menuCog my-1 px-2" routerLinkActive="menuCogAtivo">
-                <div class="flex justify-content-center py-2" (click)="navegacaoRotas('configuracoes')">
-                  <div class="col-3 flex justify-content-center align-items-center">
-                    <i class="pi pi pi-fw pi-shield iconMenu"></i>
-                  </div>
-                  <div class="col-9 text-600">
-                    Acesso
+        <!-- <div class="flex">
+          <div class="flex col-2 pt-3" >
+            <div class="sidebar">
+                <div class="menuCog my-1 " [ngClass]="true?'menuCogAtivo':''">
+                  <div class="flex justify-content-center py-1 px-2" >
+                    <div class="col-3 flex justify-content-center align-items-center">
+                      <i class="pi pi pi-fw pi-briefcase iconMenu"></i>
+                    </div>
+                    <div class="col-9 text-600">
+                      Cargo
+                    </div>
                   </div>
                 </div>
-              </div>
+                <div class="menuCog my-1 px-2" [ngClass]="false?'menuCogAtivo':''">
+                  <div class="flex justify-content-center py-2" (click)="navegacaoRotas('configuracoes')">
+                    <div class="col-3 flex justify-content-center align-items-center">
+                      <i class="pi pi pi-fw pi-shield iconMenu"></i>
+                    </div>
+                    <div class="col-9 text-600">
+                      Acesso
+                    </div>
+                  </div>
+                </div>
+            </div>
           </div>
+          <div class="p-component col-10">
+            <div *ngIf="cogCargo">
+              
+            </div>  
+            <div *ngIf="cogAcesso">
+  
+            </div>  
+          </div>
+        </div> -->
+
+        <div class="row">
+          <p-selectButton
+            [options]="filtroDiaSemanaMes"
+            [(ngModel)]="filtro"
+            [multiple]="false"
+            [allowEmpty]="false"
+            optionLabel="name"
+            optionValue="value"
+            class="selectButton"
+            (onChange)="filtrarTabela($event)"
+          >
+            <ng-template let-item pTemplate>
+              <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>          
+            </ng-template>
+          </p-selectButton>
         </div>
-        <div class="p-component py-3 col-10">
-          <router-outlet></router-outlet>      
+
+        <div *ngIf="cogSistema" class="mt-3">
+          teste
+        </div>
+
+        <div *ngIf="cogCargo"  class="mt-3">
+          <app-list-cargo></app-list-cargo>
+        </div>
+        
+        <div *ngIf="cogAcesso"  class="mt-3">
+  
         </div>
       
     </p-tabPanel>

@@ -135,7 +135,31 @@ border-radius: 50px;
   background: #f2f7fc;
 }
 
+:host::ng-deep {
+ 
+  .p-selectbutton .p-button.p-highlight {
+    /* background: #EDEDF2;  */
+    border: none;
+    color: #2070b4;  /* Cor do texto em destaque */
+  }
 
+  .p-selectbutton .p-button.p-highlight:hover {
+    /* background: #DCE8ED; */
+    color: #2070b4;  /* Cor do texto ao passar o mouse */
+  }
+
+  /* Botão normal */
+  .p-selectbutton .p-button {
+    /* background: #EDEDF2; */
+    border: none;
+    color: #4face1;  /* Cor do texto normal */
+  }
+
+  .p-selectbutton .p-button:hover {
+    /* background: #DCE8ED; */
+    color: #2070b4;  /* Cor do texto ao passar o mouse em botão normal */
+  }
+}
 
 @media only screen and (max-width: 767px) {
 

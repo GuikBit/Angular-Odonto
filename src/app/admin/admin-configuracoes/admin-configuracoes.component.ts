@@ -5,6 +5,7 @@ import { GlobalService } from 'src/app/global.service';
 import { OrganizacaoService } from 'src/app/services/organizacao.service';
 import { User } from '../user';
 import { Router } from '@angular/router';
+import { SelectButtonChangeEvent } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-admin-configuracoes',
@@ -26,8 +27,21 @@ export class AdminConfiguracoesComponent implements OnInit {
   novoFuncionario: boolean = false;
   novoCargo: boolean = false;
 
+  cogSistema: boolean = true;
+  cogCargo: boolean = false;
+  cogAcesso: boolean = false;
+
   items: MenuItem[];
   activeIndex: number = 2;
+
+  filtro: number =  1 ;
+
+  filtroDiaSemanaMes: any[] = [
+    { name: 'Sistema', icon: 'pi pi-cog', value: 1, styleClass: "selectButton" },
+    { name: 'Cargo', icon: 'pi pi-briefcase', value: 2, styleClass: "selectButton" },
+    { name: 'Acesso', icon: 'pi pi-shield',  value: 3, styleClass: "selectButton"},
+    
+  ];
 
   constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, 
     private globalService: GlobalService, private router: Router){
@@ -231,7 +245,50 @@ export class AdminConfiguracoesComponent implements OnInit {
 
     ];
 
+    //this.filtrarTabela(this.filtro)
   }
+
+  mudarSelect(event: any){
+    console.log("Click: ", event)
+  }
+
+  filtrarTabela(filtro: any) {
+
+    const novoValor = filtro.value;
+    console.log(novoValor, filtro.value, this.filtro, novoValor !== this.filtro && filtro.value !== null)
+
+  if (novoValor !== this.filtro && novoValor !== null) {
+    this.filtro = novoValor;  
+  }
+
+
+    switch (filtro.value){
+      case 1: {
+          this.cogSistema = true;
+          this.cogCargo = false;
+          this.cogAcesso = false;
+        break;
+      }
+      case 2: {
+        this.cogSistema = false;
+        this.cogCargo = true;
+        this.cogAcesso = false;
+        break;
+      }
+      case 3: {
+        this.cogSistema = false;
+        this.cogCargo = false;
+        this.cogAcesso = true;
+        break;
+      }
+      default: {
+        this.cogSistema = true;
+        this.cogCargo = false;
+        this.cogAcesso = false;
+        break;
+      }
+    }
+}
 
   criaFormulario(){
     this.formulario = this.formBuilder.group({
