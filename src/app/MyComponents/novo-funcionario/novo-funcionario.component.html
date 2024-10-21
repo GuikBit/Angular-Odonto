@@ -26,10 +26,10 @@
           </div>
       </ng-template>
       <ng-template pTemplate="content" let-nextCallback="nextCallback">
-          <div class="new py-4" >
+          <div class="new py-4 mt-3" >
             <form [formGroup]="formInform" autocomplete="off" >
               <div class="row flex">
-                
+
                   <div class="col-3 flex justify-content-end" >
 
                     <div>
@@ -100,7 +100,7 @@
                     </div>
 
                   </div>
-                
+
               </div>
               <div class="row">
                 <div class="row lg:flex lg:justify-content-center">
@@ -185,9 +185,11 @@
                 </div>
               </div>
             </form>
+            <div class="row flex justify-content-center">
+              <small class="p-error "><br>* Campos obrigatórios</small>
+            </div>
           </div>
-          <div class="flex pt-4 justify-content-between">
-            <small class="p-error "><br>* Campos obrigatórios</small>
+          <div class="flex pt-4 justify-content-end">
             <p-button (click)="validaFormulario(1)" type="ngSubmit" [disabled]="!formInform.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
           </div>
 
@@ -221,7 +223,7 @@
         </div>
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <div class="new py-4" >
+        <div class="new py-4 mt-3" >
           <form [formGroup]="formEndereco" autocomplete="off">
 
             <div class="row lg:flex lg:justify-content-center mt-2" >
@@ -294,12 +296,15 @@
               </div>
             </div>
           </form>
+          <div class="row flex justify-content-center">
+            <small class="p-error "><br>* Campos obrigatórios</small>
+          </div>
         </div>
         <div class="flex pt-4 justify-content-between">
           <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
           <p-button (onClick)="validaFormulario(2);" [disabled]="!formEndereco.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
         </div>
-      
+
       </ng-template>
     </p-stepperPanel>
     <p-stepperPanel>
@@ -329,8 +334,8 @@
         </div>
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <div class="new pb-2 pt-5" >
-          <form [formGroup]="formContrato" autocomplete="off"> 
+        <div class="new py-4 mt-3" >
+          <form [formGroup]="formContrato" autocomplete="off">
 
             <div class="row lg:flex lg:justify-content-center" >
               <div class="field col-4">
@@ -351,40 +356,13 @@
               </div>
 
               <div class="field col-4">
-                <span class="p-float-label p-input-icon-right width">                  
+                <span class="p-float-label p-input-icon-right width">
                   <p-dropdown [options]="cargosList" formControlName="cargo" [showClear]="true" appendTo="body" (onChange)="preencheuCargo()" [autoZIndex]="true" optionLabel="nome" inputId="cargo" [style]="{'color':'#2070B4', 'width': '100%'}" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['cargo'].invalid && formContrato.controls['cargo'].touched}"></p-dropdown>
                   <label for="cargo" class="azul">Selecione o cargo <span class="p-error ">*</span></label>
                 </span>
               </div>
-              
+
             </div>
-
-            <!-- <div class="row lg:flex lg:justify-content-center" >
-              <div class="field col-5">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-id-card azul"></i>
-                  <input pInputText id="pasta" required class="width" />
-                  <label for="pasta" class="azul">Endereço</label>
-                </span>
-
-              </div>
-              <div class="field col-3">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-id-card azul"></i>
-                  <input pInputText id="pasta" required class="width" />
-                  <label for="pasta" class="azul">CEP</label>
-                </span>
-
-              </div>
-              <div class="field col-3">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-id-card azul"></i>
-                  <input pInputText id="pasta" required class="width" />
-                  <label for="pasta" class="azul">Cidade</label>
-                </span>
-
-              </div>
-            </div> -->
 
             <div class="row lg:flex lg:justify-content-center" >
 
@@ -397,11 +375,11 @@
                     [autoZIndex]="true"
                     inputId="dataAdmissao"
                     dateFormat="dd/mm/yy"
-                    [showTime]="true" 
+                    [showTime]="true"
                     [showButtonBar]="true"
                     [style]="{'color':'#2070B4', 'width': '100%'}"
-                    formControlName="dataAdmissao"   
-                    [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['dataAdmissao'].invalid && formContrato.controls['dataAdmissao'].touched}"   
+                    formControlName="dataAdmissao"
+                    [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['dataAdmissao'].invalid && formContrato.controls['dataAdmissao'].touched}"
                     >
                     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
                       <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
@@ -420,42 +398,42 @@
               </div>
 
               <div class="field pt-2 ml-2 ">
-                
+
                   <span class="p-float-label p-input-icon-left ">
                     <i class="pi pi-dollar" *ngIf="formContrato.get('remuneracao')?.value == null"></i>
                     <!-- <input pInputText id="pasta" required class="width" formControlName="remuneracao"/> -->
-                    <p-inputNumber 
-                          formControlName="remuneracao" 
-                          id="remuneracao" 
-                          mode="currency" 
+                    <p-inputNumber
+                          formControlName="remuneracao"
+                          id="remuneracao"
+                          mode="currency"
                           currency="BRL"
-                          locale="pt-BR" 
-                          required  
+                          locale="pt-BR"
+                          required
                           class="custom-width"
                           [readonly]="true"
-                      />    
+                      />
                     <label for="remuneracao" class="azul" >Remuneração <span class="p-error ">*</span></label>
                   </span>
               </div>
               <div class="field pt-2 ml-3" *ngIf="formContrato.get('cargo')?.value?.premiacao">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-dollar" *ngIf="formContrato.get('valorPremiacao')?.value == null"></i>
-                  <p-inputNumber 
-                        formControlName="valorPremiacao" 
-                        id="valorPremiacao" 
-                        mode="currency" 
+                  <p-inputNumber
+                        formControlName="valorPremiacao"
+                        id="valorPremiacao"
+                        mode="currency"
                         currency="BRL"
-                        locale="pt-BR" 
-                        required 
+                        locale="pt-BR"
+                        required
                         class="custom-width"
-                    />    
+                    />
                   <label for="valorPremiacao" class="azul" >Valor premiação <span class="p-error ">*</span></label>
                 </span>
               </div>
 
-              
+
             </div>
-            
+
 
             <div class="row lg:flex lg:justify-content-center ">
               <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
@@ -498,6 +476,9 @@
             </div>
 
           </form>
+          <div class="row flex justify-content-center">
+            <small class="p-error "><br>* Campos obrigatórios</small>
+          </div>
         </div>
         <div class="flex pt-4 justify-content-between">
           <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
@@ -533,308 +514,140 @@
 
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <div class="new py-4" >
+        <div class="new py-4 mt-3" >
           <form [formGroup]="formConfig">
             <div class="row lg:flex lg:justify-content-center " >
-              <div class="field col-3 width">
-                <p-floatLabel>
+
+              <div class="field col-4">
+                <span class="p-float-label width">
                   <p-dropdown
-                      [options]="[{ label: 'ADM', value:1 },{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}, {label: 'Somente Registro', value:6}]"
-                      formControlName="nivelAcesso"
-                      optionLabel="label"
-                      inputId="float-label"
-                      appendTo="body"
-                      [autoZIndex]="true"
-                      [style]="{width: '100%'}"
-                    />
-                    <label for="float-label">Perfil de acesso</label>
-                </p-floatLabel>
+                    [options]="[{ label: 'ADM', value:1 },{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}, {label: 'Somente Registro', value:6}]"
+                    formControlName="perfilAcesso"
+                    [showClear]="true"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    optionLabel="label"
+                    inputId="perfilAcesso"
+                    [style]="{'color':'#2070B4', 'width': '100%'}"
+                    [ngClass]="{'ng-invalid ng-dirty': formConfig.controls['perfilAcesso'].invalid && formConfig.controls['perfilAcesso'].touched}"
+                  ></p-dropdown>
+                  <label for="perfilAcesso" class="azul">Perfil de acesso <span class="p-error ">*</span></label>
+                </span>
               </div>
-              
+              <div class="field col-4">
+                <span class="p-float-label width">
+                  <p-dropdown
+                    [options]="[{label:'Nivel 1', value: 1},{label: 'Nivel 2', value: 2}, {label: 'Nivel 3', value:3}, { label: 'Nivel 4', value: 4 }]"
+                    formControlName="nivelAcesso"
+                    [showClear]="true"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    optionLabel="label"
+                    inputId="nivelAcesso"
+                    [style]="{'color':'#2070B4', 'width': '100%'}"
+                    [ngClass]="{'ng-invalid ng-dirty': formConfig.controls['nivelAcesso'].invalid && formConfig.controls['nivelAcesso'].touched}"
+                  ></p-dropdown>
+                  <label for="nivelAcesso" class="azul">Nível de acesso <span class="p-error ">*</span></label>
+                </span>
+              </div>
             </div>
-
-            <div class="row flex justify-content-center">
-              <div class="col">
-                <div class="">
-                  <div class="flex justify-content-center align-items-center ">
-                    <span>Paciente</span>
-                  </div>
-                  <div>
-                    <div class="flex align-items-center ml-4 my-2">
-                      <p-checkbox 
-                        [(ngModel)]="cdtPaciente"
-                        label="Criar" 
-                        name="acesso" 
-                        value="Criar" 
-                      />
-                    </div>
-                    <div class="flex align-items-center ml-4 my-2">
-                      <p-checkbox 
-                        [(ngModel)]="cdtPaciente"
-                        label="Ver" 
-                        name="acesso" 
-                        value="Ver" 
-                      />
-                    </div>
-                    <div class="flex align-items-center ml-4 my-2">
-                      <p-checkbox 
-                        [(ngModel)]="cdtPaciente"
-                        label="Editar" 
-                        name="acesso" 
-                        value="Editar" 
-                      />
-                    </div>
-                    <div class="flex align-items-center ml-4 my-2">
-                      <p-checkbox 
-                        [(ngModel)]="cdtPaciente"
-                        label="Excluir" 
-                        name="acesso" 
-                        value="Excluir" 
-                      />
-                    </div>
-                  </div>
+            <div class="row lg:flex lg:justify-content-center " >
+              <div class="col-4">
+                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 1">ADM</div>
+                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 2">Dentista</div>
+                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 3">Faturamento</div>
+                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 4">Financeiro</div>
+                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 5">Recepção</div>
+                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 6">Sem Registro</div>
+              </div>
+              <div class="col-4">
+                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 1">
+                  <table>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 2">
+                  <table>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 3">
+                  <table>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 4">
+                  <table>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                    <tr>
+                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
+                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                    </tr>
+                  </table>
                 </div>
               </div>
-              <p-divider layout="vertical" />
-              <div class="col">
-                <div class="flex justify-content-center align-items-center ">
-                  <span>Dentista</span>
-                </div>
-                <div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Criar" 
-                      name="acesso" 
-                      value="Criar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Ver" 
-                      name="acesso" 
-                      value="Ver" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Editar" 
-                      name="acesso" 
-                      value="Editar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Excluir" 
-                      name="acesso" 
-                      value="Excluir" 
-                    />
-                  </div>
-                </div>
-              </div>
-              <p-divider layout="vertical" />
-              <div class="col">
-                <div class="flex justify-content-center align-items-center ">
-                  <span>Consulta</span>
-                </div>
-                <div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Criar" 
-                      name="acesso" 
-                      value="Criar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Ver" 
-                      name="acesso" 
-                      value="Ver" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Editar" 
-                      name="acesso" 
-                      value="Editar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Excluir" 
-                      name="acesso" 
-                      value="Excluir" 
-                    />
-                  </div>
-                </div>
-              </div>
-              <p-divider layout="vertical" />
-              <div class="col">
-                <div class="flex justify-content-center align-items-center ">
-                  <span>Financeiro</span>
-                </div>
-                <div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Criar" 
-                      name="acesso" 
-                      value="Criar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Ver" 
-                      name="acesso" 
-                      value="Ver" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Editar" 
-                      name="acesso" 
-                      value="Editar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Excluir" 
-                      name="acesso" 
-                      value="Excluir" 
-                    />
-                  </div>
-                </div>
-              </div>
-              <p-divider layout="vertical" />
-              <div class="col">
-                <div class="flex justify-content-center align-items-center ">
-                  <span>Ponto</span>
-                </div>
-                <div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Criar" 
-                      name="acesso" 
-                      value="Criar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Ver" 
-                      name="acesso" 
-                      value="Ver" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Editar" 
-                      name="acesso" 
-                      value="Editar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Excluir" 
-                      name="acesso" 
-                      value="Excluir" 
-                    />
-                  </div>
-                </div>
-              </div>
-              <p-divider layout="vertical" />
-              <div class="col">
-                <div class="flex justify-content-center align-items-center ">
-                  <span>Estoque</span>
-                </div>
-                <div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Criar" 
-                      name="acesso" 
-                      value="Criar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Ver" 
-                      name="acesso" 
-                      value="Ver" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Editar" 
-                      name="acesso" 
-                      value="Editar" 
-                    />
-                  </div>
-                  <div class="flex align-items-center ml-4 my-2">
-                    <p-checkbox 
-                      [(ngModel)]="cdtPaciente"
-                      label="Excluir" 
-                      name="acesso" 
-                      value="Excluir" 
-                    />
-                  </div>
-                </div>
-              </div>
-
-
-              <!-- <div class="flex align-items-center">
-                <p-checkbox 
-                    [(ngModel)]="cdtPaciente"
-                    label="Cadastro Paciente" 
-                    name="acesso" 
-                    value="Cheese" />
-              </div>
-              <div class="flex align-items-center">
-                  <p-checkbox 
-                      [(ngModel)]="cdtDentista"
-                      label="Cadastro Dentista"
-                      name="pizza" 
-                      value="Mushroom" />
-              </div>
-              <div class="flex align-items-center">
-                  <p-checkbox 
-                      [(ngModel)]="cdtConsulta"
-                      label="Cadastro Consulta" 
-                      name="pizza" 
-                      value="Pepper" />
-              </div>
-              <div class="flex align-items-center">
-                  <p-checkbox 
-                      [(ngModel)]="cdtEstoque"
-                      label="Gerenciamento Estoque" 
-                      name="pizza" 
-                      value="Onion" />
-              </div>
-              <div class="flex align-items-center">
-                <p-checkbox 
-                    [(ngModel)]="cdtConfig"
-                    label="Configurações do sistema" 
-                    name="pizza" 
-                    value="Onion" />
-              </div> -->
             </div>
           </form>
-        </div> 
+          <div class="row flex justify-content-center">
+            <small class="p-error "><br>* Campos obrigatórios</small>
+          </div>
+        </div>
         <div class="flex pt-4 justify-content-between">
           <p-button (onClick)="prevCallback.emit();" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
           <p-button (onClick)="nextCallback.emit();"[rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />

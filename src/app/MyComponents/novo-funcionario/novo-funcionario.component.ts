@@ -43,7 +43,7 @@ export class NovoFuncionarioComponent  implements OnInit{
 
   cargosList: any[] = [];
 
-  active: number = 2;
+  active: number = 3;
 
   cdtPaciente: boolean = false;
   cdtDentista: boolean = false;
@@ -51,14 +51,14 @@ export class NovoFuncionarioComponent  implements OnInit{
   cdtEstoque: boolean = false;
   cdtConfig: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService, 
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService,
     private assync: AssyncServiceService, private orgService: OrganizacaoService, private cargoService: CargoService){
 
       if ((this.userLogado === undefined || this.userLogado === null) && (this.org === null || this.org === undefined)) {
 
         const userStorage = localStorage.getItem('userLogado');
         const orgStorage = localStorage.getItem('organizacao');
-  
+
         if (userStorage && orgStorage) {
           this.userLogado = JSON.parse(userStorage);
           this.org = JSON.parse(orgStorage);
@@ -171,7 +171,8 @@ export class NovoFuncionarioComponent  implements OnInit{
     })
 
     this.formConfig = this.formBuilder.group({
-      nivelAcesso: ['',Validators.required]
+      perfilAcesso: [null,Validators.required],
+      nivelAcesso: [null,Validators.required]
     })
   }
 
@@ -334,7 +335,7 @@ export class NovoFuncionarioComponent  implements OnInit{
       this.formContrato.get('plr')?.setValue(this.formContrato.get('cargo')?.value.plr)
       this.formContrato.get('premiacao')?.setValue(this.formContrato.get('cargo')?.value.premiacao)
       this.formContrato.get('gymPass')?.setValue(this.formContrato.get('cargo')?.value.gymPass)
-      
+
     }else{
       this.formContrato.get('remuneracao')?.setValue(null);
 
