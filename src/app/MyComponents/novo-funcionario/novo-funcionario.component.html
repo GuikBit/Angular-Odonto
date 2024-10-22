@@ -37,7 +37,7 @@
                         <p-image
                           src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
                           alt="Image"
-                          width="180"
+                          width="230"
                           class="w-full"
                           [preview]="true"
                           [style]="{'border-radius': '50%'}"
@@ -516,12 +516,12 @@
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
         <div class="new py-4 mt-3" >
           <form [formGroup]="formConfig">
-            <div class="row lg:flex lg:justify-content-center " >
+            <div class="row lg:flex lg:justify-content-evenly " >
 
               <div class="field col-4">
                 <span class="p-float-label width">
                   <p-dropdown
-                    [options]="[{ label: 'ADM', value:1 },{label:'Dentista', value: 2},{label: 'Faturamento', value:3}, {label: 'Financeiro', value:4}, {label: 'Recepcao', value:5}, {label: 'Somente Registro', value:6}]"
+                    [options]="[{ label: 'ADM', value:1 }, {label: 'Supervisor', value:2},{label:'Dentista', value: 3},{label: 'Faturamento', value:4}, {label: 'Financeiro', value:5},{label: 'Recepcao', value:6}, {label: 'Somente Registro', value: 7}]"
                     formControlName="perfilAcesso"
                     [showClear]="true"
                     appendTo="body"
@@ -534,6 +534,9 @@
                   <label for="perfilAcesso" class="azul">Perfil de acesso <span class="p-error ">*</span></label>
                 </span>
               </div>
+
+              <p-divider layout="vertical"/>
+
               <div class="field col-4">
                 <span class="p-float-label width">
                   <p-dropdown
@@ -550,100 +553,123 @@
                   <label for="nivelAcesso" class="azul">Nível de acesso <span class="p-error ">*</span></label>
                 </span>
               </div>
-            </div>
-            <div class="row lg:flex lg:justify-content-center " >
-              <div class="col-4">
-                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 1">ADM</div>
-                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 2">Dentista</div>
-                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 3">Faturamento</div>
-                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 4">Financeiro</div>
-                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 5">Recepção</div>
-                <div *ngIf="formConfig.get('perfilAcesso')?.value.value === 6">Sem Registro</div>
-              </div>
-              <div class="col-4">
-                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 1">
-                  <table>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 2">
-                  <table>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 3">
-                  <table>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="flex justify-content-center" *ngIf="formConfig.get('nivelAcesso')?.value.value === 4">
-                  <table>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-eye azul"></i><span class="ml-2">Visualização</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-plus azul"></i> <span class="ml-2">Cadastro</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-pencil azul"></i><span class="ml-2">Edição</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                    <tr>
-                      <td class="p-1" [width]="250"><i class="pi pi-fw pi-trash azul"></i><span class="ml-2">Deleção</span></td>
-                      <td class="p-1"><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
+
             </div>
           </form>
+          <div class="row lg:flex lg:justify-content-center" >
+            
+            <div class="col-5 p-3 text-sm bg-blue-300">
+              <div class="row " *ngIf="formConfig.get('perfilAcesso')?.value">
+                <span>Com base no perfil que você selecionou, seu usuário terá as acesso{{formConfig.get('perfilAcesso')?.value?.value === 1 ? ' total ao sistema, isso inclui: ':' a:'}}</span>
+                
+              </div>
+
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 1">               
+                <ul class="list-disc line-height-3">
+                  <li>Dados de paciente, dentista e funcionarios;</li>
+                  <li>Relatórios, constrole de estoque e controle de ponto;</li>
+                  <li>Financeiro;</li>
+                </ul>
+              </div>
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 2">Dentista</div>
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 3">Faturamento</div>
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 4">Financeiro</div>
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 5">Recepção</div>
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 6">Sem Registro</div>
+            </div>
+            
+            <p-divider layout="vertical" />
+            
+            <div class="col-5 p-3 text-sm bg-blue-200">
+              <div class="row mb-2" *ngIf="formConfig.get('nivelAcesso')?.value">
+                <span>Com base no nível que você selecionou, seu perfil terá as seguintes ações disponíveis: </span>
+              </div>
+
+
+              <div class="flex justify-content-center line-height-3 ml-4" *ngIf="formConfig.get('nivelAcesso')?.value?.value === 1">
+
+                <table>
+                  <tr>
+                    <td class="" [width]="230"><i class="pi pi-fw pi-eye azul text-sm"></i><span class="ml-3">Visualização</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-plus azul text-sm"></i> <span class="ml-3">Cadastro</span></td>
+                    <td class=""><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-pencil azul text-sm"></i><span class="ml-3">Edição</span></td>
+                    <td class=""><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-trash azul text-sm"></i><span class="ml-3">Deleção</span></td>
+                    <td class=""><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="flex justify-content-center line-height-3 ml-4" *ngIf="formConfig.get('nivelAcesso')?.value?.value === 2">
+                <table>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-eye azul text-sm"></i><span class="ml-3">Visualização</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-plus azul text-sm"></i> <span class="ml-3">Cadastro</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-pencil azul text-sm"></i><span class="ml-3">Edição</span></td>
+                    <td class=""><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-trash azul text-sm"></i><span class="ml-3">Deleção</span></td>
+                    <td class=""><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="flex justify-content-center line-height-3 ml-4" *ngIf="formConfig.get('nivelAcesso')?.value?.value === 3">
+                <table>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-eye azul text-sm"></i><span class="ml-3">Visualização</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-plus azul text-sm"></i> <span class="ml-3">Cadastro</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-pencil azul text-sm"></i><span class="ml-3">Edição</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-trash azul text-sm"></i><span class="ml-3">Deleção</span></td>
+                    <td class=""><i class="pi pi-fw pi-times text-red-600 font-semibold"></i></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="flex justify-content-center line-height-3 ml-4" *ngIf="formConfig.get('nivelAcesso')?.value?.value === 4">
+                <table>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-eye azul text-sm"></i><span class="ml-3">Visualização</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-plus azul text-sm"></i> <span class="ml-3">Cadastro</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-pencil azul text-sm"></i><span class="ml-3">Edição</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                  <tr>
+                    <td class="" [width]="230" ><i class="pi pi-fw pi-trash azul text-sm"></i><span class="ml-3">Deleção</span></td>
+                    <td class=""><i class="pi pi-fw pi-check text-green-600 font-semibold"></i></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
           <div class="row flex justify-content-center">
             <small class="p-error "><br>* Campos obrigatórios</small>
           </div>
