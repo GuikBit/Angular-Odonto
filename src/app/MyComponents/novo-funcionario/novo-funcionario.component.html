@@ -558,7 +558,7 @@
           </form>
           <div class="row lg:flex lg:justify-content-center" >
             
-            <div class="col-5 p-3 text-sm bg-blue-300">
+            <div class="col-5 p-3 text-sm">
               <div class="row " *ngIf="formConfig.get('perfilAcesso')?.value">
                 <span>Com base no perfil que você selecionou, seu usuário terá as acesso{{formConfig.get('perfilAcesso')?.value?.value === 1 ? ' total ao sistema, isso inclui: ':' a:'}}</span>
                 
@@ -580,7 +580,7 @@
             
             <p-divider layout="vertical" />
             
-            <div class="col-5 p-3 text-sm bg-blue-200">
+            <div class="col-5 p-3 text-sm">
               <div class="row mb-2" *ngIf="formConfig.get('nivelAcesso')?.value">
                 <span>Com base no nível que você selecionou, seu perfil terá as seguintes ações disponíveis: </span>
               </div>

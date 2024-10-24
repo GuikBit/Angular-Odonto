@@ -11,10 +11,9 @@
   width: 235px;
   height: auto;
   display: none;
-  border: 1px solid #c4ddf3;
   background: #FFF;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
-  border-radius: 15px;
+
 }
 
 .sidebar-visible .sidebar {
@@ -48,6 +47,6 @@
 }
 .btnSidebar{
   position: absolute;
-  top: 30px;
-  left: 320px
+  top: 25px;
+  left: 250px
 }

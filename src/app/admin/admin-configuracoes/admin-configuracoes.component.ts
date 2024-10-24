@@ -30,17 +30,31 @@ export class AdminConfiguracoesComponent implements OnInit {
   cogSistema: boolean = true;
   cogCargo: boolean = false;
   cogAcesso: boolean = false;
+  cogConsulta: boolean = false;
+  cogDentista: boolean = false;
+  cogPaciente: boolean = false;
+
+  funcDentista: boolean = false;
+  funcFuncionario: boolean = true;
+
 
   items: MenuItem[];
   activeIndex: number = 2;
 
   filtro: number =  1 ;
 
-  filtroDiaSemanaMes: any[] = [
+  filtroFunc : any[] = [
+    { name: 'Funcionário', icon: 'pi pi-users', value: 1, styleClass: "selectButton" },
+    { name: 'Dentista', icon: 'pi pi-users', value: 2, styleClass: "selectButton" }
+  ];
+
+  filtroCog: any[] = [
     { name: 'Sistema', icon: 'pi pi-cog', value: 1, styleClass: "selectButton" },
     { name: 'Cargo', icon: 'pi pi-briefcase', value: 2, styleClass: "selectButton" },
     { name: 'Acesso', icon: 'pi pi-shield',  value: 3, styleClass: "selectButton"},
-    
+    { name: 'Consulta', icon: 'pi pi-briefcase',  value: 4, styleClass: "selectButton"},
+    { name: 'Dentista', icon: 'pi pi-id-card',  value: 5, styleClass: "selectButton"},
+    { name: 'Paciente', icon: 'pi pi-user',  value: 6, styleClass: "selectButton"},
   ];
 
   constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, 
@@ -252,39 +266,100 @@ export class AdminConfiguracoesComponent implements OnInit {
     console.log("Click: ", event)
   }
 
-  filtrarTabela(filtro: any) {
+  filtrarFuncOption(filtro: any){
 
     const novoValor = filtro.value;
-    console.log(novoValor, filtro.value, this.filtro, novoValor !== this.filtro && filtro.value !== null)
+    if (novoValor !== this.filtro && novoValor !== null) {
+      this.filtro = novoValor;  
+    }
 
-  if (novoValor !== this.filtro && novoValor !== null) {
-    this.filtro = novoValor;  
+    switch (filtro.value){
+      case 1: {          
+          this.funcFuncionario = true;
+          this.funcDentista = false;          
+        break;
+      }
+      case 2: {
+          this.funcFuncionario = false;
+          this.funcDentista = true;        
+        break;
+      }
+      default:
+        this.funcFuncionario = true;
+        this.funcDentista = false;
+      break;
+    }
   }
 
+  filtrarCogOption(filtro: any) {
+
+    const novoValor = filtro.value;
+    if (novoValor !== this.filtro && novoValor !== null) {
+      this.filtro = novoValor;  
+    }
 
     switch (filtro.value){
       case 1: {
           this.cogSistema = true;
           this.cogCargo = false;
           this.cogAcesso = false;
+          this.cogConsulta = false;
+          this.cogDentista = false;
+          this.cogPaciente = false;
         break;
       }
       case 2: {
         this.cogSistema = false;
         this.cogCargo = true;
         this.cogAcesso = false;
+        this.cogConsulta = false;
+        this.cogDentista = false;
+        this.cogPaciente = false;
         break;
       }
       case 3: {
         this.cogSistema = false;
         this.cogCargo = false;
         this.cogAcesso = true;
+        this.cogConsulta = false;
+        this.cogDentista = false;
+        this.cogPaciente = false;
+        break;
+      }
+      case 4: {
+        this.cogSistema = false;
+        this.cogCargo = false;
+        this.cogAcesso = false;
+        this.cogConsulta = true;
+        this.cogDentista = false;
+        this.cogPaciente = false;
+        break;
+      }
+      case 5: {
+        this.cogSistema = false;
+        this.cogCargo = false;
+        this.cogAcesso = false;
+        this.cogConsulta = false;
+        this.cogDentista = true;
+        this.cogPaciente = false;
+        break;
+      }
+      case 6: {
+        this.cogSistema = false;
+        this.cogCargo = false;
+        this.cogAcesso = false;
+        this.cogConsulta = false;
+        this.cogDentista = false;
+        this.cogPaciente = true;
         break;
       }
       default: {
         this.cogSistema = true;
         this.cogCargo = false;
         this.cogAcesso = false;
+        this.cogConsulta = false;
+        this.cogDentista = false;
+        this.cogPaciente = false;
         break;
       }
     }
