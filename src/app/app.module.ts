@@ -151,7 +151,6 @@ import { OrcamentoModule } from './MyComponents/orcamento/orcamento.module';
     BrowserAnimationsModule,
     CalendarModule,
     ClienteModule,
-    DentistaModule,
     ConsultaModule,
     OrcamentoModule,
     HttpClientModule,

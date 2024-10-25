@@ -1,5 +1,3 @@
-
-
 import { AdminConfiguracoesComponent } from './admin-configuracoes/admin-configuracoes.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,6 +31,7 @@ import { DentistaModule } from "../dentista/dentista.module";
 import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
 import { AdminPontoComponent } from './admin-ponto/admin-ponto.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DentistaListarModule } from "../MyComponents/dentista-listar/dentista-listar.module";
 
 
 @NgModule({
@@ -70,8 +69,9 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     StepperModule,
     ConstasPagarModule,
     ConstasPagarModule,
-    DentistaModule,
-    NovoCargoModule
+    NovoCargoModule,
+    DentistaListarModule,
+    DentistaModule
 ],
   exports:[
     AdminMenuComponent,

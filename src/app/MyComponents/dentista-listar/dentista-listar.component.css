@@ -1,0 +1,100 @@
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/aura-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+.grid {
+  /* background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg") !important; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+.web{
+  display: block;
+}
+
+.mobile{
+  display: none;
+}
+
+button {
+  background: linear-gradient(to right, #2070b4, #24aae3);
+  font-size: .9rem;
+  color: #fff;
+  width: auto;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12);
+}
+
+button:hover {
+  background: linear-gradient(to right,#226199, #1E9CC9);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12);
+}
+
+th{
+    /* background: #c4ddf3 !important; */
+    color: #2070b4;
+    font-size: large;
+
+}
+
+.search{
+  width: 25vw;
+  color: #2070b4;
+  border-color:  #2070b4;
+  border-radius: 50px;
+}
+
+.titulo{
+
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2070b4;
+
+}
+
+.box{
+  background: #FFFFFF;
+  border-radius: 15px ;
+  border: 1px solid #c4ddf3;
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+
+}
+
+
+@media only screen and (max-width: 767px) {
+
+  button {
+    font-size: 1.5rem;
+    width: 30vw;
+    height: 4vh;
+    box-shadow: none;
+  }
+  .width {
+    width: 100vw;
+    margin: 5px 0;
+  }
+
+  .search{
+    width: 100%;
+  }
+
+  .mobile{
+    display: block;
+  }
+
+  .web{
+    display: none;
+  }
+
+}

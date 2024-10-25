@@ -1,7 +1,7 @@
 <div class="container">
   <div class="grid ">
     <div class="col-12">
-      <div class="card box  lg:p-3 text-indigo-800">
+      <div class="card box lg:p-5 text-indigo-800">
         <div class="flex justify-content-between m-3">
           <span class="p-float-label p-input-icon-left ">
             <i class="pi pi-search azul" ></i>
@@ -12,7 +12,7 @@
           <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="web"></button>
         </div>
 
-        <p-table
+        <!-- <p-table
             #productsTable
             [value]="dentistas"
             [rows]="10"
@@ -189,7 +189,9 @@
                 <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
               </tr>
             </ng-template>
-          </p-table>
+          </p-table> -->
+
+          <app-dentista-listar></app-dentista-listar>
       </div>
     </div>
   </div>

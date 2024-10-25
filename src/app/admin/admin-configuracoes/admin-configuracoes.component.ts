@@ -25,6 +25,7 @@ export class AdminConfiguracoesComponent implements OnInit {
 
   cadastroOrg: boolean = false;
   novoFuncionario: boolean = false;
+  novoDentista: boolean = false;
   novoCargo: boolean = false;
 
   cogSistema: boolean = true;
@@ -57,7 +58,7 @@ export class AdminConfiguracoesComponent implements OnInit {
     { name: 'Paciente', icon: 'pi pi-user',  value: 6, styleClass: "selectButton"},
   ];
 
-  constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService, 
+  constructor(private messageService: MessageService, private formBuilder: FormBuilder, private orgService: OrganizacaoService,
     private globalService: GlobalService, private router: Router){
 
     if ((this.userLogado === undefined || this.userLogado === null) && (this.org === null || this.org === undefined)) {
@@ -270,18 +271,18 @@ export class AdminConfiguracoesComponent implements OnInit {
 
     const novoValor = filtro.value;
     if (novoValor !== this.filtro && novoValor !== null) {
-      this.filtro = novoValor;  
+      this.filtro = novoValor;
     }
 
     switch (filtro.value){
-      case 1: {          
+      case 1: {
           this.funcFuncionario = true;
-          this.funcDentista = false;          
+          this.funcDentista = false;
         break;
       }
       case 2: {
           this.funcFuncionario = false;
-          this.funcDentista = true;        
+          this.funcDentista = true;
         break;
       }
       default:
@@ -295,7 +296,7 @@ export class AdminConfiguracoesComponent implements OnInit {
 
     const novoValor = filtro.value;
     if (novoValor !== this.filtro && novoValor !== null) {
-      this.filtro = novoValor;  
+      this.filtro = novoValor;
     }
 
     switch (filtro.value){
@@ -392,6 +393,9 @@ export class AdminConfiguracoesComponent implements OnInit {
   showDialog() {
     this.cadastroOrg = true;
   }
+  showDialogDentista(){
+    this.novoDentista = true;
+  }
 
   onSubmit(){
     console.log(this.formulario.value)
@@ -422,6 +426,21 @@ export class AdminConfiguracoesComponent implements OnInit {
       this.router.navigate(['/admin/' + rota])
     }
 
+  }
+
+
+  closeModalDentista(close: any) {
+    this.novoDentista = close;
+    //this.criaTabelaDentista();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Aviso',
+      detail: 'Dentista salvo com sucesso!'
+    })
+  }
+
+  onlyClose(close: any){
+    this.novoDentista = close;
   }
 
 

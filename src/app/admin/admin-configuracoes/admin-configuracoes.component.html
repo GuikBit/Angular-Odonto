@@ -1,15 +1,3 @@
-  <!--<div class="box">
- <p>admin-configuracoes works!</p>
-  <p>Configurar o nome do consultorio, cnpj, endereco, licencas, telefone de contato</p>
-  <p>adicionar funcionarios, salarios, aluguel outras dispesas</p>
-
-  Estudar sobre o TanStack Query para o angular, principalmente para pegar o loading e adicionar o SkeletonModule, em quanto faz o carregamento dos dados
-  exemplo simples: https://tanstack.com/query/v5/docs/framework/angular/examples/simple
-</div>-->
-
-<!-- <div class="box px-8 mb-8" *ngIf="userLogado.role == 'Admin'">
-  <button pButton type="button" label="Novo Dentista" (click)="showDialog()" icon="pi pi-user-plus" class="web"></button>
-</div> -->
 <div class="">
   <div class="bannerEmpresa border-round-3xl">
     <div class="md:12 lg:col-2">
@@ -27,9 +15,9 @@
       </div>
     </div>
   </div>
-  
-  <div class="lg:flex lg:mt-3" >
-    <div class="col-12 border-round-2xl bg-white">
+
+  <div class="lg:flex lg:mt-6" >
+    <div class="col-12 bg-white border-round-2xl">
       <p-tabView class="md:p-auto" [(activeIndex)]="activeIndex">
         <p-tabPanel header="Informações da Empresa" >
           <ng-template pTemplate="header" >
@@ -96,28 +84,28 @@
                   <input pInputText id="cep"  required (blur)="buscaCEP()" minlength="8" maxlength="11" class="width" />
                   <label for="cep" class="azul">CEP</label>
                 </span>
-      
+
               </div>
-      
+
               <div class="field md:col-12 lg:col-4">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-map-marker azul"></i>
                   <input pInputText id="cidade"  required class="width"  />
                   <label for="cidade" class="azul">Cidade</label>
                 </span>
-      
+
               </div>
-      
+
               <div class="field md:col-12 lg:col-4">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-map-marker azul"></i>
                   <input pInputText id="bairro" required class="width"/>
                   <label for="bairro" class="azul">Bairro</label>
                 </span>
-      
+
               </div>
             </div>
-      
+
             <div class="row lg:flex lg:justify-content-center">
               <div class="field md:col-12 lg:col-5">
                 <span class="p-float-label p-input-icon-left width">
@@ -125,16 +113,16 @@
                   <input pInputText id="logradouro"  required class="width" />
                   <label for="logradouro" class="azul">Logradouro</label>
                 </span>
-      
+
               </div>
-      
+
               <div class="field md:col-12 lg:col-2">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-map azul"></i>
                   <input pInputText id="numero"  required class="width" />
                   <label for="numero" class="azul">Número</label>
                 </span>
-      
+
               </div>
               <div class="field md:col-12 lg:col-4">
                 <span class="p-float-label p-input-icon-left width">
@@ -142,13 +130,13 @@
                   <input pInputText id="complemento"  required class="width" />
                   <label for="complemento" class="azul">Complemento</label>
                 </span>
-      
+
               </div>
-      
+
             </div>
-      
+
             <div class="row lg:flex lg:justify-content-center">
-      
+
               <div class="field md:col-12 lg:col-4">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-map azul"></i>
@@ -157,7 +145,7 @@
                 </span>
               </div>
             </div>
-      
+
           </div>
 
 
@@ -190,7 +178,7 @@
               (onChange)="filtrarFuncOption($event)"
             >
               <ng-template let-item pTemplate>
-                <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>          
+                <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>
               </ng-template>
             </p-selectButton>
           </div>
@@ -206,7 +194,16 @@
           </div>
 
           <div *ngIf="funcDentista" class="mt-3">
-            <app-dentista-list></app-dentista-list>
+            <div class="flex justify-content-between m-3">
+              <span class="p-float-label p-input-icon-left ">
+                <i class="pi pi-search azul" ></i>
+                <input pInputText id="search" class="search"/>
+                <label for="search" class="azul">Buscar Dentista...</label>
+              </span>
+              <p-button icon="pi pi-plus" [rounded]="true"  (click)="showDialog()" class="mobile" [style]="{'background': '#2070b4'}"></p-button>
+              <button pButton type="button" label="Novo Dentista" (click)="showDialogDentista()" icon="pi pi-user-plus" class="web"></button>
+            </div>
+            <app-dentista-listar></app-dentista-listar>
           </div>
         </p-tabPanel>
 
@@ -218,13 +215,13 @@
           </ng-template>
           <app-dentista-list></app-dentista-list>
         </p-tabPanel> -->
-        <!-- 
+        <!--
         <p-tabPanel header="Cargos" >
           <ng-template pTemplate="header" >
             <i class="pi pi-fw pi-briefcase"></i>
             <span class="web">&nbsp;Cargos</span>
           </ng-template>
-          
+
         </p-tabPanel> -->
 
         <!-- <p-tabPanel header="Dados Bancarios" >
@@ -240,7 +237,7 @@
             <i class="pi pi-fw pi-cog"></i>
             <span class="web">&nbsp;Configurações</span>
           </ng-template>
-          
+
             <!-- <div class="flex">
               <div class="flex col-2 pt-3" >
                 <div class="sidebar">
@@ -268,11 +265,11 @@
               </div>
               <div class="p-component col-10">
                 <div *ngIf="cogCargo">
-                  
-                </div>  
+
+                </div>
                 <div *ngIf="cogAcesso">
-      
-                </div>  
+
+                </div>
               </div>
             </div> -->
 
@@ -288,7 +285,7 @@
                 (onChange)="filtrarCogOption($event)"
               >
                 <ng-template let-item pTemplate>
-                  <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>          
+                  <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>
                 </ng-template>
               </p-selectButton>
             </div>
@@ -300,9 +297,9 @@
             <div *ngIf="cogCargo" >
               <app-list-cargo></app-list-cargo>
             </div>
-            
+
             <div *ngIf="cogAcesso" >
-      
+
             </div>
 
             <div *ngIf="cogConsulta" >
@@ -312,7 +309,7 @@
             <div *ngIf="cogDentista" >
               <app-admin-dentista></app-admin-dentista>
             </div>
-          
+
         </p-tabPanel>
 
       </p-tabView>
@@ -591,11 +588,17 @@
   </div>
 </p-dialog>
 
-<!-- <p-dialog header='Novo funcionario' [(visible)]="novoFuncionario" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
+<p-dialog header='Novo funcionario' [(visible)]="novoFuncionario" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
   <ng-template pTemplate="content">
     <app-novo-funcionario></app-novo-funcionario>
   </ng-template>
 
-</p-dialog> -->
+</p-dialog>
+
+<p-dialog header='Novo Dentista' [(visible)]="novoDentista" [style]="{ width: '65vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false" class="">
+  <ng-template pTemplate="content">
+    <app-dentista-novo (closeModal)="closeModalDentista($event)" (onlyClose)="onlyClose($event)"></app-dentista-novo>
+  </ng-template>
+</p-dialog>
 
 

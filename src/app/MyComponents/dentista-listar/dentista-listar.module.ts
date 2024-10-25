@@ -1,9 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DentistaNovoComponent } from './dentista-novo/dentista-novo.component';
-import { DentistaInfoComponent } from './dentista-info/dentista-info.component';
-import { DentistaListComponent } from './dentista-list/dentista-list.component';
-import { DentistaRoutingModule } from './dentista-routing.module';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -29,23 +25,19 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { TabViewModule } from 'primeng/tabview';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
-import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
-import { ConsultaNovaComponent } from '../consulta/consulta-nova/consulta-nova.component';
-import { ConsultaInfoComponent } from '../consulta/consulta-info/consulta-info.component';
-import { ConsultaModule } from '../consulta/consulta.module';
-import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
+import { ConsultaModule } from '../../consulta/consulta.module';
+import { CalendarioModule } from '../../MyComponents/calendario/calendario.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { DentistaListarModule } from '../MyComponents/dentista-listar/dentista-listar.module';
+import { DentistaListarComponent } from './dentista-listar.component';
+import { DentistaNovoComponent } from 'src/app/dentista/dentista-novo/dentista-novo.component';
+import { DentistaModule } from 'src/app/dentista/dentista.module';
+
 
 
 
 @NgModule({
   declarations: [
-    DentistaNovoComponent,
-    DentistaInfoComponent,
-    DentistaListComponent,
-    DentistaEditComponent,
+    DentistaListarComponent,
   ],
   imports: [
     CommonModule,
@@ -75,14 +67,10 @@ import { DentistaListarModule } from '../MyComponents/dentista-listar/dentista-l
     CalendarModule,
     FormsModule,
     ReactiveFormsModule,
-    ConsultaModule,
-    DentistaListarModule
+    ConsultaModule
+    
   ],exports: [
-    DentistaNovoComponent,
-    DentistaInfoComponent,
-    DentistaListComponent,
-    DentistaEditComponent
-  ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    DentistaListarComponent
+  ]
 })
-export class DentistaModule { }
+export class DentistaListarModule { }

@@ -1,0 +1,185 @@
+
+  <div class="lg:p-3 text-indigo-800">
+
+
+    <p-table
+        #productsTable
+        [value]="dentistas"
+        [rows]="10"
+        [paginator]="true"
+        [responsive]="true"
+        [globalFilterFields]="['nome', 'cpf', 'espec', 'ativo']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [rowHover]="true"
+        [showCurrentPageReport]="true"
+        dataKey="id"
+        currentPageReportTemplate="{first} de {last} de {totalRecords}"
+
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nome">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-center align-items-center">
+                  Nome
+                </div>
+                <div class="flex justify-content-center align-items-center">
+                  <p-sortIcon
+                    field="nome"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                  ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="nome"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="cpf">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  CPF
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="cpf"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                    ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="cpf"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+            <th pSortableColumn="espec" [width]="300">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Especialidade
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="espec"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                  ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="espec"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="ativo" [width]="180">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Status
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="ativo"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                  ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="ativo"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+
+
+            <th [width]="200"></th>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-dentista>
+          <tr >
+            <td>
+              {{ dentista?.nome }}
+            </td>
+            <td>
+              {{ dentista?.cpf }}
+            </td>
+            <td>
+              {{ dentista?.especialidade.tipo }}
+            </td>
+            <td>
+              <p-tag
+              [severity]="dentista.ativo? 'success' : 'danger'"
+              [value]="dentista?.ativo? ' Ativo ':' Inativo '"
+              [rounded]="true"
+              [style]="{'font-size': '12px', 'font-weight': '400'}"
+              [icon]="dentista.ativo? 'pi pi-verified' : 'pi pi-ban'"
+              class="flex align-items-center"
+              >
+              </p-tag>
+            </td>
+
+            <td [width]="200">
+              <div
+                class="flex justify-content-around">
+                <p-button
+                  icon="pi pi-pw pi-info-circle"
+                  [rounded]="true"
+                  severity="info"
+                  [text]="true"
+                  pTooltip="Informações"
+                  tooltipPosition="top"
+                  (click)="infoShow(dentista.id)"
+                >
+                </p-button>
+                <p-button
+                  icon="pi pi-pw pi-trash"
+                  [rounded]="true"
+                  severity="danger"
+                  [text]="true"
+                  pTooltip="Deletar"
+                  tooltipPosition="top"
+                  (click)="DeletShowDialog()"
+                >
+                </p-button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+          </tr>
+        </ng-template>
+      </p-table>
+  </div>
+
+

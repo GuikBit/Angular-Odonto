@@ -8,8 +8,8 @@
 }
 
 .sidebar {
-  width: 235px;
-  height: auto;
+  width: 100%;
+  height: 100%;
   display: none;
   background: #FFF;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
