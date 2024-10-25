@@ -23,12 +23,14 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DividerModule } from 'primeng/divider';
-
+import { ListFuncionarioComponent } from '../list-funcionario/list-funcionario.component';
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
   declarations: [
-    NovoFuncionarioComponent
+    NovoFuncionarioComponent,
+    ListFuncionarioComponent
   ],
   imports: [
     CommonModule,
@@ -54,10 +56,12 @@ import { DividerModule } from 'primeng/divider';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    InputTextareaModule
+    InputTextareaModule,
+    TagModule,
   ],
   exports: [
-    NovoFuncionarioComponent
+    NovoFuncionarioComponent,
+    ListFuncionarioComponent
   ]
 })
 

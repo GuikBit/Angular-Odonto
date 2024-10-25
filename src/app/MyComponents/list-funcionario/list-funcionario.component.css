@@ -17,22 +17,55 @@
   color: #2070b4;
 }
 
+button:hover{
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.16);
+} */
 
-.bannerEmpresa{
-  width: 100%;
-  height: 180px;
+:host ::ng-deep .p-menubar {
+  border: 1px #c4ddf3;
+  border-style: solid;
+  border-radius: 50px;
+  background: #FFFFFF;
+  /* box-shadow: 0px 4px 6px 0px green; */
+  box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
+}
+:host ::ng-deep .p-tabview{
+  padding: 30px;
+  margin-bottom: 15px;
+  border: 1px #c4ddf3;
+  border-style: solid;
+  border-radius: 8px;
+  /* box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px; */
+}
+.bannerCliente{
+  width: 98%;
+  position: relative;
+  top: 0px;
   display: flex;
-  margin-top: 0px;
   /* background-image: url("src/assets/img/teste2.png"); */
   background-image: url("src/assets/img/banner.jpg");
   background-repeat:no-repeat;
   background-size:cover;
   background-position: center center;
-
+  border-radius: 8px ;
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 }
+.new{
+  background: #FFFFFF;
+  border-radius: 7px ;
+  border: 1px solid #c4ddf3;
 
+}
+
+
+.grid {
+  /* background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg") !important; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
 button {
   background: linear-gradient(to right, #2070b4, #24aae3);
   font-size: .9rem;
@@ -60,7 +93,7 @@ button:active {
 th{
   /* background: #c4ddf3 !important; */
   color: #2070b4;
-
+  font-size: large;
 
 }
 
@@ -74,6 +107,7 @@ border-radius: 50px;
 
 .box{
   background: #FFFFFF;
+  border-radius: 15px ;
   border: 1px solid #c4ddf3;
   box-shadow: rgba(228, 238, 250, 1) 0px 10px 20px, rgba(228, 238, 250, 1) 0px 6px 6px;
 
@@ -83,50 +117,19 @@ border-radius: 50px;
   display: none;
 }
 
+.custom-switch .p-inputswitch {
+    width: 30px; /* Define a largura desejada */
+    height: 15px; /* Define a altura desejada */
+  }
+  
+  .custom-switch .p-inputswitch-slider {
+    width: 15px; /* Ajusta o tamanho do slider */
+    height: 15px;
+  }
+
 .web{
   display: block;
 }
-
-
-.menuCog{
-  background: #FFFFFF;
-  cursor: pointer;
-}
-
-.menuCog:hover{
-  background: #f2f7fc;
-}
-
-.menuCogAtivo{
-  background: #f2f7fc;
-}
-
-:host::ng-deep {
- 
-  .p-selectbutton .p-button.p-highlight {
-    /* background: #EDEDF2;  */
-    border: none;
-    color: #2070b4;  /* Cor do texto em destaque */
-  }
-
-  .p-selectbutton .p-button.p-highlight:hover {
-    /* background: #DCE8ED; */
-    color: #2070b4;  /* Cor do texto ao passar o mouse */
-  }
-
-  /* Botão normal */
-  .p-selectbutton .p-button {
-    /* background: #EDEDF2; */
-    border: none;
-    color: #4face1;  /* Cor do texto normal */
-  }
-
-  .p-selectbutton .p-button:hover {
-    /* background: #DCE8ED; */
-    color: #2070b4;  /* Cor do texto ao passar o mouse em botão normal */
-  }
-}
-
 @media only screen and (max-width: 767px) {
 
   .web{
