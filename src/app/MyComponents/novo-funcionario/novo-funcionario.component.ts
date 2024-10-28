@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MenuItem, MessageService } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { Funcionario } from 'src/app/admin/Funcionarios';
+import { Cargo } from 'src/app/class/Cargo';
+import { Endereco } from 'src/app/class/endereco';
 import { AssyncServiceService } from 'src/app/services/assync-service.service';
 import { CargoService } from 'src/app/services/cargo.service';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -45,11 +48,19 @@ export class NovoFuncionarioComponent  implements OnInit{
 
   active: number = 3;
 
+  anexo: boolean = false;
+
+  novoFunc: Funcionario;
+
   cdtPaciente: boolean = false;
   cdtDentista: boolean = false;
   cdtConsulta: boolean = false;
   cdtEstoque: boolean = false;
   cdtConfig: boolean = false;
+
+  validacaoLogin: any;
+  hide = true;
+
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ClienteService,
     private assync: AssyncServiceService, private orgService: OrganizacaoService, private cargoService: CargoService){
@@ -89,43 +100,18 @@ export class NovoFuncionarioComponent  implements OnInit{
   criaFormulario() {
     this.formInform = this.formBuilder.group({
       fotoPerfil: [],
-      nome: ['Guilherme',[Validators.required]],
+      nome: ['Guilherme',[Validators.required]],      
       dataNascimento: ['05/10/2024', Validators.required],
       telefone: ['(32) 99822-0082', Validators.required],
       email: ['guilhermeoliveira1998@gmail.com', Validators.required],
       cpf: ['12098133600', Validators.required],
       rg: ['MG17979660', Validators.required],
-      uf: ['MG', Validators.required],
+      RgUF: ['MG', Validators.required],
       orgEmissor: ['SSP', Validators.required],
       pisPasep: ['Sei la', Validators.required],
       ctpsN: ['tbm nao sei', Validators.required],
       ctpsS: ['Nao sei', Validators.required],
       ctpsUF: ['MG', Validators.required],
-
-      // cidade: ['Juiz de Fora', Validators.required],
-      // bairro: ['Grama', Validators.required],
-      // logradouro: ['Diomar Monteiro', Validators.required],
-      // numero: ['1509', Validators.required],
-      // cep: ['36048-310', Validators.required],
-      // complemento: ['Casa', Validators.required],
-      // referencia: [],
-
-      // empresa: [this.org.nome, Validators.required],
-      // empresaCNPJ: [this.org.cnpj, Validators.required],
-      // cargo: [null, Validators.required],
-      // dataAdmissao: [new Date(), Validators.required],
-      // registroN: ['325478-96', Validators.required],
-      // remuneracao: [null, Validators.required],
-      // valorPremiacao: [null],
-      // valeTrans: [false],
-      // valeAR: [false],
-      // planoSaude: [false],
-      // plr: [false],
-      // premiacao: [false],
-      // gymPass: [false],
-
-      // nivelAcesso: ['',Validators.required]
-
     })
 
     this.formEndereco = this.formBuilder.group({
@@ -137,21 +123,6 @@ export class NovoFuncionarioComponent  implements OnInit{
       complemento: ['Casa', Validators.required],
       referencia: [],
 
-      empresa: [this.org.nome, Validators.required],
-      empresaCNPJ: [this.org.cnpj, Validators.required],
-      cargo: [null, Validators.required],
-      dataAdmissao: [new Date(), Validators.required],
-      registroN: ['325478-96', Validators.required],
-      remuneracao: [null, Validators.required],
-      valorPremiacao: [null],
-      valeTrans: [false],
-      valeAR: [false],
-      planoSaude: [false],
-      plr: [false],
-      premiacao: [false],
-      gymPass: [false],
-
-      nivelAcesso: ['',Validators.required]
     })
 
     this.formContrato = this.formBuilder.group({
@@ -171,9 +142,88 @@ export class NovoFuncionarioComponent  implements OnInit{
     })
 
     this.formConfig = this.formBuilder.group({
+      login: ['gui',[Validators.required]],
+      senha: ['123',[Validators.required]],
       perfilAcesso: [null,Validators.required],
       nivelAcesso: [null,Validators.required]
     })
+  }
+
+  onSubmit(){
+    console.log(this.formInform)
+    if(this.formInform.valid && this.formEndereco.valid && this.formContrato.valid && this.formConfig .valid){
+      this.montaFuncionario();
+    }else{
+      if(!this.formInform.valid){
+        this.active = 0;        
+      }
+      if(!this.formEndereco.valid){
+        this.active = 1;
+        console.log(this.formEndereco)
+      }
+      if(!this.formContrato.valid){
+        this.active = 2;
+      }
+      if(!this.formConfig.valid){
+        this.active = 3;
+      }
+      this.messageService.add({severity: 'error', summary: 'Erro!', detail: 'Houve um erro, verifique os campos obrigatórios!'});
+    }
+  }
+
+  buscaLogin(): void {
+    this.loading = true;
+    let login = this.formConfig.get('login')?.value;
+    if (login && login.length >= 3) {
+      this.orgService.buscaLogin(login.value).then((response) => {
+        if(response?.status === 200){
+          this.validacaoLogin = response.data;
+          this.loading = false;
+          if (!response.data) {
+            this.loading = false;
+            login?.setErrors({ loginEmUso: true });
+          }
+        }
+      });
+    } else {
+      this.validacaoLogin = false;
+      this.loading = false;
+    }
+  }
+
+  montaFuncionario(){
+    this.novoFunc = new Funcionario();
+    this.novoFunc.nome = this.formInform.get('nome')?.value;
+    this.novoFunc.login = this.formConfig.get('login')?.value;
+    this.novoFunc.senha = this.formConfig.get('senha')?.value;
+    this.novoFunc.dataNascimento = new Date(this.formInform.get('dataNascimento')?.value).toISOString();
+    this.novoFunc.telefone = this.formInform.get('telefone')?.value;
+    this.novoFunc.email = this.formInform.get('email')?.value;
+    this.novoFunc.cpf = this.formInform.get('cpf')?.value;
+    this.novoFunc.RG = this.formInform.get('rg')?.value;
+    this.novoFunc.RgUf = this.formInform.get('RgUF')?.value;
+    this.novoFunc.OrgEmissor = this.formInform.get('orgEmissor')?.value;
+    this.novoFunc.PisPasep = this.formInform.get('pisPasep')?.value;
+    this.novoFunc.CTPSN = this.formInform.get('ctpsN')?.value;
+    this.novoFunc.CTPSSerie = this.formInform.get('ctpsS')?.value;
+    this.novoFunc.CTPSUF = this.formInform.get('ctpsUF')?.value;
+
+    this.novoFunc.RegistroN = this.formContrato.get('registroN')?.value;
+
+    //this.novoFunc.IdCargo = this.formContrato.get('cargo')?.value.id;
+    this.novoFunc.Cargo = new Cargo();
+    this.novoFunc.Cargo = this.formContrato.get('cargo')?.value;
+    this.novoFunc.Cargo.ValorPremiacao = this.formContrato.get('valorPremiacao')?.value;
+
+
+    this.novoFunc.nivelAcesso = this.formConfig.get('nivelAcesso')?.value.value;
+    this.novoFunc.role = this.formConfig.get('perfilAcesso')?.value.label;
+    this.novoFunc.Endereco = new Endereco();
+    this.novoFunc.Endereco = this.formEndereco.value;
+    
+
+    console.log(JSON.stringify(this.novoFunc));
+
   }
 
   abrirExplorerFoto(){
@@ -279,10 +329,6 @@ export class NovoFuncionarioComponent  implements OnInit{
     this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
   }
 
-  salvarFuncionario(){
-
-  }
-
   validaFormulario(form: any){
 
     if(form === 1){
@@ -347,5 +393,7 @@ export class NovoFuncionarioComponent  implements OnInit{
       this.formContrato.get('gymPass')?.setValue(null)
     }
   }
+
+
 
 }

@@ -98,7 +98,6 @@
 
 
                     </div>
-
                   </div>
 
               </div>
@@ -134,8 +133,8 @@
                   <div class="field col-2">
                     <span class="p-float-label p-input-icon-left width">
                       <i class="pi pi-id-card azul"></i>
-                      <input pInputText id="uf" formControlName="uf" required class="width" [ngClass]="{'ng-invalid ng-dirty': formInform.controls['uf'].invalid && formInform.controls['uf'].touched}" />
-                      <label for="uf" class="azul">UF <span class="p-error ">*</span></label>
+                      <input pInputText id="RgUf" formControlName="RgUF" required class="width" [ngClass]="{'ng-invalid ng-dirty': formInform.controls['RgUF'].invalid && formInform.controls['RgUF'].touched}" />
+                      <label for="RgUf" class="azul">UF <span class="p-error ">*</span></label>
                     </span>
                     <!-- <small *ngIf="formInform.controls['telefone'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small> -->
                   </div>
@@ -185,8 +184,8 @@
                 </div>
               </div>
             </form>
-            <div class="row flex justify-content-center">
-              <small class="p-error "><br>* Campos obrigatórios</small>
+            <div class="row flex justify-content-between">              
+              <small class="p-error "><br>* Campos obrigatórios</small>              
             </div>
           </div>
           <div class="flex pt-4 justify-content-end">
@@ -203,7 +202,7 @@
               class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
               [ngClass]="{
                 'border-green-600 bg-green-50': (active > 1) || (this.formEndereco.valid) ,
-                'border-blue-100 bg-blue-50 opacity-40': active < 1  ,
+                'border-blue-100 bg-blue-50 opacity-40': active < 1 ,
                 'border-blue-500 bg-blue-50': active == 1
               }"
             >
@@ -213,7 +212,7 @@
           <div class="flex justify-content-center align-items-center mt-1">
             <span class="font-semibold"
               [ngClass]="{
-                'text-green-600': active > 1 || (this.formEndereco.valid)  ,
+                'text-green-600': (active > 1) || (this.formEndereco.valid)  ,
                 'text-blue-500 opacity-40': active < 1 ,
                 'text-blue-500': active == 1
               }"
@@ -314,7 +313,7 @@
             <span
               class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
               [ngClass]="{
-                'border-green-600 bg-green-50': active > 2 || (this.formContrato.valid) ,
+                'border-green-600 bg-green-50': (active > 2) || (this.formContrato.valid) ,
                 'border-blue-100 bg-blue-50 opacity-40': active < 2,
                 'border-blue-500 bg-blue-50': active == 2
               }"
@@ -325,7 +324,7 @@
           <div class="flex justify-content-center align-items-center mt-1">
             <span class="font-semibold"
               [ngClass]="{
-                'text-green-600': active > 2 || (this.formContrato.valid),
+                'text-green-600': (active > 2) || (this.formContrato.valid),
                 'text-blue-500 opacity-40': active < 2,
                 'text-blue-500': active == 2
               }"
@@ -493,18 +492,18 @@
             <span
               class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
               [ngClass]="{
-                'border-green-600 bg-green-50': active > 3 ,
+                'border-green-600 bg-green-50': (active > 3) || (this.formConfig.valid) ,
                 'border-blue-100 bg-blue-50 opacity-40': active < 3,
                 'border-blue-500 bg-blue-50': active == 3
               }"
             >
-              <i [ngClass]="active > 3? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-cog flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+              <i [ngClass]="(active > 3) || (this.formConfig.valid)? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-cog flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
             </span>
           </div>
           <div class="flex justify-content-center align-items-center mt-1">
             <span class="font-semibold"
               [ngClass]="{
-                'text-green-600': active > 3 ,
+                'text-green-600': (active > 3) || (this.formConfig.valid) ,
                 'text-blue-500 opacity-40': active < 3,
                 'text-blue-500': active == 3
               }"
@@ -516,6 +515,28 @@
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
         <div class="new py-4 mt-3" >
           <form [formGroup]="formConfig">
+            <div class="row lg:flex lg:justify-content-center ">
+              <div class="field md:col-12 lg:col-3">
+                <span class="p-float-label p-input-icon-right width">
+                 
+                  <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
+                  <i [ngClass]="validacaoLogin? 'pi pi-check azul': ''" style="font-size: 1.3rem; color: #136C34"></i>
+                  <input pInputText id="login" formControlName="login" required (input)="buscaLogin()" minlength="3" [style]="validacaoLogin? 'border-color:  #136C34': ''" class="width" [ngClass]="{'ng-invalid ng-dirty': formConfig.controls['login'].invalid && formConfig.controls['login'].touched}"/>
+                  <label for="login " class="azul">Login</label>
+                </span>
+                <small *ngIf="formConfig.controls['login'].errors?.['loginEmUso']" class="p-error"><br>Login já está em uso.</small>
+                <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
+              </div>
+
+              <div class="field  md:col-12 lg:col-3">
+                <p-floatLabel>    
+                  <p-password formControlName="senha" [toggleMask]="true"   [ngClass]="{'ng-invalid ng-dirty': formConfig.controls['senha'].invalid && formConfig.controls['senha'].touched}"/>
+                  <label for="password">Senha</label>
+                </p-floatLabel>
+
+              </div>
+              
+            </div>
             <div class="row lg:flex lg:justify-content-evenly " >
 
               <div class="field col-4">
@@ -732,7 +753,7 @@
           </div>
           <div class="flex pt-4 justify-content-between">
               <p-button (onClick)="prevCallback.emit()" [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
-              <p-button (onClick)="salvarFuncionario()" [rounded]="true" label="Salvar" severity="success" icon="pi pi-save" iconPos="right" />
+              <p-button (onClick)="onSubmit()" [rounded]="true" label="Salvar" severity="success" icon="pi pi-save" iconPos="right" />
             </div>
         </ng-template>
     </p-stepperPanel>

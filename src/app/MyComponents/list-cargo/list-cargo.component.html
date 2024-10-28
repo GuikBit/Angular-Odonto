@@ -109,10 +109,9 @@
             <div class="flex justify-content-between align-items-center">
               <div class="flex justify-content-between align-items-center">
                 Status
-                <div class="flex align-items-center gap-2" *ngIf="selectedStatus">
+                <div class="flex align-items-center ml-2" *ngIf="selectedStatus">
                   <p-tag
-                  [severity]="selectedStatus?.status ? 'success' : 'danger'"
-                  
+                  [severity]="selectedStatus?.status ? 'success' : 'danger'"                  
                   [rounded]="true"
                   [style]="{'font-size': '12px', 'font-weight': '400', 'padding-left': '10px'}"
                   [icon]="selectedStatus.status ? 'pi pi-verified' : 'pi pi-ban'"

@@ -40,7 +40,7 @@ export class AdminConfiguracoesComponent implements OnInit {
 
 
   items: MenuItem[];
-  activeIndex: number = 2;
+  activeIndex: number = 1;
 
   filtro: number =  1 ;
 

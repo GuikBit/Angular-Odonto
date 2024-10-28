@@ -11,4 +11,5 @@ export class User {
   telefone: string = '';
   ativo: boolean;
   role: string;
+  nivelAcesso: number;
 }

@@ -19,13 +19,29 @@ export class ListCargoComponent implements OnInit{
     { label: 'inativo', value: 'Inativo', status: false }
   ];
 
+  userLogado: any;
+  org: any;
 
-  constructor(private messageService: MessageService, private cargoService: CargoService){}
+
+  constructor(private messageService: MessageService, private cargoService: CargoService){
+    if ((this.userLogado === undefined || this.userLogado === null) && (this.org === null || this.org === undefined)) {
+
+      const userStorage = localStorage.getItem('userLogado');
+      const orgStorage = localStorage.getItem('organizacao');
+
+      if (userStorage && orgStorage) {
+        this.userLogado = JSON.parse(userStorage);
+        this.org = JSON.parse(orgStorage);
+      }
+    }
+
+    console.log(this.userLogado)
+  }
 
 
   ngOnInit(): void {
 
-    this.cargoService.getCargos(1).then((response)=>{
+    this.cargoService.getCargos(this.userLogado.organizacaoId).then((response)=>{
       if(response?.status === 200){
         this.listaCargo = response.data;
       }

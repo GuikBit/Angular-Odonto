@@ -25,7 +25,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DividerModule } from 'primeng/divider';
 import { ListFuncionarioComponent } from '../list-funcionario/list-funcionario.component';
 import { TagModule } from 'primeng/tag';
-
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -58,6 +58,7 @@ import { TagModule } from 'primeng/tag';
     DropdownModule,
     InputTextareaModule,
     TagModule,
+    PasswordModule,
   ],
   exports: [
     NovoFuncionarioComponent,

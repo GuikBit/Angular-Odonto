@@ -48,4 +48,40 @@ export class OrganizacaoService {
       return null
     }
   }
+
+  async buscaLogin(login: any) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+
+    try{
+      const response = await instance.get(`${this.apiURL}/funcionario/login?login=${login}`);
+
+      return response;
+
+    }catch(error){
+      return null;
+    }
+  }
+
+
+  async postOrgFuncionario( func: any ) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+
+    try{
+
+      const response = await instance.post(`${this.apiURL}/funcionario`);
+
+      return response;
+
+    }catch(error){
+      return null;
+    }
+  }
 }
