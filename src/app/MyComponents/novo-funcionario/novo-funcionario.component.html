@@ -184,8 +184,8 @@
                 </div>
               </div>
             </form>
-            <div class="row flex justify-content-between">              
-              <small class="p-error "><br>* Campos obrigatórios</small>              
+            <div class="row flex justify-content-between">
+              <small class="p-error "><br>* Campos obrigatórios</small>
             </div>
           </div>
           <div class="flex pt-4 justify-content-end">
@@ -518,7 +518,7 @@
             <div class="row lg:flex lg:justify-content-center ">
               <div class="field md:col-12 lg:col-3">
                 <span class="p-float-label p-input-icon-right width">
-                 
+
                   <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
                   <i [ngClass]="validacaoLogin? 'pi pi-check azul': ''" style="font-size: 1.3rem; color: #136C34"></i>
                   <input pInputText id="login" formControlName="login" required (input)="buscaLogin()" minlength="3" [style]="validacaoLogin? 'border-color:  #136C34': ''" class="width" [ngClass]="{'ng-invalid ng-dirty': formConfig.controls['login'].invalid && formConfig.controls['login'].touched}"/>
@@ -529,20 +529,20 @@
               </div>
 
               <div class="field  md:col-12 lg:col-3">
-                <p-floatLabel>    
+                <p-floatLabel>
                   <p-password formControlName="senha" [toggleMask]="true"   [ngClass]="{'ng-invalid ng-dirty': formConfig.controls['senha'].invalid && formConfig.controls['senha'].touched}"/>
                   <label for="password">Senha</label>
                 </p-floatLabel>
 
               </div>
-              
+
             </div>
             <div class="row lg:flex lg:justify-content-evenly " >
 
               <div class="field col-4">
                 <span class="p-float-label width">
                   <p-dropdown
-                    [options]="[{ label: 'ADM', value:1 }, {label: 'Supervisor', value:2},{label:'Dentista', value: 3},{label: 'Faturamento', value:4}, {label: 'Financeiro', value:5},{label: 'Recepcao', value:6}, {label: 'Somente Registro', value: 7}]"
+                    [options]="[{ label: 'ADM', value: 1 }, {label: 'SUPERVISOR', value:2},{label:'DENTISTA', value: 3},{label: 'FATURAMENTO', value:4}, {label: 'FINANCEIRO', value:5},{label: 'RECEPCAO', value:6}, {label: 'REGISTRO', value: 7}]"
                     formControlName="perfilAcesso"
                     [showClear]="true"
                     appendTo="body"
@@ -578,14 +578,14 @@
             </div>
           </form>
           <div class="row lg:flex lg:justify-content-center" >
-            
+
             <div class="col-5 p-3 text-sm">
               <div class="row " *ngIf="formConfig.get('perfilAcesso')?.value">
                 <span>Com base no perfil que você selecionou, seu usuário terá as acesso{{formConfig.get('perfilAcesso')?.value?.value === 1 ? ' total ao sistema, isso inclui: ':' a:'}}</span>
-                
+
               </div>
 
-              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 1">               
+              <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 1">
                 <ul class="list-disc line-height-3">
                   <li>Dados de paciente, dentista e funcionarios;</li>
                   <li>Relatórios, constrole de estoque e controle de ponto;</li>
@@ -598,9 +598,9 @@
               <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 5">Recepção</div>
               <div *ngIf="formConfig.get('perfilAcesso')?.value?.value === 6">Sem Registro</div>
             </div>
-            
+
             <p-divider layout="vertical" />
-            
+
             <div class="col-5 p-3 text-sm">
               <div class="row mb-2" *ngIf="formConfig.get('nivelAcesso')?.value">
                 <span>Com base no nível que você selecionou, seu perfil terá as seguintes ações disponíveis: </span>

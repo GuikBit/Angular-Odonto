@@ -10,7 +10,7 @@
         [rows]="10"
         [paginator]="true"
         [responsive]="true"
-        [globalFilterFields]="['nome', 'departamento', 'nivelHierarquico', 'dataCadastro', 'status']"
+        [globalFilterFields]="['nome', 'cargo', 'telefone', 'dataAdmissao', 'status']"
         [tableStyle]="{ 'min-width': '75rem' }"
         [rowHover]="true"
         [showCurrentPageReport]="true"
@@ -19,6 +19,7 @@
       >
         <ng-template pTemplate="header">
           <tr>
+            <th></th>
             <th pSortableColumn="nome">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-between align-items-center">
@@ -40,20 +41,20 @@
                 </div>
               </div>
             </th>
-            <th pSortableColumn="departamento">
+            <th pSortableColumn="cargo">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-center align-items-center">
-                  Departamento
+                  Função
                 </div>
                 <div class="flex justify-content-center align-items-center">
                   <p-sortIcon
-                    field="departamento"
+                    field="cargo"
                     pTooltip="Ordenar"
                     tooltipPosition="top"
                   ></p-sortIcon>
                   <p-columnFilter
                   type="text"
-                  field="departamento"
+                  field="cargo"
                   display="menu"
                   pTooltip="Filtrar"
                   tooltipPosition="top"
@@ -61,20 +62,20 @@
                 </div>
               </div>
             </th>
-            <th pSortableColumn="nivelHierarquico">
+            <th pSortableColumn="telefone">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-between align-items-center">
-                  Senioridade
+                  Telefone
                 </div>
                 <div class="flex justify-content-between align-items-center">
                   <p-sortIcon
-                    field="nivelHierarquico"
+                    field="telefone"
                     pTooltip="Ordenar"
                     tooltipPosition="top"
                   ></p-sortIcon>
                   <p-columnFilter
                   type="text"
-                  field="nivelHierarquico"
+                  field="telefone"
                   display="menu"
                   pTooltip="Filtrar"
                   tooltipPosition="top"
@@ -82,21 +83,41 @@
                 </div>
               </div>
             </th>
-  
-            <th pSortableColumn="dataCadastro">
+            <th pSortableColumn="role">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-between align-items-center">
-                  Data Cadastro
+                  Perfil Acesso
                 </div>
                 <div class="flex justify-content-between align-items-center">
                   <p-sortIcon
-                    field="dataCadastro"
+                    field="role"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                  ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="role"
+                    display="menu"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="dataAdmissao">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  Data Admissão
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="dataAdmissao"
                     pTooltip="Ordenar"
                     tooltipPosition="top"
                   ></p-sortIcon>
                   <p-columnFilter
                   type="date"
-                  field="dataCadastro"
+                  field="dataAdmissao"
                   dateFormat="dd/MM/yyyy"
                   display="menu"
                   pTooltip="Filtrar"
@@ -112,7 +133,7 @@
                   <div class="flex align-items-center gap-2" *ngIf="selectedStatus">
                     <p-tag
                     [severity]="selectedStatus?.status ? 'success' : 'danger'"
-                    
+
                     [rounded]="true"
                     [style]="{'font-size': '12px', 'font-weight': '400', 'padding-left': '10px'}"
                     [icon]="selectedStatus.status ? 'pi pi-verified' : 'pi pi-ban'"
@@ -126,7 +147,7 @@
                     pTooltip="Ordenar"
                     tooltipPosition="top"
                   ></p-sortIcon>
-                  
+
                     <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                         <p-dropdown [(ngModel)]="selectedStatus" [options]="statuses" placeholder="Status">
@@ -158,26 +179,35 @@
                 </div>
               </div>
             </th>
-            <th ></th>
-  
+            <th></th>
+
         </ng-template>
-  
-        <ng-template pTemplate="body" let-cargo>
+
+        <ng-template pTemplate="body" let-func>
           <tr>
-            <td >{{ cargo?.nome }}</td>
-            <td>{{ cargo?.departamento }}</td>
-            <td>{{ cargo?.nivelHierarquico }}</td>
-            <td >{{ cargo?.dataCadastro | date: "dd/MM/yyyy"}}</td>
+            <td [width]="60">
+              <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                styleClass=""
+                size="large"
+                shape="circle"
+              />
+            </td>
+            <td >{{ func?.nome }}</td>
+            <td>{{ func?.cargo.nome }}</td>
+            <td>{{ func?.telefone }}</td>
+            <td >{{ func?.role }} - {{ func?.nivelAcesso }}</td>
+            <td >{{ func?.dataAdmissao | date: "dd/MM/yyyy"}}</td>
             <td>
               <p-tag
-                [severity]="cargo?.status? 'success':'danger'"
-                [value]="cargo?.status? ' Ativo ':' Inativo '"
+                [severity]="func?.ativo? 'success':'danger'"
+                [value]="func?.ativo? ' Ativo ':' Inativo '"
                 [rounded]="true"
                 [style]="{'font-size': '12px', 'font-weight': '400'}"
-                [icon]="cargo.status? 'pi pi-verified' : 'pi pi-ban'"
+                [icon]="func.ativo? 'pi pi-verified' : 'pi pi-ban'"
               >
               </p-tag>
-  
+
             </td>
             <td>
               <div
@@ -189,8 +219,8 @@
                     severity="info"
                     pTooltip="Informações"
                     tooltipPosition="top"
-                    (click)="info(cargo.id)"
-  
+                    (click)="info(func.id)"
+
                   ></p-button>
                   <!-- <p-button
                     icon="pi pi-pw pi-info-circle"
@@ -219,10 +249,10 @@
                     severity="danger"
                     pTooltip="Inativar"
                     tooltipPosition="top"
-                    (click)="info(cargo.id)"
-                    [disabled]="!cargo.status"
+                    (click)="info(func.id)"
+                    [disabled]="!func.status"
                   ></p-button>
-  
+
               </div>
             </td>
           </tr>

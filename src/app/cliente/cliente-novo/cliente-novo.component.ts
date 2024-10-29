@@ -103,7 +103,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
       telefone: ['', Validators.required],
       fotoPerfil: [],
       organizacaoId: [this.org.id, Validators.required],
-      idOrganizacao: [this.org],
+      //idOrganizacao: [this.org],
 
       endereco: this.formBuilder.group({
         cidade: ['', Validators.required],

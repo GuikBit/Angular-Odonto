@@ -76,7 +76,25 @@ export class OrganizacaoService {
 
     try{
 
-      const response = await instance.post(`${this.apiURL}/funcionario`);
+      const response = await instance.post(`${this.apiURL}/funcionario`, func);
+
+      return response;
+
+    }catch(error){
+      return null;
+    }
+  }
+
+  async getOrgFuncionarios(orgId: any ) {
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+    });
+
+    try{
+
+      const response = await instance.get(`/funcionarios?idOrg=${orgId}`);
 
       return response;
 

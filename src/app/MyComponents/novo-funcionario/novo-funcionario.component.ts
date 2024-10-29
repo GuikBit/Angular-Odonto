@@ -100,7 +100,7 @@ export class NovoFuncionarioComponent  implements OnInit{
   criaFormulario() {
     this.formInform = this.formBuilder.group({
       fotoPerfil: [],
-      nome: ['Guilherme',[Validators.required]],      
+      nome: ['Guilherme',[Validators.required]],
       dataNascimento: ['05/10/2024', Validators.required],
       telefone: ['(32) 99822-0082', Validators.required],
       email: ['guilhermeoliveira1998@gmail.com', Validators.required],
@@ -153,9 +153,17 @@ export class NovoFuncionarioComponent  implements OnInit{
     console.log(this.formInform)
     if(this.formInform.valid && this.formEndereco.valid && this.formContrato.valid && this.formConfig .valid){
       this.montaFuncionario();
+
+      this.orgService.postOrgFuncionario(JSON.stringify(this.novoFunc)).then((response)=>{
+        if(response?.status === 200 || response?.status === 201){
+
+        }
+      }).catch((error)=>{
+
+      })
     }else{
       if(!this.formInform.valid){
-        this.active = 0;        
+        this.active = 0;
       }
       if(!this.formEndereco.valid){
         this.active = 1;
@@ -214,13 +222,13 @@ export class NovoFuncionarioComponent  implements OnInit{
     this.novoFunc.Cargo = new Cargo();
     this.novoFunc.Cargo = this.formContrato.get('cargo')?.value;
     this.novoFunc.Cargo.ValorPremiacao = this.formContrato.get('valorPremiacao')?.value;
-
+    this.novoFunc.DataAdmissao = this.formContrato.get('dataAdmissao')?.value;
 
     this.novoFunc.nivelAcesso = this.formConfig.get('nivelAcesso')?.value.value;
     this.novoFunc.role = this.formConfig.get('perfilAcesso')?.value.label;
     this.novoFunc.Endereco = new Endereco();
     this.novoFunc.Endereco = this.formEndereco.value;
-    
+
 
     console.log(JSON.stringify(this.novoFunc));
 
