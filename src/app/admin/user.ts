@@ -12,4 +12,5 @@ export class User {
   ativo: boolean;
   role: string;
   nivelAcesso: number;
+  OrganizacaoId: number;
 }

@@ -75,7 +75,7 @@ export class DentistaService {
       'Content-Type': 'application/json' },
     });
     try{
-      const response = await instance.post( dentista )
+      const response = await instance.post(`${this.apiURL}`, dentista )
       return response;
 
     }catch(error){

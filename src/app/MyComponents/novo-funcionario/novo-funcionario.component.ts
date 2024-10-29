@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -13,6 +13,7 @@ import { OrganizacaoService } from 'src/app/services/organizacao.service';
 import { Formatters } from 'src/app/utils/formatters';
 
 
+
 interface UploadEvent {
   originalEvent: Event;
   files: File[];
@@ -25,9 +26,12 @@ interface UploadEvent {
 })
 export class NovoFuncionarioComponent  implements OnInit{
 
+  @Output() closeModal = new EventEmitter<boolean>();
+
   @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild('numeroInput') numeroInput!: ElementRef;
 
+ 
   userLogado: any;
   org: any;
 
@@ -112,6 +116,8 @@ export class NovoFuncionarioComponent  implements OnInit{
       ctpsN: ['tbm nao sei', Validators.required],
       ctpsS: ['Nao sei', Validators.required],
       ctpsUF: ['MG', Validators.required],
+      OrganizacaoId:[this.org.id],
+      //IdOrganizacao:[this.org]
     })
 
     this.formEndereco = this.formBuilder.group({
@@ -126,8 +132,8 @@ export class NovoFuncionarioComponent  implements OnInit{
     })
 
     this.formContrato = this.formBuilder.group({
-      empresa: [this.org.nome, Validators.required],
-      empresaCNPJ: [this.org.cnpj, Validators.required],
+      empresa: [{value: this.org.nome, disabled: true}, Validators.required],
+      empresaCNPJ: [{value: this.org.cnpj, disabled: true}, Validators.required],
       cargo: [null, Validators.required],
       dataAdmissao: [new Date(), Validators.required],
       registroN: ['325478-96', Validators.required],
@@ -156,10 +162,12 @@ export class NovoFuncionarioComponent  implements OnInit{
 
       this.orgService.postOrgFuncionario(JSON.stringify(this.novoFunc)).then((response)=>{
         if(response?.status === 200 || response?.status === 201){
-
+          
+          //this.messageService.add({severity: 'success', summary: 'Sucesso!', detail: 'Novo funcionário cadastrado com sucesso!'});
+          this.closeModal.emit(false);
         }
       }).catch((error)=>{
-
+        this.messageService.add({severity: 'error', summary: 'Aviso', detail: 'Houve um erro ao salvar o funcionário.'});
       })
     }else{
       if(!this.formInform.valid){
@@ -215,10 +223,11 @@ export class NovoFuncionarioComponent  implements OnInit{
     this.novoFunc.CTPSN = this.formInform.get('ctpsN')?.value;
     this.novoFunc.CTPSSerie = this.formInform.get('ctpsS')?.value;
     this.novoFunc.CTPSUF = this.formInform.get('ctpsUF')?.value;
+    this.novoFunc.OrganizacaoId = this.formInform.get('OrganizacaoId')?.value;
 
     this.novoFunc.RegistroN = this.formContrato.get('registroN')?.value;
 
-    //this.novoFunc.IdCargo = this.formContrato.get('cargo')?.value.id;
+    this.novoFunc.IdCargo = this.formContrato.get('cargo')?.value.id;
     this.novoFunc.Cargo = new Cargo();
     this.novoFunc.Cargo = this.formContrato.get('cargo')?.value;
     this.novoFunc.Cargo.ValorPremiacao = this.formContrato.get('valorPremiacao')?.value;

@@ -18,140 +18,154 @@
 
   <div class="lg:flex lg:mt-3" >
     <div class="col-12 bg-white border-round-2xl">
-      <p-tabView class="md:p-auto" [(activeIndex)]="activeIndex">
+
+      <p-tabView class="md:p-auto"  [(activeIndex)]="activeIndex">
         <p-tabPanel header="Informações da Empresa" >
           <ng-template pTemplate="header" >
             <i class="pi pi-fw pi-building"></i>
             <span class="web">&nbsp;Informações</span>
           </ng-template>
 
-            <div class="flex flex-row-reverse flex-wrap">
-              <div>teste 1</div>
-              <div>teste 2</div>
-            </div>
-
-          <div class="flex flex-column gap-2 mx-auto my-5 " >
-
-            <div class="row flex justify-content-center">
-              <div class="field md:col-12 lg:col-4">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="nome" [value]="org.nome" class="width" />
-                  <label for="nome" class="azul">Nome da empresa</label>
-                </span>
-              </div>
-              <div class="field md:col-12 lg:col-3">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="cnpj" [value]="org.cnpj" class="width" />
-                  <label for="cnpj" class="azul">CNPJ</label>
-                </span>
-              </div>
-              <div class="field md:col-12 lg:col-3">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="tell1" [value]="org.telefone1" class="width" />
-                  <label for="tell1" class="azul">Telefone Fixo</label>
-                </span>
-              </div>
-            </div>
-
-            <div class="row flex justify-content-center">
-              <div class="field md:col-12 lg:col-3">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="whatsapp" [value]="org.whastapp" class="width" />
-                  <label for="whatsapp" class="azul">Whatsapp</label>
-                </span>
-              </div>
-              <div class="field md:col-12 lg:col-3">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="email" [value]="org.email" class="width" />
-                  <label for="email" class="azul">Email</label>
-                </span>
-              </div>
-            </div>
+          <div class="flex flex-row-reverse flex-wrap">
+            <div>teste 1</div>
+            <div>teste 2</div>
           </div>
 
-          <div class="flex flex-column mt-3">
+          <!-- <form [formGroup]="formulario"> -->
+            <div class="flex flex-column gap-2 mx-auto my-5 " >
 
-            <div class="row lg:flex lg:justify-content-center" >
-              <div class="field md:col-12 lg:col-3">
-                <span class="p-float-label p-input-icon-left p-input-icon-right width">
-                  <i class="pi pi-map-marker azul"></i>
-                  <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
-                  <input pInputText id="cep"  required (blur)="buscaCEP()" minlength="8" maxlength="11" class="width" />
-                  <label for="cep" class="azul">CEP</label>
-                </span>
-
+              <div class="row flex justify-content-center">
+                <div class="field md:col-12 lg:col-4">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="nome" -->
+                    <input pInputText id="nome"  class="width" />
+                    <label for="nome" class="azul">Nome da empresa</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="cnpj"  -->
+                    <input pInputText id="cnpj" class="width" />
+                    <label for="cnpj" class="azul">CNPJ</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="telefone" -->
+                    <input pInputText id="tell1"  class="width" />
+                    <label for="tell1" class="azul">Telefone Fixo</label>
+                  </span>
+                </div>
               </div>
 
-              <div class="field md:col-12 lg:col-4">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map-marker azul"></i>
-                  <input pInputText id="cidade"  required class="width"  />
-                  <label for="cidade" class="azul">Cidade</label>
-                </span>
-
-              </div>
-
-              <div class="field md:col-12 lg:col-4">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map-marker azul"></i>
-                  <input pInputText id="bairro" required class="width"/>
-                  <label for="bairro" class="azul">Bairro</label>
-                </span>
-
-              </div>
-            </div>
-
-            <div class="row lg:flex lg:justify-content-center">
-              <div class="field md:col-12 lg:col-5">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="logradouro"  required class="width" />
-                  <label for="logradouro" class="azul">Logradouro</label>
-                </span>
-
-              </div>
-
-              <div class="field md:col-12 lg:col-2">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="numero"  required class="width" />
-                  <label for="numero" class="azul">Número</label>
-                </span>
-
-              </div>
-              <div class="field md:col-12 lg:col-4">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="complemento"  required class="width" />
-                  <label for="complemento" class="azul">Complemento</label>
-                </span>
-
-              </div>
-
-            </div>
-
-            <div class="row lg:flex lg:justify-content-center">
-
-              <div class="field md:col-12 lg:col-4">
-                <span class="p-float-label p-input-icon-left width">
-                  <i class="pi pi-map azul"></i>
-                  <input pInputText id="referencia"   class="width" />
-                  <label for="referencia" class="azul">Referencia</label>
-                </span>
+              <div class="row flex justify-content-center">
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="whatsapp" -->
+                    <input pInputText id="whatsapp"  class="width" />
+                    <label for="whatsapp" class="azul">Whatsapp</label>
+                  </span>
+                </div>
+                <div class="field md:col-12 lg:col-5">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="email" -->
+                    <input pInputText id="email"  class="width" />
+                    <label for="email" class="azul">Email</label>
+                  </span>
+                </div>
               </div>
             </div>
 
-          </div>
+            <div class="flex flex-column mt-3">
 
+              <div class="row lg:flex lg:justify-content-center" >
+                <div class="field md:col-12 lg:col-3">
+                  <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                    <i class="pi pi-map-marker azul"></i>
+                    <!-- formControlName="cep" -->
+                    <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
+                    <input pInputText id="cep"  required (blur)="buscaCEP()" minlength="8" maxlength="11" class="width" />
+                    <label for="cep" class="azul">CEP</label>
+                  </span>
+
+                </div>
+
+                <div class="field md:col-12 lg:col-4">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map-marker azul"></i>
+                    <!-- formControlName="cidade" -->
+                    <input pInputText id="cidade"  required class="width"  />
+                    <label for="cidade" class="azul">Cidade</label>
+                  </span>
+
+                </div>
+
+                <div class="field md:col-12 lg:col-4">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map-marker azul"></i>
+                    <!-- formControlName="bairro" -->
+                    <input pInputText id="bairro"  required class="width"/>
+                    <label for="bairro" class="azul">Bairro</label>
+                  </span>
+
+                </div>
+              </div>
+
+              <div class="row lg:flex lg:justify-content-center">
+                <div class="field md:col-12 lg:col-5">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="logradouro" -->
+                    <input pInputText id="logradouro"  required class="width" />
+                    <label for="logradouro" class="azul">Logradouro</label>
+                  </span>
+
+                </div>
+
+                <div class="field md:col-12 lg:col-2">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="numero" -->
+                    <input pInputText id="numero"  required class="width" />
+                    <label for="numero" class="azul">Número</label>
+                  </span>
+
+                </div>
+                <div class="field md:col-12 lg:col-4">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="complemento" -->
+                    <input pInputText id="complemento"  required class="width" />
+                    <label for="complemento" class="azul">Complemento</label>
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div class="row lg:flex lg:justify-content-center">
+
+                <div class="field md:col-12 lg:col-4">
+                  <span class="p-float-label p-input-icon-left width">
+                    <i class="pi pi-map azul"></i>
+                    <!-- formControlName="referencia" -->
+                    <input pInputText id="referencia"   class="width" />
+                    <label for="referencia" class="azul">Referencia</label>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          <!-- </form> -->
 
         </p-tabPanel>
 
-        <p-tabPanel header="Funcionarios" >
+        <p-tabPanel header="Colaboradores" >
           <ng-template pTemplate="header" >
             <i class="pi pi-fw pi-users"></i>
             <span class="web">&nbsp;Colaboradores</span>

@@ -16,353 +16,322 @@
         }
         @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
         {
-          <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+          <p-tag icon="pi pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
         }
       </div>
 
-
-      <div class="flex align-items-center justify-content-end ">
-        <!-- <p-menubar [model]="items" styleClass="menuBar" >  </p-menubar> -->
-        <ul>
-
-          <li pTooltip="Iniciar Consulta" tooltipPosition="top"  *ngIf="!loading.iniciar">
-            <!-- <p-button
-            icon="pi pi-play"
-            [rounded]="true"
-            [outlined]="true"
-            [style]="{'color': '#FA8E42'}"
-            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true"
-            (onClick)="iniciarConsulta()"
-            ></p-button> -->
-            <p-button
+      <div class="col-4 flex align-items-center justify-content-between ">
+          <p-button
             icon="pi pi-pw pi-play"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#FA8E42'}"
+            [style]="{'color': '#f86b17', 'background-color':'#ffebd5'}"
+            pTooltip="Iniciar"
+            tooltipPosition="top"            
+            class=" border-circle" 
+            *ngIf="!loading.iniciar"
             [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true"
             (onClick)="iniciarConsulta()"
-            ></p-button>
-          </li>
-          <li *ngIf="loading.iniciar">
-            <p-button
+          ></p-button>
+
+          <p-button
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#FA8E42'}"
-          >
-          </p-button>
-          </li>
+            [style]="{'color': '#f86b17', 'background-color':'#ffebd5'}"
+            pTooltip="Iniciando..."
+            tooltipPosition="top"            
+            class=" border-circle" 
+            *ngIf="loading.iniciar"
+          ></p-button>
 
-          <li pTooltip="Finalizar Consulta" tooltipPosition="top" *ngIf="!loading.finalizar">
-            <!-- <p-button
-              icon="pi"
-              [rounded]="true"
-              [outlined]="true"
-              [style]="{'color': '#1DA750'}"
-              [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
-              (onClick)="finalizarConsulta()"
-              >
-              <i class="material-icons">task_alt</i>
-            </p-button> -->
-            <p-button
+          <p-button
             icon="pi pi-pw pi-check-circle"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#1DA750'}"
+            [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+            pTooltip="Finalizar"
+            tooltipPosition="top"            
+            class=" border-circle" 
+            *ngIf="!loading.finalizar"
             [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
             (onClick)="finalizarConsulta()"
-            ></p-button>
-          </li>
-          <li *ngIf="loading.finalizar">
-            <p-button
+          ></p-button>
+
+          <p-button
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#1DA750'}"
-          >
-          </p-button>
+            [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+            pTooltip="Finalizando..."
+            tooltipPosition="top"            
+            class="border-circle" 
+            *ngIf="loading.finalizar"
+          ></p-button>
 
-          <li pTooltip="Salvar" tooltipPosition="top" *ngIf="this.loading.editar">
-            <!-- <p-button
-              [rounded]="true"
-              icon="pi"
-              [outlined]="true"
-              [style]="{'color': '#3B82F6'}"
-              (onClick)="this.loading.editar = !this.loading.editar"
-              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
-            >
-              <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
-            </p-button> -->
-            <p-button
-            icon="pi pi-pw pi-pencil"
+          <p-button
+            icon="pi pi-pw pi-save"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#3B82F6'}"
+            [style]="{'color': '#3B82F6', 'background-color':'#dbe8fe'}"
+            pTooltip="Salvar"
+            tooltipPosition="top"
+            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
+            class=" border-circle" 
             (onClick)="this.loading.editar = !this.loading.editar"
-            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
-            ></p-button>
-          </li>
-          <li pTooltip="Editar" tooltipPosition="top" *ngIf="!this.loading.editar">
-            <!-- <p-button
-              [rounded]="true"
-              icon="pi"
-              [outlined]="true"
-              [style]="{'color': '#3B82F6'}"
-              (onClick)="preparaEdicao()"
-              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
-            >
-              <i class="material-icons">@if (this.loading.editar) {save} @else{edit} </i>
-            </p-button> -->
-            <p-button
+            *ngIf="this.loading.editar"
+          ></p-button>
+
+          <p-button
             icon="pi pi-pw pi-pencil"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#3B82F6'}"
-            (onClick)="preparaEdicao()"
+            pTooltip="Editar"
+            [style]="{'color': '#3B82F6', 'background-color':'#dbe8fe'}"
+            tooltipPosition="top"
             [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
-            ></p-button>
-          </li>
+            class=" border-circle" 
+            (onClick)="preparaEdicao()"
+            *ngIf="!this.loading.editar"
+          ></p-button>
 
-          <li pTooltip="Ausentar Paciente" tooltipPosition="top" *ngIf="!consultaSelecionada.ausente && !loading.ausentar">
-            <!-- <p-button
-              *ngIf="!loading.ausentar"
-              icon="pi"
-              [rounded]="true"
-              [outlined]="true"
-              [style]="{'color': '#EEC137'}"
-              [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || (consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
-              (onClick)="ausentarPaciente()"
-            >
-              <i class="material-icons">person_off</i>
-            </p-button> -->
-            <p-button
+          <p-button
             icon="pi pi-pw pi-user-minus"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#EEC137'}"
+            [style]="{'color': '#e6a11a','background-color':'#fbf3ca'}"
+            pTooltip="Ausentar"
+            tooltipPosition="top"
             [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || (consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
+            class="border-circle" 
+            *ngIf="!consultaSelecionada.ausente && !loading.ausentar"
             (onClick)="ausentarPaciente()"
-            ></p-button>
-          </li>
-          <li *ngIf="loading.ausentar">
-            <p-button
+          ></p-button>
+
+          <p-button
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
             [text]="true"
-            [style]="{'color': '#EEC137'}"
-            >
-            </p-button>
-          </li>
-          <li pTooltip="Presença do Paciente" tooltipPosition="top" *ngIf="consultaSelecionada.ausente">
-            <p-button
-              icon="pi pi-user-plus"
-              [rounded]="true"
-              [text]="true"
-              [style]="{'color': '#1DA750'}"
-              (onClick)="presencaPaciente()"
-            >
-            </p-button>
-          </li>
+            [style]="{'color': '#e6a11a','background-color':'#fbf3ca'}"
+            pTooltip="Deletar"
+            tooltipPosition="top"
+            *ngIf="loading.ausentar"
+            class="border-circle" 
+          ></p-button>
+          
+          <p-button
+            icon="pi pi-pw pi-user-plus"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+            pTooltip="Presença do Paciente"
+            tooltipPosition="top"
+            (onClick)="presencaPaciente()"
+            *ngIf="consultaSelecionada.ausente"
+            class="border-circle"  
+          ></p-button>
 
-          <li pTooltip="Deletar Consulta" tooltipPosition="top">
-            <!-- <p-button
-              icon="pi"
-              [rounded]="true"
-              [outlined]="true"
-              [style]="{'color': '#FF3D32'}"
-              [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
-              (onClick)="deletarConsulta()"
-              >
-              <i class="material-icons">delete</i>
-            </p-button> -->
-            <p-button
-              icon="pi pi-trash"
-              [rounded]="true"
-              [text]="true"
-              [style]="{'color': '#FF3D32'}"
-              [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
-              (onClick)="deletarConsulta()"
-            ></p-button>
-          </li>
-          <li pTooltip="Fechar" tooltipPosition="top">
-            <p-button
-              icon="pi pi-times"
-              [rounded]="true"
-              [text]="true"
-              [style]="{'color': '#6B7280'}"
-              (onClick)="fecharJanela()"
-              >
-            </p-button>
-          </li>
-        </ul>
+          <p-button
+            icon="pi pi-pw pi-trash"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#DC2626', 'background-color':'#fee2e2'}"
+            pTooltip="Deletar"
+            tooltipPosition="top"
+            (onClick)="deletarConsulta()"
+            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
+            class=" border-circle"  
+          ></p-button>
+
+          <p-button
+            icon="pi pi-pw pi-times"
+            [rounded]="true"
+            [text]="true"
+            [style]="{'color': '#6B7280', 'background-color':'#edeef1'}"
+            pTooltip="Fechar"
+            tooltipPosition="top"
+            (onClick)="fecharJanela()"
+            class="ml-5 border-circle"
+          ></p-button>
       </div>
 
 
   </div>
   <p-divider layout="horizontal" [style]="{'margin': '0'}" ></p-divider>
 
-      <div class="flex mt-4">
-        <div class="col-12">
-          <div [class]="consultaSelecionada.paciente? 'row flex justify-content-around': 'row flex justify-content-between' ">
-            <div class="col-5 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
-              <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.paciente.nome}}
-            </div>
-            <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
-              <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.nomePaciente}}
-            </div>
-            <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
-              <span class="font-bold text-lg"><i class="pi pi-phone azul"></i>&nbsp;&nbsp;Telefone:&nbsp;</span> {{consultaSelecionada.telefone}}
-            </div>
-            <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
-              <span class="text-lg"><i class="pi pi-bolt azul"></i>&nbsp;&nbsp;Consulta Rápida&nbsp;</span>
-            </div>
-            <div class="col-3 flex justify-content-start " *ngIf="consultaSelecionada.paciente">
-              <span class="font-bold text-lg"><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;Pasta:&nbsp;</span> {{consultaSelecionada.paciente.numPasta}}
-            </div>
-            <div class="col-4 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
-              <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Idade:&nbsp;</span> {{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}
-              <!-- <div>
-                <h4 class="flex justify-content-center text-lg ">Idade</h4>
-                <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}</span>
-              </div> -->
-            </div>
+    <div class="flex mt-4">
+      <div class="col-12">
+        <div [class]="consultaSelecionada.paciente? 'row flex justify-content-around': 'row flex justify-content-between' ">
+          <div class="col-5 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
+            <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.paciente.nome}}
           </div>
-
-          <!-- <p-divider layout="horizontal"></p-divider> -->
-
-         <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()">
-          <div class="row flex justify-content-around mt-5" [style]="{'height':'6vh'}" >
-              <div class="col-5 flex justify-content-start ">
-                <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Dentista:&nbsp;</span> {{consultaSelecionada.dentista.nome}}
-                <!-- <div>
-                  <h4 class="flex justify-content-center text-lg ">Dentista</h4>
-                  <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dentista.nome}}</span>
-                </div> -->
-              </div>
-
-              <div class="col-2 flex justify-content-start">
-
-                  <div>
-                    <!-- <h4 class="flex justify-content-center text-lg ">Data</h4> -->
-                    @if(!loading.editar){
-                      <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Data:&nbsp;</span> {{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}
-                      <!-- <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span> -->
-                    }@else {
-                      <div class="field ">
-                        <span class="p-float-label p-float-icon-left ">
-                          <p-calendar
-                            [iconDisplay]="'input'"
-                            [showIcon]="true"
-                            inputId="dataConsulta"
-
-                            [showTime]="false"
-                            formControlName="dataConsulta"
-                            [style]="{'width': '8vw', 'height':'4vh'}"
-                            dateFormat="yy-mm-dd"
-                            ></p-calendar>
-                        </span>
-                      </div>
-                    }
-
-                  </div>
-              </div>
-
-              <div class="col-2 flex justify-content-center">
-                  <div>
-                    <!-- <h4 class="flex justify-content-center text-lg ">Inicio</h4> -->
-                    @if(!loading.editar){
-                      <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;Inicio:&nbsp;</span> {{consultaSelecionada.dataConsulta | date: "HH:mm"}}
-                      <!-- <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span> -->
-                    }@else {
-                      <div class="field">
-                        <span class="p-float-label p-input-icon-right ">
-                          <i class="pi pi-clock azul"></i>
-                          <p-inputMask mask="99:99" [style]="{'width': '6vw', 'height':'4vh'}" formControlName="horaConsulta"></p-inputMask>
-
-                        </span>
-                      </div>
-                    }
-                  </div>
-              </div>
-
-              <div class="col-2 flex justify-content-start ">
-                <div *ngIf="!loading.editar">
-                    <!-- <h4 class="flex justify-content-center text-lg ">Fim</h4> -->
-                      <!-- <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span> -->
-                    <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;Fim:&nbsp;</span> {{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}
-                </div>
-                <div *ngIf="loading.editar">
-                  <p-button label="Reagendar" type="sumit" icon="pi pi-save" [rounded]="true" [outlined]="true" severity="info" [style]="{'height':'4vh'}"></p-button>
-                </div>
-              </div>
-
-              <div class="col-1 ">
-
-              </div>
-
+          <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
+            <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.nomePaciente}}
           </div>
-         </form>
+          <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
+            <span class="font-bold text-lg"><i class="pi pi-phone azul"></i>&nbsp;&nbsp;Telefone:&nbsp;</span> {{consultaSelecionada.telefone}}
+          </div>
+          <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
+            <span class="text-lg"><i class="pi pi-bolt azul"></i>&nbsp;&nbsp;Consulta Rápida&nbsp;</span>
+          </div>
+          <div class="col-3 flex justify-content-start " *ngIf="consultaSelecionada.paciente">
+            <span class="font-bold text-lg"><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;Pasta:&nbsp;</span> {{consultaSelecionada.paciente.numPasta}}
+          </div>
+          <div class="col-4 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
+            <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Idade:&nbsp;</span> {{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}
+            <!-- <div>
+              <h4 class="flex justify-content-center text-lg ">Idade</h4>
+              <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}</span>
+            </div> -->
+          </div>
+        </div>
 
-          <div class="row flex justify-content-center mt-5 ">
+        <!-- <p-divider layout="horizontal"></p-divider> -->
+
+        <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()">
+        <div class="row flex justify-content-around mt-5" [style]="{'height':'6vh'}" >
             <div class="col-5 flex justify-content-start ">
-              <span class="font-bold text-lg"><i class="pi pi-tag azul"></i>&nbsp;&nbsp;Tipo de Consulta:&nbsp;</span> {{consultaSelecionada.consultaEspecialidade.tipo}}
+              <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Dentista:&nbsp;</span> {{consultaSelecionada.dentista.nome}}
               <!-- <div>
-                <h4 class="flex justify-content-center text-lg ">Tipo de Consulta</h4>
-                <span class="azul text-lg "><i class="pi pi-tag azul"></i>&nbsp;&nbsp;{{consultaSelecionada.consultaEspecialidade.tipo}}</span>
+                <h4 class="flex justify-content-center text-lg ">Dentista</h4>
+                <span class="azul text-lg "><i class="pi pi-user azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dentista.nome}}</span>
               </div> -->
-
             </div>
-             <div class="col-7">
-              <!--<div class="flex justify-content-center">
-                <div class="row">
-                  <h4 class="text-lg flex justify-content-center align-items-center"><i class="pi pi-pw pi-align-left azul"></i>&nbsp;&nbsp;Observação</h4>
-                   <textarea  id="float-input" rows="2" cols="70" pInputTextarea [(ngModel)]="consultaSelecionada.observacao" class="azul" disabled></textarea>
+
+            <div class="col-2 flex justify-content-start">
+
+                <div>
+                  <!-- <h4 class="flex justify-content-center text-lg ">Data</h4> -->
+                  @if(!loading.editar){
+                    <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Data:&nbsp;</span> {{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}
+                    <!-- <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}</span> -->
+                  }@else {
+                    <div class="field ">
+                      <span class="p-float-label p-float-icon-left ">
+                        <p-calendar
+                          [iconDisplay]="'input'"
+                          [showIcon]="true"
+                          inputId="dataConsulta"
+
+                          [showTime]="false"
+                          formControlName="dataConsulta"
+                          [style]="{'width': '8vw', 'height':'4vh'}"
+                          dateFormat="yy-mm-dd"
+                          ></p-calendar>
+                      </span>
+                    </div>
+                  }
+
                 </div>
-              </div>-->
             </div>
-          </div>
-          <div class="row flex justify-content-center align-items-center mt-5 mb-2">
-            <span class="font-bold text-lg"><i class="pi pi-align-left font-medium azul"></i>&nbsp;&nbsp;Observação&nbsp;&nbsp;</span>
-            <textarea  id="float-input" rows="2" cols="70" [autoResize]="true" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea>
-          </div>
 
+            <div class="col-2 flex justify-content-center">
+                <div>
+                  <!-- <h4 class="flex justify-content-center text-lg ">Inicio</h4> -->
+                  @if(!loading.editar){
+                    <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;Inicio:&nbsp;</span> {{consultaSelecionada.dataConsulta | date: "HH:mm"}}
+                    <!-- <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsulta | date: "HH:mm"}}</span> -->
+                  }@else {
+                    <div class="field">
+                      <span class="p-float-label p-input-icon-right ">
+                        <i class="pi pi-clock azul"></i>
+                        <p-inputMask mask="99:99" [style]="{'width': '6vw', 'height':'4vh'}" formControlName="horaConsulta"></p-inputMask>
+
+                      </span>
+                    </div>
+                  }
+                </div>
+            </div>
+
+            <div class="col-2 flex justify-content-start ">
+              <div *ngIf="!loading.editar">
+                  <!-- <h4 class="flex justify-content-center text-lg ">Fim</h4> -->
+                    <!-- <span class="azul text-lg "><i class="pi pi-clock azul"></i>&nbsp;&nbsp;{{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}</span> -->
+                  <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;&nbsp;Fim:&nbsp;</span> {{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}
+              </div>
+              <div *ngIf="loading.editar">
+                <p-button label="Reagendar" type="sumit" icon="pi pi-save" [rounded]="true" [outlined]="true" severity="info" [style]="{'height':'4vh'}"></p-button>
+              </div>
+            </div>
+
+            <div class="col-1 ">
+
+            </div>
+
+        </div>
+        </form>
+
+        <div class="row flex justify-content-center mt-5 ">
+          <div class="col-5 flex justify-content-start ">
+            <span class="font-bold text-lg"><i class="pi pi-tag azul"></i>&nbsp;&nbsp;Tipo de Consulta:&nbsp;</span> {{consultaSelecionada.consultaEspecialidade.tipo}}
+            <!-- <div>
+              <h4 class="flex justify-content-center text-lg ">Tipo de Consulta</h4>
+              <span class="azul text-lg "><i class="pi pi-tag azul"></i>&nbsp;&nbsp;{{consultaSelecionada.consultaEspecialidade.tipo}}</span>
+            </div> -->
+
+          </div>
+            <div class="col-7">
+            <!--<div class="flex justify-content-center">
+              <div class="row">
+                <h4 class="text-lg flex justify-content-center align-items-center"><i class="pi pi-pw pi-align-left azul"></i>&nbsp;&nbsp;Observação</h4>
+                  <textarea  id="float-input" rows="2" cols="70" pInputTextarea [(ngModel)]="consultaSelecionada.observacao" class="azul" disabled></textarea>
+              </div>
+            </div>-->
+          </div>
+        </div>
+        <div class="row flex justify-content-center align-items-center mt-5 mb-2">
+          <span class="font-bold text-lg"><i class="pi pi-align-left font-medium azul"></i>&nbsp;&nbsp;Observação&nbsp;&nbsp;</span>
+          <textarea  id="float-input" rows="2" cols="70" [autoResize]="true" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <p-divider layout="horizontal"></p-divider>
+
+    <form [formGroup]="formularioProcedimentos" (ngSubmit)="salvarProcedimentos()" >
+      <div class="row flex justify-content-center  mb-6">
+        <div class="col p-fluid">
+
+          <span class=" text-lg flex justify-content-center align-items-center mb-3 font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
+          
+          <p-chips
+            [separator]="separatorExp"
+            placeholder="Digite os procedimentos realizados na consulta"
+            class="azul"
+            formControlName="procedimentos"
+          ></p-chips>
+          
+        </div>
+        <div class="flex justify-content-around align-items-center pt-5" [style]="{'width':'120px'}">
+          <p-button
+            icon="pi pi-pw pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            pTooltip="Editar"
+            [style]="{'color': '#3B82F6', 'background-color':'#dbe8fe'}"
+            tooltipPosition="top"
+            
+            class=" border-circle" 
+          ></p-button>
+          <p-button
+            type="submit"
+            icon="pi pi-pw pi-save"
+            [rounded]="true"
+            [text]="true"
+            pTooltip="Salvar"
+            [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+            tooltipPosition="top"
+            [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
+            class=" border-circle" 
+                       
+          ></p-button>
+          <!-- <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
+          
+          ><i class="material-icons">task_alt</i></p-button> -->
         </div>
       </div>
-
-      <p-divider layout="horizontal"></p-divider>
-      <form [formGroup]="formularioProcedimentos" (ngSubmit)="salvarProcedimentos()" >
-        <div class="row flex justify-content-center  mb-6">
-          <div class="col-9 p-fluid">
-
-            <span class=" text-lg flex justify-content-center align-items-center mb-3 font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
-            @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && !consultaSelecionada.ausente){
-              <p-chips
-                [separator]="separatorExp"
-                placeholder="Digite os procedimentos realizados na consulta"
-                class="azul"
-                formControlName="procedimentos"
-                [disabled]="true"
-              ></p-chips>
-            }
-            @else {
-              <p-chips
-                [separator]="separatorExp"
-                placeholder="Digite os procedimentos realizados na consulta"
-                class="azul"
-                formControlName="procedimentos"
-                [disabled]="false"
-                readonly
-              ></p-chips>
-            }
-
-          </div>
-          <div class="col-3 flex justify-content-end align-items-end">
-            <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
-            [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
-            ><i class="material-icons">task_alt</i></p-button>
-          </div>
-        </div>
-      </form>
+    </form>
 
 
   <!-- <p-button label="Secondary" [text]="true" severity="secondary" (onClick)="pagamento()"></p-button> -->

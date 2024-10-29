@@ -64,8 +64,8 @@ export class DentistaNovoComponent implements OnInit{
       cro: ['', Validators.required],
       especialidade: ['', Validators.required],
       corDentista: [this.generateRandomColor(), Validators.required],
-      organizacaoId: [this.org.id, Validators.required],
-      idOrganizacao: [this.org],
+      OrganizacaoId: [this.org.id, Validators.required],
+      //idOrganizacao: [this.org],
     })
   }
 

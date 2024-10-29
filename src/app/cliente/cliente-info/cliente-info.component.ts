@@ -669,6 +669,8 @@ export class ClienteInfoComponent implements OnInit {
         var x ={
           procedimentos: item.procedimentos ? JSON.parse(item.procedimentos) : [] ,
           dataConsulta: this.formatarDataBR(item.dataConsulta),
+          horaInicio: this.formatarHoraBR(item.dataConsulta),
+          horaFim: this.formatarHoraBR(item.dataConsultaReserva),
           dentista: item.dentista.nome,
           idConsulta: item.id,
           consultaStatus: this.retornaStatusConsulta(item),
@@ -709,9 +711,15 @@ export class ClienteInfoComponent implements OnInit {
     const dia = date.getDate().toString().padStart(2, '0');
     const mes = (date.getMonth() + 1).toString().padStart(2, '0');
     const ano = date.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  }
+
+  formatarHoraBR(dataISO: string): string{
+    const date = new Date(dataISO);
     const horas = date.getHours().toString().padStart(2, '0');
     const minutos = date.getMinutes().toString().padStart(2, '0');
-    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+    return `${horas}:${minutos}`;
+
   }
 
   novoOrcamento(){

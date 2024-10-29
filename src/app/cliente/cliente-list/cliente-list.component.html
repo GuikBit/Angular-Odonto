@@ -27,6 +27,7 @@
           >
             <ng-template pTemplate="header">
               <tr>
+                <th></th>
                 <th pSortableColumn="numPasta">
                   <div class="flex justify-content-between align-items-center">
                     <div class="flex justify-content-center align-items-center">
@@ -171,12 +172,19 @@
                     </div>
                   </div>
                 </th>
-                <th [width]="200"></th>
+                <th [width]="140"></th>
 
             </ng-template>
 
             <ng-template pTemplate="body" let-paciente>
               <tr>
+                <td [width]="60">
+                  <p-avatar
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    styleClass=""                
+                    shape="circle"
+                  />
+                </td>
                 <td [width]="180" >{{ paciente?.numPasta }}</td>
                 <td>{{ paciente?.nome }}</td>
                 <td>{{ paciente?.cpf }}</td>
@@ -193,38 +201,18 @@
 
                 </td>
                 <td>
-                  <div
-                    class="flex justify-content-around">
+                  <div class="flex justify-content-around">
                       <p-button
                         icon="pi pi-pw pi-info-circle"
                         [rounded]="true"
                         [text]="true"
-                        severity="info"
                         pTooltip="Informações"
                         tooltipPosition="top"
                         (click)="info(paciente.id)"
-
+                        class="border-circle"  
+                        [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
                       ></p-button>
-                      <!-- <p-button
-                        icon="pi pi-pw pi-info-circle"
-                        [rounded]="true"
-                        severity="info"
-                        [outlined]="true"
-                        pTooltip="Informações"
-                        tooltipPosition="top"
-                        (click)="info(paciente.id)"
-                      >
-                      </p-button> -->
-                      <!-- <p-button
-                        icon="pi pi-pw pi-ban"
-                        [rounded]="true"
-                        severity="danger"
-                        [outlined]="true"
-                        pTooltip="Deletar"
-                        tooltipPosition="top"
-                        (click)="delet(paciente.id)"
-                      >
-                      </p-button> -->
+                      
                       <p-button
                         icon="pi pi-pw pi-trash"
                         [rounded]="true"
@@ -234,6 +222,8 @@
                         tooltipPosition="top"
                         (click)="showSuccessMessage('Teste')"
                         [disabled]="!paciente.ativo"
+                        class="border-circle"  
+                        [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
                       ></p-button>
 
                   </div>

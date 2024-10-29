@@ -164,7 +164,8 @@
                   [text]="true"
                   pTooltip="Editar"
                   tooltipPosition="top"
-                  (click)="onRowEditInit(item)"                  
+                  (click)="onRowEditInit(item)"   
+                  class="bg-blue-50 border-circle"               
                 ></p-button>
                 <p-button
                   *ngIf="editing"
@@ -175,7 +176,8 @@
                   pTooltip="Confirmar"
                   severity="success"
                   tooltipPosition="top"
-                  (click)="onRowEditSave(item)"               
+                  (click)="onRowEditSave(item)"   
+                  class="bg-green-50 border-circle"            
                 ></p-button>
                 <p-button
                   *ngIf="editing"
@@ -184,9 +186,10 @@
                   [rounded]="true"
                   [text]="true"
                   pTooltip="Cancelar"
-                  severity="danger"
+                  severity="warning"
                   tooltipPosition="top"
-                  (click)="onRowEditCancel(item, ri)"             
+                  (click)="onRowEditCancel(item, ri)"     
+                  class="bg-orange-50 border-circle"        
                 ></p-button>
                 <p-button                  
                   pDeletRow
@@ -196,12 +199,9 @@
                   pTooltip="Deletar"
                   severity="danger"
                   tooltipPosition="top"
-                  (click)="confirmaDeletar($event, item)"          
+                  (click)="confirmaDeletar($event, item)"   
+                  class="bg-red-50 border-circle"       
                 ></p-button>
-                  <!-- <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(item)" class="p-button-rounded p-button-text"></button>
-                  <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(item)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                  <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(item, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                  <button  pButton pRipple type="button"  icon="pi pi-trash" pDeletRow (click)="confirmaDeletar($event, item)" class="p-button-rounded p-button-text p-button-danger"></button> -->
               </div>
           </td>
         </tr>

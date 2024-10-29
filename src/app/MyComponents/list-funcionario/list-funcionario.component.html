@@ -126,7 +126,7 @@
                 </div>
               </div>
             </th>
-            <th pSortableColumn="ativo" [width]="180">
+            <th pSortableColumn="ativo" [width]="140">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-between align-items-center">
                   Status
@@ -149,7 +149,7 @@
                   ></p-sortIcon>
 
                     <p-columnFilter field="ativo" matchMode="equals" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                         <p-dropdown [(ngModel)]="selectedStatus" [options]="statuses" placeholder="Status">
                         <ng-template pTemplate="selectedItem">
                             <div class="flex align-items-center gap-2" *ngIf="selectedStatus">
@@ -179,7 +179,7 @@
                 </div>
               </div>
             </th>
-            <th></th>
+            <th [width]="140"></th>
 
         </ng-template>
 
@@ -188,8 +188,7 @@
             <td [width]="60">
               <p-avatar
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                styleClass=""
-                size="large"
+                styleClass=""                
                 shape="circle"
               />
             </td>
@@ -209,7 +208,7 @@
               </p-tag>
 
             </td>
-            <td>
+            <td [width]="140">
               <div
                 class="flex justify-content-around">
                   <p-button
@@ -220,7 +219,7 @@
                     pTooltip="Informações"
                     tooltipPosition="top"
                     (click)="info(func.id)"
-
+                    class="bg-blue-50 border-circle"
                   ></p-button>
                   <!-- <p-button
                     icon="pi pi-pw pi-info-circle"
@@ -250,7 +249,8 @@
                     pTooltip="Inativar"
                     tooltipPosition="top"
                     (click)="info(func.id)"
-                    [disabled]="!func.status"
+                    [disabled]="!func.ativo"
+                    class="bg-red-50 border-circle"
                   ></p-button>
 
               </div>
@@ -273,6 +273,6 @@
 
 <p-dialog header='Novo funcionario' [(visible)]="novoFuncionario" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
     <ng-template pTemplate="content">
-      <app-novo-funcionario></app-novo-funcionario>
+      <app-novo-funcionario (closeModal)="closeModal($event)"></app-novo-funcionario>
     </ng-template>
 </p-dialog>

@@ -18,6 +18,6 @@ export class Funcionario extends User {
   Endereco: any;
   IdCargo: string;
   Cargo: Cargo;
-
+  
 
 }

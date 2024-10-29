@@ -458,7 +458,7 @@
                 </div>
               </div>
             </th> -->
-            <th [width]="250">
+            <th [width]="140">
               <div class="flex justify-content-end align-items-center web">
                 <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" pTooltip="Exportar para Excel" tooltipPosition="top"></p-button>
               </div>
@@ -517,6 +517,7 @@
                         pTooltip="Iniciar Consulta"
                         tooltipPosition="top"
                         (click)="iniciarConsulta(consulta)"
+                        class="bg-orange-50 border-circle"  
                       ></p-button>
 
                       <!-- <p-button
@@ -537,6 +538,7 @@
                         pTooltip="Informações"
                         tooltipPosition="top"
                         (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                        class="bg-blue-50 border-circle"  
                       ></p-button>
 
 
@@ -559,6 +561,7 @@
                         pTooltip="Financeiro pendente"
                         tooltipPosition="top"
                         (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                        class="bg-red-50 border-circle"  
                       ></p-button>
                       }
                       @else if(consulta.pagamento.fatFechado && consulta.pagamento.pago){
@@ -579,6 +582,7 @@
                         pTooltip="Financeiro fechado"
                         tooltipPosition="top"
                         (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                        class="bg-green-50 border-circle"  
                       ></p-button>
                       }@else {
                         <!-- <p-button icon="pi pi-pw pi-dollar"
@@ -598,6 +602,7 @@
                       pTooltip="Financeiro aberto"
                       tooltipPosition="top"
                       (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                      class="bg-gray-100 border-circle"  
                       ></p-button>
                       }
 

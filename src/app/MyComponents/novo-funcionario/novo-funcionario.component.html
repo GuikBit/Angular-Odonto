@@ -340,7 +340,7 @@
               <div class="field col-4">
                 <span class="p-float-label p-input-icon-left width">
                   <i class="pi pi-id-card azul"></i>
-                  <input pInputText id="empresa" required class="width" formControlName="empresa" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['empresa'].invalid && formContrato.controls['empresa'].touched}" />
+                  <input pInputText id="empresa" required class="width" formControlName="empresa" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['empresa'].invalid && formContrato.controls['empresa'].touched}" [disabled]="true"/>
                   <label for="empresa" class="azul">Empresa <span class="p-error ">*</span></label>
                 </span>
 

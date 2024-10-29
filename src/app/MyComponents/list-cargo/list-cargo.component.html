@@ -184,7 +184,7 @@
               </div>
             </div>
           </th>
-          <th ></th>
+          <th [width]="140"></th>
 
       </ng-template>
 
@@ -205,7 +205,7 @@
             </p-tag>
 
           </td>
-          <td>
+          <td [width]="140">
             <div
               class="flex justify-content-around">
                 <p-button
@@ -216,7 +216,7 @@
                   pTooltip="Informações"
                   tooltipPosition="top"
                   (click)="info(cargo.id)"
-
+                  class="bg-blue-50 border-circle"
                 ></p-button>
                 <!-- <p-button
                   icon="pi pi-pw pi-info-circle"
@@ -246,7 +246,8 @@
                   pTooltip="Inativar"
                   tooltipPosition="top"
                   (click)="info(cargo.id)"
-                  [disabled]="!cargo.status"
+                  [disabled]="cargo.ativo"
+                  class="bg-red-50 border-circle"
                 ></p-button>
 
             </div>

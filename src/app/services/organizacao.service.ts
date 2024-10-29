@@ -71,7 +71,9 @@ export class OrganizacaoService {
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
       timeout: 1000,
-      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
+      headers: { Authorization: 'Bearer ' + (await this.getToken()),
+        'Content-Type': 'application/json'
+      },
     });
 
     try{

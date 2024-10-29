@@ -52,4 +52,16 @@ export class ListFuncionarioComponent implements OnInit {
   cadastroFunc(){
     this.novoFuncionario = true;
   }
+
+
+  closeModal(close: any) {
+    this.novoFuncionario = close;
+    this.ngOnInit();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Novo cargo salvo com sucesso!'
+    })
+  }
+
 }

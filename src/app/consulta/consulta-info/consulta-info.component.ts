@@ -95,7 +95,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
  async criaFormularioProcedimentos(){
 
     this.formularioProcedimentos = this.formBuilder.group({
-      procedimentos: [this.consultaSelecionada.procedimentos !== ''? JSON.parse(this.consultaSelecionada.procedimentos): [] ,Validators.required]
+      procedimentos: [this.consultaSelecionada.procedimentos !== ''? JSON.parse(this.consultaSelecionada.procedimentos): {value: [], disabled: true} , Validators.required]
     })
   }
 
@@ -167,7 +167,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   presencaPaciente() {
-
+    //verificar o reload da tela
     this.service.presencaPaciente(this.consultaSelecionada?.id).then(()=>{
       this.messageService.clear();
       this.messageService.add({

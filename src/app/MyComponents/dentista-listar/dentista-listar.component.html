@@ -6,7 +6,7 @@
         [rows]="10"
         [paginator]="true"
         [responsive]="true"
-        [globalFilterFields]="['nome', 'cpf', 'espec', 'ativo']"
+        [globalFilterFields]="['nome', 'cpf', 'espec', 'CRO', 'ativo']"
         [tableStyle]="{ 'min-width': '75rem' }"
         [rowHover]="true"
         [showCurrentPageReport]="true"
@@ -16,6 +16,7 @@
       >
         <ng-template pTemplate="header">
           <tr>
+            <th></th>
             <th pSortableColumn="nome">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-center align-items-center">
@@ -67,7 +68,7 @@
               </div>
             </th>
 
-            <th pSortableColumn="espec" [width]="300">
+            <th pSortableColumn="CRO" >
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-between align-items-center">
                   Especialidade
@@ -92,7 +93,32 @@
                 </div>
               </div>
             </th>
-            <th pSortableColumn="ativo" [width]="180">
+            <th pSortableColumn="espec">
+              <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-content-between align-items-center">
+                  CRO
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                  <p-sortIcon
+                    field="CRO"
+                    pTooltip="Ordenar"
+                    tooltipPosition="top"
+                  ></p-sortIcon>
+                  <p-columnFilter
+                    type="text"
+                    field="CRO"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                    pTooltip="Filtrar"
+                    tooltipPosition="top"
+                  ></p-columnFilter>
+                </div>
+              </div>
+            </th>
+            <th pSortableColumn="ativo" [width]="140">
               <div class="flex justify-content-between align-items-center">
                 <div class="flex justify-content-between align-items-center">
                   Status
@@ -117,11 +143,18 @@
                 </div>
               </div>
             </th>
-            <th [width]=""></th>
+            <th [width]="140"></th>
         </ng-template>
 
         <ng-template pTemplate="body" let-dentista>
           <tr >
+            <td [width]="60">
+              <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                styleClass=""                
+                shape="circle"
+              />
+            </td>
             <td>
               {{ dentista?.nome }}
             </td>
@@ -130,6 +163,9 @@
             </td>
             <td>
               {{ dentista?.especialidade.tipo }}
+            </td>
+            <td>
+              CRO-{{ dentista?.cro }}
             </td>
             <td>
               <p-tag
@@ -143,7 +179,7 @@
               </p-tag>
             </td>
 
-            <td [width]="130">
+            <td [width]="140">
               <div
                 class="flex justify-content-around">
                 <p-button
@@ -154,6 +190,7 @@
                   pTooltip="Informações"
                   tooltipPosition="top"
                   (click)="infoShow(dentista.id)"
+                  class="bg-blue-50 border-circle"
                 >
                 </p-button>
                 <p-button
@@ -164,6 +201,7 @@
                   pTooltip="Deletar"
                   tooltipPosition="top"
                   (click)="DeletShowDialog()"
+                  class="bg-red-50 border-circle"
                 >
                 </p-button>
               </div>

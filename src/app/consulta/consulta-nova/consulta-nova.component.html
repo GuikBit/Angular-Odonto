@@ -1,21 +1,23 @@
 
 
 
-  <div class="card p-component pt-4 new ">
+  <div class="card p-component pt-2 new ">
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-      <div class="card flex justify-content-end" *ngIf="!pacienteSelecionado">
+      <div class="card flex justify-content-end mb-2" *ngIf="!pacienteSelecionado">
         <p-toggleButton
           [(ngModel)]="consultaRapida"
-          onIcon="pi pi-bolt"
-          offIcon="pi pi-bolt"
-          styleClass="custom-class w-full text-xs sm:w-2rem sm:h-2rem mb-2"
-          ariaLabel="Do you confirm"
+          onLabel="Rápida" 
+          offLabel="Normal" 
+          onIcon="pi pi-bolt text-xs"
+          offIcon="pi pi-bolt text-xs"
+          styleClass="w-full text-xs mb-2"
           (click)="consultaRapida = !consultaRapida"
         />
+        
       </div>
 
       <div >
-        <div class="row lg:flex lg:justify-content-around mt-2 lg:h-4rem">
+        <div class="row lg:flex lg:justify-content-around mt-2">
           <div *ngIf="!consultaRapida">
             <span class="p-float-label p-input-icon-right ">
               <p-dropdown
@@ -27,10 +29,11 @@
                 [filter]="true"
                 filterBy="nome"
                 optionLabel="nome"
-                [style]="{'width': '14vw', 'height':'46px'}"
+                [style]="{'width': '14vw'}"
                 scrollHeight="300px"
                 inputId="paciente"
                 class="web"
+                [ngClass]="{'ng-invalid ng-dirty': formulario.controls['paciente'].invalid && formulario.controls['paciente'].touched}"
               ></p-dropdown>
               <p-dropdown
               *ngIf="!pacienteSelecionado"
@@ -41,34 +44,35 @@
               [filter]="true"
               filterBy="nome"
               optionLabel="nome"
-              [style]="{'width': '74vw', 'height':'46px'}"
+              [style]="{'width': '74vw'}"
               scrollHeight="300px"
               inputId="paciente"
               class="mobile"
+              [ngClass]="{'ng-invalid ng-dirty': formulario.controls['paciente'].invalid && formulario.controls['paciente'].touched}"
               ></p-dropdown>
               <i class="pi pi-pw pi-angle-down text-xl" *ngIf="pacienteSelecionado"></i>
-              <input pInputText id="nome" *ngIf="pacienteSelecionado" [value]="pacienteSelecionado.nome" required [disabled]="true" class="width" />
-              <label for="paciente" class="azul">{{pacienteSelecionado? "Paciente":"Selecione o Paciente"}}</label>
+              <input pInputText id="nome" *ngIf="pacienteSelecionado" [value]="pacienteSelecionado.nome" required [disabled]="true" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['paciente'].invalid && formulario.controls['paciente'].touched}" />
+              <label for="paciente" class="azul">{{pacienteSelecionado? "Paciente":"Selecione o Paciente"}} <span class="p-error ">*</span></label>
             </span>
-            <small *ngIf="formulario.get('paciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
+            <!-- <small *ngIf="formulario.get('paciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small> -->
           </div>
 
-         <div *ngIf="consultaRapida">
-          <span class="p-float-label p-input-icon-left ">
-            <i class="pi pi-user azul"></i>
-            <input pInputText id="nome" formControlName="nomePaciente" required class="width" />
-            <label for="paciente" class="azul">Nome do paciente</label>
-          </span>
-          <small *ngIf="formulario.get('nomePaciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
-         </div>
-         <div *ngIf="consultaRapida">
-          <span class="p-float-label p-input-icon-left ">
-            <i class="pi pi-phone azul"></i>
-            <input pInputText id="nome" formControlName="telefone" required class="width" minlength="11" minlength="14"(input)="replaceTelefone()" />
-            <label for="paciente" class="azul">Telefone</label>
-          </span>
-          <small *ngIf="formulario.get('telefone')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small>
-         </div>
+          <div *ngIf="consultaRapida">
+            <span class="p-float-label p-input-icon-left ">
+              <i class="pi pi-user azul"></i>
+              <input pInputText id="nome" formControlName="nomePaciente" required class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['paciente'].invalid && formulario.controls['paciente'].touched}" />
+              <label for="paciente" class="azul">Nome do paciente <span class="p-error ">*</span></label>
+            </span>
+            <!-- <small *ngIf="formulario.get('nomePaciente')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small> -->
+          </div>
+          <div *ngIf="consultaRapida">
+            <span class="p-float-label p-input-icon-left ">
+              <i class="pi pi-phone azul"></i>
+              <input pInputText id="nome" formControlName="telefone" required class="width" minlength="11" minlength="14"(input)="replaceTelefone()" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['telefone'].invalid && formulario.controls['telefone'].touched}"/>
+              <label for="paciente" class="azul">Telefone <span class="p-error ">*</span></label>
+            </span>
+            <!-- <small *ngIf="formulario.get('telefone')?.hasError('required')" class="p-error text-xs"><br>* Campo obrigatório</small> -->
+          </div>
 
          <div class="field" *ngIf="!consultaRapida">
           <span class="p-float-label  p-input-icon-right ">
@@ -81,10 +85,11 @@
               optionLabel="nome"
               [filter]="true"
               filterBy="nome"
-              [style]="{'width': '14vw', 'height':'46px'}"
+              [style]="{'width': '14vw'}"
               scrollHeight="300px"
               inputId="dentista"
               class="web"
+              [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dentista'].invalid && formulario.controls['dentista'].touched}"
               ></p-dropdown>
               <p-dropdown
               *ngIf="!dentistaSelecionado"
@@ -95,22 +100,23 @@
               optionLabel="nome"
               [filter]="true"
               filterBy="nome"
-              [style]="{'width': '74vw', 'height':'46px'}"
+              [style]="{'width': '74vw'}"
               scrollHeight="300px"
               inputId="dentista"
               class="mobile"
+              [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dentista'].invalid && formulario.controls['dentista'].touched}"
               ></p-dropdown>
               <i class="pi pi-pw pi-angle-down text-xl" *ngIf="dentistaSelecionado"></i>
-              <input pInputText id="nome" *ngIf="dentistaSelecionado" [value]="dentistaSelecionado.nome" required [disabled]="true" class="width" />
-              <label for="paciente" class="azul">{{dentistaSelecionado? "Dentista":"Selecione o Dentista"}}</label>
+              <input pInputText id="nome" *ngIf="dentistaSelecionado" [value]="dentistaSelecionado.nome" required [disabled]="true" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dentista'].invalid && formulario.controls['dentista'].touched}" />
+              <label for="paciente" class="azul">{{dentistaSelecionado? "Dentista":"Selecione o Dentista"}} <span class="p-error ">*</span></label>
 
           </span>
-          <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+          <!-- <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
          </div>
 
         </div>
 
-        <div class="row lg:flex lg:justify-content-around lg:mt-6 lg:h-4rem">
+        <div class="row lg:flex lg:justify-content-around mt-4">
 
               <div class="field">
                 <span class="p-float-label  p-input-icon-right">
@@ -149,23 +155,23 @@
                       <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
                     </ng-template>
                   </p-calendar>
-                  <label for="dataConsulta" class="azul">Data Consulta</label>
+                  <label for="dataConsulta" class="azul">Data Consulta <span class="p-error ">*</span></label>
                 </span>
-                <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+                <!-- <small *ngIf="formulario.get('dataConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
               </div>
 
               <div class="field">
                 <span class="p-float-label p-input-icon-right">
                   <i class="pi pi-clock azul"></i>
-                  <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '12vw'}" class="web"></p-inputMask>
+                  <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '12vw'}" class="web" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['horaConsulta'].invalid && formulario.controls['horaConsulta'].touched}"></p-inputMask>
                   <p-inputMask mask="99:99" slotChar="--:--" formControlName="horaConsulta" [style]="{'width': '74vw'}" class="mobile"></p-inputMask>
-                  <label for="horaConsulta" class="azul">Hora Consulta</label>
+                  <label for="horaConsulta" class="azul">Hora Consulta <span class="p-error ">*</span></label>
                 </span>
-                <small *ngIf="formulario.get('horaConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+                <!-- <small *ngIf="formulario.get('horaConsulta')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
               </div>
         </div>
 
-        <div class="row lg:flex lg:justify-content-around lg:mt-6 lg:h-4rem ">
+        <div class="row lg:flex lg:justify-content-around mt-4">
           <div class="field" *ngIf="consultaRapida">
             <span class="p-float-label  p-input-icon-right ">
               <p-dropdown
@@ -177,10 +183,11 @@
                 optionLabel="nome"
                 [filter]="true"
                 filterBy="nome"
-                [style]="{'width': '14vw', 'height':'46px'}"
+                [style]="{'width': '14vw'}"
                 scrollHeight="300px"
                 inputId="dentista"
                 class="web"
+                [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dentista'].invalid && formulario.controls['dentista'].touched}"
                 ></p-dropdown>
                 <p-dropdown
                 *ngIf="!dentistaSelecionado"
@@ -191,17 +198,18 @@
                 optionLabel="nome"
                 [filter]="true"
                 filterBy="nome"
-                [style]="{'width': '74vw', 'height':'46px'}"
+                [style]="{'width': '74vw'}"
                 scrollHeight="300px"
                 inputId="dentista"
                 class="mobile"
+                [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dentista'].invalid && formulario.controls['dentista'].touched}"
                 ></p-dropdown>
                 <i class="pi pi-pw pi-angle-down text-xl" *ngIf="dentistaSelecionado"></i>
-                <input pInputText id="nome" *ngIf="dentistaSelecionado" [value]="dentistaSelecionado.nome" required [disabled]="true" class="width" />
-                <label for="paciente" class="azul">{{dentistaSelecionado? "Dentista":"Selecione o Dentista"}}</label>
+                <input pInputText id="nome" *ngIf="dentistaSelecionado" [value]="dentistaSelecionado.nome" required [disabled]="true" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dentista'].invalid && formulario.controls['dentista'].touched}" />
+                <label for="paciente" class="azul">{{dentistaSelecionado? "Dentista":"Selecione o Dentista"}} <span class="p-error ">*</span></label>
 
             </span>
-            <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+            <!-- <small *ngIf="formulario.get('dentista')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
           </div>
 
           <div class="field">
@@ -212,10 +220,11 @@
                   [autoZIndex]="true"
                   formControlName="consultaEspecialidade"
                   optionLabel="tipo"
-                  [style]="{'width': '14vw', 'height':'46px'}"
+                  [style]="{'width': '16vw', }"
                   scrollHeight="300px"
                   inputId="especConsulta"
                   class="web"
+                  [ngClass]="{'ng-invalid ng-dirty': formulario.controls['consultaEspecialidade'].invalid && formulario.controls['consultaEspecialidade'].touched}"
                   ></p-dropdown>
                   <p-dropdown
                   [options]="listaEspecConsulta"
@@ -223,44 +232,45 @@
                   [autoZIndex]="true"
                   formControlName="consultaEspecialidade"
                   optionLabel="tipo"
-                  [style]="{'width': '74vw', 'height':'46px'}"
+                  [style]="{'width': '74vw'}"
                   scrollHeight="300px"
                   inputId="especConsulta"
                   class="mobile"
+                  [ngClass]="{'ng-invalid ng-dirty': formulario.controls['consultaEspecialidade'].invalid && formulario.controls['consultaEspecialidade'].touched}"
                   ></p-dropdown>
-                <label for="consultaEspecialidade" class="azul">Procedimento da Consulta</label>
-                <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('erro')"class="p-error text-xs"><br>*Houve um erro ao buscar os tipos de consultas</small>
+                <label for="consultaEspecialidade" class="azul">Procedimento da Consulta <span class="p-error ">*</span></label>
+                <!-- <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('erro')"class="p-error text-xs"><br>*Houve um erro ao buscar os tipos de consultas</small> -->
               </span>
-              <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+              <!-- <small *ngIf="formulario.get('consultaEspecialidade')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
           </div>
         </div>
-        <div class="row lg:h-6rem lg:mt-3">
+        <div class="row">
           <div class="flex justify-content-center">
             <div>
-              <h4>Tempo Previsto</h4>
+              <h4 class="azul">Tempo Previsto <span class="p-error ">*</span></h4>
             </div>
           </div>
 
-          <div class="lg:flex lg:justify-content-center ">
+          <div class="lg:flex lg:justify-content-center">
                 <div class="flex align-items-center md:m-2 web m-2">
-                  <p-radioButton name="tempoPrevisto" value="1" class="azul" formControlName="tempoPrevisto" inputId="tempo1" label="15 Minutos"></p-radioButton>
+                  <p-radioButton name="tempoPrevisto" value="1" class="azul" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['tempoPrevisto'].invalid && formulario.controls['tempoPrevisto'].touched}" formControlName="tempoPrevisto" inputId="tempo1" label="15 min"></p-radioButton>
                 </div>
                 <div class="flex align-items-center lg:ml-2 m-2 web">
-                  <p-radioButton name="tempoPrevisto" value="2" class="azul" formControlName="tempoPrevisto" inputId="tempo2" label="30 Minutos"></p-radioButton>
+                  <p-radioButton name="tempoPrevisto" value="2" class="azul" formControlName="tempoPrevisto" inputId="tempo2" label="30 min"></p-radioButton>
                 </div>
                 <div class="flex align-items-center m-2 web">
-                  <p-radioButton name="tempoPrevisto" value="3" class="azul" formControlName="tempoPrevisto" inputId="tempo3" label="45 Minutos"></p-radioButton>
+                  <p-radioButton name="tempoPrevisto" value="3" class="azul" formControlName="tempoPrevisto" inputId="tempo3" label="45 min"></p-radioButton>
                 </div>
                 <div class="flex align-items-center m-2 web">
-                  <p-radioButton name="tempoPrevisto" value="4" class="azul" formControlName="tempoPrevisto" inputId="tempo4" label="60 Minutos"></p-radioButton>
+                  <p-radioButton name="tempoPrevisto" value="4" class="azul" formControlName="tempoPrevisto" inputId="tempo4" label="60 min"></p-radioButton>
                 </div>
           </div>
           <div class="lg:flex lg:justify-content-center ">
-            <small *ngIf="formulario.get('tempoPrevisto')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small>
+            <!-- <small *ngIf="formulario.get('tempoPrevisto')?.hasError('required')"  class="p-error text-xs"><br>* Campo obrigatório</small> -->
           </div>
         </div>
 
-        <div class="row flex justify-content-center mt-7">
+        <div class="row flex justify-content-center mt-4">
           <span class="p-float-label width">
             <textarea id="float-input" rows="3" class="width" formControlName="observacao" pInputTextarea></textarea>
             <label for="float-input" class="azul">Observações</label>
@@ -269,7 +279,7 @@
       </div>
 
       <div class="flex justify-content-around lg:justify-content-between align-content-center m-3">
-        <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
+        <p-button label="Cancelar" severity="danger" [text]="true" [rounded]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
         <p-button type="submit" label="Agendar" [rounded]="true" severity="success" icon="pi pi-save" class="mx-2" ></p-button>
         <!-- <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar mx-2"></button> -->
      </div>
