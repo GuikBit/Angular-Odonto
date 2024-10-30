@@ -188,7 +188,7 @@
             <td [width]="60">
               <p-avatar
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                styleClass=""                
+                styleClass=""
                 shape="circle"
               />
             </td>
@@ -209,49 +209,29 @@
 
             </td>
             <td [width]="140">
-              <div
-                class="flex justify-content-around">
-                  <p-button
-                    icon="pi pi-pw pi-info-circle"
-                    [rounded]="true"
-                    [text]="true"
-                    severity="info"
-                    pTooltip="Informações"
-                    tooltipPosition="top"
-                    (click)="info(func.id)"
-                    class="bg-blue-50 border-circle"
-                  ></p-button>
-                  <!-- <p-button
-                    icon="pi pi-pw pi-info-circle"
-                    [rounded]="true"
-                    severity="info"
-                    [outlined]="true"
-                    pTooltip="Informações"
-                    tooltipPosition="top"
-                    (click)="info(paciente.id)"
-                  >
-                  </p-button> -->
-                  <!-- <p-button
-                    icon="pi pi-pw pi-ban"
-                    [rounded]="true"
-                    severity="danger"
-                    [outlined]="true"
-                    pTooltip="Deletar"
-                    tooltipPosition="top"
-                    (click)="delet(paciente.id)"
-                  >
-                  </p-button> -->
-                  <p-button
-                    icon="pi pi-pw pi-trash"
-                    [rounded]="true"
-                    [text]="true"
-                    severity="danger"
-                    pTooltip="Inativar"
-                    tooltipPosition="top"
-                    (click)="info(func.id)"
-                    [disabled]="!func.ativo"
-                    class="bg-red-50 border-circle"
-                  ></p-button>
+              <div class="flex justify-content-around">
+                <p-button
+                icon="pi pi-pw pi-info-circle"
+                [rounded]="true"
+                [text]="true"
+                pTooltip="Informações"
+                tooltipPosition="top"
+                (click)="info(func.id)"
+                class="border-circle"
+                [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
+              ></p-button>
+
+              <p-button
+                icon="pi pi-pw pi-trash"
+                [rounded]="true"
+                [text]="true"
+                severity="danger"
+                pTooltip="Inativar"
+                tooltipPosition="top"
+                (click)="info('Teste')"
+                class="border-circle"
+                [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+              ></p-button>
 
               </div>
             </td>

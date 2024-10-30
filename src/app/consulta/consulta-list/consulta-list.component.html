@@ -7,7 +7,7 @@
         [options]="listaOuCalendar"
         [(ngModel)]="filtroListaCalendar"
         [multiple]="false"
-        optionLabel="name"        
+        optionLabel="name"
         optionValue="value"
         class="selectButton"
         (onChange)="trocaFiltroCalendario($event)"
@@ -20,8 +20,8 @@
 
     </div>
     <div class="col-3"></div>
-    <div class="col-7 flex align-items-center justify-content-center " >          
-     
+    <div class="col-7 flex align-items-center justify-content-center " >
+
       <div class="field  md:col-12 lg:col-4">
         <span class="p-float-label">
           <p-dropdown
@@ -54,7 +54,7 @@
           <label for="filtroDentista" class="azul">Filtrar por dentista </label>
         </span>
       </div>
-    
+
       <div class="field  md:col-12 lg:col-4">
         <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
           <p-calendar
@@ -127,15 +127,15 @@
           </p-dropdown>
           <label for="filtroDentista" class="azul">Filtrar por status </label>
         </span>
-      </div> 
-      
+      </div>
+
     </div>
   </div> -->
 
   <div class="w-full mb-3">
     <div class=" h-4rem boxFilter flex justify-content-center align-items-center ">
       <!-- <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()" class=""> -->
-      
+
         <div class="col-2 flex align-items-center justify-content-center">
 
           <div>
@@ -144,7 +144,7 @@
             [(ngModel)]="filtroListaCalendar"
             [multiple]="false"
             [allowEmpty]="false"
-            optionLabel="name"        
+            optionLabel="name"
             optionValue="value"
             class="selectButton"
             (onChange)="trocaFiltroCalendario($event)"
@@ -154,7 +154,7 @@
             </ng-template>
           </p-selectButton>
           </div>
-    
+
         </div>
 
         <div class="col-3 flex align-items-center justify-content-center"> </div>
@@ -216,7 +216,7 @@
               <label for="filtroDentista" class="azul">Filtrar por dentista </label>
             </span>
           </div>
-    
+
           <div class="field  md:col-12 lg:col-4 m-0">
             <span class="p-float-label" >
               <p-dropdown
@@ -237,7 +237,7 @@
                   label:  'Ausente',
                   cor: '#FF3D32'
                 }
-    
+
               ]"
               [(ngModel)]="status"
               optionLabel="label"
@@ -265,9 +265,9 @@
               </p-dropdown>
               <label for="filtroDentista" class="azul">Filtrar por status </label>
             </span>
-          </div> 
+          </div>
         </div>
-  
+
       <!-- </form> -->
     </div>
   </div>
@@ -275,7 +275,7 @@
   <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
     <div class="flex justify-content-between m-3"  >
       <div class="flex align-items-center">
-        
+
         <p-selectButton
           [options]="filtroDiaSemanaMes"
           [(ngModel)]="filtro"
@@ -287,7 +287,7 @@
           (onChange)="filtrarTabela($event)"
         >
         <ng-template let-item pTemplate>
-          <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>          
+          <i [class]="item.icon"><span class="mt-1 ml-1 p-component" >{{item.name}}</span></i>
         </ng-template>
         </p-selectButton>
 
@@ -484,7 +484,7 @@
                     <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                   }
                 @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                  <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                  <p-tag  value="&nbsp;Em Atendimento" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
                   }
                 @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
                   {
@@ -492,121 +492,84 @@
                   }
                 @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
                   {
-                    <p-tag icon="pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                    <p-tag icon="pi pi-user-minus" severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
                   }
             </td>
-            <td [width]="230">
-                    <div class="flex justify-content-around">
-                      <!-- <p-button
-                        icon="pi pi-pw pi-play"
-                        [rounded]="true"
-                        [outlined]="true"
-                        [severity]="'warning'"
-                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                        pTooltip="Iniciar Consulta"
-                        tooltipPosition="top"
-                        (click)="iniciarConsulta(consulta)"
-                        >
-                      </p-button> -->
-                      <p-button
-                        icon="pi pi-pw pi-play"
-                        [rounded]="true"
-                        [text]="true"
-                        severity="warning"
-                        [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
-                        pTooltip="Iniciar Consulta"
-                        tooltipPosition="top"
-                        (click)="iniciarConsulta(consulta)"
-                        class="bg-orange-50 border-circle"  
-                      ></p-button>
+            <td [width]="220">
+              <div class="flex justify-content-around">
 
-                      <!-- <p-button
-                        icon="pi pi-pw pi-info-circle"
-                        [rounded]="true"
-                        [outlined]="true"
-                        severity="info"
-                        pTooltip="Informações"
-                        tooltipPosition="top"
-                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
-                      >
-                      </p-button> -->
-                      <p-button
-                        icon="pi pi-pw pi-info-circle"
-                        [rounded]="true"
-                        [text]="true"
-                        severity="info"
-                        pTooltip="Informações"
-                        tooltipPosition="top"
-                        (click)="consultaSelecionadaInfo(consulta?.id, 1)"
-                        class="bg-blue-50 border-circle"  
-                      ></p-button>
+                <p-button
+                  icon="pi pi-pw pi-play"
+                  [rounded]="true"
+                  [text]="true"
+                  [style]="{'color': '#f86b17', 'background-color':'#ffebd5'}"
+                  pTooltip="Iniciar Consulta"
+                  tooltipPosition="top"
+                  class=" border-circle"
+                  (click)="iniciarConsulta(consulta)"
+                  [disabled]="consulta?.dataHoraInicioAtendimento || consulta?.ausente"
+                ></p-button>
 
+                <p-button
+                  icon="pi pi-pw pi-info-circle"
+                  [rounded]="true"
+                  [text]="true"
+                  [style]="{'color': '#3B82F6', 'background-color':'#dbe8fe'}"
+                  pTooltip="Informações"
+                  tooltipPosition="top"
+                  (click)="consultaSelecionadaInfo(consulta?.id, 1)"
+                  class=" border-circle"
+                ></p-button>
 
+                <p-button
+                  icon="pi pi-pw pi-dollar"
+                  [rounded]="true"
+                  [text]="true"
+                  [style]="{'color': '#DC2626', 'background-color':'#fee2e2'}"
+                  pTooltip="Financeiro pendente"
+                  tooltipPosition="top"
+                  (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                  class="border-circle"
+                  *ngIf="consulta.pagamento.fatFechado && !consulta.pagamento.pago"
+                ></p-button>
 
-                      @if(consulta.pagamento.fatFechado && !consulta.pagamento.pago){
-                        <!-- <p-button icon="pi pi-pw pi-dollar"
-                        [rounded]="true"
-                        [outlined]="true"
-                        severity="danger"
-                        pTooltip="Financeiro pendente"
-                        tooltipPosition="top"
-                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                      >
-                      </p-button> -->
-                      <p-button
-                        icon="pi pi-pw pi-dollar"
-                        [rounded]="true"
-                        [text]="true"
-                        severity="danger"
-                        pTooltip="Financeiro pendente"
-                        tooltipPosition="top"
-                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                        class="bg-red-50 border-circle"  
-                      ></p-button>
-                      }
-                      @else if(consulta.pagamento.fatFechado && consulta.pagamento.pago){
-                        <!-- <p-button icon="pi pi-pw pi-dollar"
-                        [rounded]="true"
-                        [outlined]="true"
-                        severity="success"
-                        pTooltip="Financeiro fechado"
-                        tooltipPosition="top"
-                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                      >
-                      </p-button> -->
-                      <p-button
-                        icon="pi pi-pw pi-dollar"
-                        [rounded]="true"
-                        [text]="true"
-                        severity="success"
-                        pTooltip="Financeiro fechado"
-                        tooltipPosition="top"
-                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                        class="bg-green-50 border-circle"  
-                      ></p-button>
-                      }@else {
-                        <!-- <p-button icon="pi pi-pw pi-dollar"
-                        [rounded]="true"
-                        [outlined]="true"
-                        severity="secondary"
-                        pTooltip="Financeiro aberto"
-                        tooltipPosition="top"
-                        (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                      >
-                      </p-button> -->
-                      <p-button
-                      icon="pi pi-pw pi-dollar"
-                      [rounded]="true"
-                      [text]="true"
-                      severity="secondary"
-                      pTooltip="Financeiro aberto"
-                      tooltipPosition="top"
-                      (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
-                      class="bg-gray-100 border-circle"  
-                      ></p-button>
-                      }
+                <p-button
+                  icon="pi pi-pw pi-dollar"
+                  [rounded]="true"
+                  [text]="true"
+                  [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+                  pTooltip="Financeiro fechado"
+                  tooltipPosition="top"
+                  (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                  class="border-circle"
+                  *ngIf="consulta.pagamento.fatFechado && consulta.pagamento.pago"
+                ></p-button>
 
-                    </div>
+                <p-button
+                  icon="pi pi-pw pi-dollar"
+                  [rounded]="true"
+                  [text]="true"
+                  [style]="{'color': '#6B7280', 'background-color':'#edeef1'}"
+                  pTooltip="Financeiro aberto"
+                  tooltipPosition="top"
+                  (onClick)="consultaSelecionadaInfo(consulta?.id, 2)"
+                  class="border-circle"
+                  *ngIf="!consulta.pagamento.fatFechado && !consulta.pagamento.pago"
+                ></p-button>
+
+                <p-button
+                  icon="pi pi-pw pi-trash"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="danger"
+                  pTooltip="Inativar"
+                  tooltipPosition="top"
+                  (click)="deletarConsulta(consulta.id)"
+                  class="border-circle"
+                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                ></p-button>
+
+              </div>
             </td>
           </tr>
         </ng-template>
@@ -621,8 +584,8 @@
   <div class="card box lg:p-6 text-indigo-800" *ngIf="!ehCalendario">
     <app-calendario [listaConsultas]="lista" [filtroDentista]="filtraListaDentista()" (abrirConsulta)="abrirConsultaSelecionada($event)" (novaConsulta)="novaConsultaDiaClicado($event)"></app-calendario>
   </div>
-    
-  
+
+
 </div>
 
 <p-dialog header='Nova Consulta' [(visible)]="visible" [modal]="true" [style]="{ width: '40vw', height: 'auto' }" class="box web" [draggable]="false" [resizable]="false" [closable]="false">

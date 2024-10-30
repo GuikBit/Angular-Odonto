@@ -151,7 +151,7 @@
             <td [width]="60">
               <p-avatar
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                styleClass=""                
+                styleClass=""
                 shape="circle"
               />
             </td>
@@ -180,30 +180,31 @@
             </td>
 
             <td [width]="140">
-              <div
-                class="flex justify-content-around">
+              <div class="flex justify-content-around">
+
                 <p-button
                   icon="pi pi-pw pi-info-circle"
                   [rounded]="true"
-                  severity="info"
                   [text]="true"
                   pTooltip="Informações"
                   tooltipPosition="top"
                   (click)="infoShow(dentista.id)"
-                  class="bg-blue-50 border-circle"
-                >
-                </p-button>
+                  class="border-circle"
+                  [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
+                ></p-button>
+
                 <p-button
                   icon="pi pi-pw pi-trash"
                   [rounded]="true"
-                  severity="danger"
                   [text]="true"
-                  pTooltip="Deletar"
+                  severity="danger"
+                  pTooltip="Inativar"
                   tooltipPosition="top"
                   (click)="DeletShowDialog()"
-                  class="bg-red-50 border-circle"
-                >
-                </p-button>
+                  [disabled]="!dentista.ativo"
+                  class="border-circle"
+                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                ></p-button>
               </div>
             </td>
           </tr>

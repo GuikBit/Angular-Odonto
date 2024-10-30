@@ -249,6 +249,10 @@ export class ConsultaListComponent implements OnInit{
     })
   }
 
+  deletarConsulta(id: any){
+
+  }
+
   // async pagamentoStatus(id: any){
   //   if(id != null){
   //     await this.service.getConsultaById(id).then((response)=>{

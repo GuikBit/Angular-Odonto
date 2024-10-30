@@ -109,7 +109,7 @@
               </div>
             </div>
           </th>
-          <th>
+          <th [width]="200">
             <div class="flex justify-content-around">
               <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
               <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
@@ -140,7 +140,7 @@
                   {{ item.descricao }}
                 </ng-template>
               </p-cellEditor>
-
+            </td>
             <td>
               <p-cellEditor>
                 <ng-template pTemplate="input">
@@ -157,53 +157,59 @@
             <td>
               <div class="flex align-items-center justify-content-center gap-2">
                 <p-button
+                  icon="pi pi-pw pi-pencil"
                   *ngIf="!editing"
                   pInitEditableRow
-                  icon="pi pi-pw pi-pencil"
                   [rounded]="true"
                   [text]="true"
                   pTooltip="Editar"
                   tooltipPosition="top"
-                  (click)="onRowEditInit(item)"   
-                  class="bg-blue-50 border-circle"               
+                  (click)="onRowEditInit(item)"
+                  class="border-circle"
+                  [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
                 ></p-button>
+
                 <p-button
+                  icon="pi pi-pw pi-check"
                   *ngIf="editing"
                   pSaveEditableRow
-                  icon="pi pi-pw pi-check"
                   [rounded]="true"
                   [text]="true"
+                  [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
                   pTooltip="Confirmar"
-                  severity="success"
                   tooltipPosition="top"
-                  (click)="onRowEditSave(item)"   
-                  class="bg-green-50 border-circle"            
+                  class=" border-circle"
+                  (onClick)="onRowEditSave(item)"
                 ></p-button>
+
                 <p-button
                   *ngIf="editing"
                   pCancelEditableRow
                   icon="pi pi-pw pi-times"
                   [rounded]="true"
                   [text]="true"
+                  [style]="{'color': '#f86b17', 'background-color':'#ffebd5'}"
                   pTooltip="Cancelar"
-                  severity="warning"
                   tooltipPosition="top"
-                  (click)="onRowEditCancel(item, ri)"     
-                  class="bg-orange-50 border-circle"        
+                  class=" border-circle"
+                  (click)="onRowEditCancel(item, ri)"
                 ></p-button>
-                <p-button                  
+
+                <p-button
                   pDeletRow
                   icon="pi pi-pw pi-trash"
                   [rounded]="true"
                   [text]="true"
-                  pTooltip="Deletar"
                   severity="danger"
+                  pTooltip="Inativar"
                   tooltipPosition="top"
-                  (click)="confirmaDeletar($event, item)"   
-                  class="bg-red-50 border-circle"       
+                  (click)="confirmaDeletar($event, item)"
+                  class="border-circle"
+                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
                 ></p-button>
+
               </div>
-          </td>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">

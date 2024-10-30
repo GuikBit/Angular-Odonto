@@ -24,7 +24,7 @@
     editMode="row"
     >
     <ng-template pTemplate="header">
-        <tr >
+        <tr>
           <th pSortableColumn="tipo" [width]="450">
             <div class="flex row align-items-center">
               <div class="col-8 flex justify-content-start align-items-center azul">
@@ -67,95 +67,97 @@
               </div>
             </div>
           </th>
-          <th>
-            <div class="flex justify-content-around">
-              <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
-              <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
-            </div>
+          <th class="flex justify-content-around" [width]="200">
+            <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
+            <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
           </th>
-
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="item">
-            <td>
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <input pInputText type="text" [(ngModel)]="item.tipo" >
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ item.tipo }}
-                </ng-template>
-              </p-cellEditor>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="item.tipo" >
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ item.tipo }}
+              </ng-template>
+            </p-cellEditor>
 
-            </td>
-            <td>
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <input pInputText type="text" [(ngModel)]="item.descricao" class="width">
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ item.descricao }}
-                </ng-template>
-              </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="item.descricao" class="width">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ item.descricao }}
+              </ng-template>
+            </p-cellEditor>
 
-            </td>
-            <td>
-              <div class="flex align-items-center justify-content-center gap-2">
-                <p-button
+          </td>
+          <td [width]="200">
+            <div class="flex align-items-center justify-content-center gap-2">
+              <p-button
+                  icon="pi pi-pw pi-pencil"
                   *ngIf="!editing"
                   pInitEditableRow
-                  icon="pi pi-pw pi-pencil"
                   [rounded]="true"
                   [text]="true"
                   pTooltip="Editar"
                   tooltipPosition="top"
-                  (click)="onRowEditInit(item)"    
-                  class="bg-blue-50 border-circle"                
+                  (click)="onRowEditInit(item)"
+                  class="border-circle"
+                  [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
                 ></p-button>
+
                 <p-button
+                  icon="pi pi-pw pi-check"
                   *ngIf="editing"
                   pSaveEditableRow
-                  icon="pi pi-pw pi-check"
                   [rounded]="true"
                   [text]="true"
+                  [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
                   pTooltip="Confirmar"
-                  severity="success"
                   tooltipPosition="top"
-                  (click)="onRowEditSave(item)"     
-                  class="bg-green-50 border-circle"            
+                  class=" border-circle"
+                  (onClick)="onRowEditSave(item)"
                 ></p-button>
+
                 <p-button
                   *ngIf="editing"
                   pCancelEditableRow
                   icon="pi pi-pw pi-times"
                   [rounded]="true"
                   [text]="true"
+                  [style]="{'color': '#f86b17', 'background-color':'#ffebd5'}"
                   pTooltip="Cancelar"
-                  severity="warning"
                   tooltipPosition="top"
-                  (click)="onRowEditCancel(item, ri)"  
-                  class="bg-orange-50 border-circle"             
+                  class=" border-circle"
+                  (click)="onRowEditCancel(item, ri)"
                 ></p-button>
-                <p-button                  
+
+                <p-button
                   pDeletRow
                   icon="pi pi-pw pi-trash"
                   [rounded]="true"
                   [text]="true"
-                  pTooltip="Deletar"
                   severity="danger"
+                  pTooltip="Inativar"
                   tooltipPosition="top"
-                  (click)="confirmaDeletar($event, item)" 
-                  class="bg-red-50 border-circle"           
+                  (click)="confirmaDeletar($event, item)"
+                  class="border-circle"
+                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
                 ></p-button>
-                 
-              </div>
+
+            </div>
           </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
       <tr >
-        <td colspan="6"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+        <td colspan="3"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
       </tr>
     </ng-template>
   </p-table>
