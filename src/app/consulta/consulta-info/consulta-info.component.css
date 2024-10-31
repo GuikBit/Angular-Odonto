@@ -20,6 +20,15 @@
   border: 1px solid #c4ddf3;
 }
 
+.btnAcao{
+  background-color: var(--cor-fundo);
+  border-radius: 50%;
+}
+.btnAcao:hover{
+  background-color: var(--cor-fundo-hover);
+  border-radius: 50%;
+}
+
 .box{
   background: #FFFFFF;
   border-radius: 7px ;

@@ -259,5 +259,21 @@ export class AdminConfiguracoesComponent implements OnInit {
     this.novoDentista = close;
   }
 
+  editarEmpresa(){
+
+  }
+
+  salvarEdicao(){
+
+  }
+
+  onReactivate(){
+
+  }
+
+  onInactivate(){
+    
+  }
+
 
 }

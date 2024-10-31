@@ -209,8 +209,10 @@
                         pTooltip="Informações"
                         tooltipPosition="top"
                         (click)="info(paciente.id)"
-                        class="border-circle"
-                        [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
+                        [style]="{'color': '#2570eb'}"
+                        [style.--cor-fundo]="'#dbecfe'"
+                        [style.--cor-fundo-hover]="'#cde6fe'"
+                        class="btnAcao border-circle"
                       ></p-button>
 
                       <p-button
@@ -222,8 +224,10 @@
                         tooltipPosition="top"
                         (click)="showSuccessMessage('Teste')"
                         [disabled]="!paciente.ativo"
-                        class="border-circle"
-                        [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                        [style]="{'color': '#ed2115'}"
+                        [style.--cor-fundo]="'#ffe1df'"
+                        [style.--cor-fundo-hover]="'#ffd4d2'"
+                        class="btnAcao border-circle"
                       ></p-button>
 
                   </div>

@@ -844,12 +844,63 @@
               <span class="web">&nbsp;Informações</span>
             </ng-template>
 
-            <div class="flex flex-wrap column-gap-4 row-gap-6 justify-content-end ">
+            <!-- <div class="flex flex-wrap column-gap-4 row-gap-6 justify-content-end ">
 
               <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" pTooltip="Editar" tooltipPosition="bottom" (click)="editarDentista()" [disabled]="!editavel" />
               <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" pTooltip="Salvar" tooltipPosition="bottom" [disabled]="editavel" (click)="this.editavel = true;"  />
               <p-button icon="pi pi-lock" [rounded]="true" *ngIf="data.ativo" severity="danger" [outlined]="true" pTooltip="Inativar" tooltipPosition="bottom" (click)="this.onInactivate();" />
               <p-button icon="pi pi-lock-open" [rounded]="true" *ngIf="!data.ativo" severity="danger" [outlined]="true" pTooltip="Ativar" tooltipPosition="bottom" (click)="this.onReactivate();" />
+            </div> -->
+            <div class="flex align-items-center justify-content-end gap-2">
+              <p-button
+                  icon="pi pi-pw pi-pencil"
+                  [disabled]="!editavel"
+                  [rounded]="true"
+                  [text]="true"
+                  pTooltip="Editar"
+                  tooltipPosition="top"
+                  (click)="editarDentista()"
+                  class="border-circle"
+                  [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
+                ></p-button>
+
+                <p-button
+                  icon="pi pi-pw pi-check"
+                  [disabled]="editavel"      
+                  [rounded]="true"
+                  [text]="true"                  
+                  pTooltip="Confirmar"
+                  tooltipPosition="top"
+                  class=" border-circle"
+                  (click)="this.editavel = true;"
+                  [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+                ></p-button>
+
+                <p-button
+                  *ngIf="data.ativo"
+                  icon="pi pi-pw pi-lock"
+                  [rounded]="true"
+                  [text]="true"
+                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                  pTooltip="Inativar"
+                  tooltipPosition="top"
+                  class=" border-circle"
+                  (click)="this.onInactivate();"
+                ></p-button>
+
+                <p-button                 
+                  *ngIf="!data.ativo"
+                  icon="pi pi-pw pi-lock-open"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="danger"
+                  pTooltip="Ativar"
+                  tooltipPosition="top"
+                  (click)="this.onReactivate();"
+                  class="border-circle"
+                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                ></p-button>
+
             </div>
 
             <div class="row flex">

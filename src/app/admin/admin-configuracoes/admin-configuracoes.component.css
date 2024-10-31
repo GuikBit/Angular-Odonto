@@ -64,6 +64,17 @@ th{
 
 }
 
+.btnAcao{
+  color: var(--color);
+  background-color: var(--cor-fundo);
+  border-radius: 50%;
+}
+.btnAcao:hover{
+  color: var(--color-hover);
+  background-color: var(--cor-fundo-hover);
+  border-radius: 50%;
+}
+
 
 .search{
 color: #2070b4;

@@ -109,8 +109,8 @@
               </div>
             </div>
           </th>
-          <th [width]="200">
-            <div class="flex justify-content-around">
+          <th [width]="180">
+            <div class="flex justify-content-center gap-2">
               <p-button icon="pi pi-file-excel" [rounded]="true" severity="success" [text]="true" size="small"></p-button>
               <p-button icon="pi pi-file-pdf" [rounded]="true" severity="danger" [text]="true" size="small"></p-button>
             </div>
@@ -154,8 +154,8 @@
             <td>
               {{ item.dataCadastro }}
             </td>
-            <td>
-              <div class="flex align-items-center justify-content-center gap-2">
+            <td [width]="180">
+              <div class="flex justify-content-center gap-2">
                 <p-button
                   icon="pi pi-pw pi-pencil"
                   *ngIf="!editing"
@@ -165,8 +165,10 @@
                   pTooltip="Editar"
                   tooltipPosition="top"
                   (click)="onRowEditInit(item)"
-                  class="border-circle"
-                  [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
+                  [style]="{'color': '#2570eb'}"
+                  [style.--cor-fundo]="'#dbecfe'"
+                  [style.--cor-fundo-hover]="'#cde6fe'"
+                  class="btnAcao border-circle"
                 ></p-button>
 
                 <p-button
@@ -175,11 +177,13 @@
                   pSaveEditableRow
                   [rounded]="true"
                   [text]="true"
-                  [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
                   pTooltip="Confirmar"
                   tooltipPosition="top"
-                  class=" border-circle"
                   (onClick)="onRowEditSave(item)"
+                  [style]="{'color': '#1DA750'}"
+                  [style.--cor-fundo]="'#ddfbe7'"
+                  [style.--cor-fundo-hover]="'#cef9d9'"
+                  class="btnAcao border-circle"
                 ></p-button>
 
                 <p-button
@@ -188,11 +192,13 @@
                   icon="pi pi-pw pi-times"
                   [rounded]="true"
                   [text]="true"
-                  [style]="{'color': '#f86b17', 'background-color':'#ffebd5'}"
                   pTooltip="Cancelar"
                   tooltipPosition="top"
-                  class=" border-circle"
                   (click)="onRowEditCancel(item, ri)"
+                  [style]="{'color': '#e9500d'}"
+                  [style.--cor-fundo]="'#ffebd5'"
+                  [style.--cor-fundo-hover]="'#ffdbbc'"
+                  class="btnAcao border-circle"
                 ></p-button>
 
                 <p-button
@@ -204,8 +210,10 @@
                   pTooltip="Inativar"
                   tooltipPosition="top"
                   (click)="confirmaDeletar($event, item)"
-                  class="border-circle"
-                  [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                  [style]="{'color': '#ed2115'}"
+                  [style.--cor-fundo]="'#ffe1df'"
+                  [style.--cor-fundo-hover]="'#ffd4d2'"
+                  class="btnAcao border-circle"
                 ></p-button>
 
               </div>

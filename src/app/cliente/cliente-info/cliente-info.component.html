@@ -118,12 +118,56 @@
             <span class="web">&nbsp;Informações</span>
           </ng-template>
             <form  [formGroup]="formulario" (ngSubmit)="onUpdate()" class="lg:pl-8 lg:pr-8 md:p-0">
-              <div class="flex flex-wrap column-gap-4 row-gap-6 justify-content-end ">
-
-                <p-button icon="pi pi-pencil" [rounded]="true" [outlined]="true" pTooltip="Editar" tooltipPosition="bottom" (click)="editarPaciente()" [disabled]="!disable" />
-                <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" pTooltip="Salvar" tooltipPosition="bottom" [disabled]="disable" (click)="this.disable = true;"  />
-                <p-button icon="pi pi-lock" [rounded]="true" *ngIf="paciente.ativo" severity="danger" [outlined]="true" pTooltip="Inativar" tooltipPosition="bottom" (click)="this.onInactivate();" />
-                <p-button icon="pi pi-lock-open" [rounded]="true" *ngIf="!paciente.ativo" severity="danger" [outlined]="true" pTooltip="Ativar" tooltipPosition="bottom" (click)="this.onReactivate();" />
+              <div class="flex align-items-center justify-content-end gap-2">
+                <p-button
+                    icon="pi pi-pw pi-pencil"
+                    (click)="editarPaciente()" 
+                    [disabled]="!disable" 
+                    [rounded]="true"
+                    [text]="true"
+                    pTooltip="Editar"
+                    tooltipPosition="top"
+                    class="border-circle"
+                    [style]="{'color': '#2570eb', 'background-color':'#dbe8fe'}"
+                  ></p-button>
+  
+                  <p-button
+                    icon="pi pi-pw pi-check"
+                    [disabled]="disable" 
+                    (click)="this.disable = true;"    
+                    [rounded]="true"
+                    [text]="true"                  
+                    pTooltip="Confirmar"
+                    tooltipPosition="top"
+                    class=" border-circle"
+                    [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+                  ></p-button>
+  
+                  <p-button
+                  *ngIf="paciente.ativo"
+                    icon="pi pi-pw pi-lock"
+                    [rounded]="true"
+                    [text]="true"
+                    [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                    pTooltip="Inativar"
+                    tooltipPosition="top"
+                    class=" border-circle"
+                    (click)="this.onInactivate();"
+                  ></p-button>
+  
+                  <p-button                 
+                  *ngIf="!paciente.ativo"
+                    icon="pi pi-pw pi-lock-open"
+                    [rounded]="true"
+                    [text]="true"
+                    severity="danger"
+                    pTooltip="Ativar"
+                    tooltipPosition="top"
+                    (click)="this.onReactivate();"
+                    class="border-circle"
+                    [style]="{'color':'#ed2115', 'background-color':'#ffe1df'}"
+                  ></p-button>
+  
               </div>
 
             <p-divider align="left" type="solid" >

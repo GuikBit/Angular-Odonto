@@ -26,10 +26,68 @@
             <span class="web">&nbsp;Informações</span>
           </ng-template>
 
-          <div class="flex flex-row-reverse flex-wrap">
-            <div>teste 1</div>
-            <div>teste 2</div>
+          <div class="flex align-items-center justify-content-end gap-2">
+              <p-button
+                icon="pi pi-pw pi-pencil"
+                (click)="editarEmpresa()" 
+                [rounded]="true"
+                [text]="true"
+                pTooltip="Editar"
+                tooltipPosition="top"              
+                [style]="{'color': '#2570eb'}"
+                [style.--cor-fundo]="'#dbecfe'"
+                [style.--cor-fundo-hover]="'#cde6fe'"
+                class="btnAcao border-circle"
+              ></p-button>
+
+              <p-button
+                icon="pi pi-pw pi-check"
+                (click)="salvarEdicao()"    
+                [rounded]="true"
+                [text]="true"                  
+                pTooltip="Confirmar"
+                tooltipPosition="top"      
+                [style]="{'color': '#1DA750'}"
+                [style.--cor-fundo]="'#ddfbe7'"
+                [style.--cor-fundo-hover]="'#cef9d9'"
+                class="btnAcao border-circle"
+              ></p-button>
+
+              <p-button
+                *ngIf="false"
+                icon="pi pi-pw pi-lock"
+                [rounded]="true"
+                [text]="true"
+                pTooltip="Inativar"
+                tooltipPosition="top"
+                (click)="this.onInactivate();"
+                [style]="{'color': '#ed2115'}"
+                [style.--cor-fundo]="'#ffe1df'"
+                [style.--cor-fundo-hover]="'#ffd4d2'"
+                class="btnAcao border-circle"
+              ></p-button>
+
+              <p-button                 
+                *ngIf="true"
+                icon="pi pi-pw pi-lock-open"
+                [rounded]="true"
+                [text]="true"
+                severity="danger"
+                pTooltip="Ativar"
+                tooltipPosition="top"
+                (click)="this.onReactivate();"
+                [style]="{'color': '#ed2115'}"
+                [style.--cor-fundo]="'#ffe1df'"
+                [style.--cor-fundo-hover]="'#ffd4d2'"
+                class="btnAcao border-circle"
+              ></p-button>
+
           </div>
+
+          <p-divider align="left" type="solid" >
+            <i class="pi pi-user" ></i>
+            <b>&nbsp;&nbsp;&nbsp;Informações Empresariais</b>
+          </p-divider>
 
           <!-- <form [formGroup]="formulario"> -->
             <div class="flex flex-column gap-2 mx-auto my-5 " >
@@ -80,6 +138,11 @@
                 </div>
               </div>
             </div>
+
+            <p-divider align="left" type="solid" >
+              <i class="pi pi-map-marker" ></i>
+              <b>&nbsp;&nbsp;&nbsp;Endereço</b>
+            </p-divider>
 
             <div class="flex flex-column mt-3">
 

@@ -35,10 +35,20 @@ button:active {
 th{
   /* background: #c4ddf3 !important; */
   color: #2070b4;
-  font-size: large;
+  /* font-size: large; */
 
 }
 
+.btnAcao{
+  color: var(--color);
+  background-color: var(--cor-fundo);
+  border-radius: 50%;
+}
+.btnAcao:hover{
+  color: var(--color-hover);
+  background-color: var(--cor-fundo-hover);
+  border-radius: 50%;
+}
 
 .search{
 color: #2070b4;
