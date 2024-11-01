@@ -267,9 +267,9 @@ export class HomeComponent implements OnInit{
     const qtdEspecialidade = this.data?.qtdEspecialidade ?? [];
     const especialidades = this.data?.especialidades ?? [];
     const qtdPacienteMes = this.data?.qtdPacienteMes ?? [];
-    
-    const totalMeses = this.data.qtdAtrasoMes.length;
-    const somaAtrasos = this.data.qtdAtrasoMes.reduce((a: any, b: any) => a + b, 0);
+
+    const totalMeses = this.data?.qtdAtrasoMes.length ?? [];
+    const somaAtrasos = this.data?.qtdAtrasoMes.reduce((a: any, b: any) => a + b, 0);
     const mediaGeral = somaAtrasos / totalMeses;
     const mediaGeralArray = Array(totalMeses).fill(mediaGeral);
 
@@ -283,11 +283,11 @@ export class HomeComponent implements OnInit{
       scales: {
         x: {
           display: false,
-        
+
         },
         y: {
           display: false,
-          
+
         }
       }, elements: {
         point: {
@@ -345,17 +345,17 @@ export class HomeComponent implements OnInit{
       scales: {
         x: {
           display: false,
-        
+
         },
         y: {
           display: false,
-          
+
         }
       }
     }
 
     this.dataLineDent = {
-      labels: meses, 
+      labels: meses,
       datasets: dentistasFiltrados.map((dentista: any, index: any) => ({
         label: dentista.nome,
         data: qtdConsultasDentistaMes.map((mes: any )=> mes[index]),

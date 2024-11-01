@@ -145,6 +145,9 @@ import { PagamentoInfoComponent } from './pagamento-info/pagamento-info.componen
 import { DialogService } from 'primeng/dynamicdialog';
 import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
 
+
+
+
 @NgModule({
   declarations: [
     ConsultaListComponent,
@@ -162,6 +165,8 @@ import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
     TableModule,
     ToggleButtonModule,
     InputMaskModule,
+    AvatarModule,
+    ImageModule ,
     InputSwitchModule,
     InputTextModule,
     InputTextareaModule,

@@ -1,9 +1,10 @@
 <div class="new p-component px-5">
 
-  <div class="flex justify-content-between ">
+  <div class="flex justify-content-between my-2">
 
       <div class="flex justify-content-start align-items-center">
-        <i class="pi pi-bolt text-xs azul mr-1" *ngIf="consultaSelecionada.nomePaciente"></i>
+        <p-tag severity="info" icon="pi pi-bolt" class="azul mr-2" [rounded]="true" *ngIf="consultaSelecionada.nomePaciente" [style]="{'font-size': '13px', 'font-weight': '400', 'padding-top':'7px', 'padding-bottom':'7px', 'padding-left':'8px'}"/>
+
         @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento &&  !consultaSelecionada.ausente){
           <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
         }
@@ -26,7 +27,7 @@
             [rounded]="true"
             [text]="true"
             pTooltip="Iniciar"
-            tooltipPosition="top"   
+            tooltipPosition="top"
             *ngIf="!loading.iniciar"
             [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true"
             (onClick)="iniciarConsulta()"
@@ -39,9 +40,9 @@
           <p-button
             icon="pi pi-spin pi-spinner"
             [rounded]="true"
-            [text]="true"           
+            [text]="true"
             pTooltip="Iniciando..."
-            tooltipPosition="top" 
+            tooltipPosition="top"
             *ngIf="loading.iniciar"
             [style]="{'color': '#e9500d'}"
             [style.--cor-fundo]="'#ffebd5'"
@@ -54,10 +55,10 @@
             [rounded]="true"
             [text]="true"
             pTooltip="Finalizar"
-            tooltipPosition="top"      
+            tooltipPosition="top"
             *ngIf="!loading.finalizar"
             [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
-            (onClick)="finalizarConsulta()"            
+            (onClick)="finalizarConsulta()"
             [style]="{'color': '#1DA750'}"
             [style.--cor-fundo]="'#ddfbe7'"
             [style.--cor-fundo-hover]="'#cef9d9'"
@@ -69,7 +70,7 @@
             [rounded]="true"
             [text]="true"
             pTooltip="Finalizando..."
-            tooltipPosition="top"            
+            tooltipPosition="top"
             *ngIf="loading.finalizar"
             [style]="{'color': '#1DA750'}"
             [style.--cor-fundo]="'#ddfbe7'"
@@ -110,7 +111,7 @@
           <p-button
             icon="pi pi-pw pi-user-minus"
             [rounded]="true"
-            [text]="true"            
+            [text]="true"
             pTooltip="Ausentar"
             tooltipPosition="top"
             [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || (consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
@@ -134,7 +135,7 @@
             [style.--cor-fundo-hover]="'#f8eeb2'"
             class="btnAcao border-circle"
           ></p-button>
-          
+
           <p-button
             icon="pi pi-pw pi-user-plus"
             [rounded]="true"
@@ -156,7 +157,7 @@
             pTooltip="Deletar"
             tooltipPosition="top"
             (onClick)="deletarConsulta()"
-            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true" 
+            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
             [style]="{'color': '#ed2115'}"
             [style.--cor-fundo]="'#ffe1df'"
             [style.--cor-fundo-hover]="'#ffd4d2'"
@@ -181,34 +182,122 @@
   </div>
   <p-divider layout="horizontal" [style]="{'margin': '0'}" ></p-divider>
 
-    <div class="flex mt-4">
-      <div class="col-12">
-        <div [class]="consultaSelecionada.paciente? 'row flex justify-content-around': 'row flex justify-content-between' ">
-          <div class="col-5 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
-            <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.paciente.nome}}
+
+    <div class=" mt-4">
+      <div class="row flex">
+        <div class="col-2 flex justify-content-center">
+          <p-image
+            src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+            alt="Image"
+            width="120"
+            class="border-round-2xl"
+          />
+        </div>
+        <div class="col-10 flex">
+          <div class="col-6 flex justify-content-start align-items-center" *ngIf="consultaSelecionada.paciente">
+            <span class="flex justify-content-center text-2xl font-bold" >
+              {{ consultaSelecionada.paciente.nome }}
+            </span>
           </div>
-          <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
-            <span class="font-bold text-lg"><i class="pi pi-user azul"></i>&nbsp;&nbsp;Paciente:&nbsp;</span> {{consultaSelecionada.nomePaciente}}
+
+          <div class="col-6 flex justify-content-start align-items-center" *ngIf="!consultaSelecionada.paciente">
+            <span class="flex justify-content-center text-2xl font-bold" >
+              {{ consultaSelecionada.nomePaciente }}
+            </span>
           </div>
-          <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
-            <span class="font-bold text-lg"><i class="pi pi-phone azul"></i>&nbsp;&nbsp;Telefone:&nbsp;</span> {{consultaSelecionada.telefone}}
+
+          <div class="col-3 flex justify-content-center" *ngIf="!consultaSelecionada.paciente">
+            <div>
+              <span class="font-bold text-lg flex justify-content-center m-2">
+                <i class="pi pi-phone azul"></i>&nbsp;&nbsp;
+                Telefone
+              </span>
+              <span class="flex justify-content-center" >
+                {{ consultaSelecionada.telefone }}
+              </span>
+            </div>
           </div>
-          <div class="col-3 flex justify-content-start" *ngIf="!consultaSelecionada.paciente">
-            <span class="text-lg"><i class="pi pi-bolt azul"></i>&nbsp;&nbsp;Consulta Rápida&nbsp;</span>
+
+          <div class="col-3 flex justify-content-center" *ngIf="!consultaSelecionada.paciente">
+            <div>
+              <span class="font-bold text-lg flex justify-content-center m-2">
+                <i class="pi pi-phone azul"></i>&nbsp;&nbsp;
+                Consulta Rápida
+              </span>
+              <span class="flex justify-content-center" >
+                {{ consultaSelecionada.telefone }}
+              </span>
+            </div>
           </div>
-          <div class="col-3 flex justify-content-start " *ngIf="consultaSelecionada.paciente">
-            <span class="font-bold text-lg"><i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;Pasta:&nbsp;</span> {{consultaSelecionada.paciente.numPasta}}
+
+          <div class="col-3 flex justify-content-center" *ngIf="consultaSelecionada.paciente">
+            <div>
+              <span class="font-bold text-lg flex justify-content-center m-2">
+                <i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;
+                Pasta
+              </span>
+              <span class="flex justify-content-center">
+                {{ consultaSelecionada.paciente.numPasta }}
+              </span>
+            </div>
           </div>
-          <div class="col-4 flex justify-content-start" *ngIf="consultaSelecionada.paciente">
-            <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;Idade:&nbsp;</span> {{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}
-            <!-- <div>
-              <h4 class="flex justify-content-center text-lg ">Idade</h4>
-              <span class="azul text-lg "><i class="pi pi-calendar azul"></i>&nbsp;&nbsp;{{calcularIdade(consultaSelecionada.paciente.dataNascimento)}}</span>
-            </div> -->
+
+          <div class="col-3 flex justify-content-center" *ngIf="consultaSelecionada.paciente">
+            <div>
+              <span class="font-bold text-lg flex justify-content-center m-2">
+                <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;
+                Idade
+              </span>
+              <span class="flex justify-content-center">
+                {{ calcularIdade(consultaSelecionada.paciente.dataNascimento) }}
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row flex mt-2">
+        <div class="col-4 flex justify-content-center bg-blue-200">
+          <div>
+            <span class="font-bold text-lg flex justify-content-center m-2">
+              <i class="pi pi-user azul"></i>&nbsp;&nbsp;
+              Dentista
+            </span>
+            <span class="flex justify-content-center" >
+              {{consultaSelecionada.dentista.nome}}
+            </span>
           </div>
         </div>
+        <div class="col-3 flex justify-content-center bg-blue-300">
+          <div>
+            <span class="font-bold text-lg flex justify-content-center m-2">
+              <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;
+              Data
+            </span>
+            <span class="flex justify-content-center" >
+              <div *ngIf="!loading.editar">
+                {{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}
+              </div>
 
-        <!-- <p-divider layout="horizontal"></p-divider> -->
+              <div class="field" *ngIf="loading.editar">
+                <span class="p-float-label p-float-icon-left ">
+                  <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="dataConsulta"
+                    [showTime]="false"
+                    formControlName="dataConsulta"
+                    [style]="{ 'width': '11vw' }"
+                    dateFormat="dd/mm/yy"
+                  ></p-calendar>
+                </span>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
 
         <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()">
         <div class="row flex justify-content-around mt-5" [style]="{'height':'6vh'}" >
@@ -234,11 +323,10 @@
                           [iconDisplay]="'input'"
                           [showIcon]="true"
                           inputId="dataConsulta"
-
                           [showTime]="false"
-                          formControlName="dataConsulta"
+                          [[(ngModel)]="formularioEditar.get('dataConsulta')?.value"
                           [style]="{'width': '8vw', 'height':'4vh'}"
-                          dateFormat="yy-mm-dd"
+                          dateFormat="dd/mm/yy"
                           ></p-calendar>
                       </span>
                     </div>
@@ -316,14 +404,14 @@
         <div class="col p-fluid">
 
           <span class=" text-lg flex justify-content-center align-items-center mb-3 font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
-          
+
           <p-chips
             [separator]="separatorExp"
             placeholder="Digite os procedimentos realizados na consulta"
             class="azul"
             formControlName="procedimentos"
           ></p-chips>
-          
+
         </div>
         <div class="flex justify-content-around align-items-center pt-5" [style]="{'width':'120px'}">
           <p-button
@@ -333,8 +421,8 @@
             pTooltip="Editar"
             [style]="{'color': '#3B82F6', 'background-color':'#dbe8fe'}"
             tooltipPosition="top"
-            
-            class=" border-circle" 
+
+            class=" border-circle"
           ></p-button>
           <p-button
             type="submit"
@@ -345,31 +433,15 @@
             [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
             tooltipPosition="top"
             [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
-            class=" border-circle" 
-                       
+            class=" border-circle"
+
           ></p-button>
           <!-- <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
-          
+
           ><i class="material-icons">task_alt</i></p-button> -->
         </div>
       </div>
     </form>
-
-
-  <!-- <p-button label="Secondary" [text]="true" severity="secondary" (onClick)="pagamento()"></p-button> -->
-     <!-- <div class="mt-5" [formGroup]="formulario">
-      <p-fieldset [toggleable]="true" >
-        <ng-template pTemplate="header">
-          <div class="flex align-items-center gap-2 px-2">
-              <span class="font-bold">Pagamento&nbsp;&nbsp;</span>
-              <i class="material-icons" [style]="consultaSelecionada.pagamento.pago 'color: #22C55E':'color: #F97316'">attach_money</i>
-          </div>
-        </ng-template>
-
-      </p-fieldset>
-    </div>-->
-
-
 </div>
 
 

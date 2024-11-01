@@ -6,14 +6,14 @@
       <div class="card flex justify-content-end mb-2" *ngIf="!pacienteSelecionado">
         <p-toggleButton
           [(ngModel)]="consultaRapida"
-          onLabel="Rápida" 
-          offLabel="Normal" 
+          onLabel="Rápida"
+          offLabel="Normal"
           onIcon="pi pi-bolt text-xs"
           offIcon="pi pi-bolt text-xs"
           styleClass="w-full text-xs mb-2"
           (click)="consultaRapida = !consultaRapida"
         />
-        
+
       </div>
 
       <div >
@@ -278,7 +278,7 @@
         </div>
       </div>
 
-      <div class="flex justify-content-around lg:justify-content-between align-content-center m-3">
+      <div class="flex justify-content-around lg:justify-content-between align-content-center m-3 mt-6">
         <p-button label="Cancelar" severity="danger" [text]="true" [rounded]="true" icon="pi pi-times" class="mx-2" (click)="fecharModal()"></p-button>
         <p-button type="submit" label="Agendar" [rounded]="true" severity="success" icon="pi pi-save" class="mx-2" ></p-button>
         <!-- <button pButton type="submit"  label="Agendar" icon="pi pi-save" class="btnSalvar mx-2"></button> -->

@@ -2,90 +2,83 @@
 <!-- <i class="text-white  btnFiltro" [class]="sidebarVisible? 'pi pi-filter-slash' :  'pi pi-filter'" style="font-size: 1.35rem; cursor: pointer;" (click)="toggleSidebar()"></i> -->
 
 <div class="w-full p-3 ">
-  <div class="card h-6rem flex justify-content-center align-items-center pt-3">
-    <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()" class="">
+  <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()" class="card h-6rem w-full flex justify-content-around align-items-center ">
 
-      <div class="flex justify-content-center">
+    <div class="flex justify-content-center ">
+      <span class="p-float-label  p-input-icon-right">
+        <p-calendar
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          appendTo="body"
+          [autoZIndex]="true"
+          inputId="dataConsulta"
+          dateFormat="dd/mm/yy"
+          [showButtonBar]="true"
+          [style]="{'color':'#2070B4', 'width': '15vw'}"
+          formControlName="dtInicio"
+          class="inputFiltro"
+          >
+          <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+            <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+          </ng-template>
+        </p-calendar>
+        <label for="dataConsulta" class="azul text-sm">De</label>
+      </span>
 
-        <div class="field flex justify-content-center">
-          <span class="p-float-label  p-input-icon-right">
-            <p-calendar
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              appendTo="body"
-              [autoZIndex]="true"
-              inputId="dataConsulta"
-              dateFormat="dd/mm/yy"
-              [showButtonBar]="true"
-              [style]="{'color':'#2070B4', 'width': '15vw'}"
-              formControlName="dtInicio"
+    </div>
 
-              >
-              <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-              </ng-template>
-            </p-calendar>
-            <label for="dataConsulta" class="azul text-sm">De</label>
-          </span>
+    <div class="flex justify-content-center ">
+      <span class="p-float-label  p-input-icon-right">
+        <p-calendar
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          appendTo="body"
+          [autoZIndex]="true"
+          inputId="dataConsulta"
+          dateFormat="dd/mm/yy"
+          [showButtonBar]="true"
+          [style]="{'color':'#2070B4', 'width': '15vw'}"
+          formControlName="dtFim"
+          class="inputFiltro"
+          >
+          <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+            <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+          </ng-template>
+        </p-calendar>
+        <label for="dataConsulta" class="azul text-sm">Até</label>
+      </span>
+    </div>
 
-        </div>
+    <div class="flex justify-content-center ">
+      <span class="p-float-label p-input-icon-right">
+        <i class="pi pi-user"></i>
+        <p-dropdown [options]="data.dentistasList" class="inputFiltro" formControlName="dentista" [showClear]="true" appendTo="body" (onChange)="preencheuDentista()" [autoZIndex]="true" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}" ></p-dropdown>
+        <label for="float-label" class="azul text-sm">Dentista</label>
+      </span>
+    </div>
 
-        <div class="field flex justify-content-center ml-3">
-          <span class="p-float-label  p-input-icon-right">
-            <p-calendar
-              [iconDisplay]="'input'"
-              [showIcon]="true"
-              appendTo="body"
-              [autoZIndex]="true"
-              inputId="dataConsulta"
-              dateFormat="dd/mm/yy"
-              [showButtonBar]="true"
-              [style]="{'color':'#2070B4', 'width': '15vw'}"
-              formControlName="dtFim"
+    <div class="flex justify-content-center ">
+      <span class="p-float-label p-input-icon-right">
+        <i class="pi pi-user"></i>
+        <p-dropdown [options]="data.procedimentos" class="inputFiltro" formControlName="procedimento" [showClear]="true" appendTo="body" [autoZIndex]="true" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}"></p-dropdown>
+        <label for="float-label" class="azul text-sm">Procedimento</label>
+      </span>
+    </div>
 
-              >
-              <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-              </ng-template>
-            </p-calendar>
-            <label for="dataConsulta" class="azul text-sm">Até</label>
-          </span>
-        </div>
+    <div class="flex justify-content-center ">
+      <span class="p-float-label p-input-icon-right">
+        <i class="pi pi-user"></i>
+        <p-dropdown [options]="data.especialidades" class="inputFiltro" formControlName="especialidade" [showClear]="true" appendTo="body" [autoZIndex]="true" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}"></p-dropdown>
+        <label for="float-label" class="azul text-sm">Especialidade</label>
+      </span>
+    </div>
 
-        <div class="field flex justify-content-center ml-3">
-          <span class="p-float-label p-input-icon-right">
-            <i class="pi pi-user"></i>
-            <p-dropdown [options]="data.dentistasList" class="text-sm" formControlName="dentista" [showClear]="true" appendTo="body" (onChange)="preencheuDentista()" [autoZIndex]="true" optionLabel="nome" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}" ></p-dropdown>
-            <label for="float-label" class="azul text-sm">Dentista</label>
-          </span>
-        </div>
+    <div class="flex justify-content-end ">
+      <!-- <p-button  type="submit" label="Filtrar" [rounded]="true" [raised]="true" icon="pi pi-filter" size="small"   /> -->
+      <button pButton type="submit" label="Filtrar" icon="pi pi-filter" class="web"></button>
+    </div>
+  </form>
 
-        <div class="field flex justify-content-center ml-3">
-          <span class="p-float-label p-input-icon-right">
-            <i class="pi pi-user"></i>
-            <p-dropdown [options]="data.procedimentos" formControlName="procedimento" [showClear]="true" appendTo="body" [autoZIndex]="true" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}"></p-dropdown>
-            <label for="float-label" class="azul text-sm">Procedimento</label>
-          </span>
-        </div>
-
-        <div class="field flex justify-content-center ml-3">
-          <span class="p-float-label p-input-icon-right">
-            <i class="pi pi-user"></i>
-            <p-dropdown [options]="data.especialidades" formControlName="especialidade" [showClear]="true" appendTo="body" [autoZIndex]="true" optionLabel="tipo" inputId="float-label" [style]="{'color':'#2070B4', 'width': '17vw'}"></p-dropdown>
-            <label for="float-label" class="azul text-sm">Especialidade</label>
-          </span>
-        </div>
-        <!-- <div class="">
-          <p-button label="Limpar" [text]="true" (click)="clearFiltro()" [raised]="true" [rounded]="true" icon="pi pi-filter-slash" size="small" />
-          <p-button  type="submit" label="Filtrar" [rounded]="true" [raised]="true" icon="pi pi-filter" size="small" />
-        </div> -->
-        <div class="field flex justify-content-center ml-3">
-          <p-button  type="submit" label="Filtrar" [rounded]="true" [raised]="true" icon="pi pi-filter" size="small"   />
-        </div>
-      </div>
-
-    </form>
-  </div>
 </div>
 
 <div class="row flex px-3" >
