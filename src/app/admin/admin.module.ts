@@ -32,7 +32,7 @@ import { NovoCargoModule } from "../MyComponents/novo-cargo/novo-cargo.module";
 import { AdminPontoComponent } from './admin-ponto/admin-ponto.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DentistaListarModule } from "../MyComponents/dentista-listar/dentista-listar.module";
-
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -56,6 +56,7 @@ import { DentistaListarModule } from "../MyComponents/dentista-listar/dentista-l
     BreadcrumbModule,
     RouterModule,
     TableModule,
+    RippleModule,
     InputTextModule,
     DividerModule,
     TabViewModule,

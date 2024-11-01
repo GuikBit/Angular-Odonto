@@ -136,7 +136,8 @@ export class CalendarioComponent implements OnInit{
       title: consulta.paciente == undefined || null? consulta.nomePaciente : consulta.paciente.nome,
       start: consulta.dataConsulta,
       end: consulta.dataConsultaReserva,
-      textColor:this.retornaStatus(consulta),
+      // textColor:this.retornaStatus(consulta),
+      textColor: consulta.status,
       startStr: consulta.dataConsulta.toString(),
       endStr: consulta.dataConsultaReserva.toString(),
       groupId: consulta.dentista?.id?.toString() ?? '',
@@ -151,22 +152,23 @@ export class CalendarioComponent implements OnInit{
   }
 
   retornaStatus(consulta: Consulta){
-    if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && !consulta.ausente){
-      return "#F97316";
-    }
-    else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-      return "#3B82F6";
-    }
-    else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
-    {
-      return "#22C55E";
-    }
-    else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
-    {
-      return "#FF3D32";
-    }else{
-      return "#FFF";
-    }
+    // if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && !consulta.ausente){
+    //   return "#F97316";
+    // }
+    // else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
+    //   return "#3B82F6";
+    // }
+    // else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
+    // {
+    //   return "#22C55E";
+    // }
+    // else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
+    // {
+    //   return "#FF3D32";
+    // }else{
+    //   return "#FFF";
+    // }
+    
   }
 
   retornaCorDentista(consulta: Consulta){

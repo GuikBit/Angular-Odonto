@@ -19,8 +19,21 @@
               {{arg.event.end | date: 'HH:mm'}}
             </span>
           </div>
-          <div class=" white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:10%">
-            <i class="pi pi-circle-fill text-xs ml-1" [style.color]="arg.event.textColor"></i>
+          <div class="flex justify-content-end white-space-nowrap overflow-hidden text-overflow-ellipsis" style="width:12%">
+            <!-- <i class="pi pi-circle-fill text-xs ml-1" [style.color]="arg.event.textColor"></i> -->
+            @if(arg.event.textColor == '1'){
+              <p-tag [rounded]="true" pTooltip="Aguardando" tooltipPosition="top"  [style]="{'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '14px'}" >schedule</i></p-tag> 
+            } @else if (arg.event.textColor == '2') {
+              <p-tag [rounded]="true"  pTooltip="Confirmado" tooltipPosition="top" [style]="{'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '14px'}" >done_all</i></p-tag>
+            }@else if (arg.event.textColor == '3') {
+              <p-tag severity="warning"  pTooltip="Agendado" tooltipPosition="top" [rounded]="true"><i class="pi pi-calendar-clock" [style]="{'font-size': '13px'}" ></i></p-tag>
+            }@else if (arg.event.textColor == '4') {
+              <p-tag  [rounded]="true"  pTooltip="Em atendimento" tooltipPosition="top" ><i class="material-icons" [style]="{'font-size': '14px'}" >timelapse</i></p-tag>
+            }@else if(arg.event.textColor == '5'){
+              <p-tag severity="success" pTooltip="Atendido" tooltipPosition="top" [rounded]="true"><i class="pi pi-check-circle" [style]="{'font-size': '13px'}" ></i></p-tag>
+            }@else if (arg.event.textColor == '6') {
+              <p-tag severity="danger" pTooltip="Ausente" tooltipPosition="top" [rounded]="true"><i class="material-icons" [style]="{'font-size': '14px'}" >person_off</i></p-tag>
+            }
           </div>
         </div>
       </div>

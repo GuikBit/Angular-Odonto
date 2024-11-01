@@ -120,6 +120,7 @@ import { SidebarModule } from 'primeng/sidebar';
     CarouselModule,
     CascadeSelectModule,
     CheckboxModule,
+    RippleModule ,
     ChipsModule,
     ChipModule,
     ColorPickerModule,

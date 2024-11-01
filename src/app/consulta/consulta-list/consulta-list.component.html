@@ -133,7 +133,7 @@
   </div> -->
 
   <div class="w-full mb-3">
-    <div class=" h-6rem boxFilter flex justify-content-center align-items-center ">
+    <div class=" h-5rem boxFilter flex justify-content-center align-items-center ">
       <!-- <form [formGroup]="formulario" (ngSubmit)="filtrarDashboard()" class=""> -->
 
         <div class="col-2 flex align-items-center justify-content-center">
@@ -160,7 +160,7 @@
         <div class="col-3 flex align-items-center justify-content-center"> </div>
 
         <div class="col-7 flex ">
-          <div class="field  md:col-12 lg:col-4 m-0">
+          <div class="md:col-12 lg:col-4 m-0">
             <span class="p-float-label p-input-icon-right " [style]="{'width': '100%'}">
               <p-calendar
                 inputId="filtroData"
@@ -184,7 +184,7 @@
             </span>
           </div>
 
-          <div class="field  md:col-12 lg:col-4 m-0">
+          <div class="md:col-12 lg:col-4 m-0">
             <span class="p-float-label">
               <p-dropdown
               [options]="dentistas"
@@ -217,49 +217,88 @@
             </span>
           </div>
 
-          <div class="field  md:col-12 lg:col-4 m-0">
+          <div class="md:col-12 lg:col-4 m-0">
             <span class="p-float-label" >
               <p-dropdown
               [options]="[
                 {
+                  label: 'Aguardando',
+                  cor: '#9CA3AF',
+                  status: 1
+                },
+                {
+                  label: 'Confirmado',
+                  cor: '#8B5CF6',
+                  status: 2
+                },
+                {
                   label:  'Agendado',
-                  cor: '#F97316'
+                  cor: '#F97316',
+                  status: 3
                 },
                 {
                   label:  'Em atendimento',
-                  cor: '#3B82F6'
+                  cor: '#3B82F6',
+                  status: 4
                 },
                 {
                   label:  'Atendido',
-                  cor: '#22C55E'
+                  cor: '#22C55E',
+                  status: 5
                 },
                 {
                   label:  'Ausente',
-                  cor: '#FF3D32'
+                  cor: '#FF3D32',
+                  status: 6
                 }
-
               ]"
               [(ngModel)]="status"
               optionLabel="label"
               [showClear]="true"
               inputId="status"
               class="inputFiltro"
-              [style]="{'width': '100%'}"
+              [style]="{'width': '100%', 'padding':'0px', 'margin':'0px'}"
             >
             <ng-template pTemplate="selectedItem">
-              <div class="flex align-items-center gap-2" *ngIf="status">
-                <span>
+              <div class="flex align-items-center" *ngIf="status">
+                <!-- <span>
                   <i class="pi pi-circle-fill mr-2" [style]="{'color': status.cor}"></i>
                   {{status.label}}
-                </span>
+                </span> -->
+                @if(status.status == 1){
+                  <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '12px'}" >schedule</i></p-tag> 
+                } @else if (status.status == 2) {
+                  <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '12px'}" >done_all</i></p-tag>
+                }@else if (status.status == 3) {
+                  <p-tag icon="pi pi-calendar-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400'}"></p-tag>
+                }@else if (status.status == 4) {
+                  <p-tag  value="&nbsp;Em Atendimento" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '12px'}" >timelapse</i></p-tag>
+                }@else if(status.status == 5){
+                  <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400'}"></p-tag>
+                }@else if (status.status == 6) {
+                  <p-tag severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '12px'}" >person_off</i></p-tag>
+                }
               </div>
             </ng-template>
               <ng-template let-item pTemplate="item">
                 <div class="flex align-items-center gap-2">
-                  <span >
+                  <!-- <span >
                     <i class="pi pi-circle-fill  mr-2" [style]="{'color': item.cor}"></i>
                     {{item.label}}
-                  </span>
+                  </span> -->
+                  @if(item.status == 1){
+                    <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag> 
+                  } @else if (item.status == 2) {
+                    <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '15px'}" >done_all</i></p-tag>
+                  }@else if (item.status == 3) {
+                    <p-tag icon="pi pi-calendar-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                  }@else if (item.status == 4) {
+                    <p-tag  value="&nbsp;Em Atendimento" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+                  }@else if(item.status == 5){
+                    <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+                  }@else if (item.status == 6) {
+                    <p-tag severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >person_off</i></p-tag>
+                  }
                 </div>
               </ng-template>
               </p-dropdown>
@@ -275,7 +314,7 @@
   <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
     <div class="flex justify-content-between m-3"  >
       <div class="flex align-items-center">
-
+        
         <p-selectButton
           [options]="filtroDiaSemanaMes"
           [(ngModel)]="filtro"
@@ -467,34 +506,27 @@
 
         <ng-template pTemplate="body" let-consulta>
           <tr>
-            <td *ngIf="consulta?.paciente !== null"> {{ consulta?.paciente?.nome  }} </td>
-            <td *ngIf="consulta?.paciente == null"> {{ consulta?.nomePaciente }} </td>
+            <td *ngIf="!consulta.nomePaciente"> {{ consulta?.paciente?.nome  }} </td>
+            <td *ngIf="consulta.nomePaciente"> {{ consulta?.nomePaciente }} </td>
             <td> {{ consulta?.dentista.nome }} </td>
             <td> {{ consulta?.dataConsulta | date: 'dd/MM/yyyy'}} </td>
             <td> {{ consulta?.dataConsulta | date: 'HH:mm' }} </td>
             <td>
-              <!-- <p-tag
-                [severity]="getSeverity(paciente.ativo? 'ativo' : 'inativo')"
-                [value]="paciente?.ativo? ' Ativo ':' Inativo '"
-                [rounded]="true"
-                [style]="{'font-size': '12px', 'font-weight': '400'}"
-                [icon]="paciente.ativo? 'pi pi-verified' : 'pi pi-ban'"
-              >
-              </p-tag>-->
-                @if(!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento &&  !consulta.ausente){
-                    <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                  }
-                @else if (consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento) {
-                  <p-tag  value="&nbsp;Em Atendimento" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
-                  }
-                @else if (consulta.dataHoraInicioAtendimento && consulta.dataHoraFimAtendimento)
-                  {
-                    <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                  }
-                @else if (!consulta.dataHoraInicioAtendimento && !consulta.dataHoraFimAtendimento && consulta.ausente)
-                  {
-                    <p-tag icon="pi pi-user-minus" severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-                  }
+              <p-tag severity="info" icon="pi pi-bolt" class="azul mr-2" [rounded]="true" *ngIf="consulta.nomePaciente" [style]="{'font-size': '13px', 'font-weight': '400', 'padding-top':'7px', 'padding-bottom':'7px', 'padding-left':'8px'}"/>
+              @if(consulta.status == 1){
+                <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag> 
+              } @else if (consulta.status == 2) {
+                <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '15px'}" >done_all</i></p-tag>
+              }@else if (consulta.status == 3) {
+                <p-tag icon="pi pi-calendar-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+              }@else if (consulta.status == 4) {
+                <p-tag  value="&nbsp;Em Atendimento" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+              }@else if(consulta.status == 5){
+                <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+              }@else if (consulta.status == 6) {
+                <p-tag severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >person_off</i></p-tag>
+              }
+              
             </td>
             <td [width]="240">
               <div class="flex justify-content-center gap-2">

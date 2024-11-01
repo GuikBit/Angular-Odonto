@@ -5,19 +5,18 @@
       <div class="flex justify-content-start align-items-center">
         <p-tag severity="info" icon="pi pi-bolt" class="azul mr-2" [rounded]="true" *ngIf="consultaSelecionada.nomePaciente" [style]="{'font-size': '13px', 'font-weight': '400', 'padding-top':'7px', 'padding-bottom':'7px', 'padding-left':'8px'}"/>
 
-        @if(!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento &&  !consultaSelecionada.ausente){
-          <p-tag icon="pi pi-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-        }
-        @else if (consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento) {
-        <p-tag  value="&nbsp;Em Atendimento&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
-        }
-        @else if (consultaSelecionada.dataHoraInicioAtendimento && consultaSelecionada.dataHoraFimAtendimento)
-        {
+        @if(consultaSelecionada.status == 1){
+          <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag> 
+        } @else if (consultaSelecionada.status == 2) {
+          <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '15px'}" >done_all</i></p-tag>
+        }@else if (consultaSelecionada.status == 3) {
+          <p-tag icon="pi pi-calendar-clock" severity="warning" value="Agendada" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+        }@else if (consultaSelecionada.status == 4) {
+          <p-tag  value="&nbsp;Em Atendimento" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >timelapse</i></p-tag>
+        }@else if(consultaSelecionada.status == 5){
           <p-tag icon="pi pi-check-circle" severity="success" value="Atendido" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
-        }
-        @else if (!consultaSelecionada.dataHoraInicioAtendimento && !consultaSelecionada.dataHoraFimAtendimento && consultaSelecionada.ausente)
-        {
-          <p-tag icon="pi pi-user-minus" severity="danger" value="&nbsp;Ausente&nbsp;" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"></p-tag>
+        }@else if (consultaSelecionada.status == 6) {
+          <p-tag severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >person_off</i></p-tag>
         }
       </div>
 
@@ -194,13 +193,44 @@
           />
         </div>
         <div class="col-10 flex">
-          <div class="col-6 flex justify-content-start align-items-center" *ngIf="consultaSelecionada.paciente">
-            <span class="flex justify-content-center text-2xl font-bold" >
-              {{ consultaSelecionada.paciente.nome }}
-            </span>
+          <div class="col-12  mt-2" *ngIf="consultaSelecionada.paciente">
+            <div>
+              <span class="flex justify-content-start text-2xl font-bold" >
+                {{ consultaSelecionada.paciente.nome }}
+              </span>
+            </div>
+            <div class="flex mt-4">
+              <div class="flex mx-3">
+                <span class="font-semibold">
+                  <i class="pi pi-folder-open azul"></i>&nbsp;Pasta:&nbsp;
+                </span>
+                <span>{{ consultaSelecionada.paciente.numPasta }}</span>
+              </div>
+              <div class="flex mx-3">                
+                <span class="font-semibold">
+                  <i class="pi pi-calendar azul"></i>&nbsp;Idade:&nbsp;
+                </span>
+                <span>{{ calcularIdade(consultaSelecionada.paciente.dataNascimento) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12  mt-2" *ngIf="!consultaSelecionada.paciente">
+            <div>
+              <span class="flex justify-content-start text-2xl font-bold" >
+                {{ consultaSelecionada.nomePaciente }}
+              </span>
+            </div>
+            <div class="flex mt-4">
+              <div class="flex mx-3">
+                <span class="font-semibold">
+                  <i class="pi pi-phone azul"></i>&nbsp;Telefone:&nbsp;
+                </span>
+                <span>{{ consultaSelecionada.telefone }}</span>
+              </div>
+            </div>
           </div>
 
-          <div class="col-6 flex justify-content-start align-items-center" *ngIf="!consultaSelecionada.paciente">
+          <!-- <div class="col-6 flex justify-content-start align-items-center" *ngIf="!consultaSelecionada.paciente">
             <span class="flex justify-content-center text-2xl font-bold" >
               {{ consultaSelecionada.nomePaciente }}
             </span>
@@ -228,31 +258,9 @@
                 {{ consultaSelecionada.telefone }}
               </span>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-3 flex justify-content-center" *ngIf="consultaSelecionada.paciente">
-            <div>
-              <span class="font-bold text-lg flex justify-content-center m-2">
-                <i class="pi pi-folder-open azul"></i>&nbsp;&nbsp;
-                Pasta
-              </span>
-              <span class="flex justify-content-center">
-                {{ consultaSelecionada.paciente.numPasta }}
-              </span>
-            </div>
-          </div>
-
-          <div class="col-3 flex justify-content-center" *ngIf="consultaSelecionada.paciente">
-            <div>
-              <span class="font-bold text-lg flex justify-content-center m-2">
-                <i class="pi pi-calendar azul"></i>&nbsp;&nbsp;
-                Idade
-              </span>
-              <span class="flex justify-content-center">
-                {{ calcularIdade(consultaSelecionada.paciente.dataNascimento) }}
-              </span>
-            </div>
-          </div>
+          
 
         </div>
       </div>

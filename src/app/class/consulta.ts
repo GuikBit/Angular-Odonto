@@ -21,4 +21,5 @@ export class Consulta{
     corDentista: string;
     nomePaciente: string;
     telefone: string;
+    status: number;
 }

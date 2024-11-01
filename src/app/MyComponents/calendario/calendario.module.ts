@@ -6,7 +6,7 @@ import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
 import { ConsultaModule } from 'src/app/consulta/consulta.module';
 
-
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { ConsultaModule } from 'src/app/consulta/consulta.module';
     CommonModule,
     FullCalendarModule,
     TagModule,
-    BadgeModule
+    BadgeModule,
+    TooltipModule
   ],
   exports: [
     CalendarioComponent

@@ -12,6 +12,7 @@ import { DentistaService } from 'src/app/services/dentista.service';
 export interface Status{
   label: string,
   cor: string,
+  status: number,
 }
 @Component({
   selector: 'app-consulta-list',

@@ -1,7 +1,7 @@
 
 <div class="row flex ">
   <div class="sticky top-0 pt-3 z-2 flex " [ngClass]="sidebarVisible?'col-2':'col-0'" [class.sidebar-visible]="sidebarVisible" >
-    <div class="sidebar border-round-2xl">
+    <div class="sidebar border-round-2xl card-container">
 
         <div class="header my-2 flex justify-content-center align-items-center" >
           <div class=" py-2" (click)="navegacaoRotas('')">
@@ -9,8 +9,8 @@
           </div>
         </div>
 
-        <div class="box m-2  border-round-3xl" >
-          <div class="flex justify-content-center py-2" [routerLink]="['/admin/configuracoes']" routerLinkActive="boxAtivo">
+        <div  class="box m-2 border-round-3xl" >
+          <div pRipple class=" flex justify-content-center py-2" [routerLink]="['/admin/configuracoes']" routerLinkActive="boxAtivo">
             <div class="col-3 flex justify-content-center align-items-center">
               <i class="pi pi-cog iconMenu"></i>
             </div>
