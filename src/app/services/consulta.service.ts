@@ -87,6 +87,24 @@ export class ConsultaService {
     }
   }
 
+  async statusConsulta(id: any, status: any){
+    const instance = axios.create({
+      baseURL: `${this.apiURL}`,
+      timeout: 1000,
+      headers: { Authorization: 'Bearer ' + (await this.getToken()),
+      'Content-Type': 'application/json'},
+    });
+    try{
+      const response = await instance.patch(`${this.apiURL}/status/${id}`, status);
+      return response;
+
+    }catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  
+
   async deleteConsulta(id: any){
     const instance = axios.create({
       baseURL: `${this.apiURL}`,

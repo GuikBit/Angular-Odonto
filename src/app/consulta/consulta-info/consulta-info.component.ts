@@ -77,19 +77,51 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  async criaFormularioEditar() {
-    if(this.consultaSelecionada){
+  criaFormularioEditar() {
+    if (this.consultaSelecionada) {
       const dataConsultaString = this.consultaSelecionada.dataConsulta.toString();
-      let [data, hora] = dataConsultaString.split('T');
-      this.dataConsulta = data;
-      this.horaConsulta = hora;
+      const dataConsulta = new Date(dataConsultaString);
+  
       this.formularioEditar = this.formBuilder.group({
-        dataConsulta: [data, Validators.required],
-        horaConsulta: [hora, Validators.required],
-      })
-
+        dataConsulta: [dataConsulta, Validators.required], 
+        horaConsulta: [dataConsulta, Validators.required], 
+      });
     }
+  }
+  aplicarMascaraHora(event: any): void {
+    // let valor = event.target.value;
+    // console.log()
+    // // Remove caracteres não numéricos
+    // valor = valor.replace(/\D/g, '');
 
+    // if (valor.length > 2) {
+    //   valor = valor.replace(/(\d{2})(\d)/, '$1:$2');
+    // }
+
+    // // Limita o valor em 5 caracteres para o formato HH:mm
+    // valor = valor.substring(0, 5);
+
+    // // Atualiza o campo com o valor formatado
+    // this.formularioEditar.get('horaConsulta')?.setValue(valor);
+  }
+
+  combinarDataHora(): Date | null {
+    const dataConsulta = this.formularioEditar.get('dataConsulta')?.value;
+    const horaConsulta = this.formularioEditar.get('horaConsulta')?.value;
+  
+    if (!dataConsulta || !horaConsulta) {
+      return null; // Retorna null se algum campo estiver vazio
+    }
+  
+    // Extrai a data (dia, mês, ano) e hora (hora, minuto) dos controles
+    const data = new Date(dataConsulta);
+    const hora = new Date(horaConsulta);
+  
+    // Define a hora e minuto na data principal
+    data.setHours(hora.getHours());
+    data.setMinutes(hora.getMinutes());
+  
+    return data;
   }
 
  async criaFormularioProcedimentos(){
@@ -403,6 +435,60 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
 
+  }
+
+  alteraStatusConsulta(status: number){
+    if(status == 1){
+
+    }else if(status == 2){
+      this.loading.iniciar = true;
+    }else if(status == 3){
+
+    }else if(status == 4){
+      
+    }else if(status == 5){
+
+    }else{
+      
+    }
+    setTimeout(async () => {
+      if(this.consultaSelecionada !== null){
+
+        this.service.statusConsulta(this.consultaSelecionada?.id, status).then((response)=>{
+          if(response?.status === 200 || response?.status === 201){
+            this.consultaSelecionada = response.data;
+            this.messageService.clear();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Aviso',
+              detail: 'Consulta iniciada com sucesso...'
+            })
+            this.loading.iniciar = false;
+            this.reloading.emit(true);
+  
+          }
+          
+
+          
+
+          
+        }).catch(()=>{
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Aviso',
+            detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
+          })
+          this.loading.iniciar = false;
+        })
+      }else{
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Aviso',
+          detail: 'Houve um erro interno, entre em contato com o suporte'
+        })
+        this.loading.iniciar = false;
+      }
+    }, 1500);
   }
 
   verificaDataConsulta(){
