@@ -266,7 +266,7 @@
                   {{status.label}}
                 </span> -->
                 @if(status.status == 1){
-                  <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '12px'}" >schedule</i></p-tag> 
+                  <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '12px'}" >schedule</i></p-tag>
                 } @else if (status.status == 2) {
                   <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '10px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '12px'}" >done_all</i></p-tag>
                 }@else if (status.status == 3) {
@@ -287,7 +287,7 @@
                     {{item.label}}
                   </span> -->
                   @if(item.status == 1){
-                    <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag> 
+                    <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag>
                   } @else if (item.status == 2) {
                     <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '15px'}" >done_all</i></p-tag>
                   }@else if (item.status == 3) {
@@ -314,7 +314,7 @@
   <div class="card box lg:p-5 text-indigo-800" *ngIf="ehCalendario">
     <div class="flex justify-content-between m-3"  >
       <div class="flex align-items-center">
-        
+
         <p-selectButton
           [options]="filtroDiaSemanaMes"
           [(ngModel)]="filtro"
@@ -514,7 +514,7 @@
             <td>
               <p-tag severity="info" icon="pi pi-bolt" class="azul mr-2" [rounded]="true" *ngIf="consulta.nomePaciente" [style]="{'font-size': '13px', 'font-weight': '400', 'padding-top':'7px', 'padding-bottom':'7px', 'padding-left':'8px'}"/>
               @if(consulta.status == 1){
-                <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag> 
+                <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag>
               } @else if (consulta.status == 2) {
                 <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '15px'}" >done_all</i></p-tag>
               }@else if (consulta.status == 3) {
@@ -526,7 +526,7 @@
               }@else if (consulta.status == 6) {
                 <p-tag severity="danger" value="&nbsp;Ausente" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400'}"><i class="material-icons" [style]="{'font-size': '15px'}" >person_off</i></p-tag>
               }
-              
+
             </td>
             <td [width]="240">
               <div class="flex justify-content-center gap-2">

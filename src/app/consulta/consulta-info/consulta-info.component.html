@@ -6,7 +6,7 @@
         <p-tag severity="info" icon="pi pi-bolt" class="azul mr-2" [rounded]="true" *ngIf="consultaSelecionada.nomePaciente" [style]="{'font-size': '13px', 'font-weight': '400', 'padding-top':'7px', 'padding-bottom':'7px', 'padding-left':'8px'}"/>
 
         @if(consultaSelecionada.status == 1){
-          <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag> 
+          <p-tag value="&nbsp;Aguardando" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e3e6e5', 'color':'#4a4c54'}"><i class="material-icons" [style]="{'font-size': '15px'}" >schedule</i></p-tag>
         } @else if (consultaSelecionada.status == 2) {
           <p-tag value="&nbsp;Confirmado" [rounded]="true" [style]="{'font-size': '13px', 'font-weight': '400', 'background-color': '#e8d5ff', 'color':'#8026d9'}"><i class="material-icons" [style]="{'font-size': '15px'}" >done_all</i></p-tag>
         }@else if (consultaSelecionada.status == 3) {
@@ -27,14 +27,14 @@
           [text]="true"
           pTooltip="Confirmar"
           tooltipPosition="top"
-          *ngIf="consultaSelecionada.status == 3"          
+          *ngIf="consultaSelecionada.status == 3"
           (onClick)="alteraStatusConsulta(2)"
           [style]="{'color': '#8026d9'}"
           [style.--cor-fundo]="'#f2e8ff'"
           [style.--cor-fundo-hover]="'#e8d5ff'"
           class="btnAcao border-circle"
         >
-        <i class="material-icons" [style]="{'font-size': '18px'}">done_all</i>  
+        <i class="material-icons" [style]="{'font-size': '18px'}">done_all</i>
         </p-button>
         <p-button
           icon="pi"
@@ -42,23 +42,23 @@
           [text]="true"
           pTooltip="Aguardando"
           tooltipPosition="top"
-          *ngIf="consultaSelecionada.status == 2"          
+          *ngIf="consultaSelecionada.status == 2"
           (onClick)="alteraStatusConsulta(1)"
           [style]="{'color': '#4a4c54'}"
           [style.--cor-fundo]="'#e3e6e5'"
           [style.--cor-fundo-hover]="'#cdcfd4'"
           class="btnAcao border-circle"
         >
-        <i class="material-icons" [style]="{'font-size': '18px'}">schedule</i>  
+        <i class="material-icons" [style]="{'font-size': '18px'}">schedule</i>
         </p-button>
 
           <p-button
-            icon="pi pi-pw pi-play"
+            [icon]="loading.iniciar?'pi pi-spin pi-spinner':'pi pi-pw pi-play'"
             [rounded]="true"
             [text]="true"
             pTooltip="Iniciar"
             tooltipPosition="top"
-            *ngIf="consultaSelecionada.status == 1"            
+            *ngIf="consultaSelecionada.status == 1"
             (onClick)="alteraStatusConsulta(4)"
             [style]="{'color': '#e9500d'}"
             [style.--cor-fundo]="'#ffebd5'"
@@ -66,41 +66,16 @@
             class="btnAcao border-circle"
           ></p-button>
 
-          <p-button
-            icon="pi pi-spin pi-spinner"
-            [rounded]="true"
-            [text]="true"
-            pTooltip="Iniciando..."
-            tooltipPosition="top"
-            *ngIf="loading.iniciar"
-            [style]="{'color': '#e9500d'}"
-            [style.--cor-fundo]="'#ffebd5'"
-            [style.--cor-fundo-hover]="'#ffdbbc'"
-            class="btnAcao border-circle"
-          ></p-button>
 
           <p-button
-            icon="pi pi-pw pi-check-circle"
+            [icon]="loading.finalizar?'pi pi-spin pi-spinner':'pi pi-pw pi-check-circle'"
             [rounded]="true"
             [text]="true"
             pTooltip="Finalizar"
             tooltipPosition="top"
             *ngIf="(consultaSelecionada.status == 4) || (consultaSelecionada.status == 5)"
-            [disabled]="consultaSelecionada.status == 5"            
+            [disabled]="consultaSelecionada.status == 5"
             (onClick)="alteraStatusConsulta(5)"
-            [style]="{'color': '#1DA750'}"
-            [style.--cor-fundo]="'#ddfbe7'"
-            [style.--cor-fundo-hover]="'#cef9d9'"
-            class="btnAcao border-circle"
-          ></p-button>
-
-          <p-button
-            icon="pi pi-spin pi-spinner"
-            [rounded]="true"
-            [text]="true"
-            pTooltip="Finalizando..."
-            tooltipPosition="top"
-            *ngIf="loading.finalizar"
             [style]="{'color': '#1DA750'}"
             [style.--cor-fundo]="'#ddfbe7'"
             [style.--cor-fundo-hover]="'#cef9d9'"
@@ -113,12 +88,11 @@
             [text]="true"
             pTooltip="Salvar"
             tooltipPosition="top"
-            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
             (onClick)="this.loading.editar = !this.loading.editar"
             *ngIf="this.loading.editar"
-            [style]="{'color': '#2570eb'}"
-            [style.--cor-fundo]="'#dbecfe'"
-            [style.--cor-fundo-hover]="'#cde6fe'"
+            [style]="{'color': '#1DA750'}"
+            [style.--cor-fundo]="'#ddfbe7'"
+            [style.--cor-fundo-hover]="'#cef9d9'"
             class="btnAcao border-circle"
           ></p-button>
 
@@ -128,7 +102,7 @@
             [text]="true"
             pTooltip="Editar"
             tooltipPosition="top"
-            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null) || consultaSelecionada.ausente === true"
+            [disabled]="(consultaSelecionada.status === 4) || (consultaSelecionada.status === 5) || (consultaSelecionada.status === 6)"
             (onClick)="preparaEdicao()"
             *ngIf="!this.loading.editar"
             [style]="{'color': '#2570eb'}"
@@ -138,27 +112,14 @@
           ></p-button>
 
           <p-button
-            icon="pi pi-pw pi-user-minus"
+            [icon]="loading.ausentar?'pi pi-spin pi-spinner':'pi pi-user-minus'"
             [rounded]="true"
             [text]="true"
             pTooltip="Ausentar"
             tooltipPosition="top"
-            [disabled]="(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || (consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento !== null)"
-            *ngIf="!consultaSelecionada.ausente && !loading.ausentar"
+            [disabled]="consultaSelecionada.status === 1"
+            *ngIf="!consultaSelecionada.ausente"
             (onClick)="ausentarPaciente()"
-            [style]="{'color': '#cb7c14'}"
-            [style.--cor-fundo]="'#faf3cb'"
-            [style.--cor-fundo-hover]="'#f8eeb2'"
-            class="btnAcao border-circle"
-          ></p-button>
-
-          <p-button
-            icon="pi pi-spin pi-spinner"
-            [rounded]="true"
-            [text]="true"
-            pTooltip="Deletar"
-            tooltipPosition="top"
-            *ngIf="loading.ausentar"
             [style]="{'color': '#cb7c14'}"
             [style.--cor-fundo]="'#faf3cb'"
             [style.--cor-fundo-hover]="'#f8eeb2'"
@@ -186,7 +147,7 @@
             pTooltip="Deletar"
             tooltipPosition="top"
             (onClick)="deletarConsulta()"
-            [disabled]="consultaSelecionada.dataHoraInicioAtendimento !== null || consultaSelecionada.ausente === true || consultaSelecionada.pagamento.pago === true"
+            [disabled]="consultaSelecionada.status === 1||consultaSelecionada.status === 4 || consultaSelecionada.status === 5 || consultaSelecionada.status === 6 || consultaSelecionada.pagamento.pago === true"
             [style]="{'color': '#ed2115'}"
             [style.--cor-fundo]="'#ffe1df'"
             [style.--cor-fundo-hover]="'#ffd4d2'"
@@ -236,7 +197,7 @@
                 </span>
                 <span>{{ consultaSelecionada.paciente.numPasta }}</span>
               </div>
-              <div class="flex mx-3">                
+              <div class="flex mx-3">
                 <span class="font-semibold">
                   <i class="pi pi-calendar azul"></i>&nbsp;Idade:&nbsp;
                 </span>
@@ -280,10 +241,10 @@
         <div class="col-8 d-flex align-items-end">
           <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()" class="w-100 ">
             <div class="row flex justify-content-center align-items-center">
-        
-              
+
+
               <div class="col-4 d-flex justify-content-start ">
-                
+
                 <ng-container *ngIf="!loading.editar; else editarData">
                  <div class="mt-2">
                   <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;Data:&nbsp;</span>
@@ -312,17 +273,17 @@
                     <label for="filtroData" class="azul">Data</label>
                   </span>
                 </ng-template>
-               
+
               </div>
-        
-              
+
+
               <div class="col-4 d-flex justify-content-centrer ">
-                
+
                 <ng-container *ngIf="!loading.editar; else editarHora">
                   <div class="mt-2">
                     <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;Inicio:&nbsp;</span>
                     {{consultaSelecionada.dataConsulta | date: "HH:mm"}}
-                  </div>                 
+                  </div>
                 </ng-container>
                 <ng-template #editarHora>
                   <span class="p-float-label pl-4">
@@ -333,10 +294,10 @@
                     </p-calendar>
                     <label for="filtroData" class="azul pl-4">Hora</label>
                   </span>
-                </ng-template>                
+                </ng-template>
               </div>
-        
-              
+
+
               <div class="col-4 d-flex justify-content-start ">
                 <div *ngIf="!loading.editar">
                   <div class="mt-2">
@@ -348,11 +309,11 @@
                   <p-button label="Reagendar" type="submit" icon="pi pi-save" [rounded]="true" [outlined]="true" severity="info" [style]="{'height':'4vh'}"></p-button>
                 </div>
               </div>
-        
+
             </div>
           </form>
         </div>
-        
+
         <div class="col-4 flex justify-content-center">
           <div>
             <span class="font-bold text-lg flex justify-content-center m-2">
@@ -366,19 +327,19 @@
         </div>
       </div>
 
-      <div class="row flex justify-content-center mt-3">
+      <div class="row flex justify-content-center mt-3" [ngClass]="(consultaSelecionada.status != 4) && (consultaSelecionada.status != 5)? 'mb-4':''">
 
           <div class="flex align-items-center">
             <span class="font-bold text-lg "><i class="pi pi-align-left azul"></i>&nbsp;Observação&nbsp;&nbsp;</span>
           </div>
           <textarea  id="float-input" rows="3" cols="70" class="text-sm"  [autoResize]="true" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea>
-        
+
       </div>
-      
+
 
     </div>
 
-   
+
 
     <form [formGroup]="formularioProcedimentos" (ngSubmit)="salvarProcedimentos()" *ngIf="(consultaSelecionada.status == 4) || (consultaSelecionada.status == 5)" >
       <p-divider layout="horizontal"></p-divider>
