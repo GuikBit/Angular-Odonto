@@ -1,16 +1,18 @@
-<div class="h-5rem lg:h-10rem"></div>
-<div class="flex justify-content-center align-items-center" >
+
+<!-- <div class="flex justify-content-center align-items-center" >
   <div class="grid">
-    <div class="bg-white border-round-2xl border-1 border-blue-500 shadow-7 p-4 m-4 lg:flex lg:py-8 ">
+    <div class="bg-white border-round-2xl border-1 border-blue-500 shadow-7 p-4 m-6 lg:flex lg:py-8 ">
       <div class="col-12 md:col-6 lg:col-6">
-          <div class="flex justify-content-center align-items-center">
-            <img src="assets/img/odonto.png" alt="Logo Odonto">
-              <!-- <p-image src="assets/img/odonto.png"
-                width="300"
-                alt="Logo Odonto"
-                [preview]="false"
-              ></p-image> -->
-          </div>
+        <div class="flex justify-content-center align-items-center">
+          <img src="assets/img/odonto2.png" alt="Logo Odonto" width="600">
+
+        </div>
+        <div>
+          OdontoWise:
+        </div>
+        <div>
+          Transformando gestão em inteligência para clínicas odontológicas.
+        </div>
       </div>
       <div class="col-12 md:col-6 lg:col-6">
           <div class="flex justify-content-center m-3">
@@ -35,54 +37,65 @@
                       </span>
                   </div>
               </div>
-              <!-- <div class="field p-fluid">
+              <div class="field p-fluid">
                 <p-password formControlName="password" [toggleMask]="true" placeholder="Password" />
-              </div> -->
+              </div>
               <div class="flex justify-content-center mt-4">
                   <button pButton type="submit" label="Acessar" styleClass="shadow-5" icon="pi pi-sign-in"></button>
               </div>
           </form>
       </div>
   </div>
-</div>
-</div>
-<!-- <div class="flex justify-content-center align-items-center h-full">
-  <div class="row flex justify-content-center align-items-center w-auto h-auto border-solid border-2 container">
-    <div class="col-6">
-      <div class="flex justify-content-center align-items-center">
-        <img src="assets/img/odonto.png" alt="Logo Odonto" width="800" >
+</div> -->
+
+
+  <div class="md:flex justify-content-around min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column mt-8 pt-4">
+      <div class="mb-5">
+        <img src="assets/img/odonto2.png" alt="Sakai logo" class="w-15rem flex-shrink-0">
       </div>
-
+      <div class="text-center mb-5">
+        <!-- <img src="assets/demo/images/login/avatar.png" alt="Image" height="50" class="mb-3"> -->
+        <div class="text-900 font-bold mb-3" style="font-size: 120px;"><span style="color:#2070b4">Odonto</span><span style="color:#24aae3">Wise</span></div>
+        <h2 class="text-600 font-medium">Transformando gestão em inteligência para clínicas odontológicas.</h2>
+      </div>
     </div>
-    <div class="col-6">
-        <div class="flex justify-content-center m-3">
-          <h1 class="titulo">Bem Vindo!</h1>
+    <div class="flex flex-column align-items-center justify-content-center">
+        <!-- <img src="assets/img/odonto2.png" alt="Sakai logo" class="mb-5 w-8rem flex-shrink-0"> -->
+        <div style="border-radius:56px; padding:0.3rem;background: linear-gradient(180deg, #2070b4 10%, #24aae3 30%, rgba(36, 170, 227, 0) 50%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+              <div class="text-center mb-5">
+                <!-- <img src="assets/demo/images/login/avatar.png" alt="Image" height="50" class="mb-3"> -->
+                <div class="text-900 text-3xl font-medium mb-3">Bem vindo, de volta!</div>
+                <span class="text-600 font-medium">Faça login para continuar</span>
+              </div>
+              <form  (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
+                <label for="login" class="block text-900 text-xl font-medium mb-2">Login</label>
+                <!-- <input id="email1" type="text" placeholder="Email address" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem"> -->
+                <input pInputText type="text" id="login" formControlName="userName" autocomplete="off" class="w-full mb-5" style="padding:1rem"/>
+
+                <label for="password" class="block text-900 font-medium text-xl mb-2">Senha</label>
+                <p-password id="password" formControlName="password" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+
+                <!-- <input pInputText id="password" type="password" formControlName="password" autocomplete="off" class="h-3rem"/> -->
+
+                <div class="flex align-items-center justify-content-between mb-5 gap-5">
+                    <div class="flex align-items-center">
+                        <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
+                        <label for="rememberme1">Lembre me</label>
+                    </div>
+                    <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Esqueceu sua senha?</a>
+                </div>
+                <!-- <button pButton type="submit" label="Acessar" styleClass="shadow-5" icon="pi pi-sign-in"></button> -->
+                <div class="px-8">
+                  <button pButton pRipple  type="submit" label="Acessar" icon="pi pi-sign-in"  class="w-full p-3 text-xl"></button>
+                </div>
+              </form>
+            </div>
         </div>
-        <form  (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
-            <div class="col-12 flex justify-content-center">
-              <div class="field">
-                <span class="p-float-label p-input-icon-left shadow-1">
-                  <i class="pi pi-user azul" ></i>
-                  <input pInputText id="login" formControlName="userName" autocomplete="off" class="h-3rem"/>
-                  <label for="login" class="azul">Login</label>
-                </span>
-              </div>
-            </div>
-
-            <div class="col-12 flex justify-content-center">
-              <div class="field ">
-                <span class="p-float-label p-input-icon-left shadow-1 ">
-                  <i class="pi pi-key azul" ></i>
-                  <input pInputText id="password" type="password" formControlName="password" autocomplete="off" class="h-3rem"/>
-                  <label for="password" class="azul">Password</label>
-                </span>
-              </div>
-            </div>
-
-            <div class="flex justify-content-center mt-4">
-              <button pButton type="submit" label="Acessar" styleClass="shadow-5" icon="pi pi-sign-in"></button>
-            </div>
-
-        </form>
     </div>
-  </div> -->
+  </div>
+
+
+
+

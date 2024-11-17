@@ -198,7 +198,7 @@
 </div>
 
 
-  <p-dialog header='Novo Dentista' [(visible)]="novo" [style]="{ width: '65vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="false" class="">
+  <p-dialog header='Novo Dentista' [(visible)]="novo" [style]="{ width: '80vw',  height: 'auto' }" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true" class="">
     <ng-template pTemplate="content">
       <app-dentista-novo (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-dentista-novo>
     </ng-template>

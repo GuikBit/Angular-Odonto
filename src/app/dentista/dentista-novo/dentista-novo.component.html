@@ -1,10 +1,10 @@
-<div class="row flex justify-content-center new ">
+<!-- <div class="row flex justify-content-center new ">
   <div class="py-5 px-8">
     <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
       <div class="card ">
         <div class="row lg:flex lg:justify-content-around ">
 
-          <div class="field md:col-12 lg:col-4">
+          <div class=" md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-left p-input-icon-right width">
               <i class="pi pi-user azul"></i>
               <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
@@ -17,7 +17,7 @@
             <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
           </div>
 
-          <div class="field md:col-12 lg:col-4">
+          <div class=" md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-left p-input-icon-right  width">
               <i class="pi pi-key azul"></i>
               <i [ngClass]="hide? 'pi pi-eye azul' : 'pi pi-eye-slash azul'" (click)="hide = !hide"></i>
@@ -27,7 +27,7 @@
             <small *ngIf="formulario.controls['senha'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field md:col-12 lg:col-4">
+          <div class=" md:col-12 lg:col-4">
             <span class="p-float-label p-input-icon-right width">
               <p-calendar inputId="dataNascimento" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width" appendTo="body" [autoZIndex]="true">
                 <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
@@ -43,7 +43,7 @@
 
         <div class=" row lg:flex lg:justify-content-center  my-3">
 
-            <div class="field md:col-12 lg:col-5 ">
+            <div class=" md:col-12 lg:col-5 ">
               <span class="p-float-label p-input-icon-left width"  >
                 <i class="pi pi-pencil azul"></i>
                 <input pInputText id="nome" formControlName="nome" required class="width" />
@@ -52,7 +52,7 @@
               <small *ngIf="formulario.controls['nome'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
             </div>
 
-            <div class="field md:col-12 lg:col-4">
+            <div class=" md:col-12 lg:col-4">
               <span class="p-float-label p-input-icon-left p-input-icon-right width">
                 <i class="pi pi-id-card azul"></i>
                 @if (!validacaoCPF && validacaoCPF != null || existeCPF) {
@@ -66,13 +66,11 @@
               </span>
               <small *ngIf="formulario.controls['cpf'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
               <small *ngIf="!validacaoCPF && validacaoCPF != null || existeCPF"  class="p-error "><br>CPF inválido ou já cadastrado</small>
-              <!-- <small *ngIf="existeCPF"  class="p-error "><br>CPF já cadastrado</small> -->
               <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
             </div>
 
-            <div class="field md:col-12 lg:col-3">
+            <div class=" md:col-12 lg:col-3">
               <span class="p-float-label" [style]="{width: '100%'}">
-                <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
                 <p-dropdown [options]="especialidades" appendTo="body" [autoZIndex]="true" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}"></p-dropdown>
                 <label for="float-label" class="azul">Especialidade</label>
 
@@ -84,7 +82,7 @@
 
         <div class="row lg:flex lg:justify-content-center my-3">
 
-          <div class="field md:col-12 lg:col-3">
+          <div class=" md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-id-card azul"></i>
               <input pInputText id="cro" formControlName="cro" maxlength="5" required  class="width" />
@@ -93,7 +91,7 @@
             <small *ngIf="formulario.controls['cro'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field md:col-12 lg:col-3">
+          <div class=" md:col-12 lg:col-3">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-phone azul"></i>
               <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required class="width" />
@@ -102,7 +100,7 @@
             <small *ngIf="formulario.controls['telefone'].errors?.['required']"  class="p-error "><br>* Campo obrigatório</small>
           </div>
 
-          <div class="field md:col-12 lg:col-6 ">
+          <div class=" md:col-12 lg:col-6 ">
             <span class="p-float-label p-input-icon-left width">
               <i class="pi pi-envelope azul"></i>
               <input pInputText id="email" formControlName="email" required  class="width" />
@@ -200,8 +198,443 @@
       <div class="flex justify-content-around lg:justify-content-between align-content-center">
         <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="" (click)="fecharModal()"></p-button>
         <p-button type="submit"  label="Salvar" [rounded]="true" severity="success"  icon="pi pi-save" class=""></p-button>
-        <!-- <button pButton  type="submit" label="Agendar" icon="pi pi-save" class="btnSalvar mx-2" (click)="onSubmit()"></button> -->
       </div>
     </form>
   </div>
-</div>
+</div> -->
+
+<p-stepper [(activeStep)]="active">
+
+  <p-stepperPanel>
+    <ng-template pTemplate="header"  let-onClick="onClick" let-index="index">
+        <div >
+          <div class="flex justify-content-center align-items-center">
+            <span
+              class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+              [ngClass]="{
+                'border-green-600 bg-green-50': active > 0  || (this.formulario.valid),
+                'border-blue-100 bg-blue-50 opacity-40': active < 0,
+                'border-blue-500 bg-blue-50': active == 0
+              }"
+            >
+              <i [ngClass]="(active > 0) || (this.formulario.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-user flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+            </span>
+          </div>
+          <div class="flex justify-content-center align-items-center mt-1">
+            <span class="font-semibold"
+            [ngClass]="{
+              'text-green-600': active > 0 || (this.formulario.valid) ,
+              'text-blue-500 opacity-40': active < 0,
+              'text-blue-500': active == 0
+            }"
+            >Informações</span>
+          </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="content" let-nextCallback="nextCallback">
+      <div class="new p-4 mt-3" >
+        <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
+          <div class="row lg:flex lg:justify-content-center">
+            <div class=" md:col-12 lg:col-3">
+              <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                <i class="pi pi-user azul"></i>
+                <i [ngClass]="loading? 'pi pi-spin pi-spinner azul': ''" style="font-size: 1.3rem"></i>
+                <i [ngClass]="validacaoLogin? 'pi pi-check azul': ''" style="font-size: 1.3rem; color: #136C34"></i>
+                <input pInputText id="login" formControlName="login" aria-describedby="username-help" required (input)="buscaLogin()" minlength="3" [style]="validacaoLogin? 'border-color:  #136C34': ''" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['login'].invalid && formulario.controls['login'].touched}"/>
+                <label for="login " class="azul">Login <span class="p-error ">*</span></label>
+              </span>
+              <small *ngIf="formulario.controls['login'].errors?.['loginEmUso']" id="username-help" class="p-error"><br>Login digitado já está em uso.</small>
+              <small *ngIf="validacaoLogin" style="color: #136C34"><br>O login é válido.</small>
+            </div>
+
+            <div class="md:col-12 lg:col-3">
+              <p-floatLabel>
+                <p-password id="password" formControlName="senha" [toggleMask]="true" class="w-full" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['senha'].invalid && formulario.controls['senha'].touched}"/>
+                <label for="password" class="azul">Senha <span class="p-error ">*</span></label>
+              </p-floatLabel>
+
+            </div>
+
+            <div class="col-2"></div>
+
+            <div class="md:col-12 lg:col-3">
+              <span class="p-float-label p-input-icon-right width">
+                <p-calendar inputId="dataNascimento" formControlName="dataNascimento" [iconDisplay]="'input'" [showIcon]="true" [showTime]="false" [showButtonBar]="false" dateFormat="dd/mm/yy" class="width" appendTo="body" [autoZIndex]="true"  [ngClass]="{'ng-invalid ng-dirty': formulario.controls['dataNascimento'].invalid && formulario.controls['dataNascimento'].touched}">
+                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                  </ng-template>
+                </p-calendar>
+                <label for="dataNascimento" class="azul">Data Nascimento <span class="p-error ">*</span></label>
+              </span>
+            </div>
+
+          </div>
+
+          <div class=" row lg:flex lg:justify-content-center mt-3">
+              <div class="md:col-12 lg:col-5 ">
+                <span class="p-float-label p-input-icon-left width"  >
+                  <i class="pi pi-pencil azul"></i>
+                  <input pInputText id="nome" formControlName="nome" required class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['nome'].invalid && formulario.controls['nome'].touched}" />
+                  <label for="nome" class="azul">Nome Completo <span class="p-error ">*</span></label>
+                </span>
+              </div>
+
+              <div class=" md:col-12 lg:col-3">
+                <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                  <i class="pi pi-id-card azul"></i>
+                  <i class='pi pi-times' style="font-size: 1.3rem; color: #FF3D32" *ngIf="!validacaoCPF && validacaoCPF != null || existeCPF"></i>
+                  <i class='pi pi-check' style="font-size: 1.3rem; color: #136C34" *ngIf="validacaoCPF && validacaoCPF != null"></i>
+                  <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" (input)="validaCPF()" required  [style]="validacaoCPF && validacaoCPF != null? 'border-color:  #136C34': 'none'" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['cpf'].invalid && formulario.controls['cpf'].touched}" />
+                  <label for="cpf" class="azul">CPF <span class="p-error ">*</span></label>
+                </span>
+                <small *ngIf="!validacaoCPF && validacaoCPF != null || existeCPF"  class="p-error "><br>CPF inválido ou já cadastrado</small>
+                <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
+              </div>
+              <!-- <div class=" md:col-12 lg:col-3">
+                <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                  <i class="pi pi-id-card azul"></i>
+                  <i
+                    class="pi "
+                    *ngIf="validacaoCPF !== null"
+                    [class.pi-check]="validacaoCPF"
+                    [class.pi-times]="!validacaoCPF || existeCPF"
+                    [style.color]="validacaoCPF ? '#136C34' : '#FF3D32'"
+                    style="font-size: 1.3rem;">
+                  </i>
+                  <input
+                    pInputText
+                    id="cpf"
+                    formControlName="cpf"
+                    maxlength="14"
+                    minlength="11"
+                    (input)="validaCPF()"
+                    required
+                    class="width"
+                    [ngClass]="{'ng-invalid ng-dirty': formulario.controls['cpf'].invalid && formulario.controls['cpf'].touched}"
+                    [style.borderColor]="validacaoCPF ? '#136C34' : ''" />
+                  <label for="cpf" class="azul">CPF</label>
+                </span>
+                <small *ngIf="validacaoCPF !== null" [class.p-error]="!validacaoCPF || existeCPF" [style.color]="validacaoCPF ? '#136C34' : ''">
+                  <br>{{ validacaoCPF ? 'CPF válido' : 'CPF inválido ou já cadastrado' }}
+                </small>
+              </div> -->
+
+
+              <div class=" md:col-12 lg:col-3">
+                <span class="p-float-label" [style]="{width: '100%'}">
+                  <!-- <p-dropdown [options]="especialidades" formControlName="especialidade" optionLabel="tipo" placeholder="Especialidade" inputId="float-label" ></p-dropdown> -->
+                  <p-dropdown [options]="especialidades" appendTo="body" [autoZIndex]="true" formControlName="especialidade" placeholder="" optionLabel="tipo" inputId="float-label" [style]="{width: '100%'}" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['especialidade'].invalid && formulario.controls['especialidade'].touched}"></p-dropdown>
+                  <label for="float-label" class="azul">Especialidade <span class="p-error ">*</span></label>
+                </span>
+              </div>
+
+          </div>
+
+          <div class="row lg:flex lg:justify-content-center mt-3">
+
+            <div class=" md:col-12 lg:col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="cro" formControlName="cro" maxlength="5" required  class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['cro'].invalid && formulario.controls['cro'].touched}"/>
+                <label for="cro" class="azul">CRO <span class="p-error ">*</span></label>
+              </span>
+            </div>
+
+            <div class=" md:col-12 lg:col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-phone azul"></i>
+                <input pInputText id="telefone" formControlName="telefone" (input)="replaceTelefone(1)" required class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['telefone'].invalid && formulario.controls['telefone'].touched}"/>
+                <label for="cpf" class="azul">Telefone  <span class="p-error ">*</span></label>
+              </span>
+
+            </div>
+
+            <div class=" md:col-12 lg:col-5 ">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-envelope azul"></i>
+                <input pInputText id="email" formControlName="email" required  class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['email'].invalid && formulario.controls['email'].touched}"/>
+                <label for="email" class="azul">Email <span class="p-error ">*</span></label>
+              </span>
+            </div>
+
+          </div>
+
+            <div class="row ">
+              <div class="lg:flex lg:justify-content-center">
+                <span class="azul text-lg" ><i class="pi pi-palette azul"></i>&nbsp;&nbsp;Escolha a cor primaria do dentista: <span class="p-error ">*</span><br>
+                </span>
+              </div>
+              <div class="lg:flex lg:justify-content-center mt-2">
+                <p-colorPicker formControlName="corDentista" appendTo="body" [inline]="true" [autoZIndex]="true"></p-colorPicker>
+              </div>
+            </div>
+
+
+          <div class="row lg:flex lg:justify-content-evenly lg:align-items-center mb-5">
+            <div class="lg:col-4 md:col-12 flex justify-content-center align-items-center " >
+              <div class="flex justify-content-center align-items-center " [style]="{'background-color': getCorDentistaOpacidade(), 'border-color': getCorDentista(), 'border-width':'1px', 'border-radius': '8px', 'border-style':'solid', 'width':'10vw', 'height':'5vh'}">
+                <p class="font-bold" [style]="{'color': getCorDentista()}">Texto para teste </p>
+
+              </div>
+            </div>
+            <div class="lg:col-4 md:col-12 flex justify-content-center">
+              <p-chart type="line"
+              height="80"
+              width="180"
+              [responsive]="true"
+              [data]="{
+                labels: [ '', '', '', '','',''],
+                datasets: [
+                  {
+                    fill: false,
+                    data: [35, 41, 37, 33, 39, 35],
+                    borderColor: getCorDentista(),
+                    tension: 0.4
+                  }
+                ],
+              }"
+              [options]="{
+                maintainAspectRatio: false,
+                aspectRatio: 3,
+                name: false,
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                    x: {
+                      display: false,
+                      ticks: {
+                          color: 'transparent',
+                        },
+                        grid: {
+                          color: 'transparent',
+                          drawBorder: false
+                        }
+                    },
+                    y: {
+                      display: false,
+                        ticks: {
+                          color: 'transparent',
+                        },
+                        grid: {
+                          color: 'transparent',
+                            drawBorder: false
+                        }
+                    }
+                },
+                elements: {
+                  point: {
+                      radius:0
+                  },
+
+                },
+                layout: {
+                  padding: {
+                  left: 0,
+                  right: 0,
+                  top: 5,
+                  bottom: 5
+                }
+                }
+              }"
+
+              ></p-chart>
+            </div>
+            <div class="lg:col-4 md:col-12 flex justify-content-center">
+              <button pButton type="button" label="Teste" icon="pi pi-check" [style]="{'background-color': getCorDentista()}"></button>
+            </div>
+          </div>
+
+
+          <!-- <div class="flex justify-content-around lg:justify-content-between align-content-center">
+            <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="" (click)="fecharModal()"></p-button>
+            <p-button type="submit"  label="Salvar" [rounded]="true" severity="success"  icon="pi pi-save" class=""></p-button>
+          </div> -->
+        </form>
+        <div class="row flex justify-content-center">
+          <small class="p-error "><br>* Campos obrigatórios</small>
+        </div>
+      </div>
+      <div class="flex pt-4 justify-content-end">
+        <p-button (click)="validaFormulario(1)" type="ngSubmit" [disabled]="!formulario.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+
+  <p-stepperPanel>
+      <ng-template pTemplate="header"  let-onClick="onClick" let-index="index">
+        <div >
+          <div class="flex justify-content-center align-items-center">
+            <span
+              class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+              [ngClass]="{
+                'border-green-600 bg-green-50': (active > 1) || (this.formulario.valid) ,
+                'border-blue-100 bg-blue-50 opacity-40': active < 1 ,
+                'border-blue-500 bg-blue-50': active == 1
+              }"
+            >
+              <i [ngClass]="(active > 1) || (this.formulario.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-map-marker flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+            </span>
+          </div>
+          <div class="flex justify-content-center align-items-center mt-1">
+            <span class="font-semibold"
+              [ngClass]="{
+                'text-green-600': (active > 1) || (this.formulario.valid)  ,
+                'text-blue-500 opacity-40': active < 1 ,
+                'text-blue-500': active == 1
+              }"
+
+              >Endereço</span>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+        <div class="new py-4 mt-3" >
+          <form [formGroup]="formEndereco" autocomplete="off">
+
+            <div class="row lg:flex lg:justify-content-center mt-2" >
+              <div class="field md:col-12 lg:col-3">
+                <span class="p-float-label p-input-icon-left p-input-icon-right width">
+                  <i class="pi pi-map-marker azul"></i>
+                  <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
+                  <input pInputText id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cep'].invalid && formEndereco.controls['cep'].touched}" />
+                  <label for="cep" class="azul">CEP <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.cep')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map-marker azul"></i>
+                  <input pInputText id="cidade" formControlName="cidade" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cidade'].invalid && formEndereco.controls['cidade'].touched}" />
+                  <label for="cidade" class="azul">Cidade <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.cidade')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map-marker azul"></i>
+                  <input pInputText id="bairro" formControlName="bairro" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['bairro'].invalid && formEndereco.controls['bairro'].touched}"/>
+                  <label for="bairro" class="azul">Bairro <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.bairro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+            </div>
+
+            <div class="row lg:flex lg:justify-content-center">
+              <div class="field md:col-12 lg:col-5">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText id="logradouro" formControlName="logradouro" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['logradouro'].invalid && formEndereco.controls['logradouro'].touched}"/>
+                  <label for="logradouro" class="azul">Logradouro <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.logradouro')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+              <div class="field md:col-12 lg:col-2">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText #numeroInput  id="numero" formControlName="numero" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['numero'].invalid && formEndereco.controls['numero'].touched}"/>
+                  <label for="numero" class="azul">Número <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.numero')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText id="complemento" formControlName="complemento" required class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['complemento'].invalid && formEndereco.controls['complemento'].touched}"/>
+                  <label for="complemento" class="azul">Complemento <span class="p-error ">*</span></label>
+                </span>
+                <!-- <small *ngIf="formEndereco.get('endereco.complemento')?.hasError('required')"   class="p-error "><br>* Campo obrigatório</small> -->
+              </div>
+
+            </div>
+
+            <div class="row lg:flex lg:justify-content-center">
+
+              <div class="field md:col-12 lg:col-4">
+                <span class="p-float-label p-input-icon-left width">
+                  <i class="pi pi-map azul"></i>
+                  <input pInputText id="referencia" formControlName="referencia" class="width" />
+                  <label for="referencia" class="azul">Referencia</label>
+                </span>
+              </div>
+            </div>
+          </form>
+          <div class="row flex justify-content-center">
+            <small class="p-error "><br>* Campos obrigatórios</small>
+          </div>
+        </div>
+        <div class="flex pt-4 justify-content-between">
+          <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
+          <p-button (onClick)="validaFormulario(2);" [disabled]="!formEndereco.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
+        </div>
+
+      </ng-template>
+  </p-stepperPanel>
+
+  <p-stepperPanel>
+    <ng-template pTemplate="header"  let-onClick="onClick" let-index="index">
+      <div >
+        <div class="flex justify-content-center align-items-center">
+          <span
+            class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+            [ngClass]="{
+              'border-green-600 bg-green-50': (active > 1) || (this.formulario.valid) ,
+              'border-blue-100 bg-blue-50 opacity-40': active < 1 ,
+              'border-blue-500 bg-blue-50': active == 1
+            }"
+          >
+            <i [ngClass]="(active > 1) || (this.formulario.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-palette flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+          </span>
+        </div>
+        <div class="flex justify-content-center align-items-center mt-1">
+          <span class="font-semibold"
+            [ngClass]="{
+              'text-green-600': (active > 1) || (this.formulario.valid)  ,
+              'text-blue-500 opacity-40': active < 1 ,
+              'text-blue-500': active == 1
+            }"
+
+            >Customização</span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+
+    </ng-template>
+  </p-stepperPanel>
+
+  <p-stepperPanel>
+    <ng-template pTemplate="header"  let-onClick="onClick" let-index="index">
+        <div >
+          <div class="flex justify-content-center align-items-center">
+            <span
+              class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+              [ngClass]="{
+                'border-green-600 bg-green-50': (active > 2) || (this.formulario.valid) ,
+                'border-blue-100 bg-blue-50 opacity-40': active < 2,
+                'border-blue-500 bg-blue-50': active == 2
+              }"
+            >
+              <i [ngClass]="(active > 2) || (this.formulario.valid)? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-book flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+            </span>
+          </div>
+          <div class="flex justify-content-center align-items-center mt-1">
+            <span class="font-semibold"
+              [ngClass]="{
+                'text-green-600': (active > 2) || (this.formulario.valid),
+                'text-blue-500 opacity-40': active < 2,
+                'text-blue-500': active == 2
+              }"
+              >Contrato</span>
+          </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+    </ng-template>
+  </p-stepperPanel>
+</p-stepper>

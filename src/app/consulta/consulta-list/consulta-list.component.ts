@@ -170,12 +170,15 @@ export class ConsultaListComponent implements OnInit{
     this.router.navigate([`/consultas/info/1`])
   }
 
-  criaTabelaConsulta() {
+  async criaTabelaConsulta() {
     try {
-     this.service.getConsultas().then((response)=>{
-        this.lista = response;
+     await this.service.getConsultas().then((response)=>{
+      if(response?.status === 200 || response?.status === 201){
+        this.lista = response.data;
         this.ehCalendario = false;
         this.filtrarTabela(this.filtro)
+
+      }
 
       })
 
@@ -197,13 +200,12 @@ export class ConsultaListComponent implements OnInit{
   async consultaSelecionadaInfo(id: any, tipo: number){
   if(id != null){
    await this.service.getConsultaById(id).then((response)=>{
-      if(tipo === 1){
-        this.consultaSelecionada = response;
+      if(tipo === 1 && (response?.status === 200 || response?.status === 201)){
+        this.consultaSelecionada = response.data;
         this.infoConsulta = true;
       }else{
-        this.consultaSelecionadaPg = response;
+        this.consultaSelecionadaPg = response?.data;
         this.pagamentoInfo = true;
-       // console.log("Entrei aqui pra abrir o modal")
       }
 
     }).catch((error)=>{
@@ -306,10 +308,44 @@ export class ConsultaListComponent implements OnInit{
   }
 
   async reloading(reloading: Boolean) {
+
    if(reloading){
     const consulta = this.consultaSelecionada.id;
+    //this.criaTabelaConsulta();
+    // let consulta;
+
+    // this.service.getConsultaById(this.consultaSelecionada.id).then((response)=>{
+    //   if(response?.status === 200 || response?.status === 201){
+    //     consulta = response.data;
+    //     const consultaIndex = this.lista.findIndex(consulta => consulta.id === this.consultaSelecionada.id);
+
+    //     if (consultaIndex > -1) {
+
+    //       this.lista[consultaIndex] = consulta;
+
+    //       this.messageService.add({
+    //         severity: 'success',
+    //         summary: 'Aviso',
+    //         detail: 'Status da consulta alterado com sucesso!',
+    //         life: 2000
+    //       });
+    //       this.consultaSelecionadaInfo(consulta, 1);
+    //     } else {
+    //       this.criaTabelaConsulta();
+    //     }
+    //   }
+
+    // })
+
+
     this.criaTabelaConsulta();
     this.consultaSelecionadaInfo(consulta, 1);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Aviso',
+      detail: 'Status da consulta alterado com sucesso!',
+      life: 2000
+    })
    }
   }
 

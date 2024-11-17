@@ -27,7 +27,7 @@ import { TagModule } from 'primeng/tag';
 import { CalendarModule } from 'primeng/calendar';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { TabViewModule } from 'primeng/tabview';
-
+import { StepperModule } from 'primeng/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConsultaListComponent } from '../consulta/consulta-list/consulta-list.component';
 import { DentistaEditComponent } from './dentista-edit/dentista-edit.component';
@@ -37,7 +37,8 @@ import { ConsultaModule } from '../consulta/consulta.module';
 import { CalendarioModule } from '../MyComponents/calendario/calendario.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { DentistaListarModule } from '../MyComponents/dentista-listar/dentista-listar.module';
-
+import { PasswordModule } from 'primeng/password';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 
 @NgModule({
@@ -56,8 +57,11 @@ import { DentistaListarModule } from '../MyComponents/dentista-listar/dentista-l
     TabViewModule,
     ButtonModule,
     TableModule,
+    PasswordModule,
+    FloatLabelModule,
     InputMaskModule,
     InputSwitchModule,
+    StepperModule,
     InputTextModule,
     InputTextareaModule,
     InputNumberModule,

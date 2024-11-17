@@ -9,10 +9,10 @@ import {  DialogService } from 'primeng/dynamicdialog';
 
 
 interface Loading {
-  iniciar: boolean;
-  finalizar: boolean;
+  procedimento: boolean;
   editar: boolean;
   ausentar: boolean;
+  status: boolean;
 }
 
 @Component({
@@ -30,10 +30,10 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   @Output() closeModal = new EventEmitter<boolean>();
 
   loading: Loading = {
-    iniciar: false,
-    finalizar: false,
+    procedimento: false,
     editar: false,
-    ausentar: false
+    ausentar: false,
+    status: false
   };
 
   formularioEditar: FormGroup;
@@ -41,9 +41,11 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   separatorExp: RegExp = /,| /;
   dataConsulta: any;
   horaConsulta: any;
+  desableProcd: boolean;
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ConsultaService,
-     private route: ActivatedRoute, private router: Router,public dialogService: DialogService, private cdr: ChangeDetectorRef){
+    private route: ActivatedRoute, private router: Router,public dialogService: DialogService, private cdr: ChangeDetectorRef){
+
 
   }
 
@@ -61,6 +63,9 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   async ngOnInit() {
     this.criaFormularioEditar();
     this.criaFormularioProcedimentos();
+
+
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,8 +75,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.loading.ausentar = false;
     this.loading.editar = false;
-    this.loading.finalizar = false;
-    this.loading.iniciar = false;
+    this.loading.procedimento = false;
     this.dataConsulta = null;
     this.horaConsulta = null;
 
@@ -81,10 +85,10 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
     if (this.consultaSelecionada) {
       const dataConsultaString = this.consultaSelecionada.dataConsulta.toString();
       const dataConsulta = new Date(dataConsultaString);
-  
+
       this.formularioEditar = this.formBuilder.group({
-        dataConsulta: [dataConsulta, Validators.required], 
-        horaConsulta: [dataConsulta, Validators.required], 
+        dataConsulta: [dataConsulta, Validators.required],
+        horaConsulta: [dataConsulta, Validators.required],
       });
     }
   }
@@ -108,50 +112,54 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   combinarDataHora(): Date | null {
     const dataConsulta = this.formularioEditar.get('dataConsulta')?.value;
     const horaConsulta = this.formularioEditar.get('horaConsulta')?.value;
-  
+
     if (!dataConsulta || !horaConsulta) {
       return null; // Retorna null se algum campo estiver vazio
     }
-  
+
     // Extrai a data (dia, mês, ano) e hora (hora, minuto) dos controles
     const data = new Date(dataConsulta);
     const hora = new Date(horaConsulta);
-  
+
     // Define a hora e minuto na data principal
     data.setHours(hora.getHours());
     data.setMinutes(hora.getMinutes());
-  
+
     return data;
   }
 
- async criaFormularioProcedimentos(){
+  async criaFormularioProcedimentos() {
+    this.desableProcd = this.consultaSelecionada.status === 4 ? false : true;
+
+    const procedimentos = this.consultaSelecionada.procedimentos
+      ? JSON.parse(this.consultaSelecionada.procedimentos)
+      : [];
 
     this.formularioProcedimentos = this.formBuilder.group({
-      procedimentos: [this.consultaSelecionada.procedimentos !== ''? JSON.parse(this.consultaSelecionada.procedimentos): {value: [], disabled: true} , Validators.required]
-    })
+      procedimentos: [{ value: procedimentos, disabled: this.desableProcd }, Validators.required]
+    });
   }
 
   async salvarProcedimentos(){
+      this.desableProcd = !this.desableProcd;
+      const procedimentos = JSON.stringify(this.formularioProcedimentos.get('procedimentos')?.value);
 
-      const procedimentos = JSON.stringify(this.formularioProcedimentos.get('procedimentos')?.value)
-
+      console.log(procedimentos);
       if(procedimentos){
+        //console.log(JSON.stringify(this.consultaSelecionada))
+        // await this.service.pacthProcedimentoConsulta(this.consultaSelecionada.id, procedimentos).then((response)=>{
+        //   if(response == 200 || response == 201){
+        //     this.messageService.add({
+        //       severity: 'success',
+        //       summary: 'Aviso',
+        //       detail: 'Procedimentos salvo e finalizada'
+        //     });
+        //     this.reloading.emit(true);
+        //   }
 
-        this.consultaSelecionada.procedimentos = procedimentos;
-        console.log(JSON.stringify(this.consultaSelecionada))
-        await this.service.postProcedimentoConsulta(this.consultaSelecionada).then((response)=>{
-          if(response == 200 || response == 201){
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Aviso',
-              detail: 'Procedimentos salvo e finalizada'
-            });
-            this.reloading.emit(true);
-          }
-
-        }).catch((error)=>{
-          console.log(error)
-        })
+        // }).catch((error)=>{
+        //   console.log(error)
+        // })
       }
 
   }
@@ -159,9 +167,10 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   async buscarConsulta(id: any){
     if(id != null){
       await this.service.getConsultaById(id).then((response)=>{
+        if(response?.status === 200 || response?.status === 201){
+          this.consultaSelecionada = response.data;
+          console.log(this.consultaSelecionada)        }
 
-        this.consultaSelecionada = response;
-        console.log(this.consultaSelecionada)
        }).catch((error)=>{
          this.messageService.add({
            severity: 'error',
@@ -234,7 +243,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
             summary: 'Aviso',
             detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
           })
-          this.loading.finalizar = false;
+
         })
       }else{
         this.messageService.add({
@@ -242,7 +251,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
           summary: 'Aviso',
           detail: 'Houve um erro interno, entre em contato com o suporte'
         })
-        this.loading.finalizar = false;
+
       }
     }, 500)
     }else{
@@ -348,7 +357,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
 
   finalizarConsulta(){
 
-      this.loading.finalizar = true;
+      this.loading.status = true;
       this.messageService.add({
         severity: 'warn',
         summary: 'Aviso',
@@ -364,7 +373,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
               summary: 'Aviso',
               detail: 'Consulta finalizada com sucesso...'
             })
-            this.loading.finalizar = false;
+            this.loading.status = false;
 
             this.reloading.emit(true);
 
@@ -374,7 +383,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
               summary: 'Aviso',
               detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
             })
-            this.loading.finalizar = false;
+            this.loading.status = false;
           })
         }else{
           this.messageService.add({
@@ -382,14 +391,14 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
             summary: 'Aviso',
             detail: 'Houve um erro interno, entre em contato com o suporte'
           })
-          this.loading.finalizar = false;
+          this.loading.status = false;
         }
       }, 1500)
 
   }
 
   iniciarConsulta() {
-    this.loading.iniciar = true;
+    this.loading.status = true;
     if(this.verificaDataConsulta()){
     this.messageService.add({
       severity: 'warn',
@@ -409,7 +418,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
             summary: 'Aviso',
             detail: 'Consulta iniciada com sucesso...'
           })
-          this.loading.iniciar = false;
+          this.loading.status = false;
           this.reloading.emit(true);
 
         }).catch(()=>{
@@ -418,7 +427,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
             summary: 'Aviso',
             detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
           })
-          this.loading.iniciar = false;
+          this.loading.status = false;
         })
       }else{
         this.messageService.add({
@@ -426,30 +435,32 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
           summary: 'Aviso',
           detail: 'Houve um erro interno, entre em contato com o suporte'
         })
-        this.loading.iniciar = false;
+        this.loading.status = false;
       }
     }, 1500);
 
   }else{
-    this.loading.iniciar = false;
+    this.loading.status = false;
   }
 
 
   }
 
   alteraStatusConsulta(status: number){
+    this.loading.status = true;
+    let msg;
     if(status == 1){
-
+      msg = 'Status da consulta alterado com sucesso!'
     }else if(status == 2){
-      this.loading.iniciar = true;
+
     }else if(status == 3){
 
     }else if(status == 4){
-      
+
     }else if(status == 5){
 
     }else{
-      
+
     }
     setTimeout(async () => {
       if(this.consultaSelecionada !== null){
@@ -458,27 +469,24 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
           if(response?.status === 200 || response?.status === 201){
             this.consultaSelecionada = response.data;
             this.messageService.clear();
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Aviso',
-              detail: 'Consulta iniciada com sucesso...'
-            })
-            this.loading.iniciar = false;
+
+            //this.loading.iniciar = false;
+            this.loading.status = false;
             this.reloading.emit(true);
-  
+
           }
-          
 
-          
 
-          
+
+
+
         }).catch(()=>{
           this.messageService.add({
             severity: 'warn',
             summary: 'Aviso',
             detail: 'Houve um erro ao encontrar a consulta, entre em contato com o suporte'
           })
-          this.loading.iniciar = false;
+          this.loading.status = false;
         })
       }else{
         this.messageService.add({
@@ -486,7 +494,7 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
           summary: 'Aviso',
           detail: 'Houve um erro interno, entre em contato com o suporte'
         })
-        this.loading.iniciar = false;
+        this.loading.status = false;
       }
     }, 1500);
   }

@@ -34,7 +34,8 @@
           [style.--cor-fundo-hover]="'#e8d5ff'"
           class="btnAcao border-circle"
         >
-        <i class="material-icons" [style]="{'font-size': '18px'}">done_all</i>
+          <i class="material-icons" *ngIf="!loading.status" [style]="{'font-size': '18px'}">done_all</i>
+          <i class="pi pi-spin pi-spinner" *ngIf="loading.status"></i>
         </p-button>
         <p-button
           icon="pi"
@@ -49,11 +50,12 @@
           [style.--cor-fundo-hover]="'#cdcfd4'"
           class="btnAcao border-circle"
         >
-        <i class="material-icons" [style]="{'font-size': '18px'}">schedule</i>
+        <i class="material-icons" *ngIf="!loading.status" [style]="{'font-size': '18px'}">schedule</i>
+        <i class="pi pi-spin pi-spinner" *ngIf="loading.status"></i>
         </p-button>
 
           <p-button
-            [icon]="loading.iniciar?'pi pi-spin pi-spinner':'pi pi-pw pi-play'"
+            [icon]="loading.status?'pi pi-spin pi-spinner':'pi pi-pw pi-play'"
             [rounded]="true"
             [text]="true"
             pTooltip="Iniciar"
@@ -68,7 +70,7 @@
 
 
           <p-button
-            [icon]="loading.finalizar?'pi pi-spin pi-spinner':'pi pi-pw pi-check-circle'"
+            [icon]="loading.status?'pi pi-spin pi-spinner':'pi pi-pw pi-check-circle'"
             [rounded]="true"
             [text]="true"
             pTooltip="Finalizar"
@@ -117,7 +119,7 @@
             [text]="true"
             pTooltip="Ausentar"
             tooltipPosition="top"
-            [disabled]="consultaSelecionada.status === 1"
+            [disabled]="(consultaSelecionada.status === 1) || (consultaSelecionada.status === 4) || (consultaSelecionada.status === 5) || (consultaSelecionada.status === 6)"
             *ngIf="!consultaSelecionada.ausente"
             (onClick)="ausentarPaciente()"
             [style]="{'color': '#cb7c14'}"
@@ -346,13 +348,16 @@
       <div class="row flex justify-content-center">
         <div class="col-11 p-fluid">
 
-          <span class=" text-lg flex justify-content-center align-items-center font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
+          <div class="flex justify-content-center align-items-center mb-1">
+            <span class=" text-lg font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
+          </div>
 
           <p-chips
             [separator]="separatorExp"
             placeholder="Digite os procedimentos realizados na consulta"
             class="azul"
             formControlName="procedimentos"
+            [disabled]="desableProcd"
           ></p-chips>
 
         </div>
@@ -362,10 +367,14 @@
             [rounded]="true"
             [text]="true"
             pTooltip="Editar"
-            [style]="{'color': '#3B82F6', 'background-color':'#dbe8fe'}"
             tooltipPosition="top"
-            *ngIf="consultaSelecionada.status == 5"
+            *ngIf="consultaSelecionada.status == 5 && this.desableProcd"
             class=" border-circle"
+            (onClick)="this.desableProcd = !this.desableProcd"
+            [style]="{'color': '#2570eb'}"
+            [style.--cor-fundo]="'#dbecfe'"
+            [style.--cor-fundo-hover]="'#cde6fe'"
+            class="btnAcao border-circle"
           ></p-button>
           <p-button
             type="submit"
@@ -373,12 +382,13 @@
             [rounded]="true"
             [text]="true"
             pTooltip="Salvar"
-            *ngIf="consultaSelecionada.status == 4"
-            [style]="{'color': '#1DA750', 'background-color':'#ddfbe7'}"
+            *ngIf="(consultaSelecionada.status == 4 || consultaSelecionada.status == 5) && !this.desableProcd"
             tooltipPosition="top"
-            [disabled]="!(consultaSelecionada.dataHoraInicioAtendimento !== null && consultaSelecionada.dataHoraFimAtendimento === null) || consultaSelecionada.ausente === true"
             class=" border-circle"
-
+            [style]="{'color': '#1DA750'}"
+            [style.--cor-fundo]="'#ddfbe7'"
+            [style.--cor-fundo-hover]="'#cef9d9'"
+            class="btnAcao border-circle"
           ></p-button>
           <!-- <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
 

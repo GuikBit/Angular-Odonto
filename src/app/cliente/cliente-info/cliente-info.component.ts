@@ -593,8 +593,8 @@ export class ClienteInfoComponent implements OnInit {
   async consultaSelecionadaInfo(id: any, tipo: any){
     if(id != null){
       await this.serviceConsulta.getConsultaById(id).then((response)=>{
-        if(tipo === 1){
-          this.consultaSelecionada = response;
+        if(tipo === 1 && (response?.status === 200 || response?.status === 201)){
+          this.consultaSelecionada = response.data;
           this.infoConsulta = true;
         }else{
           this.consultaSelecionadaPg = response;

@@ -29,7 +29,7 @@ export class ConsultaService {
 
     try{
       const response = await instance.get(`${this.apiURL}`)
-      return response.data;
+      return response;
 
     }catch (error) {
       console.error(error);
@@ -37,7 +37,7 @@ export class ConsultaService {
     }
   }
 
-  async getConsultaById(id: any): Promise<Consulta> {
+  async getConsultaById(id: any){
     const instance = axios.create({
       baseURL: `${this.apiURL}`,
       timeout: 1000,
@@ -46,11 +46,11 @@ export class ConsultaService {
 
     try{
       const response = await instance.get(`${this.apiURL}/${id}`)
-      return response.data;
+      return response;
 
     }catch (error) {
       console.error(error);
-      return new Consulta();
+      return null;
     }
   }
 
@@ -103,7 +103,7 @@ export class ConsultaService {
       return null;
     }
   }
-  
+
 
   async deleteConsulta(id: any){
     const instance = axios.create({
@@ -248,21 +248,8 @@ export class ConsultaService {
       return error;
     }
   }
-  async postProcedimentoConsulta(consulta: Consulta) {
-    const instance = axios.create({
-      baseURL: `${this.apiURL}`,
-      timeout: 1000,
-      headers: { Authorization: 'Bearer ' + (await this.getToken()) },
-    });
-    try{
-      const response = await instance.post(`${this.apiURL}/procedimento`, consulta)
-      return response.status;
+ 
 
-    }catch (error) {
-      console.error(error);
-      return error;
-    }
-  }
 
   async salvarPagamento(consulta: any) {
     const instance = axios.create({

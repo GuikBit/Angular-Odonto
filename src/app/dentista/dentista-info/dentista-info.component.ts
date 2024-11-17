@@ -211,9 +211,12 @@ export class DentistaInfoComponent implements OnInit {
     if(id != null){
 
       this.serviceConsulta.getConsultaById(id).then((response)=>{
-        this.consultaSelecionada = response;
-        //this.consultaSelecionada = response;
-        this.infoConsulta = true;
+        if(response?.status === 200 || response?.status === 201){
+          this.consultaSelecionada = response.data;
+          //this.consultaSelecionada = response;
+          this.infoConsulta = true;
+
+        }
 
       }).catch((error)=>{
         this.messageService.add({
@@ -301,7 +304,7 @@ export class DentistaInfoComponent implements OnInit {
   onReactivate(){
 
   }
-  
+
   onInactivate(){
 
   }

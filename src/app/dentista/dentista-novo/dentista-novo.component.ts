@@ -1,11 +1,12 @@
 import { Dentista } from '../../class/dentista';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DentistaService } from 'src/app/services/dentista.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { isEmpty } from 'rxjs';
+import { AssyncServiceService } from 'src/app/services/assync-service.service';
 
 @Component({
   selector: 'app-dentista-novo',
@@ -16,11 +17,15 @@ export class DentistaNovoComponent implements OnInit{
 
   @Output() onlyClose = new EventEmitter<boolean>();
   @Output() closeModal = new EventEmitter<boolean>();
+  @ViewChild('numeroInput') numeroInput!: ElementRef;
 
   especialidades: any[] | undefined;
   dentista: Dentista;
 
   formulario: FormGroup;
+  formEndereco: FormGroup;
+  formContrato: FormGroup;
+  formCustomizacao: FormGroup;
 
   validacaoLogin: boolean | null = null;
   validacaoCPF: boolean | null = null;
@@ -30,8 +35,10 @@ export class DentistaNovoComponent implements OnInit{
 
   org: any;
 
+  active: number = 0;
+
   constructor( private service : DentistaService, private router: Router, private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, public messageService: MessageService) {
+    private formBuilder: FormBuilder, public messageService: MessageService, private assync: AssyncServiceService) {
 
 
     const organizacaoJson = localStorage.getItem('organizacao');
@@ -54,19 +61,51 @@ export class DentistaNovoComponent implements OnInit{
 
   criaFormulario(dentista: Dentista) {
     this.formulario = this.formBuilder.group({
-      login: ['', Validators.required],
-      senha: ['', Validators.required],
-      email: ['', Validators.required],
-      nome: ['', Validators.required],
-      cpf: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
-      telefone: ['', Validators.required],
-      cro: ['', Validators.required],
+      login: ['teste', Validators.required],
+      senha: ['123214', Validators.required],
+      email: ['teste@teste.com', Validators.required],
+      nome: ['Teste', Validators.required],
+      cpf: ['120.981.336-00', Validators.required],
+      dataNascimento: ['18/11/1998', Validators.required],
+      telefone: ['(32) 99822-0082', Validators.required],
+      cro: ['23314', Validators.required],
       especialidade: ['', Validators.required],
-      corDentista: [this.generateRandomColor(), Validators.required],
       OrganizacaoId: [this.org.id, Validators.required],
       //idOrganizacao: [this.org],
     })
+
+    this.formEndereco = this.formBuilder.group({
+      cidade: ['Juiz de Fora', Validators.required],
+      bairro: ['Grama', Validators.required],
+      logradouro: ['Diomar Monteiro', Validators.required],
+      numero: ['1509', Validators.required],
+      cep: ['36048-310', Validators.required],
+      complemento: ['Casa', Validators.required],
+      referencia: [],
+
+    })
+
+    this.formContrato = this.formBuilder.group({
+      empresa: [{value: this.org.nome, disabled: true}, Validators.required],
+      empresaCNPJ: [{value: this.org.cnpj, disabled: true}, Validators.required],
+      cargo: [null, Validators.required],
+      dataAdmissao: [new Date(), Validators.required],
+      registroN: ['325478-96', Validators.required],
+      remuneracao: [null, Validators.required],
+      valorPremiacao: [null],
+      valeTrans: [false],
+      valeAR: [false],
+      planoSaude: [false],
+      plr: [false],
+      premiacao: [false],
+      gymPass: [false],
+    })
+
+    this.formCustomizacao = this.formBuilder.group({
+      corDentista: [this.generateRandomColor(), Validators.required],
+    })
+
+
   }
 
   buscaLogin() {
@@ -101,11 +140,11 @@ export class DentistaNovoComponent implements OnInit{
       const limite = cpfLimpo.substring(0, 11);
       const cpfFormatado = limite.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
       this.formulario.get('cpf')?.setValue(cpfFormatado);
-      this.validadorCpf(this.formulario.get('cpf')?.value.replace(/\D/g, ''));
+      this.validadorCpf(this.formulario.get('cpf')?.value);
 
     }else{
       this.formulario.get('cpf')?.setErrors({tam: true})
-      //this.validacaoCPF = false;
+      this.validacaoCPF = false;
     }
 
    }
@@ -215,5 +254,52 @@ export class DentistaNovoComponent implements OnInit{
 
   getCorDentistaOpacidade(){
     return this.formulario.get('corDentista')?.value + '26';
+  }
+
+  validaFormulario(form: any){
+
+    if(form === 1){
+      if(this.formulario.valid){
+        this.active ++;
+      }else{
+        //this.markFormGroupTouched(this.formInform);
+        this.messageService.add({severity: 'error', summary: 'Houve um erro', detail: 'Verifique os campos obrigatórios do formulário.'});
+      }
+    }
+
+  }
+  formatCEP(cep: string): string {
+    return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+  }
+
+  buscaCEP(): void {
+    let cep = this.formEndereco.get('cep');
+    if (cep) {
+      const cepValue = cep.value.replace(/\D/g, '').substring(0, 8);
+      this.formEndereco.get('cep')?.setValue(this.formatCEP(cepValue));
+
+      if (cepValue.length === 8) {
+        this.loading = true;
+
+        setTimeout(() => {
+          this.assync.buscaCEP2(cepValue).then((response) => {
+            if (response?.status === 200) {
+              this.formEndereco.get('bairro')?.setValue(response.data.bairro);
+              this.formEndereco.get('complemento')?.setValue(response.data.complemento);
+              this.formEndereco.get('cidade')?.setValue(response.data.localidade);
+              this.formEndereco.get('logradouro')?.setValue(response.data.logradouro);
+
+              this.numeroInput.nativeElement.focus();
+            }
+
+            console.log(response);
+          }).catch((error) => {
+            console.error('Erro ao buscar o CEP:', error);
+          }).finally(() => {
+            this.loading = false;
+          });
+        }, 1000);
+      }
+    }
   }
 }
