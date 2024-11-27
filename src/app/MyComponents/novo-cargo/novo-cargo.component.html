@@ -80,6 +80,7 @@
                         { name: '40h'},
                         { name: '44h'},
                         { name: 'Plantão'},
+                        { name: 'Contrato'},
                     ]"
                     optionLabel="name"
                     appendTo="body" [autoZIndex]="true"
@@ -92,23 +93,23 @@
             </div>
 
             <div class="field col-3 m-0">
-                <span class="p-float-label width"> 
+                <span class="p-float-label width">
                 <!-- <i class="pi pi-dollar azul"></i> -->
                 <!-- <input pInputText id="salarioBase" formControlName="salarioBase" required class="width p-input-sm"  /> -->
-                
-                    <p-inputNumber 
-                        formControlName="salarioBase" 
-                        id="salarioBase" 
-                        mode="currency" 
+
+                    <p-inputNumber
+                        formControlName="salarioBase"
+                        id="salarioBase"
+                        mode="currency"
                         currency="BRL"
-                        locale="pt-BR" 
-                        required 
-                        class="width p-input-sm" 
-                    />                 
+                        locale="pt-BR"
+                        required
+                        class="width p-input-sm"
+                    />
                     <label for="salarioBase" class="azul">Salário Base <span class="p-error ">*</span></label>
                 </span>
             </div>
-        </div>            
+        </div>
 
         <div class="row lg:flex lg:justify-content-center mt-2">
             <div class="field col-11 m-0">

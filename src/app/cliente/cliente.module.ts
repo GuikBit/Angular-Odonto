@@ -35,6 +35,7 @@ import { OrcamentoModule } from '../MyComponents/orcamento/orcamento.module';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuModule } from 'primeng/menu';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { StepperModule } from 'primeng/stepper';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     TieredMenuModule,
     MenuModule,
     SelectButtonModule,
+    StepperModule,
     TableModule,
     InputMaskModule,
     InputSwitchModule,

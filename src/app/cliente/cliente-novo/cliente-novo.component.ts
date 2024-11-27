@@ -37,7 +37,12 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   hide = true;
   loading: boolean = false;
   uploadedFiles: any[] = [];
+
   formulario: FormGroup;
+  formResp: FormGroup;
+  formEnd: FormGroup;
+  formAnamnese: FormGroup;
+
   items: MenuItem[] | undefined;
   activeIndex: number = 0;
   fileToUpload: File | null = null;
@@ -48,6 +53,8 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   buscouCEP: boolean | null = null;
   indiceStep = 1;
   org: any;
+
+  active: number = 0;
 
   constructor(
     private service: ClienteService,
@@ -93,45 +100,45 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     }
 
     this.formulario = this.formBuilder.group({
-      numPasta: ['', Validators.required],
-      login: ['', Validators.required],
-      senha: ['', Validators.required],
-      email: ['', Validators.required],
-      nome: ['', Validators.required],
-      cpf: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
-      telefone: ['', Validators.required],
+      numPasta: ['1548', Validators.required],
+      login: ['Gui', Validators.required],
+      senha: ['123', Validators.required],
+      email: ['teste@teste.com', [Validators.required, Validators.email]],
+      nome: ['Guilherme Oliveira', Validators.required],
+      cpf: ['120.981.336-00', Validators.required],
+      dataNascimento: ['18/11/1998', Validators.required],
+      telefone: ['(32) 99822-0082', Validators.required],
       fotoPerfil: [],
       organizacaoId: [this.org.id, Validators.required],
       //idOrganizacao: [this.org],
-
-      endereco: this.formBuilder.group({
-        cidade: ['', Validators.required],
-        bairro: ['', Validators.required],
-        logradouro: ['', Validators.required],
-        numero: ['', Validators.required],
-        cep: ['', Validators.required],
-        complemento: ['', Validators.required],
-        referencia: [],
-      }),
-
-      responsavel: this.formBuilder.group({
-        nome: [],
-        telefone: [],
-        cpf: [],
-      }),
-
-      anamnese: this.formBuilder.group({
-        problemaSaude: ['', Validators.required],
-        tratamento: ['', Validators.required],
-        remedio: ['', Validators.required],
-        alergia: ['', Validators.required],
-        sangramentoExcessivo: [false],
-        hipertenso: [false],
-        gravida: [false],
-        traumatismoFace: [false],
-      }),
     });
+
+    this.formResp = this.formBuilder.group({
+      nome: [],
+      telefone: [],
+      cpf: [],
+    });
+
+    this.formEnd = this.formBuilder.group({
+      cidade: ['', Validators.required],
+      bairro: ['', Validators.required],
+      logradouro: ['', Validators.required],
+      numero: ['', Validators.required],
+      cep: ['', Validators.required],
+      complemento: ['', Validators.required],
+      referencia: [],
+    });
+
+    this.formAnamnese = this.formBuilder.group({
+      problemaSaude: ['', Validators.required],
+      tratamento: ['', Validators.required],
+      remedio: ['', Validators.required],
+      alergia: ['', Validators.required],
+      sangramentoExcessivo: [false],
+      hipertenso: [false],
+      gravida: [false],
+      traumatismoFace: [false],
+    })
   }
 
   onSubmit(): void {
@@ -140,7 +147,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
 
     const pacienteJson = JSON.stringify(paciente);
     console.log(pacienteJson);
-    if (this.validaFormulario()) {
+    if (true) {
       this.service.postPaciente(pacienteJson)
         .then(response => {
           if (response?.status === 201 || response?.status === 200) {
@@ -173,35 +180,37 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   }
 
   buscaCEP(): void {
-    this.loading = true;
-    let cep = this.formulario.get('endereco.cep');
+    let cep = this.formEnd.get('cep');
     if (cep) {
       const cepValue = cep.value.replace(/\D/g, '').substring(0, 8);
-      this.formulario.get('endereco.cep')?.setValue(this.formatCEP(cepValue));
+      this.formEnd.get('cep')?.setValue(this.formatCEP(cepValue));
 
-      setTimeout(() => {
-        this.assync.buscaCEP(cepValue).subscribe(
-          response => this.setEndereco(response),
-          () => this.handleCepError()
-        );
-      }, 1000);
+      if (cepValue.length === 8) {
+        this.loading = true;
+
+        setTimeout(() => {
+          this.assync.buscaCEP2(cepValue).then((response) => {
+            if (response?.status === 200) {
+              this.formEnd.get('bairro')?.setValue(response.data.bairro);
+              this.formEnd.get('complemento')?.setValue(response.data.complemento);
+              this.formEnd.get('cidade')?.setValue(response.data.localidade);
+              this.formEnd.get('logradouro')?.setValue(response.data.logradouro);
+
+              this.enderecoNumero.nativeElement.focus();
+            }
+
+            //console.log(response);
+          }).catch((error) => {
+            console.error('Erro ao buscar o CEP:', error);
+          }).finally(() => {
+            this.loading = false;
+          });
+        }, 1000);
+      }
     }
   }
 
-  setEndereco(response: any): void {
-    this.formulario.patchValue({
-      endereco: {
-        cidade: response.localidade,
-        bairro: response.bairro,
-        logradouro: response.logradouro,
-        complemento: response.complemento
-      }
-    });
-    this.buscouCEP = true;
-    this.loading = false;
 
-    this.enderecoNumero.nativeElement.focus();
-  }
 
   handleCepError(): void {
     this.buscouCEP = null;
@@ -294,7 +303,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   }
 
   replaceTelefone(tipo: number): void {
-    const telefoneControl = tipo === 1 ? this.formulario.get('telefone') : this.formulario.get('responsavel.telefone');
+    const telefoneControl = tipo === 1 ? this.formulario.get('telefone') : this.formEnd.get('telefone');
     if (telefoneControl) {
       let telefoneValue = telefoneControl.value.replace(/\D/g, '').substring(0, 11);
       const formattedTelefone = telefoneValue.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
@@ -302,21 +311,16 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     }
   }
 
-  validaFormulario(): boolean {
-    if (!this.formulario.get('endereco')?.valid) {
-      this.indiceStep = 3;
-      this.activeIndex = 2;
-      return false;
-    } else if (!this.formulario.get('anamnese')?.valid) {
-      this.indiceStep = 4;
-      this.activeIndex = 3;
-      return false;
-    } else if (!this.formulario.valid) {
-      this.indiceStep = 1;
-      this.activeIndex = 0;
-      return false;
+  validaFormulario(form: number) {
+    if (form === 1 && this.formulario.valid) {
+      this.active = 1;
+    } else if (form === 2 && this.formResp.valid) {
+      this.active = 2;
+    } else if (form === 3 && this.formEnd.valid) {
+      this.active = 3;
+    }else if(form === 4 && this.formAnamnese.valid){
+      this.onSubmit();
     }
-    return true;
   }
 
   nextStep(): void {

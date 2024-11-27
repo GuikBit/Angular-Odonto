@@ -245,13 +245,13 @@
   </div>
 </div>
 
-<p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '80vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="false" class="web">
+<p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '80vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="true" class="web">
   <ng-template pTemplate="content">
     <app-cliente-novo (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
   </ng-template>
 </p-dialog>
 
-<p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '100vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="false" class="mobile">
+<!-- <p-dialog header='Novo Paciente' [(visible)]="newUser" [modal]="true" [style]="{ width: '100vw', heigth:'auto' }" [draggable]="false" [resizable]="false" [closable]="false" class="mobile">
   <ng-template pTemplate="content">
     <app-cliente-novo  (closeModal)="closeModal($event)" (onlyClose)="onlyClose($event)"></app-cliente-novo>
   </ng-template>
@@ -261,7 +261,7 @@
   <ng-template pTemplate="content">
     <app-cliente-novo *ngIf="clienteSelecionado" [pacienteSelecionado]="clienteSelecionado"></app-cliente-novo>
   </ng-template>
-</p-dialog>
+</p-dialog> -->
 
 
 

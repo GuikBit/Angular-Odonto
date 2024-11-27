@@ -133,8 +133,8 @@ import { Location } from '@angular/common';
 import { PagamentoInfoComponent } from './consulta/pagamento-info/pagamento-info.component';
 import { GlobalService } from './global.service';
 import { OrcamentoModule } from './MyComponents/orcamento/orcamento.module';
-
-
+import { StepperModule } from 'primeng/stepper';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -154,6 +154,8 @@ import { OrcamentoModule } from './MyComponents/orcamento/orcamento.module';
     ConsultaModule,
     OrcamentoModule,
     HttpClientModule,
+    FloatLabelModule,
+    StepperModule,
     AppRoutingModule,
     TemplateModule,
     BrowserAnimationsModule,

@@ -1,3 +1,4 @@
+
 import { Dentista } from '../../class/dentista';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
@@ -7,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { isEmpty } from 'rxjs';
 import { AssyncServiceService } from 'src/app/services/assync-service.service';
+import { CargoService } from 'src/app/services/cargo.service';
 
 @Component({
   selector: 'app-dentista-novo',
@@ -32,13 +34,13 @@ export class DentistaNovoComponent implements OnInit{
   existeCPF: boolean | null = null;
   hide: boolean = false;
   loading: boolean | null = false;
-
+  cargosList: any[] = [];
   org: any;
 
   active: number = 0;
 
   constructor( private service : DentistaService, private router: Router, private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, public messageService: MessageService, private assync: AssyncServiceService) {
+    private formBuilder: FormBuilder, public messageService: MessageService, private assync: AssyncServiceService, private cargoService: CargoService) {
 
 
     const organizacaoJson = localStorage.getItem('organizacao');
@@ -56,6 +58,14 @@ export class DentistaNovoComponent implements OnInit{
         this.especialidades = response;
       }
     })
+
+    this.cargoService.getCargos(this.org.id).then((response)=>{
+      if(response?.status === 200){
+        this.cargosList = response.data;
+      }
+    }).catch((error=>{
+
+    }))
 
   }
 
@@ -217,8 +227,8 @@ export class DentistaNovoComponent implements OnInit{
   }
 
   onSubmit() {
-   console.log(JSON.stringify(this.formulario.value))
-    // console.log("Form novo dentista valido: ",this.formulario.valid)
+    console.log(JSON.stringify(this.formulario.value))
+
     if(this.formulario.valid){
       this.service.postDentita(JSON.stringify(this.formulario.value)).then((response)=>{
         if(response?.status == 200 || response?.status === 201){
@@ -249,22 +259,30 @@ export class DentistaNovoComponent implements OnInit{
   }
 
   getCorDentista(){
-    return this.formulario.get('corDentista')?.value;
+    return this.formCustomizacao.get('corDentista')?.value;
   }
 
   getCorDentistaOpacidade(){
-    return this.formulario.get('corDentista')?.value + '26';
+    return this.formCustomizacao.get('corDentista')?.value + '26';
   }
 
   validaFormulario(form: any){
 
-    if(form === 1){
-      if(this.formulario.valid){
-        this.active ++;
-      }else{
-        //this.markFormGroupTouched(this.formInform);
-        this.messageService.add({severity: 'error', summary: 'Houve um erro', detail: 'Verifique os campos obrigatórios do formulário.'});
-      }
+    if(form === 1 && this.formulario.valid){
+
+      this.active ++;
+
+    }else if(form === 2 && this.formEndereco.valid){
+      this.active ++;
+
+    }else if(form === 3 && this.formCustomizacao.valid){
+      this.active ++;
+
+    }else if(form === 4 && this.formContrato.valid){
+      this.onSubmit();
+
+    }else{
+      this.messageService.add({severity: 'error', summary: 'Houve um erro', detail: 'Verifique os campos obrigatórios do formulário.'});
     }
 
   }
@@ -300,6 +318,34 @@ export class DentistaNovoComponent implements OnInit{
           });
         }, 1000);
       }
+    }
+  }
+
+  preencheuCargo(){
+    if(this.formContrato.get('cargo')?.value){
+      this.formContrato.get('remuneracao')?.setValue(this.formContrato.get('cargo')?.value.salarioBase)
+      // valeTrans: [false],
+      // valeAR: [false],
+      // planoSaude: [false],
+      // plr: [false],
+      // premiacao: [false],
+      // gymPass: [false],
+      this.formContrato.get('valeTrans')?.setValue(this.formContrato.get('cargo')?.value.valeTrans);
+      this.formContrato.get('valeAR')?.setValue(this.formContrato.get('cargo')?.value.valeAR)
+      this.formContrato.get('planoSaude')?.setValue(this.formContrato.get('cargo')?.value.planoSaude)
+      this.formContrato.get('plr')?.setValue(this.formContrato.get('cargo')?.value.plr)
+      this.formContrato.get('premiacao')?.setValue(this.formContrato.get('cargo')?.value.premiacao)
+      this.formContrato.get('gymPass')?.setValue(this.formContrato.get('cargo')?.value.gymPass)
+
+    }else{
+      this.formContrato.get('remuneracao')?.setValue(null);
+
+      this.formContrato.get('valeTrans')?.setValue(null);
+      this.formContrato.get('valeAR')?.setValue(null)
+      this.formContrato.get('planoSaude')?.setValue(null)
+      this.formContrato.get('plr')?.setValue(null)
+      this.formContrato.get('premiacao')?.setValue(null)
+      this.formContrato.get('gymPass')?.setValue(null)
     }
   }
 }

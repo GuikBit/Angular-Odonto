@@ -234,7 +234,7 @@
     <ng-template pTemplate="content" let-nextCallback="nextCallback">
       <div class="new p-4 mt-3" >
         <form  [formGroup]="formulario" (ngSubmit)="onSubmit()">
-          <div class="row lg:flex lg:justify-content-center">
+          <div class="row lg:flex lg:justify-content-center mt-2">
             <div class=" md:col-12 lg:col-3">
               <span class="p-float-label p-input-icon-left p-input-icon-right width">
                 <i class="pi pi-user azul"></i>
@@ -252,7 +252,6 @@
                 <p-password id="password" formControlName="senha" [toggleMask]="true" class="w-full" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['senha'].invalid && formulario.controls['senha'].touched}"/>
                 <label for="password" class="azul">Senha <span class="p-error ">*</span></label>
               </p-floatLabel>
-
             </div>
 
             <div class="col-2"></div>
@@ -359,95 +358,6 @@
 
           </div>
 
-            <div class="row ">
-              <div class="lg:flex lg:justify-content-center">
-                <span class="azul text-lg" ><i class="pi pi-palette azul"></i>&nbsp;&nbsp;Escolha a cor primaria do dentista: <span class="p-error ">*</span><br>
-                </span>
-              </div>
-              <div class="lg:flex lg:justify-content-center mt-2">
-                <p-colorPicker formControlName="corDentista" appendTo="body" [inline]="true" [autoZIndex]="true"></p-colorPicker>
-              </div>
-            </div>
-
-
-          <div class="row lg:flex lg:justify-content-evenly lg:align-items-center mb-5">
-            <div class="lg:col-4 md:col-12 flex justify-content-center align-items-center " >
-              <div class="flex justify-content-center align-items-center " [style]="{'background-color': getCorDentistaOpacidade(), 'border-color': getCorDentista(), 'border-width':'1px', 'border-radius': '8px', 'border-style':'solid', 'width':'10vw', 'height':'5vh'}">
-                <p class="font-bold" [style]="{'color': getCorDentista()}">Texto para teste </p>
-
-              </div>
-            </div>
-            <div class="lg:col-4 md:col-12 flex justify-content-center">
-              <p-chart type="line"
-              height="80"
-              width="180"
-              [responsive]="true"
-              [data]="{
-                labels: [ '', '', '', '','',''],
-                datasets: [
-                  {
-                    fill: false,
-                    data: [35, 41, 37, 33, 39, 35],
-                    borderColor: getCorDentista(),
-                    tension: 0.4
-                  }
-                ],
-              }"
-              [options]="{
-                maintainAspectRatio: false,
-                aspectRatio: 3,
-                name: false,
-                plugins: {
-                  legend: {
-                    display: false
-                  }
-                },
-                scales: {
-                    x: {
-                      display: false,
-                      ticks: {
-                          color: 'transparent',
-                        },
-                        grid: {
-                          color: 'transparent',
-                          drawBorder: false
-                        }
-                    },
-                    y: {
-                      display: false,
-                        ticks: {
-                          color: 'transparent',
-                        },
-                        grid: {
-                          color: 'transparent',
-                            drawBorder: false
-                        }
-                    }
-                },
-                elements: {
-                  point: {
-                      radius:0
-                  },
-
-                },
-                layout: {
-                  padding: {
-                  left: 0,
-                  right: 0,
-                  top: 5,
-                  bottom: 5
-                }
-                }
-              }"
-
-              ></p-chart>
-            </div>
-            <div class="lg:col-4 md:col-12 flex justify-content-center">
-              <button pButton type="button" label="Teste" icon="pi pi-check" [style]="{'background-color': getCorDentista()}"></button>
-            </div>
-          </div>
-
-
           <!-- <div class="flex justify-content-around lg:justify-content-between align-content-center">
             <p-button label="Voltar" [rounded]="true" severity="danger" [outlined]="true" icon="pi pi-times" class="" (click)="fecharModal()"></p-button>
             <p-button type="submit"  label="Salvar" [rounded]="true" severity="success"  icon="pi pi-save" class=""></p-button>
@@ -470,18 +380,18 @@
             <span
               class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
               [ngClass]="{
-                'border-green-600 bg-green-50': (active > 1) || (this.formulario.valid) ,
+                'border-green-600 bg-green-50': (active > 1) || (this.formEndereco.valid) ,
                 'border-blue-100 bg-blue-50 opacity-40': active < 1 ,
                 'border-blue-500 bg-blue-50': active == 1
               }"
             >
-              <i [ngClass]="(active > 1) || (this.formulario.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-map-marker flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+              <i [ngClass]="(active > 1) || (this.formEndereco.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-map-marker flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
             </span>
           </div>
           <div class="flex justify-content-center align-items-center mt-1">
             <span class="font-semibold"
               [ngClass]="{
-                'text-green-600': (active > 1) || (this.formulario.valid)  ,
+                'text-green-600': (active > 1) || (this.formEndereco.valid)  ,
                 'text-blue-500 opacity-40': active < 1 ,
                 'text-blue-500': active == 1
               }"
@@ -491,7 +401,7 @@
         </div>
       </ng-template>
       <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-        <div class="new py-4 mt-3" >
+        <div class="new p-4 mt-3" >
           <form [formGroup]="formEndereco" autocomplete="off">
 
             <div class="row lg:flex lg:justify-content-center mt-2" >
@@ -583,20 +493,20 @@
           <span
             class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
             [ngClass]="{
-              'border-green-600 bg-green-50': (active > 1) || (this.formulario.valid) ,
-              'border-blue-100 bg-blue-50 opacity-40': active < 1 ,
-              'border-blue-500 bg-blue-50': active == 1
+              'border-green-600 bg-green-50': (active > 2) || (this.formCustomizacao.valid) ,
+              'border-blue-100 bg-blue-50 opacity-40': active < 2 ,
+              'border-blue-500 bg-blue-50': active == 2
             }"
           >
-            <i [ngClass]="(active > 1) || (this.formulario.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-palette flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+            <i [ngClass]="(active > 2) || (this.formCustomizacao.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-palette flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
           </span>
         </div>
         <div class="flex justify-content-center align-items-center mt-1">
           <span class="font-semibold"
             [ngClass]="{
-              'text-green-600': (active > 1) || (this.formulario.valid)  ,
-              'text-blue-500 opacity-40': active < 1 ,
-              'text-blue-500': active == 1
+              'text-green-600': (active > 2) || (this.formCustomizacao.valid)  ,
+              'text-blue-500 opacity-40': active < 2 ,
+              'text-blue-500': active == 2
             }"
 
             >Customização</span>
@@ -604,7 +514,104 @@
       </div>
     </ng-template>
     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+      <div class="new p-4 mt-3">
+        <form [formGroup]="formCustomizacao" autocomplete="off">
+          <div class="row ">
+            <div class=" md:col-12 lg:col-4">
+              <input pInputFile type="file" formControlName="fotoPerfil" >
+            </div>
+            <div class="lg:flex lg:justify-content-center col-6">
+              <span class="azul text-lg" ><i class="pi pi-palette azul"></i>&nbsp;&nbsp;Escolha a cor primaria do dentista: <span class="p-error ">*</span><br>
+              </span>
+            </div>
+            <div class="lg:flex lg:justify-content-center mt-2">
+              <p-colorPicker formControlName="corDentista" appendTo="body" [inline]="true" [autoZIndex]="true"></p-colorPicker>
+            </div>
+          </div>
 
+          <div class="row lg:flex lg:justify-content-evenly lg:align-items-center mb-5">
+            <div class="lg:col-4 md:col-12 flex justify-content-center align-items-center " >
+              <div class="flex justify-content-center align-items-center " [style]="{'background-color': getCorDentistaOpacidade(), 'border-color': getCorDentista(), 'border-width':'1px', 'border-radius': '8px', 'border-style':'solid', 'width':'10vw', 'height':'5vh'}">
+                <p class="font-bold" [style]="{'color': getCorDentista()}">Texto para teste </p>
+
+              </div>
+            </div>
+            <div class="lg:col-4 md:col-12 flex justify-content-center">
+              <p-chart type="line"
+              height="80"
+              width="180"
+              [responsive]="true"
+              [data]="{
+                labels: [ '', '', '', '','',''],
+                datasets: [
+                  {
+                    fill: false,
+                    data: [35, 41, 37, 33, 39, 35],
+                    borderColor: getCorDentista(),
+                    tension: 0.4
+                  }
+                ],
+              }"
+              [options]="{
+                maintainAspectRatio: false,
+                aspectRatio: 3,
+                name: false,
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                    x: {
+                      display: false,
+                      ticks: {
+                          color: 'transparent',
+                        },
+                        grid: {
+                          color: 'transparent',
+                          drawBorder: false
+                        }
+                    },
+                    y: {
+                      display: false,
+                        ticks: {
+                          color: 'transparent',
+                        },
+                        grid: {
+                          color: 'transparent',
+                            drawBorder: false
+                        }
+                    }
+                },
+                elements: {
+                  point: {
+                      radius:0
+                  },
+
+                },
+                layout: {
+                  padding: {
+                  left: 0,
+                  right: 0,
+                  top: 5,
+                  bottom: 5
+                }
+                }
+              }"
+
+              ></p-chart>
+            </div>
+            <div class="lg:col-4 md:col-12 flex justify-content-center">
+              <button pButton type="button" label="Teste" icon="pi pi-check" [style]="{'background-color': getCorDentista()}"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="flex pt-4 justify-content-between">
+        <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
+        <p-button (onClick)="validaFormulario(3);" [disabled]="!formCustomizacao.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
+      </div>
     </ng-template>
   </p-stepperPanel>
 
@@ -615,26 +622,174 @@
             <span
               class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
               [ngClass]="{
-                'border-green-600 bg-green-50': (active > 2) || (this.formulario.valid) ,
-                'border-blue-100 bg-blue-50 opacity-40': active < 2,
-                'border-blue-500 bg-blue-50': active == 2
+                'border-green-600 bg-green-50': (active > 3) || (this.formContrato.valid) ,
+                'border-blue-100 bg-blue-50 opacity-40': active < 3,
+                'border-blue-500 bg-blue-50': active == 3
               }"
             >
-              <i [ngClass]="(active > 2) || (this.formulario.valid)? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-book flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+              <i [ngClass]="(active > 3) || (this.formContrato.valid)? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-book flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
             </span>
           </div>
           <div class="flex justify-content-center align-items-center mt-1">
             <span class="font-semibold"
               [ngClass]="{
-                'text-green-600': (active > 2) || (this.formulario.valid),
-                'text-blue-500 opacity-40': active < 2,
-                'text-blue-500': active == 2
+                'text-green-600': (active > 3) || (this.formContrato.valid),
+                'text-blue-500 opacity-40': active < 3,
+                'text-blue-500': active == 3
               }"
               >Contrato</span>
           </div>
         </div>
     </ng-template>
     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+      <div class="new p-4 mt-3">
+        <form [formGroup]="formContrato" autocomplete="off">
+          <div class="row lg:flex lg:justify-content-center" >
+            <div class="field col-4">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="empresa" required class="width" formControlName="empresa" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['empresa'].invalid && formContrato.controls['empresa'].touched}" [disabled]="true"/>
+                <label for="empresa" class="azul">Empresa <span class="p-error ">*</span></label>
+              </span>
+
+            </div>
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="empresaCNPJ" required class="width" formControlName="empresaCNPJ" [readonly]="true" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['empresaCNPJ'].invalid && formContrato.controls['empresaCNPJ'].touched}"/>
+                <label for="empresaCNPJ" class="azul">CNPJ <span class="p-error ">*</span></label>
+              </span>
+
+            </div>
+
+            <div class="field col-4">
+              <span class="p-float-label p-input-icon-right width">
+                <p-dropdown [options]="cargosList" formControlName="cargo" [showClear]="true" appendTo="body" (onChange)="preencheuCargo()" [autoZIndex]="true" optionLabel="nome" inputId="cargo" [style]="{'color':'#2070B4', 'width': '100%'}" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['cargo'].invalid && formContrato.controls['cargo'].touched}"></p-dropdown>
+                <label for="cargo" class="azul">Modelo de contração <span class="p-error ">*</span></label>
+              </span>
+            </div>
+
+          </div>
+
+          <div class="row lg:flex lg:justify-content-center" >
+            <div class="field col-3">
+              <span class="p-float-label  p-input-icon-right">
+                <p-calendar
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  appendTo="body"
+                  [autoZIndex]="true"
+                  inputId="dataAdmissao"
+                  dateFormat="dd/mm/yy"
+                  [showTime]="true"
+                  [showButtonBar]="true"
+                  [style]="{'color':'#2070B4', 'width': '100%'}"
+                  formControlName="dataAdmissao"
+                  [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['dataAdmissao'].invalid && formContrato.controls['dataAdmissao'].touched}"
+                  >
+                  <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                    <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                  </ng-template>
+                </p-calendar>
+                <label for="dataAdmissao" class="azul">Data admissão <span class="p-error ">*</span></label>
+              </span>
+            </div>
+
+            <div class="field col-3">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-id-card azul"></i>
+                <input pInputText id="registroN" required class="width" formControlName="registroN" [ngClass]="{'ng-invalid ng-dirty': formContrato.controls['registroN'].invalid && formContrato.controls['registroN'].touched}"/>
+                <label for="registroN" class="azul">Registro n° <span class="p-error " >*</span></label>
+              </span>
+            </div>
+
+            <div class="field pt-2 ml-2 ">
+
+                <span class="p-float-label p-input-icon-left ">
+                  <i class="pi pi-dollar" *ngIf="formContrato.get('remuneracao')?.value == null"></i>
+                  <!-- <input pInputText id="pasta" required class="width" formControlName="remuneracao"/> -->
+                  <p-inputNumber
+                        formControlName="remuneracao"
+                        id="remuneracao"
+                        mode="currency"
+                        currency="BRL"
+                        locale="pt-BR"
+                        required
+                        class="custom-width"
+                        [readonly]="true"
+                    />
+                  <label for="remuneracao" class="azul" >Remuneração <span class="p-error ">*</span></label>
+                </span>
+            </div>
+            <div class="field pt-2 ml-3" *ngIf="formContrato.get('cargo')?.value?.premiacao">
+              <span class="p-float-label p-input-icon-left width">
+                <i class="pi pi-dollar" *ngIf="formContrato.get('valorPremiacao')?.value == null"></i>
+                <p-inputNumber
+                      formControlName="valorPremiacao"
+                      id="valorPremiacao"
+                      mode="currency"
+                      currency="BRL"
+                      locale="pt-BR"
+                      required
+                      class="custom-width"
+                  />
+                <label for="valorPremiacao" class="azul" >Valor premiação <span class="p-error ">*</span></label>
+              </span>
+            </div>
+
+
+          </div>
+
+
+          <div class="row lg:flex lg:justify-content-center ">
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center mt-2">
+                <p-inputSwitch id="valeTrans" formControlName="valeTrans" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                <label for="valeTrans" class="azul">&nbsp;&nbsp;VT</label>
+                </span>
+
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class="flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="valeAR" formControlName="valeAR" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                <label for="valeAR" class="azul">&nbsp;&nbsp;VA/VR</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="planoSaude"formControlName="planoSaude" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                <label for="planoSaude" class="azul">&nbsp;&nbsp;Plano Saúde</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="plr" formControlName="plr" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                <label for="plr" class="azul" >&nbsp;&nbsp;PLR</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="premiacao" formControlName="premiacao"  class="custom-switch" [readonly]="true"></p-inputSwitch>
+                <label for="premiacao" class="azul" >&nbsp;&nbsp;Premiação</label>
+                </span>
+            </div>
+            <div class="md:col-12 lg:col-2 flex justify-content-center align-items-center m-0">
+                <span class=" flex justify-content-start align-items-center  my-2">
+                <p-inputSwitch id="gymPass" formControlName="gymPass" class="custom-switch" [readonly]="true"></p-inputSwitch>
+                <label for="gymPass" class="azul">&nbsp;&nbsp;GymPass</label>
+                </span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+
+
+      <div class="flex pt-4 justify-content-between">
+        <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
+        <p-button (onClick)="validaFormulario(3);" [disabled]="!formContrato.valid" [rounded]="true" severity='success' label="Salvar" icon="pi pi-save" iconPos="right" />
+      </div>
     </ng-template>
   </p-stepperPanel>
 </p-stepper>
