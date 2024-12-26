@@ -515,96 +515,115 @@
     </ng-template>
     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
       <div class="new p-4 mt-3">
-        <form [formGroup]="formCustomizacao" autocomplete="off">
-          <div class="row ">
-            <div class=" md:col-12 lg:col-4">
-              <input pInputFile type="file" formControlName="fotoPerfil" >
+        <form [formGroup]="formCustomizacao" autocomplete="off" class="flex ">
+          <div class="col-6 ">
+            <div class="row">
+              <input pInputFile type="file" formControlName="fotoPerfil" (change)="onFileSelected($event)">
             </div>
-            <div class="lg:flex lg:justify-content-center col-6">
-              <span class="azul text-lg" ><i class="pi pi-palette azul"></i>&nbsp;&nbsp;Escolha a cor primaria do dentista: <span class="p-error ">*</span><br>
-              </span>
-            </div>
-            <div class="lg:flex lg:justify-content-center mt-2">
-              <p-colorPicker formControlName="corDentista" appendTo="body" [inline]="true" [autoZIndex]="true"></p-colorPicker>
-            </div>
-          </div>
-
-          <div class="row lg:flex lg:justify-content-evenly lg:align-items-center mb-5">
-            <div class="lg:col-4 md:col-12 flex justify-content-center align-items-center " >
-              <div class="flex justify-content-center align-items-center " [style]="{'background-color': getCorDentistaOpacidade(), 'border-color': getCorDentista(), 'border-width':'1px', 'border-radius': '8px', 'border-style':'solid', 'width':'10vw', 'height':'5vh'}">
-                <p class="font-bold" [style]="{'color': getCorDentista()}">Texto para teste </p>
-
+            <div class="row">
+              <div class="col-5" >
+                <h4 class="flex justify-content-center">Previsualização da imagem</h4>
+                <p-skeleton width="13rem" height="6rem" *ngIf="!imagemSelecionada" class="flex justify-content-center "></p-skeleton>
+                <p-image *ngIf="imagemSelecionada"
+                  [src]="imagemSelecionada"
+                  width="180"
+                  alt="Nova foto de perfil"
+                  class="flex justify-content-center"
+                ></p-image>
               </div>
             </div>
-            <div class="lg:col-4 md:col-12 flex justify-content-center">
-              <p-chart type="line"
-              height="80"
-              width="180"
-              [responsive]="true"
-              [data]="{
-                labels: [ '', '', '', '','',''],
-                datasets: [
-                  {
-                    fill: false,
-                    data: [35, 41, 37, 33, 39, 35],
-                    borderColor: getCorDentista(),
-                    tension: 0.4
-                  }
-                ],
-              }"
-              [options]="{
-                maintainAspectRatio: false,
-                aspectRatio: 3,
-                name: false,
-                plugins: {
-                  legend: {
-                    display: false
-                  }
-                },
-                scales: {
-                    x: {
-                      display: false,
-                      ticks: {
-                          color: 'transparent',
-                        },
-                        grid: {
-                          color: 'transparent',
-                          drawBorder: false
-                        }
-                    },
-                    y: {
-                      display: false,
-                        ticks: {
-                          color: 'transparent',
-                        },
-                        grid: {
-                          color: 'transparent',
-                            drawBorder: false
-                        }
-                    }
-                },
-                elements: {
-                  point: {
-                      radius:0
-                  },
 
-                },
-                layout: {
-                  padding: {
-                  left: 0,
-                  right: 0,
-                  top: 5,
-                  bottom: 5
-                }
-                }
-              }"
-
-              ></p-chart>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="lg:flex lg:justify-content-center col-6">
+                <span class="azul text-lg" ><i class="pi pi-palette azul"></i>&nbsp;&nbsp;Escolha a cor primaria do dentista: <span class="p-error ">*</span><br>
+                </span>
+              </div>
+              <div class="lg:flex lg:justify-content-center mt-2">
+                <p-colorPicker formControlName="corDentista" appendTo="body" [inline]="true" [autoZIndex]="true"></p-colorPicker>
+              </div>
             </div>
-            <div class="lg:col-4 md:col-12 flex justify-content-center">
-              <button pButton type="button" label="Teste" icon="pi pi-check" [style]="{'background-color': getCorDentista()}"></button>
+
+            <div class="row lg:flex lg:justify-content-evenly lg:align-items-center mb-5">
+              <div class="lg:col-4 md:col-12 flex justify-content-center align-items-center " >
+                <div class="flex justify-content-center align-items-center " [style]="{'background-color': getCorDentistaOpacidade(), 'border-color': getCorDentista(), 'border-width':'1px', 'border-radius': '8px', 'border-style':'solid', 'width':'10vw', 'height':'5vh'}">
+                  <p class="font-bold" [style]="{'color': getCorDentista()}">Texto para teste </p>
+
+                </div>
+              </div>
+              <div class="lg:col-4 md:col-12 flex justify-content-center">
+                <p-chart type="line"
+                height="80"
+                width="180"
+                [responsive]="true"
+                [data]="{
+                  labels: [ '', '', '', '','',''],
+                  datasets: [
+                    {
+                      fill: false,
+                      data: [35, 41, 37, 33, 39, 35],
+                      borderColor: getCorDentista(),
+                      tension: 0.4
+                    }
+                  ],
+                }"
+                [options]="{
+                  maintainAspectRatio: false,
+                  aspectRatio: 3,
+                  name: false,
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  scales: {
+                      x: {
+                        display: false,
+                        ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                            drawBorder: false
+                          }
+                      },
+                      y: {
+                        display: false,
+                          ticks: {
+                            color: 'transparent',
+                          },
+                          grid: {
+                            color: 'transparent',
+                              drawBorder: false
+                          }
+                      }
+                  },
+                  elements: {
+                    point: {
+                        radius:0
+                    },
+
+                  },
+                  layout: {
+                    padding: {
+                    left: 0,
+                    right: 0,
+                    top: 5,
+                    bottom: 5
+                  }
+                  }
+                }"
+
+                ></p-chart>
+              </div>
+              <div class="lg:col-4 md:col-12 flex justify-content-center">
+                <button pButton type="button" label="Teste" icon="pi pi-check" [style]="{'background-color': getCorDentista()}"></button>
+              </div>
             </div>
           </div>
+
+
         </form>
       </div>
 

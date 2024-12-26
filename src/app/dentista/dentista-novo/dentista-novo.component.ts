@@ -31,6 +31,8 @@ export class DentistaNovoComponent implements OnInit{
   formContrato: FormGroup;
   formCustomizacao: FormGroup;
 
+  imagemSelecionada: string | ArrayBuffer | null = '';
+
   validacaoLogin: boolean | null = null;
   validacaoCPF: boolean | null = null;
   existeCPF: boolean | null = null;
@@ -114,6 +116,7 @@ export class DentistaNovoComponent implements OnInit{
     })
 
     this.formCustomizacao = this.formBuilder.group({
+      fotoPerfil: [null],
       corDentista: [this.generateRandomColor(), Validators.required],
     })
 
@@ -385,6 +388,18 @@ export class DentistaNovoComponent implements OnInit{
       this.formContrato.get('plr')?.setValue(null)
       this.formContrato.get('premiacao')?.setValue(null)
       this.formContrato.get('gymPass')?.setValue(null)
+    }
+  }
+
+
+  onFileSelected(event: any){
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagemSelecionada = reader.result;
+      };
     }
   }
 }

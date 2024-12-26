@@ -39,7 +39,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { DentistaListarModule } from '../MyComponents/dentista-listar/dentista-listar.module';
 import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
-
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
@@ -55,6 +55,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     CardModule,
     ColorPickerModule,
     TabViewModule,
+    SkeletonModule,
     ButtonModule,
     TableModule,
     PasswordModule,
