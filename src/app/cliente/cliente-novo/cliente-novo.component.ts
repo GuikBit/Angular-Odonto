@@ -27,6 +27,7 @@ export interface Message {
 export class ClienteNovoComponent implements OnInit, OnDestroy {
 
   @ViewChild('enderecoNumero') enderecoNumero!: ElementRef;
+  @ViewChild('enderecoCEP') enderecoCEP!: ElementRef;
 
   @Output() msgReturn = new EventEmitter<Message>();
   @Output() closeModal = new EventEmitter<boolean>();
@@ -67,7 +68,6 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   ) {
 
 
-
   }
 
   ngOnInit(): void {
@@ -84,7 +84,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
       this.org = JSON.parse(organizacaoJson);
     }
 
-    this.criaFormulario(new Cliente());
+    this.criaFormulario();
   }
 
   ngOnDestroy(): void {
@@ -92,7 +92,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
     this.activeIndex = 0;
   }
 
-  criaFormulario(cliente: Cliente): void {
+  criaFormulario(): void {
     console.log(this.org)
     if(this.org){
     console.log(this.org.id)
@@ -143,12 +143,9 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
 
-    const paciente = this.formulario.value;
-
-    const pacienteJson = JSON.stringify(paciente);
-    console.log(pacienteJson);
+    const paciente = this.montaDadosPaciente();
     if (true) {
-      this.service.postPaciente(pacienteJson)
+      this.service.postPaciente(JSON.stringify(paciente))
         .then(response => {
           if (response?.status === 201 || response?.status === 200) {
             this.closeModal.emit(false);
@@ -190,26 +187,104 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
           this.assync.buscaCEP2(cepValue).then((response) => {
-            if (response?.status === 200) {
-              this.formEnd.get('bairro')?.setValue(response.data.bairro);
-              this.formEnd.get('complemento')?.setValue(response.data.complemento);
-              this.formEnd.get('cidade')?.setValue(response.data.localidade);
-              this.formEnd.get('logradouro')?.setValue(response.data.logradouro);
+              if (response?.status === 200) {
+                const data = response.data;
+                if (data?.erro === 'true' || data?.erro === true) {
 
-              this.enderecoNumero.nativeElement.focus();
-            }
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erro ao Buscar CEP',
+                    detail:
+                      'CEP não encontrado. Por favor, verifique o número e tente novamente.',
+                  });
 
-            //console.log(response);
-          }).catch((error) => {
-            console.error('Erro ao buscar o CEP:', error);
-          }).finally(() => {
-            this.loading = false;
-          });
+                  this.enderecoCEP.nativeElement.blur();
+                  this.formEnd.get('cep')?.setErrors({'invalido': true});
+
+                  this.formEnd.get('bairro')?.setValue(data.bairro || '');
+                  this.formEnd.get('complemento')?.setValue(data.complemento || '');
+                  this.formEnd.get('cidade')?.setValue(data.localidade || '');
+                  this.formEnd.get('logradouro')?.setValue(data.logradouro || '');
+                  this.formEnd.get('numero')?.setValue(data.logradouro || '');
+                  this.formEnd.get('complemento')?.setValue(data.logradouro || '');
+                  this.formEnd.get('referencia')?.setValue(data.logradouro || '');
+
+                } else {
+
+                  this.formEnd.get('bairro')?.setValue(data.bairro || '');
+                  this.formEnd.get('complemento')?.setValue(data.complemento || '');
+                  this.formEnd.get('cidade')?.setValue(data.localidade || '');
+                  this.formEnd.get('logradouro')?.setValue(data.logradouro || '');
+
+                  this.enderecoNumero.nativeElement.focus();
+                }
+              } else {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Erro na Resposta',
+                  detail:
+                    'Ocorreu um erro ao buscar o CEP. Tente novamente mais tarde.',
+                });
+              }
+            })
+            .catch((error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erro ao Buscar CEP',
+                detail:
+                  'Ocorreu um erro ao se conectar ao serviço. Verifique sua conexão e tente novamente.',
+              });
+              console.error('Erro ao buscar o CEP:', error);
+            })
+            .finally(() => {
+              this.loading = false;
+            });
         }, 1000);
       }
     }
   }
 
+
+  montaDadosPaciente(){
+
+    if(this.formulario.valid && this.formResp.valid && this.formEnd.valid && this.formAnamnese.valid){
+      this.cliente = new Cliente();
+
+      this.cliente.nome = this.formulario.get('nome')?.value;
+      this.cliente.cpf = this.formulario.get('cpf')?.value;
+      this.cliente.dataNascimento = this.formulario.get('dataNascimento')?.value;
+      this.cliente.telefone = this.formulario.get('telefone')?.value;
+      this.cliente.email = this.formulario.get('email')?.value;
+      this.cliente.login = this.formulario.get('login')?.value;
+      this.cliente.senha = this.formulario.get('senha')?.value;
+      this.cliente.numPasta = this.formulario.get('numPasta')?.value;
+      this.cliente.fotoPerfil = this.formulario.get('fotoPerfil')?.value;
+      this.cliente.OrganizacaoId = this.formulario.get('organizacaoId')?.value;
+
+      this.cliente.responsavel.nome = this.formResp.get('nome')?.value;
+      this.cliente.responsavel.cpf = this.formResp.get('cpf')?.value;
+      this.cliente.responsavel.telefone = this.formResp.get('telefone')?.value;
+
+      this.cliente.endereco.cep = this.formEnd.get('cep')?.value;
+      this.cliente.endereco.cidade = this.formEnd.get('cidade')?.value;
+      this.cliente.endereco.bairro = this.formEnd.get('bairro')?.value;
+      this.cliente.endereco.logradouro = this.formEnd.get('logradouro')?.value;
+      this.cliente.endereco.numero = this.formEnd.get('numero')?.value;
+      this.cliente.endereco.complemento = this.formEnd.get('complemento')?.value;
+      this.cliente.endereco.referencia = this.formEnd.get('referencia')?.value;
+
+      this.cliente.anamnese.problemaSaude = this.formAnamnese.get('problemaSaude')?.value;
+      this.cliente.anamnese.tratamento = this.formAnamnese.get('tratamento')?.value;
+      this.cliente.anamnese.remedio = this.formAnamnese.get('remedio')?.value;
+      this.cliente.anamnese.alergia = this.formAnamnese.get('alergia')?.value;
+      this.cliente.anamnese.sangramentoExcessivo = this.formAnamnese.get('sangramentoExcessivo')?.value;
+      this.cliente.anamnese.hipertenso = this.formAnamnese.get('hipertenso')?.value;
+      this.cliente.anamnese.gravida = this.formAnamnese.get('gravida')?.value;
+      this.cliente.anamnese.traumatismoFace = this.formAnamnese.get('traumatismoFace')?.value;
+    }
+
+    return this.cliente;
+  }
 
 
   handleCepError(): void {
@@ -239,17 +314,17 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   }
 
   RespValidaCPF(): void {
-    let cpf = this.formulario.get('responsavel.cpf');
+    let cpf = this.formResp.get('cpf');
     if (cpf) {
       const cpfValue = cpf.value.replace(/\D/g, '');
-      this.formulario.get('responsavel.cpf')?.setValue(cpfValue);
+      this.formResp.get('cpf')?.setValue(cpfValue);
       if (cpfValue.length >= 11) {
-        this.formulario.get('responsavel.cpf')?.setErrors({ tam: false });
+        this.formResp.get('cpf')?.setErrors({ tam: false });
         const formattedCPF = Formatters.formatCPF(cpfValue);
-        this.formulario.get('responsavel.cpf')?.setValue(formattedCPF);
+        this.formResp.get('cpf')?.setValue(formattedCPF);
         this.RespValidacaoCPF = this.isValidCPF(cpfValue);
       } else {
-        this.formulario.get('responsavel.cpf')?.setErrors({ tam: true });
+        this.formResp.get('cpf')?.setErrors({ tam: true });
       }
     }
   }
@@ -303,7 +378,7 @@ export class ClienteNovoComponent implements OnInit, OnDestroy {
   }
 
   replaceTelefone(tipo: number): void {
-    const telefoneControl = tipo === 1 ? this.formulario.get('telefone') : this.formEnd.get('telefone');
+    const telefoneControl = tipo === 1 ? this.formulario.get('telefone') : this.formResp.get('telefone');
     if (telefoneControl) {
       let telefoneValue = telefoneControl.value.replace(/\D/g, '').substring(0, 11);
       const formattedTelefone = telefoneValue.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');

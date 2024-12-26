@@ -409,10 +409,10 @@
                 <span class="p-float-label p-input-icon-left p-input-icon-right width">
                   <i class="pi pi-map-marker azul"></i>
                   <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
-                  <input pInputText id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cep'].invalid && formEndereco.controls['cep'].touched}" />
+                  <input pInputText #cepInput id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEndereco.controls['cep'].invalid && formEndereco.controls['cep'].touched}" />
                   <label for="cep" class="azul">CEP <span class="p-error ">*</span></label>
                 </span>
-                <!-- <small *ngIf="formEndereco.get('endereco.cep')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+                <small *ngIf="formEndereco.get('cep')?.hasError('invalido') && formEndereco.get('cep')?.touched"  class="p-error "><br>O CEP informado é inválido.</small>
               </div>
 
               <div class="field md:col-12 lg:col-4">

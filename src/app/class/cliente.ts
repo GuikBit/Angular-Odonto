@@ -9,9 +9,9 @@ export class Cliente extends User {
     numPasta?: string = '';
     fotoPerfil?: File;
 
-    endereco: Endereco;
-    anamnese: Anamnese;
-    responsavel: Responsavel;
+    endereco: Endereco = new Endereco();
+    anamnese: Anamnese = new Anamnese();
+    responsavel: Responsavel = new Responsavel();
 
     //outros
 

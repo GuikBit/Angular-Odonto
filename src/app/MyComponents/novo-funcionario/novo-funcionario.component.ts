@@ -30,8 +30,10 @@ export class NovoFuncionarioComponent  implements OnInit{
 
   @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild('numeroInput') numeroInput!: ElementRef;
+  @ViewChild('cepInput') cepInput!: ElementRef;
 
- 
+
+
   userLogado: any;
   org: any;
 
@@ -162,7 +164,7 @@ export class NovoFuncionarioComponent  implements OnInit{
 
       this.orgService.postOrgFuncionario(JSON.stringify(this.novoFunc)).then((response)=>{
         if(response?.status === 200 || response?.status === 201){
-          
+
           //this.messageService.add({severity: 'success', summary: 'Sucesso!', detail: 'Novo funcionário cadastrado com sucesso!'});
           this.closeModal.emit(false);
         }
@@ -315,21 +317,58 @@ export class NovoFuncionarioComponent  implements OnInit{
 
         setTimeout(() => {
           this.assync.buscaCEP2(cepValue).then((response) => {
-            if (response?.status === 200) {
-              this.formEndereco.get('bairro')?.setValue(response.data.bairro);
-              this.formEndereco.get('complemento')?.setValue(response.data.complemento);
-              this.formEndereco.get('cidade')?.setValue(response.data.localidade);
-              this.formEndereco.get('logradouro')?.setValue(response.data.logradouro);
+              if (response?.status === 200) {
+                const data = response.data;
+                if (data?.erro === 'true' || data?.erro === true) {
 
-              this.numeroInput.nativeElement.focus();
-            }
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erro ao Buscar CEP',
+                    detail:
+                      'CEP não encontrado. Por favor, verifique o número e tente novamente.',
+                  });
 
-            console.log(response);
-          }).catch((error) => {
-            console.error('Erro ao buscar o CEP:', error);
-          }).finally(() => {
-            this.loading = false;
-          });
+                  this.cepInput.nativeElement.blur();
+                  this.formEndereco.get('cep')?.setErrors({'invalido': true});
+
+                  this.formEndereco.get('bairro')?.setValue(data.bairro || '');
+                  this.formEndereco.get('complemento')?.setValue(data.complemento || '');
+                  this.formEndereco.get('cidade')?.setValue(data.localidade || '');
+                  this.formEndereco.get('logradouro')?.setValue(data.logradouro || '');
+                  this.formEndereco.get('numero')?.setValue(data.logradouro || '');
+                  this.formEndereco.get('complemento')?.setValue(data.logradouro || '');
+                  this.formEndereco.get('referencia')?.setValue(data.logradouro || '');
+
+                } else {
+
+                  this.formEndereco.get('bairro')?.setValue(data.bairro || '');
+                  this.formEndereco.get('complemento')?.setValue(data.complemento || '');
+                  this.formEndereco.get('cidade')?.setValue(data.localidade || '');
+                  this.formEndereco.get('logradouro')?.setValue(data.logradouro || '');
+
+                  this.numeroInput.nativeElement.focus();
+                }
+              } else {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Erro na Resposta',
+                  detail:
+                    'Ocorreu um erro ao buscar o CEP. Tente novamente mais tarde.',
+                });
+              }
+            })
+            .catch((error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erro ao Buscar CEP',
+                detail:
+                  'Ocorreu um erro ao se conectar ao serviço. Verifique sua conexão e tente novamente.',
+              });
+              console.error('Erro ao buscar o CEP:', error);
+            })
+            .finally(() => {
+              this.loading = false;
+            });
         }, 1000);
       }
     }

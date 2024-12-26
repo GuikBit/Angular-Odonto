@@ -381,18 +381,18 @@
                 <span
                   class="border-round-2xl border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                   [ngClass]="{
-                    'border-green-600 bg-green-50': active > 1  || (this.formResp.valid),
+                    'border-green-600 bg-green-50': active > 1,
                     'border-blue-100 bg-blue-50 opacity-40': active < 1,
                     'border-blue-500 bg-blue-50': active == 1
                   }"
                 >
-                  <i [ngClass]="(active > 1) || (this.formResp.valid) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-users flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
+                  <i [ngClass]="(active > 1) ? 'pi pi-fw pi-check text-green-600 font-semibold flipleft animation-duration-300 animation-1':'pi pi-fw pi-users flipright animation-duration-300 animation-iteration-1 text-blue-600 font-semibold'"></i>
                 </span>
               </div>
               <div class="flex justify-content-center align-items-center mt-1">
                 <span class="font-semibold"
                 [ngClass]="{
-                  'text-green-600': active > 1 || (this.formResp.valid) ,
+                  'text-green-600': active > 1 ,
                   'text-blue-500 opacity-40': active < 1,
                   'text-blue-500': active == 1
                 }"
@@ -435,10 +435,10 @@
                       <i class="pi pi-id-card azul"></i>
                       <i class='pi pi-times' style="font-size: 1.3rem; color: #FF3D32" *ngIf="!RespValidacaoCPF && RespValidacaoCPF != null || existeCPF"></i>
                       <i class='pi pi-check' style="font-size: 1.3rem; color: #136C34" *ngIf="RespValidacaoCPF && RespValidacaoCPF != null"></i>
-                      <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" (input)="validaCPF()" required  [style]="RespValidacaoCPF && validacaoCPF != null? 'border-color:  #136C34': 'none'" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['cpf'].invalid && formulario.controls['cpf'].touched}" />
-                      <label for="cpf" class="azul">CPF <span class="p-error ">*</span></label>
+                      <input pInputText id="cpf" formControlName="cpf" maxlength="14" minlength="11" (input)="RespValidaCPF()" [style]="RespValidacaoCPF && validacaoCPF != null? 'border-color:  #136C34': 'none'" class="width" [ngClass]="{'ng-invalid ng-dirty': formulario.controls['cpf'].invalid && formulario.controls['cpf'].touched}" />
+                      <label for="cpf" class="azul">CPF </label>
                     </span>
-                    <small *ngIf="!RespValidacaoCPF && RespValidacaoCPF != null || existeCPF"  class="p-error "><br>CPF inválido ou já cadastrado</small>
+                    <small *ngIf="!RespValidacaoCPF && RespValidacaoCPF != null || existeCPF"  class="p-error "><br>CPF inválido</small>
                     <small *ngIf="validacaoCPF && validacaoCPF != null"  style="color: #136C34"><br>CPF válido</small>
                   </div>
 
@@ -452,9 +452,6 @@
                 </div>
               </div>
             </form>
-            <div class="row flex justify-content-center">
-              <small class="p-error "><br>* Campos obrigatórios</small>
-            </div>
             <div class="flex pt-4 justify-content-between">
               <p-button (onClick)="prevCallback.emit(); " [rounded]="true" label="Voltar" severity="secondary" icon="pi pi-arrow-left" />
               <p-button (onClick)="validaFormulario(2);" [disabled]="!formResp.valid" [rounded]="true" label="Próximo" icon="pi pi-arrow-right" iconPos="right" />
@@ -496,11 +493,11 @@
                 <div class="field md:col-12 lg:col-3">
                   <span class="p-float-label p-input-icon-left p-input-icon-right width">
                     <i class="pi pi-map-marker azul"></i>
-                    <i [ngClass]="loading? 'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
-                    <input pInputText id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEnd.controls['cep'].invalid && formEnd.controls['cep'].touched}" />
+                    <i [ngClass]="loading?'pi pi-spin pi-spinner': ''" style="font-size: 1.3rem"></i>
+                    <input #enderecoCEP pInputText id="cep" formControlName="cep" required (input)="buscaCEP()" minlength="8" maxlength="9" class="width" [ngClass]="{'ng-invalid ng-dirty': formEnd.controls['cep'].invalid && formEnd.controls['cep'].touched}" />
                     <label for="cep" class="azul">CEP <span class="p-error ">*</span></label>
                   </span>
-                  <!-- <small *ngIf="formEnd.get('endereco.cep')?.hasError('required')"  class="p-error "><br>* Campo obrigatório</small> -->
+                  <small *ngIf="formEnd.get('cep')?.hasError('invalido') && formEnd.get('cep')?.touched"  class="p-error "><br>O CEP informado é inválido.</small>
                 </div>
 
                 <div class="field md:col-12 lg:col-4">
