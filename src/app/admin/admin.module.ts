@@ -33,7 +33,10 @@ import { AdminPontoComponent } from './admin-ponto/admin-ponto.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DentistaListarModule } from "../MyComponents/dentista-listar/dentista-listar.module";
 import { RippleModule } from 'primeng/ripple';
-
+import { TagModule } from 'primeng/tag';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { NovoPontoComponent } from '../MyComponents/novo-ponto/novo-ponto.component';
 @NgModule({
   declarations: [
     AdminMenuComponent,
@@ -41,7 +44,8 @@ import { RippleModule } from 'primeng/ripple';
     AdminConfiguracoesComponent,
     AdminConsultaComponent,
     AdminDentistaComponent,
-    AdminPontoComponent
+    AdminPontoComponent,
+    NovoPontoComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +54,9 @@ import { RippleModule } from 'primeng/ripple';
     CalendarModule,
     ImageModule,
     MenubarModule,
+    AvatarModule,
+    TagModule,
+    AvatarGroupModule,
     MenuModule,
     SidebarModule,
     SelectButtonModule,

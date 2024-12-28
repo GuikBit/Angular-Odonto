@@ -168,7 +168,7 @@ export class CalendarioComponent implements OnInit{
     // }else{
     //   return "#FFF";
     // }
-    
+
   }
 
   retornaCorDentista(consulta: Consulta){

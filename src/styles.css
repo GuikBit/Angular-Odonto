@@ -3,9 +3,10 @@
 @import "primeng/resources/primeng.css";
 
 html, body { height: auto; }
-/* *{
-  font-family:  sans-serif;
-} */
+*{
+  /* font-family: 'Inter', sans-serif; */
+  font-family: 'Poppins', sans-serif;
+}
 body {
   margin: 0;
   background-color: #EFF3F8;}
@@ -68,7 +69,7 @@ form{
 form h2{
     padding-top: 2vw;
     margin-bottom: 2vw;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
     font-size: 1.6rem;
 }
 
@@ -292,7 +293,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: #2070b4;
 }
 
-/* 
+/*
 
 .btnAcao{
   color: var(--color);

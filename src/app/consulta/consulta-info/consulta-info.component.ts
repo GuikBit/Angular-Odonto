@@ -29,12 +29,15 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   @Output() reloading = new EventEmitter<Boolean>();
   @Output() closeModal = new EventEmitter<boolean>();
 
+
   loading: Loading = {
     procedimento: false,
     editar: false,
     ausentar: false,
     status: false
   };
+
+  pagamentoInfo: boolean = false;
 
   formularioEditar: FormGroup;
   formularioProcedimentos: FormGroup;
@@ -205,6 +208,12 @@ export class ConsultaInfoComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   deletarConsulta() {
+  }
+
+  abrirPagamentoConsultaSelecionada(){
+
+    this.pagamentoInfo = true;
+
   }
 
   presencaPaciente() {

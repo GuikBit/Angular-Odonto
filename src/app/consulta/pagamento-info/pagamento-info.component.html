@@ -65,17 +65,18 @@
           <div class="field">
             <span class="p-float-label p-input-icon-right">
               <i class="pi pi-angle-down text-xl"></i>
-              <input pInputText [value]="parcelas[index].label"  [style]="{'width': '11vw', 'height':'46px'}" [disabled]="true" />
+              <input pInputText [value]="parcelas[index].label"  [style]="{'width': '11vw'}" [disabled]="true" />
             </span>
           </div>
 
           }@else {
 
             <p-dropdown
+              #entradaInput
               [options]="parcelas"
               appendTo="body"
               [autoZIndex]="true"
-              [style]="{'width': '11vw', 'height':'46px'}"
+              [style]="{'width': '11vw'}"
               formControlName="parcelas"
               optionLabel="label"
               optionValue="value"
@@ -121,6 +122,7 @@
         <div class="col-2 flex justify-content-center">
           <span class="p-float-label" >
             <p-inputNumber
+
               mode="currency"
               inputId="currency-brazil3"
               currency="BRL"
@@ -136,7 +138,7 @@
           [options]="formaPagamento"
           appendTo="body"
           [autoZIndex]="true"
-          [style]="{'width': '9vw', 'height':'46px', 'padding': '0'}"
+          [style]="{'width': '9vw','padding': '0'}"
           formControlName="formaPagamento"
           optionLabel="descricao"
           class="width"
@@ -153,7 +155,7 @@
           </p-dropdown>
         </div>
         <div class="col-2 flex justify-content-center">
-
+          {{ dataAtual | date: 'dd/MM/yyyy HH:mm' }}
         </div>
         <div class="col-2 flex justify-content-center">
           <label for="file" class="custom-file-button"><i [class]="selectedFileName == 'Buscar'? 'pi pi-upload' :'pi pi-download'"></i>&nbsp;&nbsp;{{selectedFileName}}</label>
@@ -212,7 +214,7 @@
                 [options]="formaPagamento"
                 appendTo="body"
                 [autoZIndex]="true"
-                [style]="{'width': '9vw', 'height':'46px', 'padding': '0'}"
+                [style]="{'width': '9vw', 'padding': '0'}"
                 formControlName="formaPagamento"
                 optionLabel="descricao"
                 class="width"
@@ -244,7 +246,7 @@
               </div>
 
               <div class="col-1 flex justify-content-center">
-                <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" [disabled]="!item.pago" (click)="salvarPagamentoParcela(item.id)"></p-button>
+                <p-button icon="pi pi-dollar" label="Pagar" [rounded]="true" severity="success" [disabled]="!item.pago" (click)="salvarPagamentoParcela(item.id, item)"></p-button>
               </div>
             </div>
             }
@@ -262,9 +264,9 @@
         <div class="col-2"></div>
       </div>
     </div>
-    <div class="row flex justify-content-center" *ngIf="!consultaSelecionadaPg.pagamento.fatFechado">
-      <p-button type="submit" label="Salvar Pagamento" [rounded]="true" severity="success"  icon="pi pi-save" class="mx-2"></p-button>
-    </div>
+      <div class="row flex justify-content-center" *ngIf="!consultaSelecionadaPg.pagamento.fatFechado">
+        <p-button type="submit" label="Salvar Pagamento" [rounded]="true" severity="success"  icon="pi pi-save" class="mx-2"></p-button>
+      </div>
     </div>
 
     <div *ngIf="consultaSelecionadaPg.pagamento.fatFechado">
@@ -313,7 +315,7 @@
                 <span class="p-float-label p-input-icon-left p-input-icon-right">
                   <i [class]="formaPagamento[item.formaDePagamento].icon"></i>
                   <i class="pi pi-pw pi-angle-down text-xl"></i>
-                  <input pInputText [value]="formaPagamento[item.formaDePagamento].label"  [style]="{'width': '9vw', 'height':'46px'}" [disabled]="true" />
+                  <input pInputText [value]="formaPagamento[item.formaDePagamento].label"  [style]="{'width': '9vw'}" [disabled]="true" />
                 </span>
 
               </div>
@@ -379,14 +381,14 @@
                       <span class="p-float-label p-input-icon-left p-input-icon-right">
                         <i [class]="formaPagamento[item.formaDePagamento].icon"></i>
                         <i class="pi pi-pw pi-angle-down text-xl"></i>
-                        <input pInputText [value]="formaPagamento[item.formaDePagamento].label"  [style]="{'width': '9vw', 'height':'46px'}" [disabled]="true" />
+                        <input pInputText [value]="formaPagamento[item.formaDePagamento].label"  [style]="{'width': '9vw'}" [disabled]="true" />
                       </span>
                     }@else {
                       <p-dropdown
                     [options]="formaPagamento"
                     appendTo="body"
                     [autoZIndex]="true"
-                    [style]="{'width': '9vw', 'height':'46px', 'padding': '0'}"
+                    [style]="{'width': '9vw', 'padding': '0'}"
                     formControlName="formaPagamento"
                     optionLabel="descricao"
                     class="width"
@@ -419,7 +421,7 @@
                   </div>
 
                   <div class="col-1 flex justify-content-center">
-                    <p-button icon="pi pi-save" [rounded]="true" severity="success" [outlined]="true" [disabled]="habilitaBotao(item)" (click)="salvarPagamentoParcela(item.id)"></p-button>
+                    <p-button icon="pi pi-save" [rounded]="true" severity="success" [disabled]="habilitaBotao(item)" (click)="salvarPagamentoParcela(item.id, item)"></p-button>
                   </div>
                 </div>
             </ng-template>

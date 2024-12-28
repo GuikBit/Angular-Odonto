@@ -1,4 +1,4 @@
-<div class="new p-component px-5">
+<div class="new p-component px-5" *ngIf="!pagamentoInfo">
 
   <div class="flex justify-content-between mt-2 mb-1">
 
@@ -143,6 +143,20 @@
           ></p-button>
 
           <p-button
+            icon="pi pi-pw pi-dollar"
+            [rounded]="true"
+            [text]="true"
+            pTooltip="Pagamento"
+            tooltipPosition="top"
+            (onClick)="abrirPagamentoConsultaSelecionada()"
+            [disabled]="consultaSelecionada.pagamento.pago === true"
+            [style]="{'color': '#1DA750'}"
+            [style.--cor-fundo]="'#ddfbe7'"
+            [style.--cor-fundo-hover]="'#cef9d9'"
+            class="btnAcao border-circle"
+          ></p-button>
+
+          <p-button
             icon="pi pi-pw pi-trash"
             [rounded]="true"
             [text]="true"
@@ -172,234 +186,252 @@
 
 
   </div>
+
   <p-divider layout="horizontal" [style]="{'margin': '0'}" ></p-divider>
 
-
-    <div class=" mt-3">
-      <div class="row flex">
-        <div class="col-2 flex justify-content-center">
-          <p-image
-            src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
-            alt="Image"
-            width="120"
-            class="border-round-2xl"
-          />
-        </div>
-        <div class="col-10 flex">
-          <div class="col-7 mt-2" *ngIf="consultaSelecionada.paciente">
-            <div>
-              <span class="flex justify-content-start text-2xl font-bold" >
-                {{ consultaSelecionada.paciente.nome }}
-              </span>
-            </div>
-            <div class="flex mt-4">
-              <div class="flex mx-3">
-                <span class="font-semibold">
-                  <i class="pi pi-folder-open azul"></i>&nbsp;Pasta:&nbsp;
-                </span>
-                <span>{{ consultaSelecionada.paciente.numPasta }}</span>
-              </div>
-              <div class="flex mx-3">
-                <span class="font-semibold">
-                  <i class="pi pi-calendar azul"></i>&nbsp;Idade:&nbsp;
-                </span>
-                <span>{{ calcularIdade(consultaSelecionada.paciente.dataNascimento) }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-7 mt-2" *ngIf="!consultaSelecionada.paciente">
-            <div>
-              <span class="flex justify-content-start text-2xl font-bold" >
-                {{ consultaSelecionada.nomePaciente }}
-              </span>
-            </div>
-            <div class="flex mt-4">
-              <div class="flex mx-3">
-                <span class="font-semibold">
-                  <i class="pi pi-phone azul"></i>&nbsp;Telefone:&nbsp;
-                </span>
-                <span>{{ consultaSelecionada.telefone }}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-5">
-            <div>
-              <span class="font-bold text-lg flex justify-content-center m-2">
-                <i class="pi pi-user azul"></i>&nbsp;
-                Dentista
-              </span>
-              <span class="flex justify-content-center" >
-                {{ consultaSelecionada.dentista.nome }}
-              </span>
-            </div>
-          </div>
-
-        </div>
+  <div class=" mt-3">
+    <div class="row flex">
+      <div class="col-2 flex justify-content-center">
+        <p-image
+          src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+          alt="Image"
+          width="120"
+          class="border-round-2xl"
+        />
       </div>
-
-      <div class="row flex mt-2 ">
-        <div class="col-8 d-flex align-items-end">
-          <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()" class="w-100 ">
-            <div class="row flex justify-content-center align-items-center">
-
-
-              <div class="col-4 d-flex justify-content-start ">
-
-                <ng-container *ngIf="!loading.editar; else editarData">
-                 <div class="mt-2">
-                  <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;Data:&nbsp;</span>
-                  {{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}
-                 </div>
-                </ng-container>
-                <ng-template #editarData>
-                  <span class="p-float-label p-input-icon-right" [style]="{'width': '100%'}">
-                    <p-calendar
-                      inputId="filtroData"
-                      appendTo="body"
-                      [autoZIndex]="true"
-                      formControlName="dataConsulta"
-                      [iconDisplay]="'input'"
-                      [showIcon]="true"
-                      [showTime]="false"
-                      [showButtonBar]="true"
-                      dateFormat="dd/mm/yy"
-                      class="inputFiltro"
-                      [style]="{'width': '100%'}"
-                    >
-                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
-                        <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
-                      </ng-template>
-                    </p-calendar>
-                    <label for="filtroData" class="azul">Data</label>
-                  </span>
-                </ng-template>
-
-              </div>
-
-
-              <div class="col-4 d-flex justify-content-centrer ">
-
-                <ng-container *ngIf="!loading.editar; else editarHora">
-                  <div class="mt-2">
-                    <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;Inicio:&nbsp;</span>
-                    {{consultaSelecionada.dataConsulta | date: "HH:mm"}}
-                  </div>
-                </ng-container>
-                <ng-template #editarHora>
-                  <span class="p-float-label pl-4">
-                    <p-calendar inputId="calendar-timeonly" [showIcon]="true" [iconDisplay]="'input'" (input)="aplicarMascaraHora($event)" formControlName="horaConsulta" [timeOnly]="true" [style]="{'width': '80%'}">
-                      <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                        <i class="pi pi-clock azul pointer-events-none" (click)="clickCallBack($event)"></i>
-                    </ng-template>
-                    </p-calendar>
-                    <label for="filtroData" class="azul pl-4">Hora</label>
-                  </span>
-                </ng-template>
-              </div>
-
-
-              <div class="col-4 d-flex justify-content-start ">
-                <div *ngIf="!loading.editar">
-                  <div class="mt-2">
-                    <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;Fim:&nbsp;</span>
-                    {{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}
-                  </div>
-                </div>
-                <div *ngIf="loading.editar" class="d-flex justify-content-center align-items-center">
-                  <p-button label="Reagendar" type="submit" icon="pi pi-save" [rounded]="true" [outlined]="true" severity="info" [style]="{'height':'4vh'}"></p-button>
-                </div>
-              </div>
-
+      <div class="col-10 flex">
+        <div class="col-7 mt-2" *ngIf="consultaSelecionada.paciente">
+          <div>
+            <span class="flex justify-content-start text-2xl font-bold" >
+              {{ consultaSelecionada.paciente.nome }}
+            </span>
+          </div>
+          <div class="flex mt-4">
+            <div class="flex mx-3">
+              <span class="font-semibold">
+                <i class="pi pi-folder-open azul"></i>&nbsp;Pasta:&nbsp;
+              </span>
+              <span>{{ consultaSelecionada.paciente.numPasta }}</span>
             </div>
-          </form>
+            <div class="flex mx-3">
+              <span class="font-semibold">
+                <i class="pi pi-calendar azul"></i>&nbsp;Idade:&nbsp;
+              </span>
+              <span>{{ calcularIdade(consultaSelecionada.paciente.dataNascimento) }}</span>
+            </div>
+          </div>
         </div>
 
-        <div class="col-4 flex justify-content-center">
+        <div class="col-7 mt-2" *ngIf="!consultaSelecionada.paciente">
+          <div>
+            <span class="flex justify-content-start text-2xl font-bold" >
+              {{ consultaSelecionada.nomePaciente }}
+            </span>
+          </div>
+          <div class="flex mt-4">
+            <div class="flex mx-3">
+              <span class="font-semibold">
+                <i class="pi pi-phone azul"></i>&nbsp;Telefone:&nbsp;
+              </span>
+              <span>{{ consultaSelecionada.telefone }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-5">
           <div>
             <span class="font-bold text-lg flex justify-content-center m-2">
-              <i class="pi pi-tag azul"></i>&nbsp;
-              Tipo de Consulta:
+              <i class="pi pi-user azul"></i>&nbsp;
+              Dentista
             </span>
             <span class="flex justify-content-center" >
-              {{consultaSelecionada.consultaEspecialidade.tipo}}
+              {{ consultaSelecionada.dentista.nome }}
             </span>
           </div>
         </div>
+
       </div>
+    </div>
 
-      <div class="row flex justify-content-center mt-3" [ngClass]="(consultaSelecionada.status != 4) && (consultaSelecionada.status != 5)? 'mb-4':''">
+    <div class="row flex mt-2 ">
+      <div class="col-8 d-flex align-items-end">
+        <form [formGroup]="formularioEditar" (ngSubmit)="salvarEdicao()" class="w-100 ">
+          <div class="row flex justify-content-center align-items-center">
 
-          <div class="flex align-items-center">
-            <span class="font-bold text-lg "><i class="pi pi-align-left azul"></i>&nbsp;Observação&nbsp;&nbsp;</span>
+
+            <div class="col-4 d-flex justify-content-start ">
+
+              <ng-container *ngIf="!loading.editar; else editarData">
+                <div class="mt-2">
+                <span class="font-bold text-lg"><i class="pi pi-calendar azul"></i>&nbsp;Data:&nbsp;</span>
+                {{consultaSelecionada.dataConsulta | date: "dd/MM/yyyy"}}
+                </div>
+              </ng-container>
+              <ng-template #editarData>
+                <span class="p-float-label p-input-icon-right" [style]="{'width': '100%'}">
+                  <p-calendar
+                    inputId="filtroData"
+                    appendTo="body"
+                    [autoZIndex]="true"
+                    formControlName="dataConsulta"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    [showTime]="false"
+                    [showButtonBar]="true"
+                    dateFormat="dd/mm/yy"
+                    class="inputFiltro"
+                    [style]="{'width': '100%'}"
+                  >
+                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack" class="p-input-icon-right">
+                      <i class="pi pi-calendar azul" (click)="clickCallBack($event)"></i>
+                    </ng-template>
+                  </p-calendar>
+                  <label for="filtroData" class="azul">Data</label>
+                </span>
+              </ng-template>
+
+            </div>
+
+
+            <div class="col-4 d-flex justify-content-centrer ">
+
+              <ng-container *ngIf="!loading.editar; else editarHora">
+                <div class="mt-2">
+                  <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;Inicio:&nbsp;</span>
+                  {{consultaSelecionada.dataConsulta | date: "HH:mm"}}
+                </div>
+              </ng-container>
+              <ng-template #editarHora>
+                <span class="p-float-label pl-4">
+                  <p-calendar inputId="calendar-timeonly" [showIcon]="true" [iconDisplay]="'input'" (input)="aplicarMascaraHora($event)" formControlName="horaConsulta" [timeOnly]="true" [style]="{'width': '80%'}">
+                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                      <i class="pi pi-clock azul pointer-events-none" (click)="clickCallBack($event)"></i>
+                  </ng-template>
+                  </p-calendar>
+                  <label for="filtroData" class="azul pl-4">Hora</label>
+                </span>
+              </ng-template>
+            </div>
+
+
+            <div class="col-4 d-flex justify-content-start ">
+              <div *ngIf="!loading.editar">
+                <div class="mt-2">
+                  <span class="font-bold text-lg"><i class="pi pi-clock azul"></i>&nbsp;Fim:&nbsp;</span>
+                  {{consultaSelecionada.dataConsultaReserva | date: "HH:mm"}}
+                </div>
+              </div>
+              <div *ngIf="loading.editar" class="d-flex justify-content-center align-items-center">
+                <p-button label="Reagendar" type="submit" icon="pi pi-save" [rounded]="true" [outlined]="true" severity="info" [style]="{'height':'4vh'}"></p-button>
+              </div>
+            </div>
+
           </div>
-          <textarea  id="float-input" rows="3" cols="70" class="text-sm"  [autoResize]="true" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea>
-
+        </form>
       </div>
 
+      <div class="col-4 flex justify-content-center">
+        <div>
+          <span class="font-bold text-lg flex justify-content-center m-2">
+            <i class="pi pi-tag azul"></i>&nbsp;
+            Tipo de Consulta:
+          </span>
+          <span class="flex justify-content-center" >
+            {{consultaSelecionada.consultaEspecialidade.tipo}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row flex justify-content-center mt-3" [ngClass]="(consultaSelecionada.status != 4) && (consultaSelecionada.status != 5)? 'mb-4':''">
+
+        <div class="flex align-items-center">
+          <span class="font-bold text-lg "><i class="pi pi-align-left azul"></i>&nbsp;Observação&nbsp;&nbsp;</span>
+        </div>
+        <textarea  id="float-input" rows="3" cols="70" class="text-sm"  [autoResize]="true" pInputTextarea [ngModel]="consultaSelecionada.observacao" readonly></textarea>
 
     </div>
 
 
+  </div>
 
-    <form [formGroup]="formularioProcedimentos" (ngSubmit)="salvarProcedimentos()" *ngIf="(consultaSelecionada.status == 4) || (consultaSelecionada.status == 5)" >
-      <p-divider layout="horizontal"></p-divider>
-      <div class="row flex justify-content-center">
-        <div class="col-11 p-fluid">
+  <form [formGroup]="formularioProcedimentos" (ngSubmit)="salvarProcedimentos()" *ngIf="(consultaSelecionada.status == 4) || (consultaSelecionada.status == 5)" >
+    <p-divider layout="horizontal"></p-divider>
+    <div class="row flex justify-content-center">
+      <div class="col-11 p-fluid">
 
-          <div class="flex justify-content-center align-items-center mb-1">
-            <span class=" text-lg font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
-          </div>
-
-          <p-chips
-            [separator]="separatorExp"
-            placeholder="Digite os procedimentos realizados na consulta"
-            class="azul"
-            formControlName="procedimentos"
-            [disabled]="desableProcd"
-          ></p-chips>
-
+        <div class="flex justify-content-center align-items-center mb-1">
+          <span class=" text-lg font-bold"><i class="pi pi-pw pi-list azul"></i>&nbsp;&nbsp;Procedimentos</span>
         </div>
-        <div class="col-1 flex justify-content-center align-items-center pt-4" >
-          <p-button
-            icon="pi pi-pw pi-pencil"
-            [rounded]="true"
-            [text]="true"
-            pTooltip="Editar"
-            tooltipPosition="top"
-            *ngIf="consultaSelecionada.status == 5 && this.desableProcd"
-            class=" border-circle"
-            (onClick)="this.desableProcd = !this.desableProcd"
-            [style]="{'color': '#2570eb'}"
-            [style.--cor-fundo]="'#dbecfe'"
-            [style.--cor-fundo-hover]="'#cde6fe'"
-            class="btnAcao border-circle"
-          ></p-button>
-          <p-button
-            type="submit"
-            icon="pi pi-pw pi-save"
-            [rounded]="true"
-            [text]="true"
-            pTooltip="Salvar"
-            *ngIf="(consultaSelecionada.status == 4 || consultaSelecionada.status == 5) && !this.desableProcd"
-            tooltipPosition="top"
-            class=" border-circle"
-            [style]="{'color': '#1DA750'}"
-            [style.--cor-fundo]="'#ddfbe7'"
-            [style.--cor-fundo-hover]="'#cef9d9'"
-            class="btnAcao border-circle"
-          ></p-button>
-          <!-- <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
 
-          ><i class="material-icons">task_alt</i></p-button> -->
-        </div>
+        <p-chips
+          [separator]="separatorExp"
+          placeholder="Digite os procedimentos realizados na consulta"
+          class="azul"
+          formControlName="procedimentos"
+          [disabled]="desableProcd"
+        ></p-chips>
+
       </div>
-      <div class="flex justify-content-end align-items-center p-0 m-0">
-        <span class="text-xs font-italic">Procedimentos do último atendimento</span>
-        <p-button icon="pi pi-search text-xs" [rounded]="true" [text]="true" size="small" />
+      <div class="col-1 flex justify-content-center align-items-center pt-4" >
+        <p-button
+          icon="pi pi-pw pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          pTooltip="Editar"
+          tooltipPosition="top"
+          *ngIf="consultaSelecionada.status == 5 && this.desableProcd"
+          class=" border-circle"
+          (onClick)="this.desableProcd = !this.desableProcd"
+          [style]="{'color': '#2570eb'}"
+          [style.--cor-fundo]="'#dbecfe'"
+          [style.--cor-fundo-hover]="'#cde6fe'"
+          class="btnAcao border-circle"
+        ></p-button>
+        <p-button
+          type="submit"
+          icon="pi pi-pw pi-save"
+          [rounded]="true"
+          [text]="true"
+          pTooltip="Salvar"
+          *ngIf="(consultaSelecionada.status == 4 || consultaSelecionada.status == 5) && !this.desableProcd"
+          tooltipPosition="top"
+          class=" border-circle"
+          [style]="{'color': '#1DA750'}"
+          [style.--cor-fundo]="'#ddfbe7'"
+          [style.--cor-fundo-hover]="'#cef9d9'"
+          class="btnAcao border-circle"
+        ></p-button>
+        <!-- <p-button label="Salvar e Finalizar" icon="pi " [rounded]="true" [outlined]="true" severity="success" type="submit"
+
+        ><i class="material-icons">task_alt</i></p-button> -->
       </div>
-    </form>
+    </div>
+    <div class="flex justify-content-end align-items-center p-0 m-0">
+      <span class="text-xs font-italic">Procedimentos do último atendimento</span>
+      <p-button icon="pi pi-search text-xs" [rounded]="true" [text]="true" size="small" />
+    </div>
+  </form>
 </div>
+<div *ngIf="pagamentoInfo" class="relative">
+
+    <p-button
+      icon="pi pi-times"
+      [rounded]="true"
+      [text]="true"
+      pTooltip="Voltar"
+      tooltipPosition="top"
+      (onClick)="pagamentoInfo = false"
+      [style]="{'color': '#5b616e'}"
+      [style.--cor-fundo]="'#edeef1'"
+      [style.--cor-fundo-hover]="'#e3e6e5'"
+      class="btnAcao border-circle absolute top-0 right-0 mt-2 mr-2"
+    ></p-button>
+
+  <app-pagamento-info *ngIf="consultaSelecionada" [consultaSelecionadaPg]="consultaSelecionada" ></app-pagamento-info>
+</div>
+
+
+
 
 

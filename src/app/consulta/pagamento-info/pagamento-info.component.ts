@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectorRef, NgZone, OnDestroy, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectorRef, NgZone, OnDestroy, Output, EventEmitter, ViewChildren, ElementRef, ViewChild  } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -29,6 +29,7 @@ export class PagamentoInfoComponent implements OnInit {
   @Input() consultaSelecionadaPg: Consulta;
   @Input() totalSomado: number;
   @Output() reloading = new EventEmitter<boolean>();
+  @ViewChild('entradaInput') entradaInput!: ElementRef;
 
   formaCalculo: any[] ;
   formaPagamento: any[] ;
@@ -40,6 +41,8 @@ export class PagamentoInfoComponent implements OnInit {
   entrada: Parcela | null = null;
   index: any;
   selectedFileName: string = 'Buscar';
+
+  dataAtual: Date;
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private service: ConsultaService, private cdRef: ChangeDetectorRef, private ngZone: NgZone) { }
 
@@ -204,7 +207,7 @@ export class PagamentoInfoComponent implements OnInit {
 
     if(this.formulario.get('parcelas')?.value === 1){
 
-      if(this.consultaSelecionadaPg.pagamento.parcelas.length > 1 && !this.addEntrada){
+      if(this.consultaSelecionadaPg.pagamento.parcelas.length > 1 ){
         while(this.consultaSelecionadaPg.pagamento.parcelas.length > 1){
           this.consultaSelecionadaPg.pagamento.parcelas.pop();
         }
@@ -274,25 +277,45 @@ export class PagamentoInfoComponent implements OnInit {
   }
 
   async criaEntrada(){
+    this.dataAtual = new Date();
     if(!this.addEntrada){
+
+      // this.addEntrada = true;
+      // const pParcela = this.consultaSelecionadaPg.pagamento.parcelas[0];
+      // const data = new Date(pParcela.dataVencimento);
+      // data.setMonth(data.getMonth()+1);
+      // this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento = data;
+
+      // this.entrada = new Parcela();
+      // this.entrada.dataVencimento = pParcela.dataVencimento;
+      // this.entrada.ehEntrada = true;
+
       this.addEntrada = true;
-      const pParcela = this.consultaSelecionadaPg.pagamento.parcelas[0];
-      const data = new Date(pParcela.dataVencimento);
-      data.setMonth(data.getMonth() + 1);
-      this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento = data;
 
+      // Cria a entrada com vencimento imediato
       this.entrada = new Parcela();
-      this.entrada.dataVencimento = pParcela.dataVencimento;
+      this.entrada.dataVencimento = this.dataAtual;
       this.entrada.ehEntrada = true;
+
+      // Adiciona a entrada no início da lista de parcelas
+      this.consultaSelecionadaPg.pagamento.parcelas.unshift(this.entrada);
+
+      // Ajusta os vencimentos das demais parcelas (adiciona +1 mês)
+      this.consultaSelecionadaPg.pagamento.parcelas.forEach((parcela, index) => {
+        if (index !== 0) { // A entrada (índice 0) não deve ser alterada
+          const novaData = new Date(parcela.dataVencimento);
+          novaData.setMonth(novaData.getMonth() + 1);
+          parcela.dataVencimento = novaData;
+        }
+      });
+      //this.ajustaValorParcelas(this.consultaSelecionadaPg.pagamento.parcelas.length );
     }
-
-
   }
 
   async ajustaValorParcelas(qtd: any){
 
     this.consultaSelecionadaPg.pagamento.parcelas.forEach( item => {
-      item.valorParcela = this.calcularValorParcela(qtd);
+      item.valorParcela = this.calcularValorParcela(this.entrada !== null ? qtd - 1 : qtd);
 
     });
 
@@ -306,18 +329,31 @@ export class PagamentoInfoComponent implements OnInit {
 
   async excluirEntrada(){
 
-    const data = new Date(this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento);
-    data.setMonth(data.getMonth() - 1);
-    this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento = data;
-
+    // const data = new Date(this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento);
+    // data.setMonth(data.getMonth() - 1);
+    // this.consultaSelecionadaPg.pagamento.parcelas[0].dataVencimento = data;
     this.addEntrada = false;
+
+    // Remove a entrada (primeira parcela)
+    this.consultaSelecionadaPg.pagamento.parcelas.shift();
+
+    // Ajusta os vencimentos das parcelas restantes (reduz -1 mês)
+    this.consultaSelecionadaPg.pagamento.parcelas.forEach(parcela => {
+      const novaData = new Date(parcela.dataVencimento);
+      novaData.setMonth(novaData.getMonth() - 1);
+      parcela.dataVencimento = novaData;
+    });
+
+
+
     this.entrada = null;
     this.formulario.get('entrada')?.setValue('');
+
     this.calculoValorConsulta();
   }
 
-  async salvarPagamentoParcela(id: any){
-    console.log(this.formulario.value)
+  async salvarPagamentoParcela(id: any, item: any){
+    console.log(id, item)
   }
 
   habilitaBotao(parcela: Parcela){

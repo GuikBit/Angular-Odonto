@@ -74,26 +74,26 @@ button {
   padding: 12px 24px;
   border-radius: 50px;
   border: none;
-  cursor: pointer; 
-  transition: all 0.3s ease; 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12); 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12);
 }
 
 button:hover {
-  background: linear-gradient(to right,#226199, #1E9CC9); 
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.15); 
-  transform: translateY(-2px); 
+  background: linear-gradient(to right,#226199, #1E9CC9);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 button:active {
-  transform: translateY(0); 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12); 
+  transform: translateY(0);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.12);
 }
 
 th{
   /* background: #c4ddf3 !important; */
   color: #2070b4;
-  
+
 
 }
 
@@ -126,20 +126,20 @@ border-radius: 50px;
 .mobile{
   display: none;
 }
-
+.web{
+  display: block;
+}
 .custom-switch .p-inputswitch {
     width: 30px; /* Define a largura desejada */
     height: 15px; /* Define a altura desejada */
   }
-  
+
   .custom-switch .p-inputswitch-slider {
     width: 15px; /* Ajusta o tamanho do slider */
     height: 15px;
   }
 
-.web{
-  display: block;
-}
+
 @media only screen and (max-width: 767px) {
 
   .web{

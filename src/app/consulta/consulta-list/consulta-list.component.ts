@@ -360,6 +360,10 @@ export class ConsultaListComponent implements OnInit{
     this.consultaSelecionadaInfo(parseInt(idConsulta), 1);
   }
 
+  abrirPagamentoConsultaSelecionada(idConsulta: any){
+    this.consultaSelecionadaInfo(parseInt(idConsulta), 1);
+  }
+
   novaConsultaDiaClicado(date: any) {
     this.novaConsultaCalendar = new Date(date);
     this.novaConsultaCalendar.setHours(0,0,0,0);
