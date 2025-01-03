@@ -37,7 +37,7 @@
 
   <div class="row flex h-auto">
 
-    <div class="col-10 bg-red-200">
+    <div class="col-10 ">
       <!--<div class="w-full p-3 ">
          <form [formGroup]="formulario" (ngSubmit)="filtrarPonto()" class="card h-5rem w-full flex justify-content-around align-items-center ">
 
@@ -116,215 +116,218 @@
         </form>
 
       </div>-->
-      <div class="flex flex-wrap mb-3">
-        <button pButton type="button" label="Novo ponto" (click)="cadastroNovoPonto()" icon="pi pi-calendar-plus" class="web"></button>
-        <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastroNovoPonto()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
-      </div>
+      <div class="box lg:p-5">
 
-      <div>
-        <p-table
-          #pontosTable
-          [value]="listaPontos"
-          selectionMode="single"
-          [(selection)]="selectedPonto"
-          dataKey="nome"
-          (onRowSelect)="onRowSelect($event)"
-          (onRowUnselect)="onRowUnselect($event)"
-          [rows]="10"
-          [paginator]="true"
-          [responsive]="true"
-          [globalFilterFields]="['funcionario.nome', 'dataRegistro', 'horaRegistro', 'registro','controle', 'status']"
-          [tableStyle]="{ 'min-width': '75rem' }"
-          [rowHover]="true"
-          [showCurrentPageReport]="true"
-          dataKey="id"
-          currentPageReportTemplate="{first} de {last} de {totalRecords}"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th></th>
-              <th pSortableColumn="funcionario.nome" class="flex justify-content-between align-items-center">
-                <div>
-                  Colaboradores
-                </div>
-                <div>
-                  <p-sortIcon
+
+        <div class="flex flex-wrap mb-3 ">
+          <button pButton type="button" label="Novo ponto" (click)="cadastroNovoPonto()" icon="pi pi-calendar-plus" class="web"></button>
+          <p-button icon="pi pi-plus" [rounded]="true"  (click)="cadastroNovoPonto()" [style]="{'background': '#2070b4'}" class="mobile"></p-button>
+        </div>
+
+        <div>
+          <p-table
+            #pontosTable
+            [value]="listaPontos"
+            selectionMode="single"
+            [(selection)]="selectedPonto"
+            dataKey="nome"
+            (onRowSelect)="onRowSelect($event)"
+            (onRowUnselect)="onRowUnselect($event)"
+            [rows]="10"
+            [paginator]="true"
+            [responsive]="true"
+            [globalFilterFields]="['funcionario.nome', 'dataRegistro', 'horaRegistro', 'registro','controle', 'status']"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            [rowHover]="true"
+            [showCurrentPageReport]="true"
+            dataKey="id"
+            currentPageReportTemplate="{first} de {last} de {totalRecords}"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th></th>
+                <th pSortableColumn="funcionario.nome" class="flex justify-content-between align-items-center">
+                  <div>
+                    Colaboradores
+                  </div>
+                  <div>
+                    <p-sortIcon
+                      field="funcionario.nome"
+                      pTooltip="Ordenar"
+                      tooltipPosition="top"
+                    ></p-sortIcon>
+                    <p-columnFilter
+                    type="text"
                     field="funcionario.nome"
-                    pTooltip="Ordenar"
+                    display="menu"
+                    pTooltip="Filtrar"
                     tooltipPosition="top"
-                  ></p-sortIcon>
-                  <p-columnFilter
-                  type="text"
-                  field="funcionario.nome"
-                  display="menu"
-                  pTooltip="Filtrar"
-                  tooltipPosition="top"
-                  ></p-columnFilter>
-                </div>
-              </th>
-              <th pSortableColumn="dataRegistro">
-                <div class="flex justify-content-between align-items-center">
-                  <div class="flex justify-content-center align-items-center">
-                    Data
+                    ></p-columnFilter>
                   </div>
-                  <div class="flex justify-content-center align-items-center">
-                    <p-sortIcon
+                </th>
+                <th pSortableColumn="dataRegistro">
+                  <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-content-center align-items-center">
+                      Data
+                    </div>
+                    <div class="flex justify-content-center align-items-center">
+                      <p-sortIcon
+                        field="dataRegistro"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                      type="date"
                       field="dataRegistro"
-                      pTooltip="Ordenar"
+                      dateFormat="yyyy-MM-dd HH:mm:ss:SSS"
+                      display="menu"
+                      pTooltip="Filtrar"
                       tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                    type="date"
-                    field="dataRegistro"
-                    dateFormat="yyyy-MM-dd HH:mm:ss:SSS"
-                    display="menu"
-                    pTooltip="Filtrar"
-                    tooltipPosition="top"
-                    ></p-columnFilter>
+                      ></p-columnFilter>
+                    </div>
                   </div>
-                </div>
-              </th>
-              <th pSortableColumn="horaRegistro">
-                <div class="flex justify-content-between align-items-center">
+                </th>
+                <th pSortableColumn="horaRegistro">
                   <div class="flex justify-content-between align-items-center">
-                    Hora
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
+                    <div class="flex justify-content-between align-items-center">
+                      Hora
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="horaRegistro"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                      type="text"
                       field="horaRegistro"
-                      pTooltip="Ordenar"
+                      display="menu"
+                      pTooltip="Filtrar"
                       tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                    type="text"
-                    field="horaRegistro"
-                    display="menu"
-                    pTooltip="Filtrar"
-                    tooltipPosition="top"
-                    ></p-columnFilter>
+                      ></p-columnFilter>
+                    </div>
                   </div>
-                </div>
-              </th>
+                </th>
 
 
-              <th pSortableColumn="registro">
-                <div class="flex justify-content-between align-items-center">
+                <th pSortableColumn="registro">
                   <div class="flex justify-content-between align-items-center">
-                    Descrição
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
+                    <div class="flex justify-content-between align-items-center">
+                      Descrição
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="registro"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                      type="text"
                       field="registro"
-                      pTooltip="Ordenar"
+                      display="menu"
+                      pTooltip="Filtrar"
                       tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                    type="text"
-                    field="registro"
-                    display="menu"
-                    pTooltip="Filtrar"
-                    tooltipPosition="top"
-                    ></p-columnFilter>
+                      ></p-columnFilter>
+                    </div>
                   </div>
-                </div>
-              </th>
-              <th pSortableColumn="controle">
-                <div class="flex justify-content-between align-items-center">
+                </th>
+                <th pSortableColumn="controle">
                   <div class="flex justify-content-between align-items-center">
-                    Tipo
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
+                    <div class="flex justify-content-between align-items-center">
+                      Tipo
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="controle"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                      type="text"
                       field="controle"
-                      pTooltip="Ordenar"
+                      display="menu"
+                      pTooltip="Filtrar"
                       tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                    type="text"
-                    field="controle"
-                    display="menu"
-                    pTooltip="Filtrar"
-                    tooltipPosition="top"
-                    ></p-columnFilter>
+                      ></p-columnFilter>
+                    </div>
                   </div>
-                </div>
-              </th>
-              <th pSortableColumn="status">
-                <div class="flex justify-content-between align-items-center">
+                </th>
+                <th pSortableColumn="status">
                   <div class="flex justify-content-between align-items-center">
-                    Status
-                  </div>
-                  <div class="flex justify-content-between align-items-center">
-                    <p-sortIcon
+                    <div class="flex justify-content-between align-items-center">
+                      Status
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                      <p-sortIcon
+                        field="status"
+                        pTooltip="Ordenar"
+                        tooltipPosition="top"
+                      ></p-sortIcon>
+                      <p-columnFilter
+                      type="text"
                       field="status"
-                      pTooltip="Ordenar"
+                      display="menu"
+                      pTooltip="Filtrar"
                       tooltipPosition="top"
-                    ></p-sortIcon>
-                    <p-columnFilter
-                    type="text"
-                    field="status"
-                    display="menu"
-                    pTooltip="Filtrar"
-                    tooltipPosition="top"
-                    ></p-columnFilter>
+                      ></p-columnFilter>
+                    </div>
                   </div>
-                </div>
-              </th>
+                </th>
 
-              <th></th>
+                <th></th>
 
-          </ng-template>
+            </ng-template>
 
-          <ng-template pTemplate="body" let-item>
-            <tr [pSelectableRow]="item">
-              <td [width]="60">
-                <p-avatar
-                  image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-                  styleClass=""
-                  shape="circle"
-                />
-              </td>
-              <td>
-                {{ item?.funcionario.nome }}
-              </td>
-              <td>
-                {{ item?.dataRegistro | date: "dd/MM/yyyy" }}
-              </td>
-              <td>
-                {{ item?.horaRegistro }}
-              </td>
-              <td>
-                {{ itemRegistro(item?.registro) }}
-              </td>
-              <td>
-                <p-tag [value]="itemControle(item?.controle)" severity="secondary" [rounded]="true" [icon]="" [style]="{'font-size': '12px', 'font-weight': '400'}" />
-              </td>
-              <td>
-                <p-tag [value]="itemStatus(item.status)" [severity]="getSeverity(item.status)" [rounded]="true" [icon]="getIcon(item.status)" [style]="{'font-size': '12px', 'font-weight': '400'}" />
-              </td>
-              <td></td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="8"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
-            </tr>
-          </ng-template>
-        </p-table>
+            <ng-template pTemplate="body" let-item>
+              <tr [pSelectableRow]="item">
+                <td [width]="60">
+                  <p-avatar
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    styleClass=""
+                    shape="circle"
+                  />
+                </td>
+                <td>
+                  {{ item?.funcionario.nome }}
+                </td>
+                <td>
+                  {{ item?.dataRegistro | date: "dd/MM/yyyy" }}
+                </td>
+                <td>
+                  {{ item?.horaRegistro }}
+                </td>
+                <td>
+                  {{ itemRegistro(item?.registro) }}
+                </td>
+                <td>
+                  <p-tag [value]="itemControle(item?.controle)" severity="secondary" [rounded]="true" [icon]="" [style]="{'font-size': '12px', 'font-weight': '400'}" />
+                </td>
+                <td>
+                  <p-tag [value]="itemStatus(item.status)" [severity]="getSeverity(item.status)" [rounded]="true" [icon]="getIcon(item.status)" [style]="{'font-size': '12px', 'font-weight': '400'}" />
+                </td>
+                <td></td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="8"> <span class="flex justify-content-center"> Não foram encontrado dados</span></td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
       </div>
-
     </div>
-    <div class="col-2 bg-purple-200">
-      <div class="card flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
+    <div class="col-2">
+      <div class="card box flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
         Total trabalhado
       </div>
-      <div class="card flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
+      <div class="card box flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
         Total pausa
       </div>
-      <div class="card flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
+      <div class="card box flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
         Total Hora extra
       </div>
-      <div class="card flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
+      <div class="card box flex justify-content-center align-items-center bg-white h-6rem border-round-lg">
         Banco de horas
       </div>
     </div>
